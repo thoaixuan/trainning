@@ -1,0 +1,125 @@
+this.action = function (table) {
+    $(document).delegate(".btn-delete", "click", function () {
+        var id = $this.val();
+        $('#modal-text-delete').text("Bạn có muốn xóa không?");
+        $('#onDelete').attr('value', id);
+        $('#modal-delete').modal('show');
+    });
+
+    $(document).delegate(".btn-update", "click", function () {
+        var id = $(this).val();
+        $('#formAction').validate().resetForm();
+        $(".error").removeClass("error");
+        $('#modal-action-title').text("Chỉnh sửa");
+
+        $.ajax({
+            url: datas.routes.update,
+            data: { id: id },
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                if (data.code == "200") {
+                    $("#onSave").attr('data-url', datas.routes.updates_data);
+                    $("#onSave").attr('data-id', data.id);
+                    $("#onSave").attr('data-action', 'update');
+                    $("#name").val(data.name);
+                    $("#email").val(data.email);
+                    $("#password").val(data.password);
+                    $("modal-action").modal('show');
+                } else {
+                    Toast.fire({
+                        title: data.message,
+                    });
+                }
+            }
+        })
+    });
+
+    $(document).delegate(".btn-insert", "click", function () {
+        $("#onSave").attr('data-url', datas.routes.insert);
+        $('#modal-action-title').text("Thêm mới");
+        $('#name').val('');
+        $('#email').val('');
+        $('#password').val('');
+        $("#modal-action").modal('show');
+    });
+    // $('#formAction').validate({
+    //     rules: {
+    //         name: {
+    //             required: true,
+    //             maxlength: 150,
+    //         },
+    //         email: {
+    //             required: true,
+    //             maxlength: 150,
+    //         },
+    //         password: {
+    //             required: true,
+    //             maxlength: 150,
+    //         }
+    //     },
+    //     message: {
+    //         name: {
+    //             required: "Tên không được bỏ trống !",
+    //             maxlength: "Tên không được quá 150 ký tự",
+    //         },
+    //         email: {
+    //             required: "Email không được bỏ trống !",
+    //             maxlength: "Email không được quá 150 ký tự",
+    //         },
+    //         password: {
+    //             required: "Password không được bỏ trống !",
+    //             maxlength: "Password không được quá 150 ký tự",
+    //         }
+    //     },
+    //     submitHandler: function (e) {
+    //         e.preventDefault();
+    //         var name = $("input[name=name]").val();
+    //         var email = $("input[name=emai]").val();
+    //         var password = $("input[name=password]").val();
+    //         $.ajax({
+    //             url: datas.routes.insert,
+    //             type: "POST",
+    //             data: { name: name, email: email, password: password },
+    //             success: function (data) {
+    //                 console.log(data);
+    //             }
+    //         })
+    //     }
+    // });
+    this.delete = function (table) {
+        $("#onDelete").on("click", function (e) {
+            var id = $(this).val();
+            e.preventDefault(e);
+            var result = _AjaxDelete({
+                id: id
+            }, datas.routes.delete);
+            if (result) {
+                table.ajax.reload();
+                $("#modal-delete").modal('hide');
+            }
+        });
+    }
+}
+
+}
+
+// $(document).ready(function () {
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+
+//     $('#users-table').DataTable({
+//         processing: true,
+//         serverSide: true,
+//         ajax: "/data",
+//         columns: [
+//             { data: 'id', name: 'id' },
+//             { data: 'name', name: 'name' },
+//             { data: 'email', name: 'email' },
+//             { data: 'action', name: 'action' },
+//         ]
+//     });
+// });

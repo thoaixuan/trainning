@@ -15,6 +15,8 @@ use App\User;
 
 
 Route::get('/','DatatablesController@getIndex');
-Route::get('/data','DatatablesController@anyData');
-Route::get('/{id}/edit','DatatablesController@update')->name('edit');
-Route::get('/{id}/delete','DatatablesController@delete')->name('delete');
+Route::get('/data','DatatablesController@anyData')->name('user.datatable');
+Route::get('/edit','DatatablesController@getUpdate')->name('user.update');
+Route::put('/edit','DatatablesController@postUpdate')->name('user.update.data');
+Route::get('/delete','DatatablesController@delete')->name('user.delete');
+Route::post('/insert','DatatablesController@addUser')->name('user.insert');
