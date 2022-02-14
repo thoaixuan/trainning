@@ -41,14 +41,30 @@ class DatatablesController extends Controller
 
         $limit=$request->input('length');
         $start=$request->input('start');
+        $search=$request->input('search');
         $order=$columns[$request->input('order.0.column')];
         $dir=$request->input('order.0.dir');   
         
         $totalData=User::count();
         $totalFiltered=$totalData;
-        $users=User::offset($start)
-        ->limit($limit)
-        ->orderBy($order,$dir)->get();
+
+        if(empty($search)){
+            $users=User::offset($start)
+            ->limit($limit)
+            ->orderBy($order,$dir)->get();
+        }else{
+            $users=User::Where(function($query)use($search){
+                $query->where('name','like',"%{$search}%")
+                        ->orWhere('email','like',"%{$search}%")
+                        ->orWhere('id','like',"%{$search}%");
+            })
+            // $user=DB::table('users')->where('name','like',"Pink Kutch II")
+            ->offset($start)
+            ->limit($limit)
+            ->orderBy($order,$dir)
+            ->get();
+            $totalFiltered =$users->count();
+        }
 
         $json_data=array(
             "recordsTotal"=>intval($totalData),

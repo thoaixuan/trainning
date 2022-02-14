@@ -2,8 +2,16 @@
 
 @section('content')
 <div class="container">
-  
-<button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#userModal">Thêm mới</button> 
+<div>
+<button type="button" class="btn btn-primary float-right" data-bs-toggle="modal" data-bs-target="#userModal">Thêm mới</button>
+<div class="row">
+    <div class="col-8">
+        <input class="form-control" id="search"  name="search" vale="" placeholder="Từ khóa tìm kiếm ....">
+    </div>
+</div>
+
+</div>  
+
 <table class="table table-stripped mt-4" id="users-table"></table>
 
 @include('compoment.modal');
