@@ -43,11 +43,11 @@
                     <form id="userEditForm">
                       @csrf
                       <input type="hidden" name="id" id="id"/>
-                      <div class="from-group">
+                      <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" name="name" id="name" class="form-control" />
                       </div>
-                      <div class="from-group">
+                      <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" name="email" id="email" class="form-control" />
                       </div>

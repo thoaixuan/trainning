@@ -191,3 +191,82 @@ p{
         grid-row: 4;
       }
 }
+/*###############################################################################################################*/
+/*header*/
+*{
+    padding: 0;
+    margin: 0;
+}
+.header{
+    background-color: black;
+    height: 70px;
+    margin-top: 45px;
+}
+
+.header .tieude > span {
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.header .tieude {
+  width: 0px;
+  margin: auto;
+  text-align: ;
+  text-align: center;
+}
+
+/*Section*/
+section{
+   margin-top: 20px;
+}
+
+
+/*Siderbar*/
+.sidebar{
+    margin: auto;
+    width: 100px;
+    margin: auto;
+    color: white;
+}
+
+
+/*Content*/
+.content{
+    /*background-color: lightcoral;*/
+}
+/*Layout*/
+
+.layout{
+    background: linear-gradient(to left, #33ccff 0%, #000066 100%);
+}
+.item div{
+    text-align: center;
+    color: white;
+    max-height: 120px;
+}
+/*item 1*/
+.item_1 div{
+    background-color: blueviolet;
+    margin: 10px;
+}
+/*item 2*/
+.item_2 div{
+    background-color: blueviolet;
+    margin: 10px;
+    }
+/*item 3*/
+.item_3 div{
+    background-color: blueviolet;
+    margin: 10px;
+}
+
+.item_3 div .icon {
+  background: #dedcdc;
+  width: 30%;
+  margin: auto;
+  border-radius: 10%;
+  color: black;
+  font-size: 10px;
+}

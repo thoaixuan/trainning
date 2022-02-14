@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 use DB;
+use Validator;
 class DatatablesController extends Controller
 {
     public function getIndex(){
@@ -14,6 +15,26 @@ class DatatablesController extends Controller
         return view('Admin.pages.dashboard.dashboard',compact('users'));
     }
     public function addUser(Request $request){
+        $message=[
+            'required'=>":attribute không được để trống",
+            'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
+            'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
+            'unique:users'=>":attribute bị trùng dữ liệu",
+            'email'=>"Bạn phải nhập đúng định dạng email",
+            'name.regex'=>"Bạn phải nhập chữ",
+        ];
+        $validate=Validator::make($request->all(),[
+            'name'=>['required','min:3','max:20','regex:/^[a-z\d_]{5,20}$/i'],
+            'email'=>['required','min:8','max:20','unique:users','email'],
+            'password'=>['required','min:8','max:20']
+        ],$message);
+        if($validate->fails()){
+            return response()->json([
+                'status'=>0,
+                'message'=>$validate->errors()->first(),
+                'code'=>200
+            ]);
+        }
         $user=new User();
         $user->name=$request->name;
         $user->email=$request->email;
@@ -21,12 +42,14 @@ class DatatablesController extends Controller
         $user->save();
         if($user){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Inserted Successfully",
                 'code'=>200
             ]);
         }
         else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500
             ]);
