@@ -18,6 +18,8 @@ function user() {
             serverSide: true,
             processing: true,
             paging: true,
+            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+            pagingType: "full_numbers",
             lengthChange: true,
             searching: false,
             ordering: true,
@@ -27,6 +29,12 @@ function user() {
             ajax: {
                 url: "/data",
                 type: "GET",
+                data: function (d) {
+                    return $.extend({}, d, {
+                        search: $("#search").val(),
+                    });
+
+                }
             },
             order: [0, "asc"],
             columns: [
@@ -74,6 +82,9 @@ function user() {
     }
 
     this.action = function (table) {
+        $("#search").on('keyup', function (e) {
+            table.ajax.reload();
+        });
         $(document).ready(function () {
             $('#userForm').submit(function (e) {
                 e.preventDefault();
