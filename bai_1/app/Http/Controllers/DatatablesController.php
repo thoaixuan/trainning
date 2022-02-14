@@ -11,7 +11,7 @@ class DatatablesController extends Controller
 {
     public function getIndex(){
         $users= User::orderBy('id','DESC')->get();
-        return view('home',compact('users'));
+        return view('Admin.pages.dashboard.dashboard',compact('users'));
     }
     public function addUser(Request $request){
         $user=new User();
