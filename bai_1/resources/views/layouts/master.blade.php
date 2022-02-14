@@ -27,5 +27,10 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
 
     @stack('scripts')
+    <footer class="footer">
+        <div class="container">
+          <p class="text-muted">Footer example.</p>
+        </div>
+    </footer>
 </body>
 </html>
