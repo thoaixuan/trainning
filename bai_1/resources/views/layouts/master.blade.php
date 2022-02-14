@@ -16,7 +16,6 @@
         @yield('content')
     </div>
     <script src="{{asset('app/admin/main.js')}}"></script>
-
     <!-- jQuery -->
     <script src="//code.jquery.com/jquery.js"></script>
      <!-- Bootstrap JavaScript -->
