@@ -10,6 +10,7 @@ function user() {
     this.init = function () {
         datas = this.datas;
         var me = this;
+        me.validator();
         me.datatables();
     }
     this.datatables = function () {
@@ -27,7 +28,7 @@ function user() {
             responsive: true,
             autoWidth: false,
             ajax: {
-                url: "/data",
+                url: datas.routes.datatable,
                 type: "GET",
                 data: function (d) {
                     return $.extend({}, d, {
@@ -85,35 +86,7 @@ function user() {
         $("#search").on('keyup', function (e) {
             table.ajax.reload();
         });
-        $(document).ready(function () {
-            $('#userForm').submit(function (e) {
-                e.preventDefault();
-                var name = $("input[name=name]").val();
-                var password = $("input[name=password]").val();
-                var email = $("input[name=email]").val();
-                var _token = $("input[name=_token]").val();
-                $('.modal-backdrop').remove();
-                $.ajax({
-                    url: datas.routes.insert,
-                    type: "POST",
-                    data: {
-                        name: name,
-                        password: password,
-                        email: email,
-                        _token: _token
-                    },
-                    success: function (response) {
-                        console.log(response);
-                        $('#userForm')[0].reset();
-                        $('#userModal').modal('hide');
-                        $('.modal-backdrop').remove();
-                        table.ajax.reload();
-                    }
-                })
 
-            })
-
-        });
         // find by id student
         $(document).on('click', '#update', function () {
             console.log("update");
@@ -181,6 +154,106 @@ function user() {
                 });
             }
         });
+    }
+
+    this.validator = function () {
+        console.log("validate");
+        $("#userForm").validate({
+            // onfocusout: false,
+            // onkeyup: false,
+            // onclick: false,
+            rules: {
+                "name": {
+                    required: true,
+                    maxlength: 15,
+                    minlength: 3,
+                    validateName: true,
+                },
+                "email": {
+                    required: true,
+                    minlength: 8,
+                    validateEmail: true,
+                },
+                "password": {
+                    required: true,
+                    minlength: 8,
+                    validatePassword: true,
+                }
+            },
+            messages: {
+                name: {
+                    required: "Bắt buộc nhập name",
+                    maxlength: "Hãy nhập tối đa 15 ký tự",
+                    minlength: "Hãy nhập ít nhất 3 ký tự"
+                },
+                email: {
+                    required: "Bắt buộc nhập email",
+                    minlength: "Hãy nhập ít nhất 8 ký tự",
+                },
+                password: {
+                    required: "Bắt buộc nhập password",
+                    minlength: "Hãy nhập ít nhất 8 ký tự",
+                }
+            },
+            errorElement: "span",
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                console.log(error);
+                element.closest(".form-group").append(error);
+            },
+            highlight: function (element) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+
+            submitHandler: function () {
+                $(document).ready(function () {
+                    $('#userForm').submit(function (e) {
+                        e.preventDefault();
+                        var name = $("input[name=name]").val();
+                        var password = $("input[name=password]").val();
+                        var email = $("input[name=email]").val();
+                        var _token = $("input[name=_token]").val();
+                        $('.modal-backdrop').remove();
+                        $.ajax({
+                            url: datas.routes.insert,
+                            type: "POST",
+                            data: {
+                                name: name,
+                                password: password,
+                                email: email,
+                                _token: _token
+                            },
+                            success: function (response) {
+                                console.log(response);
+                                $('#userForm')[0].reset();
+                                $('#userModal').modal('hide');
+                                $('.modal-backdrop').remove();
+                                table.ajax.reload();
+                            }
+                        })
+
+                    })
+                });
+            },
+        }
+
+        );
+
+        $.validator.addMethod("validatePassword", function (value, elemt) {
+            return this.optional(elemt) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
+        }, 'Làm ơn hãy nhập đúng định dạng mật khẩu gồm 8-16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một số');
+
+        $.validator.addMethod("validateEmail", function (value, elemt) {
+            return this.optional(elemt) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test(value);
+        }, 'Làm ơn hãy nhập đúng định dạng email');
+
+        $.validator.addMethod("validateName", function (value, elemt) {
+            return this.optional(elemt) || /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);
+        }, 'Làm ơn hãy nhập đúng định dạng tên');
+
     }
 
 }
