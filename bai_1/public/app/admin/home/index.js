@@ -10,7 +10,6 @@ function user() {
     this.init = function () {
         datas = this.datas;
         var me = this;
-        me.validator();
         me.datatables();
     }
     this.datatables = function () {
@@ -80,6 +79,8 @@ function user() {
             ],
         });
         me.action(table);
+        me.validator(table);
+
     }
 
     this.action = function (table) {
@@ -107,35 +108,7 @@ function user() {
                 }
             });
         });
-        // update student
-        $(document).ready(function () {
-            $('#userEditForm').submit(function (e) {
-                e.preventDefault();
-                var id = $('#id').val();
-                var name = $('#name').val();
-                var email = $('#email').val();
-                var _token = $("input[name=_token]").val();
 
-                $.ajax({
-                    url: datas.routes.updates_data,
-                    type: 'PUT',
-                    data: {
-                        id: id,
-                        name: name,
-                        email: email,
-                        _token: _token,
-
-                    },
-                    success: function (response) {
-                        console.log(response);
-                        $("#userEditForm")[0].reset();
-                        $('#userEditModal').modal("toggle");
-                        $('.modal-backdrop').remove();
-                        table.ajax.reload();
-                    }
-                });
-            });
-        });
         // delete student
         $(document).on('click', '#delete', function () {
             if (confirm("Do you really want to delete this record?")) {
@@ -156,12 +129,81 @@ function user() {
         });
     }
 
-    this.validator = function () {
+    this.validator = function (table) {
         console.log("validate");
+        $("#userEditForm").validate({
+            rules: {
+                "name": {
+                    required: true,
+                    maxlength: 20,
+                    minlength: 3,
+                    validateName: true,
+                },
+                "email": {
+                    required: true,
+                    minlength: 8,
+                    validateEmail: true,
+                },
+
+            },
+            messages: {
+                name: {
+                    required: "Bắt buộc nhập name",
+                    maxlength: "Nhập tối đa 20 ký tự",
+                    minlength: "Hãy nhập ít nhất 3 ký tự"
+                },
+                email: {
+                    required: "Bắt buộc nhập email",
+                    minlength: "Hãy nhập ít nhất 8 ký tự",
+                },
+            },
+            errorElement: "span",
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest(".form-group").append(error);
+            },
+            highlight: function (element) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element) {
+                $(element).removeClass('is-invalid');
+            },
+            submitHandler: function () {
+                // update student
+                $(document).ready(function () {
+                    $('#userEditForm').submit(function (e) {
+                        e.preventDefault();
+                        var id = $('#id').val();
+                        var name = $('#name').val();
+                        var email = $('#email').val();
+                        var _token = $("input[name=_token]").val();
+
+                        $.ajax({
+                            url: datas.routes.updates_data,
+                            type: 'PUT',
+                            data: {
+                                id: id,
+                                name: name,
+                                email: email,
+                                _token: _token,
+
+                            },
+                            success: function (response) {
+                                console.log(response);
+                                $("#userEditForm")[0].reset();
+                                $('#userEditModal').modal('hide');
+                                $('.modal-backdrop').remove();
+                                table.ajax.reload();
+                            }
+                        });
+                    });
+                });
+            },
+        }
+
+        );
         $("#userForm").validate({
-            // onfocusout: false,
-            // onkeyup: false,
-            // onclick: false,
+
             rules: {
                 "name": {
                     required: true,
@@ -198,7 +240,6 @@ function user() {
             errorElement: "span",
             errorPlacement: function (error, element) {
                 error.addClass('invalid-feedback');
-                console.log(error);
                 element.closest(".form-group").append(error);
             },
             highlight: function (element) {
@@ -207,8 +248,8 @@ function user() {
             unhighlight: function (element) {
                 $(element).removeClass('is-invalid');
             },
-
             submitHandler: function () {
+
                 $(document).ready(function () {
                     $('#userForm').submit(function (e) {
                         e.preventDefault();
@@ -227,11 +268,16 @@ function user() {
                                 _token: _token
                             },
                             success: function (response) {
-                                console.log(response);
-                                $('#userForm')[0].reset();
-                                $('#userModal').modal('hide');
-                                $('.modal-backdrop').remove();
-                                table.ajax.reload();
+                                if (response.status === 0) {
+                                    alert(response.message);
+                                }
+                                if (response.status === 1) {
+                                    console.log(response);
+                                    $('#userForm')[0].reset();
+                                    $('#userModal').modal('hide');
+                                    $('.modal-backdrop').remove();
+                                    table.ajax.reload();
+                                }
                             }
                         })
 
