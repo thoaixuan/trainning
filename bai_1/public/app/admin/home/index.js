@@ -207,13 +207,12 @@ function user() {
             rules: {
                 "name": {
                     required: true,
-                    maxlength: 15,
+                    maxlength: 20,
                     minlength: 3,
                     validateName: true,
                 },
                 "email": {
                     required: true,
-                    minlength: 8,
                     validateEmail: true,
                 },
                 "password": {
@@ -230,7 +229,6 @@ function user() {
                 },
                 email: {
                     required: "Bắt buộc nhập email",
-                    minlength: "Hãy nhập ít nhất 8 ký tự",
                 },
                 password: {
                     required: "Bắt buộc nhập password",
@@ -289,16 +287,16 @@ function user() {
         );
 
         $.validator.addMethod("validatePassword", function (value, elemt) {
-            return this.optional(elemt) || /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/i.test(value);
-        }, 'Làm ơn hãy nhập đúng định dạng mật khẩu gồm 8-16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một số');
+            return this.optional(elemt) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,16})/.test(value);
+        }, 'Vui lòng hãy nhập đúng định dạng mật khẩu gồm 8-16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một số');
 
         $.validator.addMethod("validateEmail", function (value, elemt) {
             return this.optional(elemt) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test(value);
-        }, 'Làm ơn hãy nhập đúng định dạng email');
+        }, 'Vui lòng hãy nhập đúng định dạng email');
 
         $.validator.addMethod("validateName", function (value, elemt) {
             return this.optional(elemt) || /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);
-        }, 'Làm ơn hãy nhập đúng định dạng tên');
+        }, 'Vui lòng hãy nhập đúng định dạng tên');
 
     }
 
