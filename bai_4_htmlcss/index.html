@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML/CSS thuần không xài thư viện</title>
+    <link rel="stylesheet" href="style.css">
+    <script await src="./main.js"></script>
+</head>
+<body>
+    <header class="page-header">
+        <h1>Header!</h1>
+    </header>
+    <div class="content">
+        <div class="left-ct">
+            <label>Sidebar</label>
+            <ul>
+                <li>Menu A</li>
+                <li>Menu B</li>
+                <li>Menu C</li>
+            </ul>
+        </div>
+        <div class="right-ct">
+            <div class="grid-container">
+                <div class="grid-item">1</div>
+                <div class="grid-item">2</div>
+                <div class="grid-item">
+                    <button onclick="openURL()">Hỗ trợ code khẩn cấp!</button>
+                </div>
+                <div class="grid-item">
+                    <button onclick="clickMe()" id="clickclick">Click me!</button>
+                </div>
+                <div class="grid-item">5</div>
+                <div class="grid-item">6</div>
+                <div class="grid-item">
+                    <button id="open">Open!</button>
+                </div>
+                <div class="grid-item">8</div>
+                <div class="grid-item">9</div>
+            </div> 
+        </div>
+        <div class="call-me vibrate-2" id="never"><img title="Sơn đã ở đây và code chưa xong!" src="./icon_call.png"></div>
+    </div>  
+    <footer>
+        <p>Author: Hege Refsnes</p>
+        <p><a href="tel:+0987382473">0987382473</a></p>
+    </footer> 
+</body>
+</html>
