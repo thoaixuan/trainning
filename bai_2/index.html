@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HTML/CSS thuần sử dụng boostrap</title>
+	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+	<header class="page-header text-light bg-dark text-center my-3 fw-normal">
+		<h1>Header!</h1>
+	</header>
+
+	<div class="container-fluid content position-relative fs-4">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="listgroup text-light text-center lh-lg ">
+					<span>Siderbar</span>
+					<ul>
+						<li>Menu A</li>
+						<li>Menu B</li>
+						<li>Menu C</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="grid-container p-4 text-light text-center">
+					<div class="grid-item">1</div>
+					<div class="grid-item">2</div>
+					<div class="grid-item">
+						<button onclick="openURL()">Hỗ trợ code khẩn cấp!</button>
+					</div>
+					<div class="grid-item">
+						<button id="click" onclick="clickMe()">Click me!</button>
+					</div>
+					<div class="grid-item">5</div>
+					<div class="grid-item">6</div>
+					<div class="grid-item"><button id="open" class="bg-transparent text-light p-1 fw-bold">Open!</button></div>
+					<div class="grid-item">8</div>
+					<div class="grid-item">9</div>
+				</div>
+			</div>
+			<div class="call-me position-absolute bottom-0 " id="nerve">
+				<img style="width:32px" src="img/images.jpg" title="Sơn đã hoàn thành">
+			</div>
+		</div>
+	</div>
+
+	<footer class="mt-3">
+		<p>Author: Hege Refsnes</p>
+		<p><a href="">0987382473</a></p>
+	</footer>
+	<!-- Script -->
+	<script src="./jquery/jquery.min.js"></script>
+	<script src="./bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Script category -->
+	<script src="main.js "></script>
+	<!-- End Script -->
+</body>
+
+</html>

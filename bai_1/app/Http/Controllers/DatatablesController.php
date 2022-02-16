@@ -19,7 +19,7 @@ class DatatablesController extends Controller
             'required'=>":attribute không được để trống",
             'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
             'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
-            'email.unique'=>":attribute đã tồn tại trong   dữ liệu",
+            'email.unique'=>":attribute đã tồn tại trong dữ liệu",
             'email'=>"Bạn phải nhập đúng định dạng email",
             'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
         ];
@@ -147,6 +147,12 @@ class DatatablesController extends Controller
                 'code'=>500,
             ]);
         }
+    }
+    public function logout(){
+        $cookie=Cookie::forget('jwt');
+        return response([
+            'message'=>'Success'
+        ])->withCookie($cookie);
     }
 }
 
