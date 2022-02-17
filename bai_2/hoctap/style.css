@@ -1,0 +1,21 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.content{   
+    background: linear-gradient(to right, #121143 0%, #02d1fd 100%);
+}
+
+footer{
+    background-color: lightgrey;
+}
+#open{
+    border: 2px dashed white;
+}
+.fix-w{
+    width: 32px;
+}
