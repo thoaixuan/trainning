@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-
+.fix-w{width: 32px;}
 .content{   
     background: linear-gradient(to right, #121143 0%, #02d1fd 100%);
 }
