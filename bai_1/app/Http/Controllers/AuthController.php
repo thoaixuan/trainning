@@ -45,7 +45,7 @@ class AuthController extends Controller
         ]);
     }
     public function logout(){
-        $cookie=Cookie::forget('jwt');
+        $cookie=Cookie::forget('jwt');  
         return response([
             'status'=>0,
             'message'=>'Đăng xuất thành công',
