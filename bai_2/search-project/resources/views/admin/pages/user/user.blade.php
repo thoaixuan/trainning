@@ -23,10 +23,18 @@
     <section class="content">
         <div class="container-fluid">
         <div class="row">
-          <input class="form-control" id="search"  name="search" vale="" placeholder="Từ khóa tìm kiếm ....">
+          <div class="col-12 row">
+            <div class="col-8">
+              <input class="form-control" id="search"  name="search" vale="" placeholder="Từ khóa tìm kiếm ....">
+            </div>
+            <div class="col-4">
+              <button class="btn btn-success float-sm-right" id="open"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+            
           <table class="table" id="users-table">
           </table>
-          
+          @include('admin.pages.user.modal');
         </div><!-- /.container-fluid -->
       </section>
     <!-- /.content -->
@@ -37,14 +45,19 @@
 
 @section('jsAdmin')
 <script src="{{asset('app/admin/users/users.js')}}"></script>
-<!-- <script>
+<script>
   var users=new users();
       users.datas={
         routes:{
-          datatable:"{{route('admin.datatables.user')}}"
+          datatable:"{{route('admin.datatables.user')}}",
+          insert:"{{route('admin.insert.user')}}",
+          updates:"{{route('admin.update.user')}}",
+          updates_data:"{{route('admin.update_data.user')}}",
+          delete:"{{route('admin.delete.user')}}",
         }
       }
-</script> -->
+      users.init();
+</script>
 @endsection
 
 

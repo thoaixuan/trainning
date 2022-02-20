@@ -19,4 +19,4 @@
   <link rel="stylesheet" href="{{asset('themes/admin/plugins/summernote/summernote-bs4.min.css')}}">
   <link rel="stylesheet" href="{{asset('themes/admin/style.css')}}">
   <link rel="stylesheet" type="text/css" href="{{asset('themes/admin/plugins/datatables-bs5/dataTables.css')}}">
-  
+  <link rel="stylesheet" href="{{asset('themes/admin/plugins/bootstrap-5.0.2-dist/css/bootstrap.min.css')}}">

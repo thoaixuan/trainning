@@ -32,6 +32,9 @@
 <script src="{{asset('themes/admin/dist/js/adminlte.js')}}"></script>
 <script src="{{asset('themes/admin/plugins/datatables-bs5/datatables.js')}}"></script>
 
+<script type="text/javascript" src="{{asset('themes/admin/plugins/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/plugins/bootstrap-5.0.2-dist/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/dist/validate/jquery.validate.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="{{asset('themes/admin/dist/js/demo.js')}}"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
