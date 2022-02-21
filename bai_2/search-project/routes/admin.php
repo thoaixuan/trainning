@@ -3,11 +3,18 @@
 Route::middleware('checkLogin')->group(function(){
     Route::get('/','AdminController@index')->name('admin.get.index');
     Route::get('/user','UserController@index')->name('admin.get.user');
-    Route::get('/data','UserController@anyData')->name('admin.datatables.user');
-    Route::get('/edit','UserController@getUpdate')->name('admin.update.user');
-    Route::put('/edit','UserController@postUpdate')->name('admin.update_data.user');
-    Route::get('/delete','UserController@delete')->name('admin.delete.user');
-    Route::post('/insert','UserController@addUser')->name('admin.insert.user');
+    Route::get('/data-user','UserController@anyData')->name('admin.datatables.user');
+    Route::get('/edit-user','UserController@getUpdate')->name('admin.update.user');
+    Route::put('/edit-user','UserController@postUpdate')->name('admin.update_data.user');
+    Route::get('/delete-user','UserController@delete')->name('admin.delete.user');
+    Route::post('/insert-user','UserController@add')->name('admin.insert.user');
+
+    Route::get('/service','ServiceController@index')->name('admin.get.service');
+    Route::get('/data-service','ServiceController@anyData')->name('admin.datatables.service');
+    Route::get('/edit-service','ServiceController@getUpdate')->name('admin.update.service');
+    Route::put('/edit-service','ServiceController@postUpdate')->name('admin.update_data.service');
+    Route::get('/delete-service','ServiceController@delete')->name('admin.delete.service');
+    Route::post('/insert-service','ServiceController@add')->name('admin.insert.service');
 
 });
 Route::get('/signin', 'LoginController@index')->name('admin.signin');

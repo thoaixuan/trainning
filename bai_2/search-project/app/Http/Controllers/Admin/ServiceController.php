@@ -4,24 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
-use Illuminate\Support\Facades\Hash;
+use App\Service;
 use Validator;
 
-
-class UserController extends Controller
+class ServiceController extends Controller
 {
     function index(){
-        $users=User::orderBy('id','DESC')->get();
-        return view('admin.pages.user.user',compact('users'));
+        $services=Service::with('user')->orderBy('id','DESC')->get();
+        return view('admin.pages.service.service',compact('services'));
     }
 
     public function anyData(Request $request)
     {
         $columns[]='id';
-        $columns[]='name';
-        $columns[]='email';
-        $columns[]='phone';
+        $columns[]='service_name';
+        $columns[]='service_description';
+        $columns[]='user.name';
 
 
         $limit=$request->input('length');
@@ -30,31 +28,31 @@ class UserController extends Controller
         $order=$columns[$request->input('order.0.column')];
         $dir=$request->input('order.0.dir');   
         
-        $totalData=User::count();
+        $totalData=Service::count();
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $users=User::offset($start)
+            $services=Service::with('user')->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)->get();
         }else{
-            $users=User::Where(function($query)use($search){
-                $query->where('name','like',"%{$search}%")
-                        ->orWhere('email','like',"%{$search}%")
-                        ->orWhere('phone','like',"%{$search}%")
+            $services=Service::Where(function($query)use($search){
+                $query->where('service_name','like',"%{$search}%")
+                        ->orWhere('service_description','like',"%{$search}%")
+                        ->orWhere('user.name','like',"%{$search}%")
                         ->orWhere('id','like',"%{$search}%");
             })
             ->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)
             ->get();
-            $totalFiltered =$users->count();
+            $totalFiltered =$services->count();
         }
 
         $json_data=array(
             "recordsTotal"=>intval($totalData),
             "recordsFiltered"=>intval($totalFiltered),
-            "data"=>$users,
+            "data"=>$services,
         );
         echo json_encode($json_data);
     }
@@ -62,20 +60,11 @@ class UserController extends Controller
     public function add(Request $request){
         $message=[
             'required'=>":attribute không được để trống",
-            'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
-            'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
-            'email.unique'=>":attribute đã tồn tại trong dữ liệu",
-            'email'=>"Bạn phải nhập đúng định dạng email",
-            'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
-            'phone.min'=>"Bạn phải nhập đủ 10 số",
-            'phone.max'=>"Bạn phải nhập đủ 10 số",
-            'phone.unique'=>"Số điện thoại đã tồn tại"
         ];
         $validate=Validator::make($request->all(),[
-            'name'=>['required','min:3','max:40'],
-            'email'=>['required','min:8','max:40','unique:users','email'],
-            'password'=>['required','min:8','max:40'],
-            'phone'=>['required','min:10','max:10','unique:users']
+            'service_name'=>['required'],
+            'service_description'=>['required'],
+            'user_id'=>['required']
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -84,13 +73,12 @@ class UserController extends Controller
                 'code'=>200
             ]);
         }
-        $user=new User();
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->phone=$request->phone;
-        $user->password=Hash::make($request->password);
-        $user->save();
-        if($user){
+        $service=new Service();
+        $service->service_name=$request->service_name;
+        $service->service_description=$request->service_description;
+        $service->user_id=$request->user_id;
+        $service->save();
+        if($service){
             return response()->json([
                 'status'=>1,
                 'message'=>"Data Inserted Successfully",
@@ -107,12 +95,12 @@ class UserController extends Controller
     }
 
     public function getUpdate(Request $request){
-        $user=User::where('id','=',$request->id)->first();
-        if($user){
+        $service=Service::where('id','=',$request->id)->first();
+        if($service){
             return response()->json([
                 'message'=>"Data Inserted Successfully",
                 'code'=>200,
-                'data'=>$user
+                'data'=>$service
             ]);
         }else{
             return response()->json([
@@ -123,17 +111,16 @@ class UserController extends Controller
     }
 
     public function postUpdate(Request $request){
-        $user=User::find($request->id);
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->phone=$request->phone;
-        $user->password=Hash::make($request->password);
-        $user->save();
-        if($user){
+        $service=Service::find($request->id);
+        $service->user_id=$request->user_id;
+        $service->service_name=$request->service_name;
+        $service->service_description=$request->service_description;
+        $service->save();
+        if($service){
             return response()->json([
                 'message'=>"Data Update Successfully",
                 'code'=>200,
-                'data'=>$user
+                'data'=>$service
             ]);
         }else{
             return response()->json([
@@ -142,14 +129,15 @@ class UserController extends Controller
             ]);
         }
     }
+
     public function delete(Request $request){
-        $user=User::find($request->id);
-        $user->delete();
-        if($user){
+        $service=Service::find($request->id);
+        $service->delete();
+        if($service){
             return response()->json([
                 'message'=>"Data Delete Successfully",
                 'code'=>200,
-                'data'=>$user
+                'data'=>$service
             ]);
         }else{
             return response()->json([
@@ -159,6 +147,4 @@ class UserController extends Controller
         }
     }
     
-
-
 }
