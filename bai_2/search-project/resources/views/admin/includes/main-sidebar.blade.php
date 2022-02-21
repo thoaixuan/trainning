@@ -8,7 +8,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
+            <a href="{{route('admin.get.index')}}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Tổng Quan
@@ -16,7 +16,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+            <a href="{{route('admin.get.service')}}" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
               <p>
                 Dịch vụ
@@ -29,10 +29,10 @@
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Dự Án
-                <i class="fas fa-angle-left right"></i>
+                <!-- <i class="fas fa-angle-left right"></i> -->
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <!-- <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="pages/layout/top-nav.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -59,7 +59,7 @@
                   <span class="right badge badge-danger">5</span>
                 </a>
               </li>
-            </ul>
+            </ul> -->
           </li>
 
           <li class="nav-item">
