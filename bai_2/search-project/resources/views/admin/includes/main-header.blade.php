@@ -12,8 +12,8 @@
         <span class="text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <b>Admin</b></span>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#"> <i class="fas fa-user"> </i>   Hồ sơ cá nhân </a>
-          <a class="dropdown-item" href="#"> <i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+          <a class="dropdown-item" href=""> <i class="fas fa-user"> </i>   Hồ sơ cá nhân </a>
+          <a class="dropdown-item" href="{{route('admin.logout')}}"> <i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
         </div>
       </div>
     </ul>

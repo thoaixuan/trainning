@@ -40,5 +40,8 @@ class User extends Authenticatable
     public function service(){
         return $this->hasmany('App\Serice');
     }
+    public function project(){
+        return $this->hasmany('App\Project');
+    }
 
 }

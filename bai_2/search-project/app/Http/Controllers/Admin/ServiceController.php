@@ -36,10 +36,10 @@ class ServiceController extends Controller
             ->limit($limit)
             ->orderBy($order,$dir)->get();
         }else{
-            $services=Service::Where(function($query)use($search){
+            $services=Service::with('user')->Where(function($query)use($search){
                 $query->where('service_name','like',"%{$search}%")
                         ->orWhere('service_description','like',"%{$search}%")
-                        ->orWhere('user.name','like',"%{$search}%")
+                        // ->orWhere('user.name','like',"%{$search}%")
                         ->orWhere('id','like',"%{$search}%");
             })
             ->offset($start)

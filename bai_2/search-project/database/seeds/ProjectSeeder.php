@@ -1,0 +1,23 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class ProjectSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('projects')->insert([
+            [
+                'user_id' => 2,
+                'service_id'=>1 ,
+                'projects_name'=>"Ung dung nghe nhac",
+                'status'=>0
+            ],
+        ]);
+    }
+}

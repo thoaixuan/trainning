@@ -25,7 +25,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('admin.get.project')}}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Dự Án
@@ -62,23 +62,23 @@
             </ul> -->
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>
                 Hồ sơ đính kèm
               </p>
             </a>
-          </li>
+          </li> -->
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">
               <i class="fa  fa-gavel nav-icon"></i>
               <p>
                 Quản lý trang
               </p>
             </a>
-          </li>
+          </li> -->
 
           <li class="nav-item">
             <a href="{{route('admin.get.user')}}" class="nav-link">
@@ -89,7 +89,7 @@
             </a>
           </li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
@@ -105,7 +105,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> -->
 
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">

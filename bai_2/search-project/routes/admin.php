@@ -1,6 +1,7 @@
 <?php
 // Route::group(['middleware'=>['checklogin','....']])
 Route::middleware('checkLogin')->group(function(){
+    
     Route::get('/','AdminController@index')->name('admin.get.index');
     Route::get('/user','UserController@index')->name('admin.get.user');
     Route::get('/data-user','UserController@anyData')->name('admin.datatables.user');
@@ -15,6 +16,13 @@ Route::middleware('checkLogin')->group(function(){
     Route::put('/edit-service','ServiceController@postUpdate')->name('admin.update_data.service');
     Route::get('/delete-service','ServiceController@delete')->name('admin.delete.service');
     Route::post('/insert-service','ServiceController@add')->name('admin.insert.service');
+    
+    Route::get('/project','ProjectController@index')->name('admin.get.project');
+    Route::get('/data-project','ProjectController@anyData')->name('admin.datatables.project');
+    Route::get('/edit-project','ProjectController@getUpdate')->name('admin.update.project');
+    Route::put('/edit-project','ProjectController@postUpdate')->name('admin.update_data.project');
+    Route::get('/delete-project','ProjectController@delete')->name('admin.delete.project');
+    Route::post('/insert-project','ProjectController@add')->name('admin.insert.project');
 
 });
 Route::get('/signin', 'LoginController@index')->name('admin.signin');
