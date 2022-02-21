@@ -1,0 +1,2 @@
+<link rel="stylesheet" href="<?php echo e(asset('guest\assets\css\style.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('guest\assets\css\responsive.css')); ?>"><?php /**PATH C:\teamcoder\www\trainning\bai_2\web\search_infocare\resources\views/guest/partials/stylesheet.blade.php ENDPATH**/ ?>

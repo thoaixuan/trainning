@@ -1,0 +1,14 @@
+<script src="<?php echo e(asset('guest\assets\js\jquery-3.3.1.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\popper-v1.14.3.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\bootstrap-v4.1.3.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\owl.carousel.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\tiny-slider.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\jquery.countTo.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\jquery.simpleLoadMore.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\jquery.nice-select.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\jquery.magnific-popup.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\skill.bars.jquery.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\circle-progress.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\wow.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\isotope.pkgd.min.js')); ?>"></script>
+<script src="<?php echo e(asset('guest\assets\js\main.js')); ?>"></script><?php /**PATH C:\teamcoder\www\trainning\bai_2\web\search_infocare\resources\views/guest/partials/script.blade.php ENDPATH**/ ?>
