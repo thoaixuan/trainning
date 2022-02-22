@@ -12,3 +12,4 @@
 <script src="{{asset('themes\guest\assets\js\wow.min.js')}}"></script>
 <script src="{{asset('themes\guest\assets\js\isotope.pkgd.min.js')}}"></script>
 <script src="{{asset('themes\guest\assets\js\main.js')}}"></script>
+<script src="{{asset('themes/admin/plugins/datatables-bs5/datatables.js')}}"></script>

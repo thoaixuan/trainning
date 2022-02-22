@@ -50,7 +50,7 @@ function services() {
                     className: "",
                 },
                 {
-                    title: "Email",
+                    title: "Description",
                     data: "service_description",
                     name: "service_description",
                     className: "",

@@ -12,7 +12,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/','GuestController@index');
+Route::get('/','HomeController@index')->name('guest.home');
 
-Route::get('/signin', 'GuestController@signin');
+Route::get('/signin', 'GuestController@index')->name('guest.signin');
+Route::post('/signin', 'GuestController@signin')->name('guest.signin');
+
+Route::get('/any-data','HomeController@anyData')->name('guest.datatables.home');
+
+
 

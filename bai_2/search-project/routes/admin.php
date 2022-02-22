@@ -24,6 +24,9 @@ Route::middleware('checkLogin')->group(function(){
     Route::get('/delete-project','ProjectController@delete')->name('admin.delete.project');
     Route::post('/insert-project','ProjectController@add')->name('admin.insert.project');
 
+    Route::get('/info-admin','LoginController@getInfo')->name('admin.get_info.index');
+    Route::put('/update-info-admin','LoginController@postUpdate')->name('admin.update_data.info');
+
 });
 Route::get('/signin', 'LoginController@index')->name('admin.signin');
 Route::post('/signin','LoginController@signin');

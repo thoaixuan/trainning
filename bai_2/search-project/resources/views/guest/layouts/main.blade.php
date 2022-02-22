@@ -18,4 +18,7 @@
 @include('guest.partials.script')
 
 </body>
+<script src="{{asset('app/guest/main.js')}}"></script>
+@yield('jsGuest')
+
 </html>

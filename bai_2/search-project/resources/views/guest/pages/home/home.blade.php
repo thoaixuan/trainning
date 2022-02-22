@@ -13,9 +13,27 @@
         <div class="input-group">
         <input type="search" id="search" class="form-control" placeholder="Nhập tên khách hàng, tên công ty hoặc số điện thoại"><button class="btn btn-outline-secondary p-1">Tra cứu</button>
         </div>
+        <table class="table table-striped table-hover" id="project-table">
+
+        </table>
     </div>
     <!--Service-->
     @include('guest.pages.home.includes.service')
  
 
+@endsection
+
+
+
+@section('jsGuest')
+<script src="{{asset('app/guest/home/home.js')}}"></script>
+<script>
+  var home=new home();
+      home.datas={
+        routes:{
+          datatable:"{{route('guest.datatables.home')}}",
+        }
+      }
+      home.init();
+</script>
 @endsection

@@ -108,7 +108,7 @@
           </li> -->
 
           <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
+            <a href="{{route('admin.get_info.index')}}" class="nav-link">
               <i class="nav-icon fa fa-user"></i>
               <p>
                 Hồ sơ cá nhân

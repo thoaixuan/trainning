@@ -96,7 +96,6 @@ function projects() {
         $(document).on('click', '#open', function () {
             $("#projectModal").modal("toggle");
             console.log("openModal");
-
         })
         // find by id service
         $(document).on('click', '#update', function () {
