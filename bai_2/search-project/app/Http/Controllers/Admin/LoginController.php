@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 class LoginController extends Controller
 {
@@ -29,32 +29,34 @@ class LoginController extends Controller
         // ]);
     }
     public function postUpdate(Request $request){
-        $users=User::find($request->id);
+
         $reset_password = $request->reset_password;
 
-
-        if(Auth::check()){
+        if(Hash::check($reset_password,Auth::user()->password)){
+            $users=User::findOrFail($request->id);
             $users->password=Hash::make($request->password);
             $users->save();
             Auth::logout();
             
             if($users){
                 return response()->json([
-                    'message'=>"Data Update Successfully",
+                    'status'=>1,
+                    'message'=>"Đổi mật khẩu thành công",
                     'code'=>200,
                     'data'=>$users
                 ]);
             }else{
                 return response()->json([
-                    'message'=>"Internal Server Error",
+                    'status'=>0,
+                    'message'=>"Đã xảy ra lỗi bên phía chúng tôi, không phải lỗi của bạn",
                     'code'=>500,
                 ]);
             }
         }
         return response()->json([
-            'message'=>"Data Update Falid",
+            'status'=>0,
+            'message'=>"Mật khẩu bị sai, hãy thử lại",
             'code'=>404,
-            'data'=>$users
         ]); 
     }
     public function logout(){

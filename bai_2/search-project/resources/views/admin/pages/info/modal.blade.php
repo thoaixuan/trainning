@@ -16,8 +16,13 @@
                       </div>
 
                       <div class="form-group">
-                        <!-- <label for="reset_password">Nhập mật khẩu cũ</label> -->
-                        <input type="hidden" name="reset_password" id="reset_password" class="form-control" value="Dothanhson@1703"/>
+                        <label for="reset_password">Nhập mật khẩu cũ</label>
+                        <input type="text" name="reset_password" id="reset_password" class="form-control"/>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="re_password">Xác nhận lại mật khẩu</label>
+                        <input type="text" name="re_password" id="re_password" class="form-control"/>
                       </div>
                       
                       <button id="#submit" class="btn btn-success">Submit</button>

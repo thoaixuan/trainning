@@ -26,10 +26,14 @@ function info() {
                     },
                     "reset_password": {
                         required: true,
-                        minlength: 8,
-                        validatePassword: true,
+                        // minlength: 8,
+                        // validatePassword: true,
+                    },
+                    "re_password": {
+                        required: true,
+                        equalTo: "#reset_password",
+                        // minlength: 8
                     }
-
 
                 },
                 messages: {
@@ -39,8 +43,13 @@ function info() {
                     },
                     reset_password: {
                         required: "Bắt buộc nhập password",
-                        minlength: "Hãy nhập ít nhất 8 ký tự",
+                        // minlength: "Hãy nhập ít nhất 8 ký tự",
                     },
+                    re_password: {
+                        required: "Bắt buộc nhập password",
+                        // minlength: "Hãy nhập ít nhất 8 ký tự",
+                        equalTo: "Mật khẩu chưa khớp",
+                    }
                 },
                 errorElement: "span",
                 errorPlacement: function (error, element) {
@@ -76,10 +85,17 @@ function info() {
 
                                 },
                                 success: function (response) {
-                                    console.log(response);
-                                    $("#passwordForm")[0].reset();
-                                    $('#passwordModal').modal('hide');
-                                    $('.modal-backdrop').remove();
+                                    if (response.status === 1) {
+                                        console.log(response);
+                                        $("#passwordForm")[0].reset();
+                                        $('#passwordModal').modal('hide');
+                                        $('.modal-backdrop').remove();
+                                        location.reload();
+                                    }
+                                    else {
+                                        alert(response.message);
+                                    }
+
                                 }
                             });
                         });
