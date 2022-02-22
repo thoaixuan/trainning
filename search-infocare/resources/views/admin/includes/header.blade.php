@@ -1,0 +1,27 @@
+<nav class="main-header navbar navbar-expand navbar-light">
+	<!-- Left navbar links -->
+	<ul class="navbar-nav ">
+		<li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="{{asset('admin')}}" role="button"><i class="fas fa-bars"></i></a>
+		</li>
+		
+	</ul>
+	
+	<ul class="navbar-nav ml-auto">
+		<li class="nav-item">
+			<a class="nav-link" target="_blank"  href="{{Request::root()}}" role="button">
+			  &bull;
+			  Trang chủ website
+			</a>
+		  </li>
+		<li class="nav-item dropdown">
+			<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle active"> 
+        		<b> <span id="full_name_text_header">{{-- Auth::user()->full_name --}} </span> </b>
+			</a>
+			<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
+				<li>
+					<a href="javascript:void(0)" data-toggle="modal" class="dropdown-item" data-target="#modal-logout" class="nav-link" role="button"> <i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+				</li>
+			</ul>
+		</li>	
+	</ul>
+</nav>
