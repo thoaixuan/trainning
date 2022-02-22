@@ -36,7 +36,7 @@ class UserController extends Controller
         if(empty($search)){
             $users=User::offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)->get();
+            ->orderByDesc($order,$dir)->get();
         }else{
             $users=User::Where(function($query)use($search){
                 $query->where('name','like',"%{$search}%")
@@ -123,6 +123,30 @@ class UserController extends Controller
     }
 
     public function postUpdate(Request $request){
+        $message=[
+            'required'=>":attribute không được để trống",
+            'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
+            'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
+            'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+            'email'=>"Bạn phải nhập đúng định dạng email",
+            'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
+            'phone.min'=>"Bạn phải nhập đủ 10 số",
+            'phone.max'=>"Bạn phải nhập đủ 10 số",
+            'phone.unique'=>"Số điện thoại đã tồn tại",
+            'phone.integer'=>"Định dạng số điện thoại phải là số"
+        ];
+        $validate=Validator::make($request->all(),[
+            'name'=>['required','min:3','max:40'],
+            'email'=>['required','min:8','max:40','email'],
+            'phone'=>['required','unique:users','integer']
+        ],$message);
+        if($validate->fails()){
+            return response()->json([
+                'status'=>0,
+                'message'=>$validate->errors()->first(),
+                'code'=>200
+            ]);
+        }
         $user=User::find($request->id);
         $user->name=$request->name;
         $user->email=$request->email;
@@ -131,12 +155,14 @@ class UserController extends Controller
         $user->save();
         if($user){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Update Successfully",
                 'code'=>200,
                 'data'=>$user
             ]);
         }else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500,
             ]);

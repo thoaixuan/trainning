@@ -22,6 +22,7 @@ function users() {
             lengthChange: false,
             searching: false,
             ordering: true,
+            order: [0, "asc"],
             info: true,
             responsive: true,
             autoWidth: false,
@@ -35,14 +36,13 @@ function users() {
 
                 }
             },
-            order: [0, "asc"],
             columns: [
-                {
-                    title: "#",
-                    data: "id",
-                    name: "id",
-                    className: "text-center",
-                },
+                // {
+                //     title: "#",
+                //     data: "id",
+                //     name: "id",
+                //     className: "text-center",
+                // },
                 {
                     title: "Name",
                     data: "name",
@@ -154,21 +154,31 @@ function users() {
                 },
                 "email": {
                     required: true,
-                    minlength: 8,
                     validateEmail: true,
                 },
+                "phone": {
+                    required: true,
+                    validatePhone: true,
+                    minlength: 10,
+                    maxlength: 10,
 
+                }
             },
             messages: {
                 name: {
                     required: "Bắt buộc nhập name",
-                    maxlength: "Nhập tối đa 20 ký tự",
+                    maxlength: "Hãy nhập tối đa 15 ký tự",
                     minlength: "Hãy nhập ít nhất 3 ký tự"
                 },
                 email: {
                     required: "Bắt buộc nhập email",
-                    minlength: "Hãy nhập ít nhất 8 ký tự",
                 },
+                phone: {
+                    required: "Bắt buộc nhập số điện thoại",
+                    minlength: "Hãy nhập đủ 10 ký tự",
+                    maxlength: "Hãy nhập tối thiểu 10 ký tự"
+                }
+
             },
             errorElement: "span",
             errorPlacement: function (error, element) {
@@ -204,11 +214,17 @@ function users() {
 
                             },
                             success: function (response) {
-                                console.log(response);
-                                $("#userEditForm")[0].reset();
-                                $('#userEditModal').modal('hide');
-                                $('.modal-backdrop').remove();
-                                table.ajax.reload();
+                                if (response.status === 1) {
+                                    console.log(response);
+                                    $("#userEditForm")[0].reset();
+                                    $('#userEditModal').modal('hide');
+                                    $('.modal-backdrop').remove();
+                                    table.ajax.reload();
+                                }
+                                else {
+                                    alert(response.message);
+                                }
+
                             }
                         });
                     });
@@ -237,8 +253,10 @@ function users() {
                 },
                 "phone": {
                     required: true,
+                    validatePhone: true,
                     minlength: 10,
-                    maxlength: 10
+                    maxlength: 10,
+
                 }
             },
             messages: {
@@ -253,7 +271,13 @@ function users() {
                 password: {
                     required: "Bắt buộc nhập password",
                     minlength: "Hãy nhập ít nhất 8 ký tự",
+                },
+                phone: {
+                    required: "Bắt buộc nhập số điện thoại",
+                    minlength: "Hãy nhập đủ 10 ký tự",
+                    maxlength: "Hãy nhập tối thiểu 10 ký tự"
                 }
+
             },
             errorElement: "span",
             errorPlacement: function (error, element) {
@@ -319,6 +343,9 @@ function users() {
             return this.optional(elemt) || /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);
         }, 'Vui lòng hãy nhập đúng định dạng tên');
 
+        $.validator.addMethod("validatePhone", function (value, elemt) {
+            return this.optional(elemt) || /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value);
+        }, 'Vui lòng hãy nhập đúng định dạng số điện thoại');
     }
 
 

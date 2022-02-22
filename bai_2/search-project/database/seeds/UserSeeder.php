@@ -33,6 +33,17 @@ class UserSeeder extends Seeder
                 'is_admin'=>0,
 
             ],
+            [
+                'name' => 'user2',
+                'email' => 'use2r@gmail.com',
+                'phone'=>'00000000000',
+                'password' => bcrypt('123456'),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'email_verified_at' => now(),
+                'is_admin'=>0,
+
+            ],
         ]);
         
     }

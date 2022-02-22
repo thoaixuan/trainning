@@ -17,12 +17,7 @@
                       <div class="form-group">
                         <label for="service_description">Description</label>
                         <input type="text" name="service_description" class="form-control" />
-                      </div>
-                      <div class="form-group">
-                        <label for="user_id">User_id</label>
-                        <input type="text" name="user_id" class="form-control" />
-                      </div>
-                      
+                      </div>                
                       <button id="#submit" class="btn btn-success">Submit</button>
                     </form>
                   </div>
@@ -51,10 +46,6 @@
                       <div class="form-group">
                         <label for="service_description">Description</label>
                         <input type="text" name="service_description" id="service_description" class="form-control" />
-                      </div>
-                      <div class="form-group">
-                        <label for="user_id">User_id</label>
-                        <input type="text" name="user_id" id="user_id" class="form-control" />
                       </div>
                    
                       <button type="submit" class="btn btn-success">Update</button>

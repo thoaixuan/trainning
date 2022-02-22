@@ -26,8 +26,8 @@
                         <label for="password">Password</label>
                         <input type="text" name="password" class="form-control" />
                       </div>
-                      
                       <button id="#submit" class="btn btn-success">Submit</button>
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </form>
                   </div>
                 </div>
@@ -59,8 +59,8 @@
                         <label for="phone">Phone</label>
                         <input type="text" name="phone" id="phone" class="form-control" />
                       </div>
-                   
                       <button type="submit" class="btn btn-success">Update</button>
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </form>
                   </div>
                 </div>
