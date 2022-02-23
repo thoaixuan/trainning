@@ -55,12 +55,6 @@ function services() {
                     name: "service_description",
                     className: "",
                 },
-                {
-                    title: "Username",
-                    data: "user.name",
-                    name: "user.name",
-                    className: "",
-                },
 
                 {
                     title: "Action",
@@ -156,9 +150,6 @@ function services() {
                 "service_description": {
                     required: true,
                 },
-                "user_id": {
-                    required: true,
-                },
 
             },
             messages: {
@@ -234,10 +225,6 @@ function services() {
                 "service_description": {
                     required: true,
                 },
-                "user_id": {
-                    required: true,
-                    minlength: 1,
-                }
             },
             messages: {
                 service_name: {

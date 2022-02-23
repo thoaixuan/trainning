@@ -16,15 +16,19 @@
                       </div>
 
                       <div class="form-group">
-                        <label for="user_id">User_id</label>
-                        <input type="text" name="user_id" class="form-control" />
+                        <label for="user_id">Chọn cá nhân</label>
+                        <select name="user_id" id="select_user" class="form-control required">
+                          <option value="0" disabled selected>-- Chọn cá nhân--</option>
+                        </select>
                       </div>
 
                       <div class="form-group">
-                        <label for="service_id">Service_id</label>
-                        <input type="text" name="service_id" class="form-control" />
+                        <label for="user_id">Chọn dịch vụ</label>
+                        <select name="user_id" id="select_service" class="form-control required">
+                          <option value="0" disabled selected>-- Chọn dịch vụ--</option>
+                        </select>
                       </div>
-                      
+
                       <button id="#submit" class="btn btn-success">Submit</button>
                     </form>
                   </div>
@@ -50,14 +54,21 @@
                         <label for="projects_name">Name</label>
                         <input type="text" name="projects_name" id="projects_name" class="form-control" />
                       </div>
+
                       <div class="form-group">
-                        <label for="user_id">User id</label>
-                        <input type="text" name="user_id" id="user_id" class="form-control" />
+                        <label for="user_id">Chọn cá nhân</label>
+                        <select name="user_id" id="select_user_edit" class="form-control required">
+                          <option value="0" disabled selected>-- Chọn cá nhân--</option>
+                        </select>
                       </div>
+
                       <div class="form-group">
-                        <label for="service_id">Service id</label>
-                        <input type="text" name="service_id" id="service_id" class="form-control" />
+                        <label for="user_id">Chọn dịch vụ</label>
+                        <select name="user_id" id="select_service_edit" class="form-control required">
+                          <option value="0" disabled selected>-- Chọn dịch vụ--</option>
+                        </select>
                       </div>
+                   
                    
                       <button type="submit" class="btn btn-success">Update</button>
                     </form>

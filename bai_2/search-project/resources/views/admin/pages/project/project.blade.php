@@ -54,6 +54,8 @@
           updates:"{{route('admin.update.project')}}",
           updates_data:"{{route('admin.update_data.project')}}",
           delete:"{{route('admin.delete.project')}}",
+          get_user:"{{route('admin.get_user.project')}}",
+          get_service:"{{route('admin.get_service.project')}}",
         }
       }
       projects.init();

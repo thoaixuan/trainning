@@ -23,6 +23,8 @@ Route::middleware('checkLogin')->group(function(){
     Route::put('/edit-project','ProjectController@postUpdate')->name('admin.update_data.project');
     Route::get('/delete-project','ProjectController@delete')->name('admin.delete.project');
     Route::post('/insert-project','ProjectController@add')->name('admin.insert.project');
+    Route::get('/project-user','ProjectController@getUser')->name('admin.get_user.project');
+    Route::get('/project-service','ProjectController@getService')->name('admin.get_service.project');
 
     Route::get('/info-admin','LoginController@getInfo')->name('admin.get_info.index');
     Route::put('/update-info-admin','LoginController@postUpdate')->name('admin.update_data.info');

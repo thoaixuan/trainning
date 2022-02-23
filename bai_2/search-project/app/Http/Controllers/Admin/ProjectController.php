@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Project;
+use App\User;
+use App\Service;
 use Validator;
+use DB;
 
 
 class ProjectController extends Controller
@@ -41,14 +44,16 @@ class ProjectController extends Controller
             return response()->json([
                 'status'=>1,
                 'message'=>"Data Inserted Successfully",
-                'code'=>200
+                'code'=>200,
+                'data'=>$project
             ]);
         }
         else{
             return response()->json([
                 'status'=>0,
                 'message'=>"Internal Server Error",
-                'code'=>500
+                'code'=>500,
+                'data'=>$project
             ]);
         }
     }
@@ -74,17 +79,23 @@ class ProjectController extends Controller
         if(empty($search)){
             $projects=Project::with('user')->with('service')->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)->get();
+            ->orderByDesc($order,$dir)->get();
         }else{
-            $projects=Project::with('user')->with('service')->Where(function($query)use($search){
-                $query->where('projects_name','like',"%{$search}%")
-                        // ->orWhere('service.service_name','like',"%{$search}%")
-                        // ->orWhere('user.name','like',"%{$search}%")
-                        ->orWhere('id','like',"%{$search}%");
+            $projects=Project::whereHas('user',function($query) use ($search){
+                $query->where('name','like',"%{$search}%");
             })
+            ->with(['user'=>function($query) use ($search){
+                $query->where('name','like',"%{$search}%");
+            }])->with('service')
+            // ->whereHas('service',function($query) use ($search){
+            //     $query->where('service_name','like',"%{$search}%");
+            // })
+            // ->with(['service'=>function($query) use ($search){
+            //     $query->where('service_name','like',"%{$search}%");
+            // }])
             ->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)
+            ->orderByDesc($order,$dir)
             ->get();
             $totalFiltered = $projects->count();
         }
@@ -95,6 +106,24 @@ class ProjectController extends Controller
             "data"=>$projects,
         );
         echo json_encode($json_data);
+    }
+
+    public function getUser(Request $request){
+        $users= User::orderBy('id','DESC')->get();
+        return response()->json([
+            'message'=>"Lấy dữ liệu khách hàng thành công",
+            'code'=>200,
+            'data'=>$users
+        ]);
+    }
+
+    public function getService(Request $request){
+        $services= Service::orderBy('id','DESC')->get();
+        return response()->json([
+            'message'=>"Lấy dữ liệu dịch vụ thành công",
+            'code'=>200,
+            'data'=>$services
+        ]);
     }
 
     public function getUpdate(Request $request){

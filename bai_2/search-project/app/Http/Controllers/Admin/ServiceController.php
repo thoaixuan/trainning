@@ -19,7 +19,7 @@ class ServiceController extends Controller
         $columns[]='id';
         $columns[]='service_name';
         $columns[]='service_description';
-        $columns[]='user.name';
+
 
 
         $limit=$request->input('length');
@@ -39,7 +39,6 @@ class ServiceController extends Controller
             $services=Service::with('user')->Where(function($query)use($search){
                 $query->where('service_name','like',"%{$search}%")
                         ->orWhere('service_description','like',"%{$search}%")
-                        // ->orWhere('user.name','like',"%{$search}%")
                         ->orWhere('id','like',"%{$search}%");
             })
             ->offset($start)
@@ -64,7 +63,7 @@ class ServiceController extends Controller
         $validate=Validator::make($request->all(),[
             'service_name'=>['required'],
             'service_description'=>['required'],
-            'user_id'=>['required']
+     
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -76,7 +75,6 @@ class ServiceController extends Controller
         $service=new Service();
         $service->service_name=$request->service_name;
         $service->service_description=$request->service_description;
-        $service->user_id=$request->user_id;
         $service->save();
         if($service){
             return response()->json([
@@ -112,7 +110,6 @@ class ServiceController extends Controller
 
     public function postUpdate(Request $request){
         $service=Service::find($request->id);
-        $service->user_id=$request->user_id;
         $service->service_name=$request->service_name;
         $service->service_description=$request->service_description;
         $service->save();

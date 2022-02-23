@@ -35,15 +35,21 @@ class HomeController extends Controller
             ->limit($limit)
             ->orderBy($order,$dir)->get();
         }else{
-            $projects=Project::with(['user'=>function($query) use ($search){
-                $query->where('id','like',"%{$search}%")
-                        ->orWhere('phone','like',"%{$search}%")
-                        ->orWhere('keyword','like',"%{$search}%")
-                        ->orWhere('email','like',"%{$search}%");
+            $projects=Project::whereHas('user',function($query) use ($search){
+                $query->where('name','like',"%{$search}%");
+            })
+            ->with(['user'=>function($query) use ($search){
+                $query->where('name','like',"%{$search}%");
             }])->with('service')
+            // ->whereHas('service',function($query) use ($search){
+            //     $query->where('service_name','like',"%{$search}%");
+            // })
+            // ->with(['service'=>function($query) use ($search){
+            //     $query->where('service_name','like',"%{$search}%");
+            // }])
             ->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)
+            ->orderByDesc($order,$dir)
             ->get();
             $totalFiltered = $projects->count();
         }

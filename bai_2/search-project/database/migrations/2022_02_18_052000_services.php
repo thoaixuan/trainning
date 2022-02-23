@@ -15,11 +15,8 @@ class Services extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->string('service_name');
             $table->string('service_description')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')
-            ->onDelete('cascade');
         });
     }
 

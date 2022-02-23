@@ -38,12 +38,6 @@ function projects() {
             order: [0, "asc"],
             columns: [
                 {
-                    title: "#",
-                    data: "id",
-                    name: "id",
-                    className: "text-center",
-                },
-                {
                     title: "Name Service",
                     data: "service.service_name",
                     name: "service.service_name",
@@ -112,8 +106,8 @@ function projects() {
                     console.log(response);
                     $('input[name="id"]').val(response.data.id);
                     $('input[name="projects_name"]').val(response.data.projects_name);
-                    $('input[name="service_id"]').val(response.data.service_id);
-                    $('input[name="user_id"]').val(response.data.user_id);
+                    $("select#select_service_edit").val(response.data.service_id)
+                    $("select#select_user_edit").val(response.data.user_id)
                     $("#projectEditModal").modal("toggle");
                 }
             });
@@ -138,6 +132,64 @@ function projects() {
                 });
             }
         });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_user,
+                dataType: 'JSON',
+                success: function (response) {
+                    $.each(response.data, function (key, item) {
+                        $('#select_user').append('<option value=' + item.id + '>' + item.name + '</option');
+                    });
+                }
+            })
+        });
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_service,
+                dataType: 'JSON',
+                success: function (response) {
+                    $.each(response.data, function (key, item) {
+                        $('#select_service').append('<option value=' + item.id + '>' + item.service_name + '</option');
+                    });
+                }
+            })
+        });
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_user,
+                dataType: 'JSON',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.data, function (key, item) {
+                        $('#select_user_edit').append('<option value=' + item.id + '>' + item.name + '</option');
+                    });
+                }
+            })
+        });
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_service,
+                dataType: 'JSON',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.data, function (key, item) {
+                        $('#select_service_edit').append('<option value=' + item.id + '>' + item.service_name + '</option');
+                    });
+                }
+            })
+        });
+
 
 
     }
@@ -193,8 +245,9 @@ function projects() {
                         // e.preventDefault();
                         var id = $('#id').val();
                         var projects_name = $('#projects_name').val();
-                        var service_id = $('#service_id').val();
-                        var user_id = $('#user_id').val();
+                        var service_id = $("select#select_service_edit").val()
+                        var user_id = $("select#select_user_edit").val()
+
                         var _token = $("input[name=_token]").val();
 
                         $.ajax({
@@ -268,8 +321,8 @@ function projects() {
                     $('#projectForm').ready(function (e) {
                         // e.preventDefault();
                         var projects_name = $("input[name=projects_name]").val();
-                        var service_id = $("input[name=service_id]").val();
-                        var user_id = $("input[name=user_id]").val();
+                        var service_id = $("select#select_service").val()
+                        var user_id = $("select#select_user").val()
                         var _token = $("input[name=_token]").val();
                         $('.modal-backdrop').remove();
                         $.ajax({
@@ -282,6 +335,7 @@ function projects() {
                                 _token: _token
                             },
                             success: function (response) {
+                                console.log(this.data);
                                 if (response.status === 0) {
                                     alert(response.message);
                                 }
