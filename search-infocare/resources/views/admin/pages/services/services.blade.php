@@ -29,12 +29,11 @@
                     <input class="form-control" id="search" name="search" placeholder="Nội dung tìm kiếm ...">
                 </div>
               </div>
-              <div class="col-2">
+              <div class="col-md-3">
                 <div class="form-group row">
                 <button type="submit" class="btn btn-info formSearch">Tìm kiếm</button>
                 </div>
               </div>
-              <div class="col-md-1"></div>
               <div class="col-md-3">
                 <div class="form-group text-right">
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus" aria-hidden="true"></i> Thêm Mới</button>
@@ -44,7 +43,7 @@
 
           <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered hover table-hover table-striped" id="table-users">
+                <table class="table table-bordered hover table-hover table-striped" id="table-services">
                     <thead>
                         <tr>
                           <th>Tên dịch vụ</th>
@@ -53,7 +52,7 @@
                           <th>Hành động</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="listSearch">
                         @foreach($services_list as $services_list)
                         <tr>
                           <td>{{$services_list->services_name}}</td>
@@ -64,8 +63,9 @@
                               type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit">
                               <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-danger">
-                              <a href="{{url('admin-cpanel/services/delete')."/".$services_list->id}}" class="text-light"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <button type="button" class="btn btn-danger" id="btn-delete"
+                            data-url="{{route('service-delete')."/".$services_list->id}}">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                             
                           </td>
@@ -93,7 +93,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="{{route('service-add')}}" method="post">
+            <form action="" data-url="{{route('service-add')}}" id="form-add" method="post">
               @csrf
             <div class="form-group">
               <label>Tên dịch vụ</label>
@@ -101,7 +101,7 @@
               <label for="">Đường dẫn</label>
               <input class="form-control form-control-sm" type="text" id="convert_slug" name="services_slug">
               <label for="">Mô tả</label>
-              <textarea class="form-control form-control-sm" name="services_description"></textarea>
+              <textarea class="form-control form-control-sm" id="description" name="services_description"></textarea>
           </div>
           </div>
           <div class="modal-footer justify-content-between">
@@ -126,12 +126,12 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="{{route('service-update')}}" method="post">
+            <form action="" data-url="{{route('service-update')}}" id="form-edit" method="post">
               @csrf
               <input type="hidden" name="id" id="id_services">
             <div class="form-group">
               <label>Tên dịch vụ</label>
-              <input id="services_name" class="form-control form-control-sm" type="text" name="services_name" value="">
+              <input id="services_name" class="form-control form-control-sm" type="text" name="services_name">
               <label for="">Mô tả</label>
               <textarea id="services_description" class="form-control form-control-sm" name="services_description"></textarea>
               <label for="">Đường dẫn</label>
@@ -152,6 +152,7 @@
   </section>
     @section('jsComponent')
 <script>
+    // get value edit
     function idEdit(services_name,services_description,services_slug,id){
       $('#id_services').val(id);
       $('#services_name').val(services_name);
@@ -159,6 +160,109 @@
       $('#services_slug').val(services_slug);
     }
 
+    // handle ajax add
+    $.ajaxSetup({
+            headers:
+            { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
+    $('#form-add').submit(function(e){
+      e.preventDefault();
+      let url = $(this).attr('data-url');
+      let url_data = '<?php echo route('service-data'); ?>';
+      $.ajax({
+        type: 'post',
+        url: url,
+        data: {
+          services_name: $('#slug').val(),
+          services_slug: $('#convert_slug').val(),
+          services_description: $('#description').val()
+        },
+        success: function(data) {
+          toastr.success('Thêm thành công')
+          $('#modal-add').modal('hide')
+          $('#table-services').load(url_data,function () {
+            $(this).unwrap();
+          });
+          $('#slug').val(''),
+          $('#convert_slug').val(''),
+          $('#description').val('')
+          // location.reload();
+        },
+        error: function(jqXHR,textStatus,errorThrown) {
+          alert("Lỗi")
+        }
+      });
+    });
+
+    // handle ajax edit 
+    $('#form-edit').submit(function(e){
+      e.preventDefault();
+      let url = $(this).attr('data-url');
+      let url_data = '<?php echo route('service-data'); ?>';
+      $.ajax({
+        type: 'post',
+        url: url,
+        data: {
+          id: $('#id_services').val(),
+          services_name: $('#services_name').val(),
+          services_slug: $('#services_slug').val(),
+          services_description: $('#services_description').val()
+        },
+        success: function(data) {
+          toastr.success('Sửa thành công')
+          $('#modal-edit').modal('hide')
+          $('#table-services').load(url_data,function () {
+            $(this).unwrap();
+          });
+        },
+        error: function(jqXHR,textStatus,errorThrown) {
+          alert("Lỗi")
+        }
+      });
+    });
+
+
+
+    // handle delete
+    
+    $('body').delegate('#btn-delete','click',function(e){
+      e.preventDefault();
+      if (confirm("Bạn có chắc xóa không")) {
+        let url = $(this).attr('data-url');
+        let url_data = '<?php echo route('service-data'); ?>';
+        $.ajax({
+          type: 'get',
+          url: url,
+          success: function(res) {
+            toastr.success('Xóa thành công')
+            $('#table-services').load(url_data,function () {
+              $(this).unwrap();
+            });
+          },
+          error: function(jqXHR,textStatus,errorThrown) {
+            alert("Lỗi")
+          }
+        });
+      } 
+    });
+
+    // handle search
+    $('#search').keyup(function(){
+      let search = $(this).val();
+      $.ajax({
+        type: "get",
+        url: '<?php echo route('services-search'); ?>',
+        data: {
+          search: search
+        },
+        dataType: "json",
+        success: function(res){
+          $('#listSearch').html(res);
+        }
+      });
+    });
+
+    // Change name slug 
     function ChangeToSlug()
         {
             var slug;
@@ -192,11 +296,9 @@
         }
 
     // Datatable
-    $("#table-users").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "order": [[ "5", "desc" ]]
+    $("#table-services").DataTable({
+      "responsive": true
     });
-
 </script>
 @endsection
   

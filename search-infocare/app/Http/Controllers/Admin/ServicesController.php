@@ -10,8 +10,12 @@ use App\Services;
 class ServicesController extends Controller
 {
     public function getServices(){
-        $service_list = DB::table('services')->orderBy("id","DESC")->get();
+        $service_list = DB::table('services')->orderByDesc("id")->get();
         return view('admin.pages.services.services',['services_list' => $service_list]);
+    }
+    public function getDataServices(){
+        $service_list = DB::table('services')->orderByDesc("id")->get();
+        return view('admin.pages.services.data',['services_list' => $service_list]);
     }
     public function editServices(Request $request){
         $id = $request->input('id');
@@ -36,6 +40,37 @@ class ServicesController extends Controller
     public function destroyServices($id_service){
         Services::destroy($id_service);
         return redirect('/admin-cpanel/services');
+    }
+    public function searchServices(Request $request) {
+        $keyword = $request->input('search');
+        $output = '';
+        $list_search = Services::where(function ($query) use($keyword) {
+            $query->where('services_name', 'like', '%' . $keyword . '%')
+               ->orWhere('services_description', 'like', '%' . $keyword . '%');
+            })
+            ->get();
+        foreach($list_search as $list) {
+            $output .= 
+            '
+            <tr>
+            <td>'.$list->services_name.'</td>
+            <td>'.$list->services_description.'</td>
+            <td>'.$list->services_slug.'</td>
+            <td>
+            <button onclick="idEdit(&#39;'.$list->services_name.'&#39,&apos;'.(string)$list->services_description.'&#39,&#39'.$list->services_slug.'&#39,'.$list->id.')"
+            type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit">
+            <i class="fas fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-danger" id="btn-delete"
+            data-url="'.route("service-delete")."/".$list->id.'"
+            data-id="'.$list->id.'">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+            </td>
+            </tr>
+            ';
+        }
+        return response()->json($output);
     }
    
 }

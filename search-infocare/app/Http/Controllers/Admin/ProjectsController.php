@@ -13,6 +13,24 @@ class ProjectsController extends Controller
         ->join('services', 'services.id', '=', 'projects.id')
         ->join('users', 'users.id', '=', 'projects.id')
         ->get();
-        return view('admin.pages.projects.projects',['projects_list' => $projects_list]);
+        $services_list = DB::table('services')
+        ->get();
+        $users_list = DB::table('users')
+        ->get();
+        return view('admin.pages.projects.projects',[
+            'projects_list' => $projects_list,
+            'services_list' => $services_list,
+            'users_list' => $users_list
+        ]);
     }
+
+    public function storeProjects(Request $request) {
+        DB::table('projects')->insert([
+            'projects_name' => $request->input('projects_name'),
+            'userID' => $request->input('userID'),
+            'serviceID' => $request->input('serviceID')
+        ]);
+        return redirect('/admin-cpanel/services');
+    }
+
 }

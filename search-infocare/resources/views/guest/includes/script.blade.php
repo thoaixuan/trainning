@@ -4,4 +4,3 @@
 <script src="{{asset('guest/js/reflow-table.js')}}"></script>
 <script src="{{asset('guest/js/wow.min.js')}}"></script>
 <script src="{{asset('guest/js/isotope.pkgd.min.js')}}"></script>
-<script src="{{asset('guest/js/main.js')}}"></script>

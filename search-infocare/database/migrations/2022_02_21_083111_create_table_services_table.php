@@ -18,6 +18,7 @@ class CreateTableServicesTable extends Migration
             $table->text('services_name')->nullable();
             $table->longtext('services_description')->nullable();
             $table->text('services_slug')->nullable();
+            $table->BigInteger('userID')->nullable();
             $table->timestamps();
         });
     }
