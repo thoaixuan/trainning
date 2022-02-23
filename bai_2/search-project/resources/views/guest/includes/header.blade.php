@@ -33,6 +33,9 @@
                                
                             </li>
                             <li class="dropdown"><a href="#">Quy định cần biết</a>    
+                            </li>
+                          
+                            <li class="dropdown"><a href="{{route('guest.signin')}}">Đăng nhập</a>    
                             </li>      
                 </nav>
                 <!-- Main Menu End-->

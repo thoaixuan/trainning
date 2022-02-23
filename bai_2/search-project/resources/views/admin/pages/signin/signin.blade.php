@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="screen">
 		<div class="screen__content">
-			<form class="login" method="POST" role="form"> 
+			<form class="login" method="POST" role="form" name="login"> 
        		 @csrf
 				<div class="login__field">
 					<i class="login__icon fas fa-user"></i>

@@ -31,22 +31,21 @@ class HomeController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
+       
             $projects=Project::with('user')->with('service')->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)->get();
+            ->orderBy($order,$dir);
         }else{
             $projects=Project::whereHas('user',function($query) use ($search){
                 $query->where('name','like',"%{$search}%");
+                $query->orWhere('phone','like',"%{$search}%");
+                $query->orWhere('keyword','like',"%{$search}%");
             })
             ->with(['user'=>function($query) use ($search){
                 $query->where('name','like',"%{$search}%");
+                $query->orWhere('phone','like',"%{$search}%");
+                $query->orWhere('keyword','like',"%{$search}%");
             }])->with('service')
-            // ->whereHas('service',function($query) use ($search){
-            //     $query->where('service_name','like',"%{$search}%");
-            // })
-            // ->with(['service'=>function($query) use ($search){
-            //     $query->where('service_name','like',"%{$search}%");
-            // }])
             ->offset($start)
             ->limit($limit)
             ->orderByDesc($order,$dir)

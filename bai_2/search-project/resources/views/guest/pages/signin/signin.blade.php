@@ -9,10 +9,10 @@
                     <h2>Hey There!</h2>
                     <p>Welcome Back. <br>
                     You are just one step away to your feed.</p>
-                    <form method="POST" class="login-form">
+                    <form method="POST" class="login-form" name="login">
                     @csrf
                         <div class="text-field">
-                            <input type="text" placeholder="User Name" name="name">
+                            <input type="text" placeholder="Email" name="email">
                         </div>
                         <div class="password-field">
                             <input type="password" placeholder="Password" name="password">
