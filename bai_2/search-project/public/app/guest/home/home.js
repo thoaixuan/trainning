@@ -45,20 +45,20 @@ function home() {
                 },
                 {
                     title: "Name user",
-                    data: "user.name",
-                    name: "user.name",
+                    data: "name",
+                    name: "name",
                     className: "",
                 },
                 {
                     title: "Email",
-                    data: "user.email",
-                    name: "user.name",
+                    data: "email",
+                    name: "email",
                     className: "",
                 },
                 {
                     title: "Phone",
-                    data: "user.phone",
-                    name: "user.phone",
+                    data: "phone",
+                    name: "phone",
                     className: "",
                 },
                 {
@@ -66,12 +66,26 @@ function home() {
                     data: "service.service_name",
                     name: "service.service_name",
                     className: "",
+                    render: function (data, type, row, meta) {
+                        if (data == null) {
+                            return 'Chưa có dữ liệu'
+                        } else {
+                            return data;
+                        }
+                    }
                 },
                 {
                     title: "Name Project",
-                    data: "projects_name",
-                    name: "projects_name",
+                    data: "project.projects_name",
+                    name: "project.projects_name",
                     className: "",
+                    render: function (data, type, row, meta) {
+                        if (data == null) {
+                            return 'Chưa có dữ liệu'
+                        } else {
+                            return data;
+                        }
+                    }
                 },
 
 

@@ -15,6 +15,11 @@ class AddColumnUserTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('is_admin')->nullable()->default(0);
+
+            // $table->foreign('project_id')->references('id')->on('projects')
+            // ->onDelete('cascade');
+            // $table->foreign('service_id')->references('id')->on('services')
+            // ->onDelete('cascade');
         });
     }
 

@@ -38,24 +38,11 @@ function projects() {
             order: [0, "asc"],
             columns: [
                 {
-                    title: "Name Service",
-                    data: "service.service_name",
-                    name: "service.service_name",
-                    className: "",
-                },
-                {
                     title: "Name Project",
                     data: "projects_name",
                     name: "projects_name",
                     className: "",
                 },
-                {
-                    title: "Name user",
-                    data: "user.name",
-                    name: "user.name",
-                    className: "",
-                },
-
                 {
                     title: "Action",
                     data: "id",
@@ -88,6 +75,7 @@ function projects() {
         });
 
         $(document).on('click', '#open', function () {
+            $("#projectForm")[0].reset();
             $("#projectModal").modal("toggle");
             console.log("openModal");
         })

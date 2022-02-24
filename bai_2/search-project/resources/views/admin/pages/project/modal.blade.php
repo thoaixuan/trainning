@@ -14,7 +14,7 @@
                         <label for="projects_name">Name</label>
                         <input type="text" name="projects_name" class="form-control" />
                       </div>
-
+<!-- 
                       <div class="form-group">
                         <label for="user_id">Chọn cá nhân</label>
                         <select name="user_id" id="select_user" class="form-control required">
@@ -27,7 +27,7 @@
                         <select name="user_id" id="select_service" class="form-control required">
                           <option value="0" disabled selected>-- Chọn dịch vụ--</option>
                         </select>
-                      </div>
+                      </div> -->
 
                       <button id="#submit" class="btn btn-success">Submit</button>
                     </form>
@@ -55,7 +55,7 @@
                         <input type="text" name="projects_name" id="projects_name" class="form-control" />
                       </div>
 
-                      <div class="form-group">
+                      <!-- <div class="form-group">
                         <label for="user_id">Chọn cá nhân</label>
                         <select name="user_id" id="select_user_edit" class="form-control required">
                           <option value="0" disabled selected>-- Chọn cá nhân--</option>
@@ -67,7 +67,7 @@
                         <select name="user_id" id="select_service_edit" class="form-control required">
                           <option value="0" disabled selected>-- Chọn dịch vụ--</option>
                         </select>
-                      </div>
+                      </div> -->
                    
                    
                       <button type="submit" class="btn btn-success">Update</button>

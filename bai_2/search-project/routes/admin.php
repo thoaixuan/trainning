@@ -9,6 +9,8 @@ Route::middleware('checkLogin')->group(function(){
     Route::put('/edit-user','UserController@postUpdate')->name('admin.update_data.user');
     Route::get('/delete-user','UserController@delete')->name('admin.delete.user');
     Route::post('/insert-user','UserController@add')->name('admin.insert.user');
+    Route::get('/user-project','UserController@getUser')->name('admin.get_project.user');
+    Route::get('/user-service','UserController@getService')->name('admin.get_service.user');
 
     Route::get('/service','ServiceController@index')->name('admin.get.service');
     Route::get('/data-service','ServiceController@anyData')->name('admin.datatables.service');
@@ -23,8 +25,7 @@ Route::middleware('checkLogin')->group(function(){
     Route::put('/edit-project','ProjectController@postUpdate')->name('admin.update_data.project');
     Route::get('/delete-project','ProjectController@delete')->name('admin.delete.project');
     Route::post('/insert-project','ProjectController@add')->name('admin.insert.project');
-    Route::get('/project-user','ProjectController@getUser')->name('admin.get_user.project');
-    Route::get('/project-service','ProjectController@getService')->name('admin.get_service.project');
+
 
     Route::get('/info-admin','LoginController@getInfo')->name('admin.get_info.index');
     Route::put('/update-info-admin','LoginController@postUpdate')->name('admin.update_data.info');

@@ -20,6 +20,8 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'email_verified_at' => now(),
+                'service_id'=>1,
+                'project_id'=>1,
                 'is_admin'=>1,
             ],
             [
@@ -30,9 +32,24 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'email_verified_at' => now(),
+                'service_id'=>1,
+                'project_id'=>1,
                 'is_admin'=>0,
 
-            ],
+            ], 
+            [
+                'name' => 'user',
+                'email' => 'user2@gmail.com',
+                'phone'=>'123456782',
+                'password' => bcrypt('Dothanhson@1703'),
+                'created_at' => now(),
+                'updated_at' => now(),
+                'email_verified_at' => now(),
+                'service_id'=>0,
+                'project_id'=>0,
+                'is_admin'=>0,
+
+            ], 
         ]);
         
     }

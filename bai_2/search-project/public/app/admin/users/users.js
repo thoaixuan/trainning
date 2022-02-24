@@ -37,14 +37,8 @@ function users() {
                 }
             },
             columns: [
-                // {
-                //     title: "#",
-                //     data: "id",
-                //     name: "id",
-                //     className: "text-center",
-                // },
                 {
-                    title: "Name",
+                    title: "Name user",
                     data: "name",
                     name: "name",
                     className: "",
@@ -61,27 +55,34 @@ function users() {
                     name: "phone",
                     className: "",
                 },
-
                 {
-                    title: "Action",
-                    data: "id",
-                    name: "id",
-                    className: "text-center",
-                    bSortable: false,
+                    title: "Name Service",
+                    data: "service.service_name",
+                    name: "service.service_name",
+                    className: "",
                     render: function (data, type, row, meta) {
-                        return renderAction([{
-                            class: 'btn btn-danger',
-                            value: row.id,
-                            title: 'delete',
-                            icon: 'fa fa-trash',
-                        }, {
-                            class: 'btn btn-info',
-                            value: row.id,
-                            title: 'update',
-                            icon: 'fa fa-edit',
-                        },]);
+                        if (data == null) {
+                            return 'Chưa có dữ liệu'
+                        } else {
+                            return data;
+                        }
                     }
-                }
+                },
+                {
+                    title: "Name Project",
+                    data: "project.projects_name",
+                    name: "project.projects_name",
+                    className: "",
+                    render: function (data, type, row, meta) {
+                        if (data == null) {
+                            return 'Chưa có dữ liệu'
+                        } else {
+                            return data;
+                        }
+                    }
+                },
+
+
             ],
         });
         me.action(table);
@@ -136,6 +137,35 @@ function users() {
                     }
                 });
             }
+        });
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_project,
+                dataType: 'JSON',
+                success: function (response) {
+                    $.each(response.data, function (key, item) {
+                        $('#select_project').append('<option value=' + item.id + '>' + item.name + '</option');
+                    });
+                }
+            })
+        });
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_service,
+                dataType: 'JSON',
+                success: function (response) {
+                    console.log(response.data);
+                    $.each(response.data, function (key, item) {
+                        $('#select_service').append('<option value=' + item.id + '>' + item.service_name + '</option');
+                    });
+                }
+            })
         });
 
 

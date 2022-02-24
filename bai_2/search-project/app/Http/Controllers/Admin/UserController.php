@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Project;
+use App\Service;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -12,17 +14,19 @@ use Validator;
 class UserController extends Controller
 {
     function index(){
-        $users=User::orderBy('id','DESC')->get();
-        return view('admin.pages.user.user',compact('users'));
+        $user=User::with('project')->with('service')->orderBy('id','DESC')->get();
+        return view('admin.pages.user.user',compact('user'));
     }
 
     public function anyData(Request $request)
     {
         $columns[]='id';
+        $columns[]='project.projects_name';
+        $columns[]='status';
         $columns[]='name';
-        $columns[]='email';
+        $columns[]='service.name';
         $columns[]='phone';
-
+        $columns[]='email';
 
         $limit=$request->input('length');
         $start=$request->input('start');
@@ -34,27 +38,26 @@ class UserController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $users=User::offset($start)
+       
+            $user=User::with('project')->with('service')->offset($start)
             ->limit($limit)
-            ->orderByDesc($order,$dir)->get();
+            ->orderBy($order,$dir)->get();
         }else{
-            $users=User::Where(function($query)use($search){
-                $query->where('name','like',"%{$search}%")
-                        ->orWhere('email','like',"%{$search}%")
-                        ->orWhere('phone','like',"%{$search}%")
-                        ->orWhere('id','like',"%{$search}%");
+            $user=User::with('project')->with('service')->Where(function($query) use ($search){
+                $query->where('name','like',$search)
+                        ->orWhere('phone','like',$search);
             })
             ->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)
+            ->orderByDesc($order,$dir)
             ->get();
-            $totalFiltered =$users->count();
+            $totalFiltered = $user->count();
         }
 
         $json_data=array(
             "recordsTotal"=>intval($totalData),
             "recordsFiltered"=>intval($totalFiltered),
-            "data"=>$users,
+            "data"=>$user,
         );
         echo json_encode($json_data);
     }
@@ -183,6 +186,23 @@ class UserController extends Controller
                 'code'=>500,
             ]);
         }
+    }
+    public function getProject(Request $request){
+        $project= Project::orderBy('id','DESC')->get();
+        return response()->json([
+            'message'=>"Lấy dữ liệu khách hàng thành công",
+            'code'=>200,
+            'data'=>$project
+        ]);
+    }
+
+    public function getService(Request $request){
+        $services= Service::orderBy('id','DESC')->get();
+        return response()->json([
+            'message'=>"Lấy dữ liệu dịch vụ thành công",
+            'code'=>200,
+            'data'=>$services
+        ]);
     }
     
 

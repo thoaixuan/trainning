@@ -14,7 +14,7 @@ use DB;
 class ProjectController extends Controller
 {
     function index(){
-        $projects=Project::with('user')->with('service')->orderBy('id','DESC')->get();
+        $projects=Project::orderBy('id','DESC')->get();
         return view('admin.pages.project.project',compact('projects'));
     }
     
@@ -24,8 +24,6 @@ class ProjectController extends Controller
         ];
         $validate=Validator::make($request->all(),[
             'projects_name'=>['required'],
-            'service_id'=>['required'],
-            'user_id'=>['required']
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -36,8 +34,6 @@ class ProjectController extends Controller
         }
         $project=new Project();
         $project->projects_name=$request->projects_name;
-        $project->service_id=$request->service_id;
-        $project->user_id=$request->user_id;
         $project->status=0;
         $project->save();
         if($project){
@@ -63,8 +59,6 @@ class ProjectController extends Controller
         $columns[]='id';
         $columns[]='projects_name';
         $columns[]='status';
-        $columns[]='user.name';
-        $columns[]='service.name';
 
 
         $limit=$request->input('length');
@@ -77,22 +71,13 @@ class ProjectController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $projects=Project::with('user')->with('service')->offset($start)
+            $projects=Project::offset($start)
             ->limit($limit)
             ->orderByDesc($order,$dir)->get();
         }else{
-            $projects=Project::whereHas('user',function($query) use ($search){
-                $query->where('name','like',"%{$search}%");
+            $projects=Project::Where(function($query)use($search){
+                $query->where('projects_name','like',"%{$search}%");
             })
-            ->with(['user'=>function($query) use ($search){
-                $query->where('name','like',"%{$search}%");
-            }])->with('service')
-            // ->whereHas('service',function($query) use ($search){
-            //     $query->where('service_name','like',"%{$search}%");
-            // })
-            // ->with(['service'=>function($query) use ($search){
-            //     $query->where('service_name','like',"%{$search}%");
-            // }])
             ->offset($start)
             ->limit($limit)
             ->orderByDesc($order,$dir)
@@ -144,9 +129,7 @@ class ProjectController extends Controller
 
     public function postUpdate(Request $request){
         $project=Project::find($request->id);
-        $project->user_id=$request->user_id;
         $project->projects_name=$request->projects_name;
-        $project->service_id=$request->service_id;
         $project->save();
         if($project){
             return response()->json([
