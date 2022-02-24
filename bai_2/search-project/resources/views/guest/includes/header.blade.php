@@ -34,9 +34,16 @@
                             </li>
                             <li class="dropdown"><a href="#">Quy định cần biết</a>    
                             </li>
-                          
+                            @auth
+                            <li class="dropdown text-uppercase"  data-toggle="modal" data-target="#info"><a href="#">{{Auth::user()->name}}</a>    
+                            </li>
+                            @endauth
+
+                            @guest
                             <li class="dropdown"><a href="{{route('guest.signin')}}">Đăng nhập</a>    
-                            </li>      
+                            </li>  
+                            @endguest
+                                
                 </nav>
                 <!-- Main Menu End-->
 

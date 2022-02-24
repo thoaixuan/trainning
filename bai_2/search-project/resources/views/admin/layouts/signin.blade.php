@@ -9,6 +9,8 @@
 <body>
 @yield('content')
 <!-- partial -->
-  
+<script src="{{asset('app/admin/main.js')}}"></script>
+@include('admin.partials.script')
+@yield('jsAdmin')
 </body>
 </html>

@@ -28,6 +28,7 @@
               <input class="form-control" id="search"  name="search" vale="" placeholder="Từ khóa tìm kiếm ....">
             </div>
             <div class="col-4">
+              <!-- <button class="btn btn-primary float-sm-left" id="btn-search"><i class="fa fa-plus"></i></button> -->
               <button class="btn btn-success float-sm-right" id="open"><i class="fa fa-plus"></i></button>
             </div>
           </div>

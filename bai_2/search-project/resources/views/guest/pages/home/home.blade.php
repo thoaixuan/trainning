@@ -7,19 +7,23 @@
     @include('guest.pages.home.includes.main-header')
     <!-- Tra cứu -->
     <br/>
+    @auth
     <div class="tracuu text-center container">
         <h2>Tra Thông Tin Dịch Vụ</h2><br/>
-        <p>Nhập <b>tên khách hàng, tên công ty hoặc số điện thoại</b> để tra cứu thông tin: Thông tin khách hàng, thông tin dịch vụ đã sử dụng, trạng thái bảo hành - hỗ trợ,..v.v</p><br/>
+        <p>Nhập <b>tên khách hàng hoặc số điện thoại</b> để tra cứu thông tin: Thông tin khách hàng, thông tin dịch vụ đã sử dụng, trạng thái bảo hành - hỗ trợ,..v.v</p><br/>
         <div class="input-group">
-        <input type="search" id="search" class="form-control" placeholder="Nhập tên khách hàng, tên công ty hoặc số điện thoại"><button class="btn btn-outline-secondary p-1">Tra cứu</button>
+        <input type="search" id="search" class="form-control" placeholder="Nhập tên khách hàng, tên công ty hoặc số điện thoại"><button class="btn btn-outline-secondary p-1" id="btn-search">Tra cứu</button>
         </div>
         <table class="table table-striped table-hover" id="project-table">
 
         </table>
     </div>
     <!--Service-->
+    @endauth
+   
     @include('guest.pages.home.includes.service')
- 
+    @include('guest.pages.home.includes.modal')
+  
 
 @endsection
 

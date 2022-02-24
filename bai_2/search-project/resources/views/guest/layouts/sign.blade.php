@@ -16,5 +16,7 @@
 @include('guest.includes.footer')
 @include('guest.partials.script')
 
+<script src="{{asset('app/guest/main.js')}}"></script>
+@yield('jsGuest')
 </body>
 </html>

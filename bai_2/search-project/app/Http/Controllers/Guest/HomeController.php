@@ -34,7 +34,7 @@ class HomeController extends Controller
        
             $projects=Project::with('user')->with('service')->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir);
+            ->orderBy($order,$dir)->get();
         }else{
             $projects=Project::whereHas('user',function($query) use ($search){
                 $query->where('name','like',"%{$search}%");

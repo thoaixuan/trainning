@@ -21,12 +21,6 @@ class LoginController extends Controller
     public function getInfo(Request $request){
         $auth = Auth::user();
         return view('admin.pages.info.info');
-        // return response()->json([
-        //     'status'=>1,
-        //     'message'=>"Get Data Successfully",
-        //     'code'=>200,
-        //     'data'=>$auth
-        // ]);
     }
     public function postUpdate(Request $request){
 

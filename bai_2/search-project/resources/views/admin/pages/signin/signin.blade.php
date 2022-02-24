@@ -5,15 +5,15 @@
 <div class="container">
 	<div class="screen">
 		<div class="screen__content">
-			<form class="login" method="POST" role="form" name="login"> 
+			<form id="login-form" class="login" method="POST" role="form" name="login"> 
        		 @csrf
-				<div class="login__field">
+				<div class="login__field form-group">
 					<i class="login__icon fas fa-user"></i>
-					<input type="text" name="email" class="login__input" placeholder="User name / Email">
+					<input type="text" id="email" name="email" class="form-controll login__input @error('email') is-invalid @enderror" placeholder="User name / Email" >
 				</div>
-				<div class="login__field">
+				<div class="login__field form-group">
 					<i class="login__icon fas fa-lock"></i>
-					<input type="password" name="password" class="login__input" placeholder="Password">
+					<input type="password" name="password" class="form-controll login__input" placeholder="Password" >
 				</div>
 				<button class="button login__submit">
 					<span class="button__text">Log In Now</span>
@@ -37,4 +37,17 @@
 		</div>		
 	</div>
 </div>
+@endsection
+
+@section('jsAdmin')
+<script src="{{asset('app/admin/signin/signin.js')}}"></script>
+<script>
+  var signin=new signin();
+      signin.datas={
+        routes:{
+            login:"{{route('guest.signin')}}",
+        }
+      }
+      signin.init();
+</script>
 @endsection

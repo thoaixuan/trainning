@@ -77,12 +77,17 @@ function home() {
 
             ],
         });
+
         me.action(table);
     }
     this.action = function (table) {
-        $("#search").on('keyup', function (e) {
+        $("#btn-search").on('click', function (e) {
             table.ajax.reload();
         });
-
+        $("#search").on('keypress', function (e) {
+            if (e.which == 13) {
+                table.ajax.reload();
+            }
+        });
     }
 }

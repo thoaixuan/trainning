@@ -13,18 +13,23 @@ class GuestController extends Controller
     function index(){
         return view('guest.pages.signin.signin');
     }
-    // function signin(Request $request){
-    //     dd(Auth::attempt($request->only('email','password')));
-    //     if(Auth::attempt($request->only('email','password'))){
-     
-    //         return redirect()->route('guest.home');
-    //     }
-    //     return redirect()->route('guest.signin');
-    // }
+   
     public function signin(Request $request){
         if(Auth::attempt($request->only('email','password'))){
-            return redirect()->route('guest.home');
+            return response()->json([
+                'status'=>1,
+                'message'=>"Đăng nhập thành công",
+                'code'=>200,
+            ]); 
         }
-            return redirect()->route('guest.signin');
+        return response()->json([
+            'status'=>0,
+            'message'=>"Mật khẩu hoặc tài khoản bị sai hoặc bạn không đủ quyền, hãy thử lại",
+            'code'=>404,
+        ]); 
+    }
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('guest.signin');
     }
 }

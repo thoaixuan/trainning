@@ -3,7 +3,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-function user() {
+function signin() {
     this.datas = null;
     var datas = null;
     this.init = function () {
@@ -68,7 +68,7 @@ function user() {
                         },
                         success: function (response) {
                             if (response.status === 1) {
-                                window.location.replace("/");
+                                window.location.replace("/admin");
                             } else {
                                 alert(response.message);
                             }
