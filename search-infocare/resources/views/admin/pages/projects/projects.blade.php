@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Khách hàng</h1>
+          <h1>Dự án</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active">Khách hàng</li>
+            <li class="breadcrumb-item active">Dự án</li>
           </ol>
         </div>
       </div>
@@ -43,7 +43,7 @@
 
           <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered hover table-hover table-striped" id="table-users">
+                <table class="table table-bordered hover table-hover table-striped" id="table-projects">
                     <thead>
                         <tr>
                           <th>Công ty</th>
@@ -52,7 +52,7 @@
                           <th>Hành động</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="listSearch">
                            
                         @foreach($projects_list as $projects_list)
                         <tr>
@@ -60,7 +60,7 @@
                           <td>{{$projects_list->services_name}}</td>
                           <td>{{$projects_list->projects_name}}</td>
                           <td>
-                            <button onclick="idEdit('{{$projects_list->full_name}}','{{$projects_list->services_name}}','{{$projects_list->projects_name}}',{{$projects_list->id}})"
+                            <button onclick="idEdit('{{$projects_list->projects_name}}',{{$projects_list->userID}},{{$projects_list->serviceID}},{{$projects_list->id}})"
                               type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-edit">
                               <i class="fas fa-edit"></i>
                             </button>
@@ -96,15 +96,15 @@
               @csrf
             <div class="form-group">
               <label>Tên dự án</label>
-              <input class="form-control form-control-sm" type="text" name="projects_name">
+              <input class="form-control form-control-sm" type="text" id="projects_name" name="projects_name" required>
               <label for="">Khách hàng / Công ty</label>
-              <select class="custom-select" name="userID">
+              <select class="custom-select" name="userID" id="userID" required>
                 @foreach($users_list as $users_list)
                 <option value="{{$users_list->id}}">{{$users_list->full_name}}</option>
                 @endforeach
               </select>
               <label for="">Dịch vụ</label>
-              <select class="custom-select">
+              <select class="custom-select" name="serviceID" id="serviceID" required>
                 @foreach($services_list as $services_list)
                 <option value="{{$services_list->id}}">{{$services_list->services_name}}</option>
                 @endforeach
@@ -133,13 +133,24 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="" data-url="{{route('service-update')}}" id="form-edit" method="post">
+            <form action="" data-url="{{route('project-update')}}" id="form-edit" method="post">
               @csrf
-              <input type="hidden" name="id" id="id_services">
+              <input type="hidden" name="id" id="id_projects">
             <div class="form-group">
-              <label>Tên dịch vụ</label>
-              <input id="projects_name" class="form-control form-control-sm" type="text" name="services_name">
-
+              <label>Tên dự án</label>
+              <input id="projects_name_edit" class="form-control form-control-sm" type="text" name="projects_name">
+              <label>Tên công ty / Khách hàng</label>
+              <select class="custom-select" name="userID" id="userID" required>
+              @foreach($users_list2 as $users_list2)
+                <option value="{{$users_list2->id}}">{{$users_list2->full_name}}</option>
+                @endforeach
+              </select>
+              <label for="">Dịch vụ</label>
+              <select class="custom-select" name="serviceID" id="serviceID" required>
+                @foreach($services_list2 as $services_list2)
+                <option value="{{$services_list2->id}}">{{$services_list2->services_name}}</option>
+                @endforeach
+              </select>
           </div>
           </div>
           <div class="modal-footer justify-content-between">
@@ -153,11 +164,122 @@
       <!-- /.modal-dialog -->
     </div>
 
+    
   </section>
     @section('jsComponent')
 <script>
+  // get value edit
+    function idEdit(projects_name,userID,serviceID,id){
+      $('#id_projects').val(id);
+      $('#projects_name_edit').val(projects_name);
+      $('#userID').val(userID);
+      $('#serviceID').val(serviceID);
+    }
+  // handle ajax add
+    $.ajaxSetup({
+              headers:
+              { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+      });
+      $('#form-add').submit(function(e){
+        console.log($('#userID').val());
+        console.log($('#serviceID').val());
+        e.preventDefault();
+        let url = $(this).attr('data-url');
+        let url_data = '<?php echo route('project-data'); ?>';
+        $.ajax({
+          type: 'post',
+          url: url,
+          data: {
+            projects_name: $('#projects_name').val(),
+            userID: $('#userID').val(),
+            serviceID: $('#serviceID').val()
+          },
+          success: function(data) {
+            toastr.success('Thêm thành công')
+            $('#modal-add').modal('hide')
+            $('#table-projects').load(url_data,function () {
+              $(this).unwrap();
+            });
+            $('#projects_name').val(''),
+            $('#userID').val(''),
+            $('#serviceID').val('')
+            // location.reload();
+          },
+          error: function(jqXHR,textStatus,errorThrown) {
+            alert("Lỗi")
+          }
+        });
+      });
+
+  // handle ajax edit 
+  $('#form-edit').submit(function(e){
+        e.preventDefault();
+        let url = $(this).attr('data-url');
+        let url_data = '<?php echo route('project-data'); ?>';
+        $.ajax({
+          type: 'post',
+          url: url,
+          data: {
+            id: $('#id_projects').val(),
+            projects_name: $('#projects_name_edit').val(),
+            userID: $('#userID').val(),
+            serviceID: $('#serviceID').val()
+          },
+          success: function(data) {
+            toastr.success('Sửa thành công')
+            $('#modal-edit').modal('hide')
+            $('#table-projects').load(url_data,function () {
+              $(this).unwrap();
+            });
+          },
+          error: function(jqXHR,textStatus,errorThrown) {
+            alert("Lỗi")
+          }
+        });
+      });
+
+    // handle delete
+        
+    $('body').delegate('#btn-delete','click',function(e){
+          e.preventDefault();
+          if (confirm("Bạn có chắc xóa không")) {
+            let url = $(this).attr('data-url');
+            let url_data = '<?php echo route('project-data'); ?>';
+            $.ajax({
+              type: 'get',
+              url: url,
+              success: function(res) {
+                toastr.success('Xóa thành công')
+                $('#table-projects').load(url_data,function () {
+                  $(this).unwrap();
+                });
+              },
+              error: function(jqXHR,textStatus,errorThrown) {
+                alert("Lỗi")
+              }
+            });
+          } 
+        });
+
+    // handle search
+    $('#search').keyup(function(){
+      let search = $(this).val();
+      $.ajax({
+        type: "get",
+        url: '<?php echo route('project-search'); ?>',
+        data: {
+          search: search
+        },
+        dataType: "json",
+        success: function(res){
+          $('#listSearch').html(res);
+        }
+      });
+    });
+
+
     $(function () {
-    $("#table-users").DataTable({
+    $("#table-projects").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false
     });
     });

@@ -97,11 +97,11 @@
               @csrf
             <div class="form-group">
               <label>Tên dịch vụ</label>
-              <input class="form-control form-control-sm" type="text" onkeyup="ChangeToSlug()" id="slug" name="services_name">
+              <input class="form-control form-control-sm" type="text" onkeyup="ChangeToSlug()" id="slug" name="services_name" required>
               <label for="">Đường dẫn</label>
-              <input class="form-control form-control-sm" type="text" id="convert_slug" name="services_slug">
+              <input class="form-control form-control-sm" type="text" id="convert_slug" name="services_slug" required>
               <label for="">Mô tả</label>
-              <textarea class="form-control form-control-sm" id="description" name="services_description"></textarea>
+              <textarea class="form-control form-control-sm" id="description" name="services_description" required></textarea>
           </div>
           </div>
           <div class="modal-footer justify-content-between">

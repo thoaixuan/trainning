@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function services_fk()
+    {
+    return $this->belongsTo('App\Services','id_services');
+    }
+    
+    public function projects_fk()
+    {
+    return $this->belongsTo('App\Projects','id_projects');
+    }
+
+
 }

@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="search-field">
-                            <form id="search-form">
+                            <form action="{{route('guest_home')}}/search" method="get">
                                <div class="form-group">
                                    <input type="text" class="keyword" id="keyword" name="keyword" placeholder="Nhập tên khách hàng, tên công ty hoặc số điện thoại">
                                    <button type="submit" data-loading-text="Vui lòng đợi..."><i class="fa fa-search"></i>Tra cứu</button>

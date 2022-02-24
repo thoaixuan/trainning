@@ -22,8 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->string('note')->nullable();
             $table->text('keyword')->nullable();
-            $table->BigInteger('id_services')->nullable();
-            $table->BigInteger('id_projects')->nullable();
             $table->integer('permissions')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

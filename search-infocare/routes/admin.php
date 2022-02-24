@@ -18,7 +18,10 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin-cpanel'],function (){
 
     Route::group(['prefix' => 'projects'], function () {
         Route::get('/','ProjectsController@getProjects')->name('projects');
+        Route::get('/data','ProjectsController@getDataProjects')->name('project-data');
+        Route::get('/search','ProjectsController@searchProjects')->name('project-search');
         Route::post('/add','ProjectsController@storeProjects')->name('project-add');
+        Route::post('/','ProjectsController@editProjects')->name('project-update');
         Route::get('/delete/{id?}','ProjectsController@destroyProjects')->name('project-delete');
     });
 
