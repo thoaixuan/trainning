@@ -10,7 +10,7 @@ use Validator;
 class ServiceController extends Controller
 {
     function index(){
-        $services=Service::with('user')->orderBy('id','DESC')->get();
+        $services=Service::orderBy('id','DESC')->get();
         return view('admin.pages.service.service',compact('services'));
     }
 
@@ -32,11 +32,11 @@ class ServiceController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $services=Service::with('user')->offset($start)
+            $services=Service::offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)->get();
         }else{
-            $services=Service::with('user')->Where(function($query)use($search){
+            $services=Service::Where(function($query)use($search){
                 $query->where('service_name','like',"%{$search}%")
                         ->orWhere('service_description','like',"%{$search}%")
                         ->orWhere('id','like',"%{$search}%");
@@ -142,6 +142,11 @@ class ServiceController extends Controller
                 'code'=>500,
             ]);
         }
+    }
+
+    public function count_data(Request $request){
+        $service=Service::count();
+        return $service;
     }
     
 }

@@ -18,9 +18,8 @@
           <li class="nav-item">
             <a href="{{route('admin.get.service')}}" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
-              <p>
+              <p id="service">
                 Dịch vụ
-                <span class="right badge badge-warning">4</span>
               </p>
             </a>
           </li>
@@ -29,57 +28,9 @@
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Dự Án
-                <!-- <i class="fas fa-angle-left right"></i> -->
               </p>
             </a>
-            <!-- <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tạo mới</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tất cả</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/boxed.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Còn hạn</p>
-                  <span class="right badge badge-success">0</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hết hạn</p>
-                  <span class="right badge badge-danger">5</span>
-                </a>
-              </li>
-            </ul> -->
           </li>
-
-          <!-- <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="nav-icon fas fa-file"></i>
-              <p>
-                Hồ sơ đính kèm
-              </p>
-            </a>
-          </li> -->
-
-          <!-- <li class="nav-item">
-            <a href="pages/calendar.html" class="nav-link">
-              <i class="fa  fa-gavel nav-icon"></i>
-              <p>
-                Quản lý trang
-              </p>
-            </a>
-          </li> -->
-
           <li class="nav-item">
             <a href="{{route('admin.get.user')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -88,25 +39,6 @@
               </p>
             </a>
           </li>
-
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cogs"></i>
-              <p>
-                Cài đặt hệ thống
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/layout/top-nav.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cài đặt chung</p>
-                </a>
-              </li>
-            </ul>
-          </li> -->
-
           <li class="nav-item">
             <a href="{{route('admin.get_info.index')}}" class="nav-link">
               <i class="nav-icon fa fa-user"></i>

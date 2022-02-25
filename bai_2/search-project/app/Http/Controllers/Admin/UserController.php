@@ -22,7 +22,6 @@ class UserController extends Controller
         $columns[]='id';
 
         $columns[]='name';
-        $columns[]='service.name';
         $columns[]='phone';
         $columns[]='email';
 

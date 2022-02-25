@@ -56,32 +56,6 @@ function users() {
                     className: "",
                 },
                 {
-                    title: "Name Service",
-                    data: "service.service_name",
-                    name: "service.service_name",
-                    className: "",
-                    render: function (data, type, row, meta) {
-                        if (data == null) {
-                            return 'Chưa có dữ liệu'
-                        } else {
-                            return data;
-                        }
-                    }
-                },
-                {
-                    title: "Name Project",
-                    data: "project.projects_name",
-                    name: "project.projects_name",
-                    className: "",
-                    render: function (data, type, row, meta) {
-                        if (data == null) {
-                            return 'Chưa có dữ liệu'
-                        } else {
-                            return data;
-                        }
-                    }
-                },
-                {
                     title: "Action",
                     data: "id",
                     name: "id",
@@ -322,8 +296,7 @@ function users() {
                         var email = $("input[name=email]").val();
                         var phone = $("input[name=phone]").val();
                         var _token = $("input[name=_token]").val();
-                        var service_id = $("select#select_service").val()
-                        var project_id = $("select#select_project").val()
+
                         $('.modal-backdrop').remove();
                         $.ajax({
                             url: datas.routes.insert,
@@ -333,8 +306,6 @@ function users() {
                                 password: password,
                                 email: email,
                                 phone: phone,
-                                service_id: service_id,
-                                project_id: project_id,
                                 _token: _token
                             },
                             success: function (response) {

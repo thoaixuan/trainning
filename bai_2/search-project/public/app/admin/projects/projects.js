@@ -83,10 +83,14 @@ function projects() {
     }
 
     this.action = function (table) {
-        $("#search").on('keyup', function (e) {
+        $("#btn-search").on('click', function (e) {
             table.ajax.reload();
         });
-
+        $("#search").on('keypress', function (e) {
+            if (e.which == 13) {
+                table.ajax.reload();
+            }
+        });
         $(document).on('click', '#open', function () {
             $("#projectForm")[0].reset();
             $("#projectModal").modal("toggle");
@@ -240,12 +244,15 @@ function projects() {
                 $(element).removeClass('is-invalid');
             },
             submitHandler: function () {
+                console.log("update data");
                 // update student
                 $(document).ready(function () {
                     $('#projectEditModal').ready(function (e) {
                         // e.preventDefault();
                         var id = $('#id').val();
                         var projects_name = $('#projects_name').val();
+                        var service_id = $("select#select_service_edit").val()
+                        var user_id = $("select#select_user_edit").val()
                         var _token = $("input[name=_token]").val();
 
                         $.ajax({
@@ -260,7 +267,7 @@ function projects() {
 
                             },
                             success: function (response) {
-                                console.log(response);
+                                console.log(this.data);
                                 $("#projectEditForm")[0].reset();
                                 $('#projectEditModal').modal('hide');
                                 $('.modal-backdrop').remove();

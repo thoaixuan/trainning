@@ -82,11 +82,17 @@ function services() {
         me.validator(table);
     }
     this.action = function (table) {
-        $("#search").on('keyup', function (e) {
+        $("#btn-search").on('click', function (e) {
             table.ajax.reload();
+        });
+        $("#search").on('keypress', function (e) {
+            if (e.which == 13) {
+                table.ajax.reload();
+            }
         });
 
         $(document).on('click', '#open', function () {
+            $("#serviceForm")[0].reset();
             $("#serviceModal").modal("toggle");
             console.log("openModal");
 

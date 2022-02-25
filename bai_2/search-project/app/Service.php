@@ -10,9 +10,9 @@ class Service extends Model
          'service_name', 'service_description'
     ];
 
-    public function user(){
-        return $this->belongsToMany('App\User','user_id');
-    }
+    // public function user(){
+    //     return $this->belongsToMany('App\User','user_id');
+    // }
 
     public $timestamps=false;
     

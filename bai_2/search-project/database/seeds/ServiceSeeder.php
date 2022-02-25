@@ -13,7 +13,6 @@ class ServiceSeeder extends Seeder
     {
         DB::table('services')->insert([
             [
-                'user_id' => 1,
                 'service_name' => 'Nghe nhạc',
                 'service_description'=>'Được cài đặt nhạc chờ, và một số chức năng tự phát',
             ],

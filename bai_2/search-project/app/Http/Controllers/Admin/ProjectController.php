@@ -80,7 +80,7 @@ class ProjectController extends Controller
             ->limit($limit)
             ->orderByDesc($order,$dir)->get();
         }else{
-            $projects=Project::Where(function($query)use($search){
+            $projects=Project::with('user')->with('service')->Where(function($query)use($search){
                 $query->where('projects_name','like',"%{$search}%");
             })
             ->offset($start)

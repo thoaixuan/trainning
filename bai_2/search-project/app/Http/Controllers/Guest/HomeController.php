@@ -10,7 +10,7 @@ use DB;
 class HomeController extends Controller
 {
     public function index(){
-        $user=User::with('project')->with('service')->get();
+        $user=User::with('project')->get();
         return view('guest.pages.home.home',compact('user'));
     }
     public function anyData(Request $request)
@@ -49,8 +49,7 @@ class HomeController extends Controller
                 'services.service_name')
         ->offset($start)
         ->limit($limit)
-        ->orderByDesc($order,$dir)
-        ->get();
+        ->orderByDesc($order,$dir);
         }else{
             $user=DB::table('users')
             ->leftjoin('projects','users.id','=','projects.user_id')

@@ -59,8 +59,7 @@
           updates:"{{route('admin.update.user')}}",
           updates_data:"{{route('admin.update_data.user')}}",
           delete:"{{route('admin.delete.user')}}",
-          get_project:"{{route('admin.get_project.user')}}",
-          get_service:"{{route('admin.get_service.user')}}"
+ 
         }
       }
       users.init();
