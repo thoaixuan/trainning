@@ -38,6 +38,15 @@ function projects() {
             order: [0, "asc"],
             columns: [
                 {
+                    title: "#",
+                    data: "id",
+                    name: "id",
+                    className: "text-center",
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
+                },
+                {
                     title: "Name Service",
                     data: "service.service_name",
                     name: "service.service_name",

@@ -139,7 +139,7 @@ class UserController extends Controller
         $validate=Validator::make($request->all(),[
             'name'=>['required','min:3','max:40'],
             'email'=>['required','min:8','max:40','email'],
-            'phone'=>['required','unique:users','integer']
+            'phone'=>['required']
         ],$message);
         if($validate->fails()){
             return response()->json([

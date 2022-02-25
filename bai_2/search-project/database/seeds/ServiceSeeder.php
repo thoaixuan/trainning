@@ -16,6 +16,18 @@ class ServiceSeeder extends Seeder
                 'service_name' => 'Nghe nhạc',
                 'service_description'=>'Được cài đặt nhạc chờ, và một số chức năng tự phát',
             ],
+            [
+                'service_name' => 'Bán nhà',
+                'service_description'=>'Được cài đặt nhạc chờ, và một số chức năng tự phát',
+            ],
+            [
+                'service_name' => 'Đòi nợ',
+                'service_description'=>'Được cài đặt nhạc chờ, và một số chức năng tự phát',
+            ],
+            [
+                'service_name' => 'Du lịch',
+                'service_description'=>'Được cài đặt nhạc chờ, và một số chức năng tự phát',
+            ],
         ]);
     }
 }

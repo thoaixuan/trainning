@@ -103,5 +103,7 @@ function home() {
                 table.ajax.reload();
             }
         });
+
+
     }
 }

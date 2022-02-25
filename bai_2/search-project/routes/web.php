@@ -20,6 +20,9 @@ Route::get('/logout', 'GuestController@logout')->name('guest.logout');
 
 
 Route::get('/any-data','HomeController@anyData')->name('guest.datatables.home');
-Route::get('/data','HomeController@getData')->name('guest.data');
+Route::get('/data','HomeController@getData')->name('guest.data.home');
+Route::get('/count','HomeController@countServices')->name('guest.count_service.home');
+
+Route::get('/react','ContentController@getData')->name('guest.getdata.react');
 
 

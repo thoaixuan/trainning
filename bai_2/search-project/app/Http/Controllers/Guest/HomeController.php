@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Project;
 use App\User;
+use App\Service;
 use DB;
 class HomeController extends Controller
 {
@@ -33,10 +34,6 @@ class HomeController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-       
-            // $user=User::with('project')->with('service')->offset($start)
-            // ->limit($limit)
-            // ->orderBy($order,$dir)->get();
             $user=DB::table('users')
             ->leftjoin('projects','users.id','=','projects.user_id')
             ->leftjoin('services','services.id','=','projects.service_id')
@@ -79,7 +76,6 @@ class HomeController extends Controller
         );
         echo json_encode($json_data);
     }
-
     public function getData(){
     
         $user=DB::table('users')
@@ -98,5 +94,12 @@ class HomeController extends Controller
             'services.service_name')->get();
             return $user;
     }
-
+    public function countServices(){
+        $service=Service::count();
+        return response()->json([
+            'message'=>"Internal Server Error",
+            'code'=>500,
+            data=>$service
+        ]);
+    }
 }

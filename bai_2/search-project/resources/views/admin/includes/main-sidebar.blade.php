@@ -21,6 +21,7 @@
               <p id="service">
                 Dịch vụ
               </p>
+              <span class="badge badge-warning right countFeedback text-dark">{{count(getService())}}</span>
             </a>
           </li>
           <li class="nav-item">
@@ -36,6 +37,14 @@
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Khách hàng
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('admin.get.page')}}" class="nav-link">
+            <i class="nav-icon fas fa-pager"></i>
+              <p>
+                Quản lý trang
               </p>
             </a>
           </li>
