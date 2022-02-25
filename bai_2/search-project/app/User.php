@@ -38,12 +38,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-       public function project(){
-           return $this->belongsTo('App\Project','project_id');
-        }
-
-        public function service(){
-            return $this->belongsTo('App\Service','service_id');
-        }
+    public function service(){
+        return $this->hasmany('App\Service');
+    }
+    public function project(){
+        return $this->hasmany('App\Project');
+    }
 
 }

@@ -63,8 +63,8 @@ function home() {
                 },
                 {
                     title: "Name Service",
-                    data: "service.service_name",
-                    name: "service.service_name",
+                    data: "service_name",
+                    name: "service_name",
                     className: "",
                     render: function (data, type, row, meta) {
                         if (data == null) {
@@ -76,8 +76,8 @@ function home() {
                 },
                 {
                     title: "Name Project",
-                    data: "project.projects_name",
-                    name: "project.projects_name",
+                    data: "projects_name",
+                    name: "projects_name",
                     className: "",
                     render: function (data, type, row, meta) {
                         if (data == null) {

@@ -13,6 +13,8 @@ class ProjectSeeder extends Seeder
     {
         DB::table('projects')->insert([
             [
+                'user_id' => 1,
+                'service_id'=>1 ,
                 'projects_name'=>"Ung dung nghe nhac",
                 'status'=>0
             ],

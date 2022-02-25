@@ -81,7 +81,26 @@ function users() {
                         }
                     }
                 },
-
+                {
+                    title: "Action",
+                    data: "id",
+                    name: "id",
+                    className: "text-center",
+                    bSortable: false,
+                    render: function (data, type, row, meta) {
+                        return renderAction([{
+                            class: 'btn btn-danger',
+                            value: row.id,
+                            title: 'delete',
+                            icon: 'fa fa-trash',
+                        }, {
+                            class: 'btn btn-info',
+                            value: row.id,
+                            title: 'update',
+                            icon: 'fa fa-edit',
+                        },]);
+                    }
+                },
 
             ],
         });
@@ -89,13 +108,18 @@ function users() {
         me.validator(table);
     }
     this.action = function (table) {
-        $("#search").on('keyup', function (e) {
+        $("#btn_search").on('click', function (e) {
             table.ajax.reload();
+        });
+        $("#search").on('keypress', function (e) {
+            if (e.which == 13) {
+                table.ajax.reload();
+            }
         });
 
         $(document).on('click', '#open', function () {
+            $("#userForm")[0].reset();
             $("#userModal").modal("toggle");
-
         })
         // find by id user
         $(document).on('click', '#update', function () {
@@ -138,37 +162,6 @@ function users() {
                 });
             }
         });
-
-
-        $(document).ready(function () {
-            $.ajax({
-                type: "get",
-                url: datas.routes.get_project,
-                dataType: 'JSON',
-                success: function (response) {
-                    $.each(response.data, function (key, item) {
-                        $('#select_project').append('<option value=' + item.id + '>' + item.name + '</option');
-                    });
-                }
-            })
-        });
-
-
-        $(document).ready(function () {
-            $.ajax({
-                type: "get",
-                url: datas.routes.get_service,
-                dataType: 'JSON',
-                success: function (response) {
-                    console.log(response.data);
-                    $.each(response.data, function (key, item) {
-                        $('#select_service').append('<option value=' + item.id + '>' + item.service_name + '</option');
-                    });
-                }
-            })
-        });
-
-
     }
 
 
@@ -329,6 +322,8 @@ function users() {
                         var email = $("input[name=email]").val();
                         var phone = $("input[name=phone]").val();
                         var _token = $("input[name=_token]").val();
+                        var service_id = $("select#select_service").val()
+                        var project_id = $("select#select_project").val()
                         $('.modal-backdrop').remove();
                         $.ajax({
                             url: datas.routes.insert,
@@ -338,6 +333,8 @@ function users() {
                                 password: password,
                                 email: email,
                                 phone: phone,
+                                service_id: service_id,
+                                project_id: project_id,
                                 _token: _token
                             },
                             success: function (response) {

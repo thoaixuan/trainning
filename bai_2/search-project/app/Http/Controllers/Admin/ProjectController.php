@@ -14,7 +14,7 @@ use DB;
 class ProjectController extends Controller
 {
     function index(){
-        $projects=Project::orderBy('id','DESC')->get();
+        $projects=Project::with('user')->with('service')->orderBy('id','DESC')->get();
         return view('admin.pages.project.project',compact('projects'));
     }
     
@@ -24,6 +24,8 @@ class ProjectController extends Controller
         ];
         $validate=Validator::make($request->all(),[
             'projects_name'=>['required'],
+            'service_id'=>['required'],
+            'user_id'=>['required']
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -34,6 +36,8 @@ class ProjectController extends Controller
         }
         $project=new Project();
         $project->projects_name=$request->projects_name;
+        $project->service_id=$request->service_id;
+        $project->user_id=$request->user_id;
         $project->status=0;
         $project->save();
         if($project){
@@ -59,7 +63,8 @@ class ProjectController extends Controller
         $columns[]='id';
         $columns[]='projects_name';
         $columns[]='status';
-
+        $columns[]='user.name';
+        $columns[]='service.name';
 
         $limit=$request->input('length');
         $start=$request->input('start');
@@ -71,7 +76,7 @@ class ProjectController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $projects=Project::offset($start)
+            $projects=Project::with('user')->with('service')->offset($start)
             ->limit($limit)
             ->orderByDesc($order,$dir)->get();
         }else{
@@ -113,6 +118,7 @@ class ProjectController extends Controller
 
     public function getUpdate(Request $request){
         $project=Project::where('id','=',$request->id)->first();
+
         if($project){
             return response()->json([
                 'message'=>"Data Inserted Successfully",
@@ -130,6 +136,8 @@ class ProjectController extends Controller
     public function postUpdate(Request $request){
         $project=Project::find($request->id);
         $project->projects_name=$request->projects_name;
+        $project->user_id=$request->user_id;
+        $project->service_id=$request->service_id;
         $project->save();
         if($project){
             return response()->json([

@@ -7,7 +7,6 @@
     @include('guest.pages.home.includes.main-header')
     <!-- Tra cứu -->
     <br/>
-    @auth
     <div class="tracuu text-center container">
         <h2>Tra Thông Tin Dịch Vụ</h2><br/>
         <p>Nhập <b>tên khách hàng hoặc số điện thoại</b> để tra cứu thông tin: Thông tin khách hàng, thông tin dịch vụ đã sử dụng, trạng thái bảo hành - hỗ trợ,..v.v</p><br/>
@@ -19,8 +18,6 @@
         </table>
     </div>
     <!--Service-->
-    @endauth
-   
     @include('guest.pages.home.includes.service')
     @include('guest.pages.home.includes.modal')
   

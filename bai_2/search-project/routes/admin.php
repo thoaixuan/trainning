@@ -9,7 +9,7 @@ Route::middleware('checkLogin')->group(function(){
     Route::put('/edit-user','UserController@postUpdate')->name('admin.update_data.user');
     Route::get('/delete-user','UserController@delete')->name('admin.delete.user');
     Route::post('/insert-user','UserController@add')->name('admin.insert.user');
-    Route::get('/user-project','UserController@getUser')->name('admin.get_project.user');
+    Route::get('/user-project','UserController@getProject')->name('admin.get_project.user');
     Route::get('/user-service','UserController@getService')->name('admin.get_service.user');
 
     Route::get('/service','ServiceController@index')->name('admin.get.service');

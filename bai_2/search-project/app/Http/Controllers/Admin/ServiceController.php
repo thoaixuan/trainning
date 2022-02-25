@@ -63,7 +63,7 @@ class ServiceController extends Controller
         $validate=Validator::make($request->all(),[
             'service_name'=>['required'],
             'service_description'=>['required'],
-     
+                
         ],$message);
         if($validate->fails()){
             return response()->json([

@@ -15,16 +15,15 @@ class Projects extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            // $table->integer('user_id')->unsigned();
-            // $table->integer('service_id')->unsigned();
             $table->string('projects_name');
+            $table->integer('user_id')->unsigned();
+            $table->integer('service_id')->unsigned();
             $table->string('status')->nullable()->default(0);
-            // $table->foreign('user_id')->references('id')->on('users')
-            //     ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('cascade');
+            $table->foreign('service_id')->references('id')->on('users')
+            ->onDelete('cascade');
             $table->timestamps();
-
-            // $table->foreign('service_id')->references('id')->on('services')
-            //     ->onDelete('cascade');
         });
     }
 

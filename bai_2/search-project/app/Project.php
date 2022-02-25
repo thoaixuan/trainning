@@ -14,14 +14,14 @@ class Project extends Model
         'user_id', 'service_id', 'projects_name','status'
     ];
 
-      public function user(){
-        return $this->hasmany('App\User');
-    }
-//    public function user(){
-//     return $this->belongsTo('App\User','user_id');
-// }
+    //   public function user(){
+    //     return $this->hasmany('App\User');
+    // }
+   public function user(){
+    return $this->belongsTo('App\User','user_id');
+}
 
-//    public function service(){
-//        return $this->belongsTo('App\Service','service_id');
-//    }
+   public function service(){
+       return $this->belongsTo('App\Service','service_id');
+   }
 }

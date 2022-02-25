@@ -38,11 +38,24 @@ function projects() {
             order: [0, "asc"],
             columns: [
                 {
+                    title: "Name Service",
+                    data: "service.service_name",
+                    name: "service.service_name",
+                    className: "",
+                },
+                {
                     title: "Name Project",
                     data: "projects_name",
                     name: "projects_name",
                     className: "",
                 },
+                {
+                    title: "Name user",
+                    data: "user.name",
+                    name: "user.name",
+                    className: "",
+                },
+
                 {
                     title: "Action",
                     data: "id",
@@ -233,9 +246,6 @@ function projects() {
                         // e.preventDefault();
                         var id = $('#id').val();
                         var projects_name = $('#projects_name').val();
-                        var service_id = $("select#select_service_edit").val()
-                        var user_id = $("select#select_user_edit").val()
-
                         var _token = $("input[name=_token]").val();
 
                         $.ajax({

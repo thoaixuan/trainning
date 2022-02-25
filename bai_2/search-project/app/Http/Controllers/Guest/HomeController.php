@@ -6,19 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Project;
 use App\User;
+use DB;
 class HomeController extends Controller
 {
-   function index(){
-        $user=User::with('project')->with('service')->orderBy('id','DESC')->get();
+    public function index(){
+        $user=User::with('project')->with('service')->get();
         return view('guest.pages.home.home',compact('user'));
     }
     public function anyData(Request $request)
     {
         $columns[]='id';
-        $columns[]='project.projects_name';
+        $columns[]='projects_name';
         $columns[]='status';
         $columns[]='name';
-        $columns[]='service.name';
+        $columns[]='services_name';
         $columns[]='phone';
         $columns[]='email';
 
@@ -33,14 +34,38 @@ class HomeController extends Controller
 
         if(empty($search)){
        
-            $user=User::with('project')->with('service')->offset($start)
-            ->limit($limit)
-            ->orderBy($order,$dir);
+            // $user=User::with('project')->with('service')->offset($start)
+            // ->limit($limit)
+            // ->orderBy($order,$dir)->get();
+            $user=DB::table('users')
+            ->leftjoin('projects','users.id','=','projects.user_id')
+            ->leftjoin('services','services.id','=','projects.service_id')
+            ->select(
+                'users.id',
+                'users.name',
+                'users.phone',
+                'users.email',
+                'projects.projects_name',
+                'services.service_name')
+        ->offset($start)
+        ->limit($limit)
+        ->orderByDesc($order,$dir)
+        ->get();
         }else{
-            $user=User::with('project')->with('service')->Where(function($query) use ($search){
+            $user=DB::table('users')
+            ->leftjoin('projects','users.id','=','projects.user_id')
+            ->leftjoin('services','services.id','=','projects.service_id')
+            ->Where(function($query)use($search){
                 $query->where('name','=',$search)
                         ->orWhere('phone','=',$search);
             })
+            ->select(
+                'users.id',
+                'users.name',
+                'users.phone',
+                'users.email',
+                'projects.projects_name',
+                'services.service_name')
             ->offset($start)
             ->limit($limit)
             ->orderByDesc($order,$dir)
@@ -55,4 +80,24 @@ class HomeController extends Controller
         );
         echo json_encode($json_data);
     }
+
+    public function getData(){
+    
+        $user=DB::table('users')
+        ->leftjoin('projects','users.id','=','projects.user_id')
+        ->leftjoin('services','services.id','=','projects.service_id')
+        ->Where(function($query){
+            $query->where('name','=',"user")
+                    ->orWhere('phone','=',"user");
+        })
+        ->select(
+            'users.id',
+            'users.name',
+            'users.phone',
+            'users.email',
+            'projects.projects_name',
+            'services.service_name')->get();
+            return $user;
+    }
+
 }
