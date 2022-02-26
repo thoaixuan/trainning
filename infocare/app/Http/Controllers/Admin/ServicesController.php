@@ -41,6 +41,57 @@ class ServicesController extends Controller
         );
         echo json_encode($json_data); 
     }
+    
+    public function postInsertServices(Request $Request) {
+        $Services = new Services();
+	    $Services->services_name=$Request->services_name;
+	    $Services->services_description=$Request->services_description;
+	    $Services->services_slug=change_to_slug($Request->services_name);
+	    if($Services->save()){
+	        return response()->json([
+                'name' => 'Thành công',
+                'status' => 200,
+                'data' => $Services
+            ]);
+	    }else{
+	        return response()->json([
+                'name' => 'Thất bại',
+                'status' => 500,
+                'data' => $Services
+            ]);
+	    }
+    }
+    public function getUpdateServices(Request $Request) {
+        $Service = Services::where('id','=',$Request->id)->first();
+        return response()->json([
+            'name' => 'Thành công',
+            'status' => 200,
+            'data' => $Service
+        ]);
+    }
+
+    public function postUpdateServices(Request $Request)
+	{
+	        $Services =  Services::find($Request->id);
+	        $Services->services_name = $Request->services_name;
+		    $Services->services_description = $Request->services_description;
+		    $Services->services_slug = change_to_slug($Request->services_name);
+	        if($Services->save()){
+                return response()->json([
+                    'name' => 'Thành công',
+                    'status' => 200,
+                    'data' => $Services
+                ]);
+            }else{
+                return response()->json([
+                    'name' => 'Thất bại',
+                    'status' => 500,
+                    'data' => $Services
+                ]);
+            }
+	 
+	}
+
     public function destroyService( Request $Request ) {
         $result = Services::where('id','=',$Request->id)->delete();
         return $result;

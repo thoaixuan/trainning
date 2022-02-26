@@ -54,17 +54,25 @@
     <!-- /.card -->
 
   </section>
+    @include('Admin.pages.service.modal')
     @section('jsAdmin')
     <script src="{{asset('app/admin/service/service.js')}}"></script>
 <script>
+  
 var service = new service(); 
 	    service.datas={
 	        routes:{
 	          datatable:"{{route('service_datatable')}}",
-            delete:"{{route('service_delete')}}"
+            insert:"{{route('service_insert')}}",
+	          update:"{{route('service_update')}}",
+			      delete:"{{route('service_delete')}}"
 	        }
 	    }   
 	    service.init();
+
+      CKEDITOR.replace('services_description');
+      CKEDITOR.replace('services_description_edit');
+      
 </script>
 @endsection
   
