@@ -29,12 +29,13 @@
               <div class="col-md-4"><button class="btn btn-primary" id="btn-search">Tìm kiếm dữ liệu</button></div>
             </div>
             <div class="col-4">
+         
               <!-- <button class="btn btn-primary float-sm-left" id="btn-search"><i class="fa fa-plus"></i></button> -->
               <button class="btn btn-success float-sm-right" id="open"><i class="fa fa-plus"></i></button>
             </div>
           </div>
             
-          <table class="table" id="pages-table">
+          <table class="table table-striped" id="pages-table">
           </table>
           @include('admin.pages.pages.modal');
         </div><!-- /.container-fluid -->
@@ -52,8 +53,12 @@
       pages.datas={
         routes:{
           datatable:"{{route('admin.datatables.page')}}",
-        
+          insert:"{{route('admin.insert.page')}}",
+          updates:"{{route('admin.update.page')}}",
+          updates_data:"{{route('admin.update_data.page')}}",
+          delete:"{{route('admin.delete.page')}}",
       }
+    }
       pages.init();
 </script>
 @endsection

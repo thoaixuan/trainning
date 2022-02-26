@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ServiceSeeder::class);
 
         $this->call(ProjectSeeder::class);
-
-
+        $this->call(PageSeeder::class);
     }
 }

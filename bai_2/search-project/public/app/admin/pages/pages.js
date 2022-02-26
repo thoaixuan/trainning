@@ -57,12 +57,25 @@ function pages() {
                     data: "link",
                     name: "link",
                     className: "",
+                    render: function (data, type, row, meta) {
+                        if (data == null) {
+                            return 'Chưa có dữ liệu'
+                        } else {
+                            return data;
+                        }
+                    }
                 },
                 {
                     title: "Trạng thái",
                     data: "status",
                     name: "status",
-                    className: "",
+                    className: "text-center",
+                    render: function (data, type, row, meta) {
+                        return renderSwitch([{
+                            value: data,
+                            id: row.id,
+                        }]);
+                    }
                 },
 
                 {
@@ -87,11 +100,10 @@ function pages() {
                 }
             ],
         });
-        me.action(table);
-        // me.validator(table);
+        me.ckeditor(table);
     }
 
-    this.action = function (table) {
+    this.action = function (table, editor) {
         $("#btn-search").on('click', function (e) {
             table.ajax.reload();
         });
@@ -101,10 +113,11 @@ function pages() {
             }
         });
         $(document).on('click', '#open', function () {
-            $("#projectForm")[0].reset();
-            $("#projectModal").modal("toggle");
+            $("#pageForm")[0].reset();
+            $("#pageModal").modal("toggle");
             console.log("openModal");
         })
+
         // find by id service
         $(document).on('click', '#update', function () {
             console.log("update");
@@ -164,7 +177,7 @@ function pages() {
     }
 
 
-    this.validator = function (table) {
+    this.validator = function (table, editor) {
         console.log("validate");
         $("#projectEditForm").validate({
             rules: {
@@ -247,29 +260,29 @@ function pages() {
         $("#projectForm").validate({
 
             rules: {
-                "projects_name": {
+                "name": {
                     required: true,
                     maxlength: 20,
                     minlength: 3,
                     validateName: true,
                 },
-                "service_id": {
+                "type_open": {
                     required: true,
                 },
-                "user_id": {
+                "status": {
                     required: true,
                 }
             },
             messages: {
-                projects_name: {
+                names: {
                     required: "Bắt buộc nhập name",
                     maxlength: "Hãy nhập tối đa 15 ký tự",
                     minlength: "Hãy nhập ít nhất 3 ký tự"
                 },
-                service_id: {
+                type_open: {
                     required: "Bắt buộc nhập service",
                 },
-                user_id: {
+                status: {
                     required: "Bắt buộc nhập dữ liệu",
                     minlength: "Hãy nhập ít nhất 1 ký tự",
                 }
@@ -328,6 +341,32 @@ function pages() {
         $.validator.addMethod("validateName", function (value, elemt) {
             return this.optional(elemt) || /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);
         }, 'Vui lòng hãy nhập đúng định dạng tên');
+
+    }
+
+    this.ckeditor = function (table) {
+        var me = this;
+        let editor;
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    ]
+                }
+            }).then(newEditor => {
+                editor = newEditor;
+                // editor.ui.view.editable.element.style.height = '300px';
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        me.action(table, editor);
+        me.validator(table, editor);
 
     }
 

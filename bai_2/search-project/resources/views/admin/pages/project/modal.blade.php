@@ -28,7 +28,7 @@
                           <option value="0" disabled selected>-- Chọn dịch vụ--</option>
                         </select>
                       </div> 
-
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                       <button id="submit" class="btn btn-success">Submit</button>
                     </form>
                   </div>

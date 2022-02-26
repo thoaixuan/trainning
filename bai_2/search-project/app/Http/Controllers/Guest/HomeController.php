@@ -78,21 +78,12 @@ class HomeController extends Controller
     }
     public function getData(){
     
-        $user=DB::table('users')
-        ->leftjoin('projects','users.id','=','projects.user_id')
-        ->leftjoin('services','services.id','=','projects.service_id')
-        ->Where(function($query){
-            $query->where('name','=',"user")
-                    ->orWhere('phone','=',"user");
-        })
-        ->select(
-            'users.id',
-            'users.name',
-            'users.phone',
-            'users.email',
-            'projects.projects_name',
-            'services.service_name')->get();
-            return $user;
+        $user=User::get();
+        return response()->json([
+            'message'=>"Internal Server Error",
+            'code'=>200,
+            'data'=>$user
+        ],206);
     }
     public function countServices(){
         $service=Service::count();

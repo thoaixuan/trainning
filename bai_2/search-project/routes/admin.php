@@ -36,10 +36,10 @@ Route::middleware('checkLogin')->group(function(){
     Route::prefix('page')->group(function(){
         Route::get('/','PageController@index')->name('admin.get.page');
         Route::get('/data-page','PageController@anyData')->name('admin.datatables.page');
-        // Route::get('/edit-page','PageController@getUpdate')->name('admin.update.page');
-        // Route::put('/edit-page','PageController@postUpdate')->name('admin.update_data.page');
-        // Route::get('/delete-page','PageController@delete')->name('admin.delete.page');
-        // Route::post('/insert-page','PageController@add')->name('admin.insert.page');
+        Route::get('/edit-page','PageController@getUpdate')->name('admin.update.page');
+        Route::put('/edit-page','PageController@postUpdate')->name('admin.update_data.page');
+        Route::get('/delete-page','PageController@delete')->name('admin.delete.page');
+        Route::post('/insert-page','PageController@add')->name('admin.insert.page');
     });
 
     Route::get('/info-admin','LoginController@getInfo')->name('admin.get_info.index');

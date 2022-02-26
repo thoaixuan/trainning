@@ -67,7 +67,7 @@ class UserController extends Controller
             'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
             'email.unique'=>":attribute đã tồn tại trong dữ liệu",
             'email'=>"Bạn phải nhập đúng định dạng email",
-            'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
+            // 'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
             'phone.min'=>"Bạn phải nhập đủ 10 số",
             'phone.max'=>"Bạn phải nhập đủ 10 số",
             'phone.unique'=>"Số điện thoại đã tồn tại"
