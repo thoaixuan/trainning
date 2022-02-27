@@ -1,6 +1,6 @@
 {{-- Modal Add --}}
 <div class="modal fade" id="modal-action-add" >
-	<div class="modal-dialog " role="document">
+	<div class="modal-dialog" role="document">
 		<form id="formActionAdd">
 		<div class="modal-content">
 		<div class="modal-header">
@@ -9,7 +9,7 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 		</div>
-		<div class="modal-body ">
+		<div class="modal-body">
 			<div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -55,7 +55,7 @@
 
 {{-- Modal Edit --}}
 <div class="modal fade" id="modal-action-edit" >
-	<div class="modal-dialog " role="document">
+	<div class="modal-dialog" role="document">
 		<form id="formActionEdit" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
@@ -64,9 +64,37 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 		</div>
-		<div class="modal-body ">
+		<div class="modal-body">
 			<div class="row">
                 <div class="col-md-12">
+					<div class="form-group">
+                        <label>Tên khách hàng / Công ty</label>
+						<input type="text" name="full_name" id="full_name_edit" class="form-control form-control-sm"/>
+					</div>
+					<div class="form-group">
+                        <label>Email</label>
+						<input type="email" name="email" id="email_edit" class="form-control form-control-sm"/>
+					</div>
+					<div class="form-group">
+                        <label>Password</label>
+						<input type="password" name="password" id="password_edit" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+						<input type="text" name="address" id="address_edit" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+						<input type="text" name="phone_number" id="phone_number_edit" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Từ khóa</label>
+						<input type="text" name="keyword" id="keyword_edit" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Ghi chú</label>
+						<textarea name="note" id="note_edit" class="form-control form-control-sm"></textarea>
+					</div>
 				</div>
 				
 			</div>

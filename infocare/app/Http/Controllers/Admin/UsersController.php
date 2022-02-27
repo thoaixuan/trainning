@@ -84,7 +84,40 @@ class UsersController extends Controller
 	    }
     }
 
-    
+    public function getUpdateUsers(Request $Request) {
+        $Users = User::where('id','=',$Request->id)->first();
+        return response()->json([
+            'name' => 'Thành công',
+            'status' => 200,
+            'data' => $Users
+        ]);
+    }
+
+    public function postUpdateUsers(Request $Request)
+	{
+	        $Users =  User::find($Request->id);
+	        $Users->full_name = $Request->full_name;
+		    $Users->email = $Request->email;
+		    $Users->password = bcrypt($Request->password);
+            $Users->address = $Request->address;
+            $Users->phone_number = $Request->phone_number;
+            $Users->keyword = $Request->keyword;
+            $Users->note = $Request->note;
+	        if($Users->save()){
+                return response()->json([
+                    'name' => 'Thành công',
+                    'status' => 200,
+                    'data' => $Users
+                ]);
+            }else{
+                return response()->json([
+                    'name' => 'Thất bại',
+                    'status' => 500,
+                    'data' => $Users
+                ]);
+            }
+	 
+	}
 
     public function destroyUser( Request $Request ) {
         $result = User::where('id','=',$Request->id)->delete();

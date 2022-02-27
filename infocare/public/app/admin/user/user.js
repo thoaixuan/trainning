@@ -173,7 +173,7 @@ function user() {
 								address: $('#address').val(),
 								phone_number: $('#phone_number').val(),
 								keyword: $('#keyword').val(),
-								note: $('#note').val(),
+								note: $('#note').val()
                     		},
                     		type: 'POST',
                     		dataType: 'JSON',
@@ -191,6 +191,114 @@ function user() {
 			
 		});
 		
+		$('#formActionEdit').validate({
+			rules: {
+				full_name: {
+					required: true
+				},
+				email: {
+					required: true
+				},
+				password: {
+					required: true
+				},
+				address: {
+					required: true
+				},
+				phone_number: {
+					required: true
+				},
+				keyword: {
+					required: true
+				}
+				
+			},
+			messages: {
+				full_name:{
+					required: "Tên khách hàng/công ty không được trống !"
+				},
+				email:{
+					required: "Email không được trống !"
+				},
+				password:{
+					required: "Password không được trống !"
+				},
+				address:{
+					required: "Địa chỉ không được trống !"
+				},
+				phone_number:{
+					required: "Số điện thoại không được trống !"
+				},
+				keyword:{
+					required: "Từ khóa không được trống !"
+				}
+			},
+			errorElement: 'span',
+			errorPlacement: function (error, element) {
+				error.addClass('invalid-feedback');
+				element.closest('.form-group').append(error);
+			},
+			highlight: function (element, errorClass, validClass) {
+				$(element).addClass('is-invalid');
+			},
+			unhighlight: function (element, errorClass, validClass) {
+				$(element).removeClass('is-invalid');
+			},
+			submitHandler: function(e) {
+				$.ajax({
+					url: datas.routes.update,
+					data: {
+						id: $("#btnSaveEdit").attr('data-id'),
+						full_name: $('#full_name_edit').val(),
+						email: $('#email_edit').val(),
+						password: $('#password_edit').val(),
+						address: $('#address_edit').val(),
+						phone_number: $('#phone_number_edit').val(),
+						keyword: $('#keyword_edit').val(),
+						note: $('#note_edit').val()
+					},
+					type: 'POST',
+					dataType: 'JSON',
+					success: function (data) {
+						$("#modal-action-edit").modal('hide');
+						toastr.success("Sửa thành công");
+						table.ajax.reload();
+					},
+					error: function (error) {
+						console.log(error);
+					}
+				});
+			}
+			
+		});
+
+		$(document).delegate(".btn-update", "click", function () {
+			var id = $(this).val();
+			$('#modal-action-title-edit').text("Chỉnh sửa");
+			$("#modal-action-edit").modal('show');
+			$.ajax({
+				url: datas.routes.update,
+				data: {
+					id: id
+				},
+				type: 'GET',
+				dataType: 'JSON',
+				success: function (data) {
+					$("#btnSaveEdit").attr('data-url', datas.routes.update);
+					$("#btnSaveEdit").attr('data-id', data.data.id);
+					$('#full_name_edit').val(data.data.full_name);
+					$('#email_edit').val(data.data.email);
+					$('#address_edit').val(data.data.address);
+					$('#phone_number_edit').val(data.data.phone_number);
+					$('#keyword_edit').val(data.data.keyword);
+					$('#note_edit').val(data.data.note);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		});
+
 
 		$(document).delegate(".btn-delete", "click", function () {
 			var id = $(this).val();

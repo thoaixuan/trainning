@@ -1,6 +1,6 @@
 {{-- Modal Add --}}
 <div class="modal fade" id="modal-action-add" >
-	<div class="modal-dialog " role="document">
+	<div class="modal-dialog" role="document">
 		<form id="formActionAdd" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
@@ -9,7 +9,7 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 		</div>
-		<div class="modal-body ">
+		<div class="modal-body">
 			<div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -35,7 +35,7 @@
 
 {{-- Modal Edit --}}
 <div class="modal fade" id="modal-action-edit" >
-	<div class="modal-dialog " role="document">
+	<div class="modal-dialog" role="document">
 		<form id="formActionEdit" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
@@ -44,7 +44,7 @@
 			<span aria-hidden="true">&times;</span>
 		</button>
 		</div>
-		<div class="modal-body ">
+		<div class="modal-body">
 			<div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
