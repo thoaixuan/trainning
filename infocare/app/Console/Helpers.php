@@ -1,5 +1,16 @@
 <?php
-
+function countUser()
+{
+    return \App\User::count();
+}
+function countProjects()
+{
+    return \App\Projects::count();
+}
+function countServices()
+{
+    return \App\Services::count();
+}
 function getPages()
 {
     return \App\Pages::get();
@@ -7,6 +18,9 @@ function getPages()
 function getServices()
 {
     return \App\Services::get();
+}
+function getCompany(){
+    return \App\User::select('users.id', 'users.full_name')->get();
 }
 function change_to_slug($str) {
     $str = trim(mb_strtolower($str));

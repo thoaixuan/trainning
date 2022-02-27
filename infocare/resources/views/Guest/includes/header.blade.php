@@ -30,11 +30,11 @@
                     <div class="navbar-collapse navbar-collapse-one collapse clearfix">
                         <ul class="navigation clearfix">
                             <li><a href="{{route('guest_home')}}">Trang chủ</a></li>
-                                    @foreach (getPages() as $item)
+                            @foreach (getPages() as $item)
                                     <li>
-                                        <a href="{{route('guest_pages',$item->slug)}}">{{$item->name}}</a>
+                                        <a href="{{route('guest_pages',$item->pages_slug)}}">{{$item->pages_name}}</a>
                                     </li>
-                                    @endforeach
+                            @endforeach
                         </ul>
                     </div>
                 </nav>

@@ -1,4 +1,4 @@
-@extends('Guest.layouts.main') 
+@extends('Guest.main') 
 @section('main')
 
 <!--==================================================================== 
@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="page-title text-center">
-                            <h1>{{$pages->name}}</h1>
+                            <h1>{{$pages->pages_name}}</h1>
                         </div>
                     </div>
                 </div>
@@ -27,9 +27,9 @@
                 <div class="row">
                     <div class="col-lg-10">
                         <div class="about-content">
-                            <h2>{{$pages->name}}</h2>
+                            <h2>{{$pages->pages_name}}</h2>
 
-                            <p>{!!$pages->content!!}</p>
+                            <p>{!!$pages->pages_content!!}</p>
 
                         </div>
                     </div>

@@ -26,10 +26,10 @@
 			<div class="row">
 				<div class="col-sm-12 col-md-6 col-lg-4 ">
 					<!-- small box -->
-					<div class="small-box bg-info">
+					<div class="small-box bg-primary">
 						<div class="inner">
-							<h5 id="countCustomers">{{1}}</h5>
-							<p>Thành Viên</p>
+							<h5 id="countCustomers">{{countUser()}}</h5>
+							<p>Tổng Thành Viên</p>
 						</div>
 						<div class="icon"> <i class="fa fa-users" aria-hidden="true"></i>
 						</div>
@@ -39,12 +39,12 @@
 				<!-- ./col -->
 				<div class="col-sm-12 col-md-6 col-lg-4 ">
 					<!-- small box -->
-					<div class="small-box bg-success">
+					<div class="small-box bg-warning">
 						<div class="inner">
-							<h5 class="countPublished">{{2}}</h5> 
-							<p>Dự án còn thời hạn</p>
+							<h5 class="countPublished">{{countProjects()}}</h5> 
+							<p>Tổng Dự án</p>
 						</div>
-						<div class="icon"> <i class="fa fa-money" aria-hidden="true"></i>
+						<div class="icon"> <i class="far fa-file-alt" aria-hidden="true"></i>
 						</div>
 						<a href="" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
@@ -52,12 +52,12 @@
 				
 				<div class="col-sm-12 col-md-6 col-lg-4 ">
 					<!-- small box -->
-					<div class="small-box bg-danger">
+					<div class="small-box bg-success">
 						<div class="inner">
-							<h5 class="countPending">{{3}}</h5>
-							<p>Dự án hết hạn</p>
+							<h5 class="countPending">{{countServices()}}</h5>
+							<p>Tổng Dịch Vụ</p>
 						</div>
-						<div class="icon"><i class="fas fa-area-chart"></i>
+						<div class="icon"><i class="fas fa-list-alt"></i>
 						</div>
 						<a href="" class="small-box-footer">Xem chi tiết <i class="fas fa-arrow-circle-right"></i></a>
 					</div>

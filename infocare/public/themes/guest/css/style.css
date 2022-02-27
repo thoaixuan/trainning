@@ -541,7 +541,7 @@ Footer Section
 }
 
 .featured-item .hover {
-    background-image: url(../img/feature/featured-bg.png);
+    background-image: url(/themes/guest/img/feature/featured-bg.png);
     background-color: #686EE4;
     background-size: cover;
     background-repeat: no-repeat;
@@ -2461,8 +2461,6 @@ a.signup-link {
     cursor: pointer;
     transition: 0.4s;
     border-radius: 4px;
-    background: #FE5D89;
-    border: 0.7px solid #FE5D89;
 }
 .search-field button i {
     margin-right: 5px;

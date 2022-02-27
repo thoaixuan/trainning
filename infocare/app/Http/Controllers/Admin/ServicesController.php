@@ -26,13 +26,25 @@ class ServicesController extends Controller
         $start = $Request->input('start');
         $order = $columns[$Request->input('order.0.column')];
         $dir = $Request->input('order.0.dir');
+        $search = $Request->input('search');
         $totalData =  Services::count();
-
+        if(empty($search)){
         $Services = Services::offset($start)
         ->limit($limit)
         ->orderBy($order,$dir)
         ->get();
-
+        } else {
+            $Services = Services::Where(function($query)use($search){
+	            $query->where('services_name', 'LIKE',"%{$search}%")
+	            ->orWhere('services_description', 'LIKE',"%{$search}%")
+	            ->orWhere('services_slug', 'LIKE',"%{$search}%");
+	        })
+	        ->offset($start)
+	        ->limit($limit)
+	        ->orderBy($order,$dir)
+	        ->get();
+	        $totalFiltered =$Services->count();
+        }
         $json_data = array(
             "draw"            => intval($Request->input('draw')),  
             "recordsTotal"    => intval($totalData),  

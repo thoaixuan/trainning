@@ -38,24 +38,24 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 text-center">
                         <div class="section-title">
-                            <h2>Tra cứu thông tin dịch vụ</h2>
+                            <h2>Tra cứu thông tin khách hàng</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="requirement-text text-center">
-                            <p>Nhập <b>tên khách hàng, tên công ty, số điện thoại hoặc từ khóa</b> để tra cứu thông tin : Thông tin khách hàng, thông tin dịch vụ đã sử dụng - hỗ trợ,...vv</p>
+                            <p>Nhập <b>tên khách hàng, tên công ty, số điện thoại hoặc từ khóa</b> để tra cứu thông tin : Thông tin khách hàng, thông tin dịch vụ đã sử dụng</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="search-field">
-                            <form action="{{route('guest_home')}}/search" method="get">
+                            <form id="form-search" onsubmit="return false">
                                <div class="form-group">
                                    <input type="text" class="keyword" id="keyword" name="keyword" placeholder="Nhập tên khách hàng, tên công ty, số điện thoại hoặc từ khóa">
-                                   <button type="submit"><i class="fa fa-search"></i>Tra cứu</button>
+                                   <button class="btn-bg2" type="submit"><i class="fa fa-search"></i>Tra cứu</button>
                                </div>
                            </form>
                         </div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="row d-none" id="result">
                     <div class="col-lg-12">
-                        <table class="table table-bordered hover table-hover table-striped" id="table-search">
+                        <table class="table table-bordered hover table-hover table-striped" id="table-search-info">
                         </table>
                     </div>
                 </div>
@@ -89,48 +89,25 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-6 text-center">
                         <div class="section-title">
-                            <h2>Dịch Vụ Của Chúng Tôi</h2>
+                            <h2>Dịch Vụ</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-
+                    @foreach (getServices() as $item)
                     <div class="col-lg-4 col-md-6">
                         <div class="featured-item wow  customFadeInUp dalay-0-1s animated" style="visibility: visible; animation-name: customFadeInUp;">
                             <div class="featured-icon violet">
                                 <i class="flaticon-cms"></i>
                             </div>
                             <div class="featured-content">
-                                <h5><a href="single-feature.html">Incredible Infrastructure</a></h5>
-                                <p>aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
+                                <h5><a href="single-feature.html">{{ $item->services_name }}</a></h5>
+                                <p>{!! $item->services_description !!}</p>
                             </div>
                             <div class="hover"></div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="featured-item wow  customFadeInUp dalay-0-1s animated" style="visibility: visible; animation-name: customFadeInUp;">
-                            <div class="featured-icon violet">
-                                <i class="flaticon-cms"></i>
-                            </div>
-                            <div class="featured-content">
-                                <h5><a href="single-feature.html">Incredible Infrastructure</a></h5>
-                                <p>aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
-                            </div>
-                            <div class="hover"></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="featured-item wow  customFadeInUp dalay-0-1s animated" style="visibility: visible; animation-name: customFadeInUp;">
-                            <div class="featured-icon violet">
-                                <i class="flaticon-cms"></i>
-                            </div>
-                            <div class="featured-content">
-                                <h5><a href="single-feature.html">Incredible Infrastructure</a></h5>
-                                <p>aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
-                            </div>
-                            <div class="hover"></div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </section>
@@ -145,9 +122,20 @@
 @endsection
 
 @section('jsGuest')
-
+<script src="{{asset('themes/admin/plugins/datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('themes/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+    <script src="{{asset('themes/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('themes/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('app/guest/home/home.js')}}"></script>
     <script>
-       
+        var home = new home();
+        home.datas={
+            routes:{
+                search:"{{route('guest_search_info')}}"
+            }
+        }
+        home.init();
+
     </script>
 
 @endsection

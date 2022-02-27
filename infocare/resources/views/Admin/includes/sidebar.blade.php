@@ -49,7 +49,7 @@
           </li>
 
           <li class="nav-item menu-open-new">
-            <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-logout "class="nav-link ">
+            <a href="{{route('logout-admin')}}" class="nav-link ">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Đăng Xuất

@@ -1,4 +1,4 @@
-function service() {
+function page() {
 	this.datas = null;
 	var datas = null;
 	this.init = function () {
@@ -8,7 +8,7 @@ function service() {
 	}
 	this.datatables = function () {
 		var me = this;
-		var table = $("#table-services").DataTable({
+		var table = $("#table-pages").DataTable({
 			serverSide: true,
 			processing: true,
 			paging: true,
@@ -30,22 +30,22 @@ function service() {
 			order: [0, "desc"],
 			columns: [
 			{
-				title: "Tên Dịch Vụ",
-				data: "services_name",
-				name: "services_name",
+				title: "Tên Trang",
+				data: "pages_name",
+				name: "pages_name",
 				className: "",
 				
 			},
 			{
-				title: "Mô Tả",
-				data: "services_description",
-				name: "service_description",
+				title: "Đường dẫn",
+				data: "pages_slug",
+				name: "pages_slug",
 				className: "",
 			},
 			{
-				title: "Đường dẫn",
-				data: "services_slug",
-				name: "services_slug",
+				title: "Mô tả",
+				data: "pages_content",
+				name: "pages_content",
 				className: "text-center",
 			},
 			{
@@ -99,8 +99,8 @@ function service() {
 					console.log(data.data);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
 					$("#btnSaveEdit").attr('data-id', data.data.id);
-					$('#services_name_edit').val(data.data.services_name)
-					CKEDITOR.instances['services_description_edit'].setData(data.data.services_description);
+					$('#pages_name_edit').val(data.data.pages_name)
+					CKEDITOR.instances['pages_content_edit'].setData(data.data.pages_content);
 					
 				},
 				error: function (error) {
@@ -112,10 +112,11 @@ function service() {
 		});
 
 
-		$("#btn-insert").on("click", function () {
+        $("#btn-insert").on("click", function () {
             $('#modal-action-title').text("Thêm mới");
-			$('#services_name').val('');
-			$('#services_description').val('');
+			$('#pages_name').val('');
+			CKEDITOR.instances['pages_content'].setData('');
+			$('#pages_content').val('');
 			$("#modal-action-add").modal('show');
 			
 		});
@@ -123,16 +124,14 @@ function service() {
 		$('#formActionAdd').validate({
 			rules: {
 				
-				services_name: {
-					required: true,
-					maxlength: 150
+				pages_name: {
+					required: true
 				},
 				
 			},
 			messages: {
-				services_name:{
-					required: "Tên dịch vụ không được trống !",
-					maxlength:"Tên dịch vụ không được quá 150 ký tự !"
+				pages_name:{
+					required: "Tên trang không được trống !"
 				}
 			},
 			errorElement: 'span',
@@ -146,43 +145,42 @@ function service() {
 			unhighlight: function (element, errorClass, validClass) {
 				$(element).removeClass('is-invalid');
 			},
-			submitHandler: function(e) {
-				$.ajax({
-					url: datas.routes.insert,
-					data: {
-						services_name: $('#services_name').val(),
-						services_description: CKEDITOR.instances['services_description'].getData()
-					},
-					type: 'POST',
-					dataType: 'JSON',
-					success: function (data) {
-							console.log(data);
-							$("#modal-action-add").modal('hide');
-							toastr.success("Thêm thành công");
-							table.ajax.reload();
-	
-					},
-					error: function (error) {
-						console.log("Lỗi");
-					}
-				});
-			}
+            submitHandler: function(e) {
+                $.ajax({
+                    		url: datas.routes.insert,
+                    		data: {
+                    			pages_name: $('#pages_name').val(),
+                    			pages_content: CKEDITOR.instances['pages_content'].getData()
+                    		},
+                    		type: 'POST',
+                    		dataType: 'JSON',
+                    		success: function (data) {
+                    				console.log(data);
+                    				$("#modal-action-add").modal('hide');
+                    				toastr.success("Thêm thành công");
+                    				table.ajax.reload();
+            
+                    		},
+                    		error: function (error) {
+                    			console.log("Lỗi");
+                    		}
+                    	});
+            }
 			
 		});
 
-		$('#formActionEdit').validate({
+
+        $('#formActionEdit').validate({
 			rules: {
 				
-				services_name: {
-					required: true,
-					maxlength: 150
+				pages_name: {
+					required: true
 				},
 				
 			},
 			messages: {
-				services_name:{
-					required: "Tên dịch vụ không được trống !",
-					maxlength:"Tên dịch vụ không được quá 150 ký tự !"
+				pages_name:{
+					required: "Tên trang không được trống !"
 				}
 			},
 			errorElement: 'span',
@@ -196,26 +194,26 @@ function service() {
 			unhighlight: function (element, errorClass, validClass) {
 				$(element).removeClass('is-invalid');
 			},
-			submitHandler: function(e) {
-				$.ajax({
-					url: datas.routes.update,
-					data: {
-						id: $("#btnSaveEdit").attr('data-id'),
-						services_name: $('#services_name_edit').val(),
-						services_description: CKEDITOR.instances['services_description_edit'].getData()
-					},
-					type: 'POST',
-					dataType: 'JSON',
-					success: function (data) {
-						$("#modal-action-edit").modal('hide');
-						toastr.success("Sửa thành công");
-						table.ajax.reload();
-					},
-					error: function (error) {
-						console.log(error);
-					}
-				});
-			}
+            submitHandler: function(e) {
+                $.ajax({
+                    url: datas.routes.update,
+                    data: {
+                        id: $("#btnSaveEdit").attr('data-id'),
+                        pages_name: $('#pages_name_edit').val(),
+                        pages_content: CKEDITOR.instances['pages_content_edit'].getData()
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $("#modal-action-edit").modal('hide');
+                        toastr.success("Sửa thành công");
+                        table.ajax.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
 			
 		});
 

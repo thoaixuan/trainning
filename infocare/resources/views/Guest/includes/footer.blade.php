@@ -13,7 +13,7 @@
                     <!--Footer Column-->
                     <div class="col-sm-7">
                         <div class="footer-widget logo-widget">
-                            <div class="footer-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/guest/img/logo.png" alt=""></a></div>
+                            <div class="footer-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/themes/guest/img/logo.png" alt=""></a></div>
                             <div class="widget-content">
                                 <div class="text">
                                     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat</p>

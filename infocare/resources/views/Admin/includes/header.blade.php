@@ -20,7 +20,7 @@
 		
 			<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
 				<li>
-					<a href="javascript:void(0)" data-toggle="modal" class="dropdown-item" data-target="#modal-logout" class="nav-link" role="button"> <i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+					<a href="{{route('logout-admin')}}"  class="dropdown-item" class="nav-link" role="button"> <i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
 				</li>
 			</ul>
 		</li>	

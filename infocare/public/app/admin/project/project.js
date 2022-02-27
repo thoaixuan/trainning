@@ -1,4 +1,4 @@
-function service() {
+function project() {
 	this.datas = null;
 	var datas = null;
 	this.init = function () {
@@ -8,7 +8,7 @@ function service() {
 	}
 	this.datatables = function () {
 		var me = this;
-		var table = $("#table-services").DataTable({
+		var table = $("#table-projects").DataTable({
 			serverSide: true,
 			processing: true,
 			paging: true,
@@ -30,22 +30,22 @@ function service() {
 			order: [0, "desc"],
 			columns: [
 			{
-				title: "Tên Dịch Vụ",
-				data: "services_name",
-				name: "services_name",
+				title: "Khách hàng/Công ty",
+				data: "full_name",
+				name: "full_name",
 				className: "",
 				
 			},
 			{
-				title: "Mô Tả",
-				data: "services_description",
-				name: "service_description",
+				title: "Dịch vụ",
+				data: "services_name",
+				name: "services_name",
 				className: "",
 			},
 			{
-				title: "Đường dẫn",
-				data: "services_slug",
-				name: "services_slug",
+				title: "Tên dự án",
+				data: "projects_name",
+				name: "projects_name",
 				className: "text-center",
 			},
 			{
@@ -96,12 +96,11 @@ function service() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data.data);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
 					$("#btnSaveEdit").attr('data-id', data.data.id);
-					$('#services_name_edit').val(data.data.services_name)
-					CKEDITOR.instances['services_description_edit'].setData(data.data.services_description);
-					
+					$('#projects_name_edit').val(data.data.projects_name);
+					$('#userID_edit').val(data.data.userID);
+					$('#serviceID_edit').val(data.data.serviceID);					
 				},
 				error: function (error) {
 					console.log(error);
@@ -112,28 +111,37 @@ function service() {
 		});
 
 
-		$("#btn-insert").on("click", function () {
+        $("#btn-insert").on("click", function () {
             $('#modal-action-title').text("Thêm mới");
-			$('#services_name').val('');
-			$('#services_description').val('');
+			$('#projects_name').val('');
 			$("#modal-action-add").modal('show');
 			
 		});
 
 		$('#formActionAdd').validate({
 			rules: {
-				
-				services_name: {
-					required: true,
-					maxlength: 150
+				serviceID:{
+					required: true
 				},
-				
+				userID:{
+					required: true
+				},
+				projects_name: {
+					required: true,
+					maxlength:300
+				},
 			},
 			messages: {
-				services_name:{
-					required: "Tên dịch vụ không được trống !",
-					maxlength:"Tên dịch vụ không được quá 150 ký tự !"
-				}
+				serviceID:{
+					required: "Vui lòng chọn dịch vụ!"
+				},
+				userID:{
+					required: "Vui lòng chọn Công Ty!"
+				},
+				projects_name: {
+					required: "Vui lòng nhập tên dự án !",
+					maxlength: "Tên dự án không quá 300 ký tự !"
+				},
 			},
 			errorElement: 'span',
 			errorPlacement: function (error, element) {
@@ -146,44 +154,54 @@ function service() {
 			unhighlight: function (element, errorClass, validClass) {
 				$(element).removeClass('is-invalid');
 			},
-			submitHandler: function(e) {
-				$.ajax({
-					url: datas.routes.insert,
-					data: {
-						services_name: $('#services_name').val(),
-						services_description: CKEDITOR.instances['services_description'].getData()
-					},
-					type: 'POST',
-					dataType: 'JSON',
-					success: function (data) {
-							console.log(data);
-							$("#modal-action-add").modal('hide');
-							toastr.success("Thêm thành công");
-							table.ajax.reload();
-	
-					},
-					error: function (error) {
-						console.log("Lỗi");
-					}
-				});
-			}
+            submitHandler: function(e) {
+                $.ajax({
+                    		url: datas.routes.insert,
+                    		data: {
+                    			projects_name: $('#projects_name').val(),
+                    			userID: $('#userID').val(),
+								serviceID: $('#serviceID').val()
+                    		},
+                    		type: 'POST',
+                    		dataType: 'JSON',
+                    		success: function (data) {
+                    				console.log(data);
+                    				$("#modal-action-add").modal('hide');
+                    				toastr.success("Thêm thành công");
+                    				table.ajax.reload();
+                    		},
+                    		error: function (error) {
+                    			console.log("Lỗi");
+                    		}
+                    	});
+            }
 			
 		});
-
-		$('#formActionEdit').validate({
+        
+        $('#formActionEdit').validate({
 			rules: {
-				
-				services_name: {
-					required: true,
-					maxlength: 150
+				serviceID:{
+					required: true
 				},
-				
+				userID:{
+					required: true
+				},
+				projects_name: {
+					required: true,
+					maxlength:300
+				},
 			},
 			messages: {
-				services_name:{
-					required: "Tên dịch vụ không được trống !",
-					maxlength:"Tên dịch vụ không được quá 150 ký tự !"
-				}
+				serviceID:{
+					required: "Vui lòng chọn dịch vụ!"
+				},
+				userID:{
+					required: "Vui lòng chọn Công Ty!"
+				},
+				projects_name: {
+					required: "Vui lòng nhập tên dự án !",
+					maxlength: "Tên dự án không quá 300 ký tự !"
+				},
 			},
 			errorElement: 'span',
 			errorPlacement: function (error, element) {
@@ -196,26 +214,27 @@ function service() {
 			unhighlight: function (element, errorClass, validClass) {
 				$(element).removeClass('is-invalid');
 			},
-			submitHandler: function(e) {
-				$.ajax({
-					url: datas.routes.update,
-					data: {
-						id: $("#btnSaveEdit").attr('data-id'),
-						services_name: $('#services_name_edit').val(),
-						services_description: CKEDITOR.instances['services_description_edit'].getData()
-					},
-					type: 'POST',
-					dataType: 'JSON',
-					success: function (data) {
-						$("#modal-action-edit").modal('hide');
-						toastr.success("Sửa thành công");
-						table.ajax.reload();
-					},
-					error: function (error) {
-						console.log(error);
-					}
-				});
-			}
+            submitHandler: function(e) {
+                $.ajax({
+                    url: datas.routes.update,
+                    data: {
+                        id: $("#btnSaveEdit").attr('data-id'),
+                        projects_name: $('#projects_name_edit').val(),
+                        userID: $('#userID_edit').val(),
+						serviceID: $('#serviceID_edit').val()
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $("#modal-action-edit").modal('hide');
+                        toastr.success("Sửa thành công");
+                        table.ajax.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
 			
 		});
 

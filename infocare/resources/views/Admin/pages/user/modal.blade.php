@@ -13,12 +13,32 @@
 			<div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label> Tên Dịch Vụ</label>
-						<input type="text" name="services_name" id="services_name" class=" form-control form-control-sm "/>
+                        <label>Tên khách hàng / Công ty</label>
+						<input type="text" name="full_name" id="full_name" class="form-control form-control-sm"/>
 					</div>
 					<div class="form-group">
-                        <label> Mô Tả</label>
-						<textarea  name="services_description" id="services_description" class=" form-control form-control-sm "></textarea>
+                        <label>Email</label>
+						<input type="email" name="email" id="email" class="form-control form-control-sm"/>
+					</div>
+					<div class="form-group">
+                        <label>Password</label>
+						<input type="password" name="password" id="password" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+						<input type="text" name="address" id="address" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+						<input type="text" name="phone_number" id="phone_number" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Từ khóa</label>
+						<input type="text" name="keyword" id="keyword" class="form-control form-control-sm"/>
+					</div>
+                    <div class="form-group">
+                        <label>Ghi chú</label>
+						<textarea name="note" id="note" class="form-control form-control-sm"></textarea>
 					</div>
 				</div>
 				
@@ -47,14 +67,6 @@
 		<div class="modal-body ">
 			<div class="row">
                 <div class="col-md-12">
-                    <div class="form-group">
-                        <label> Tên Dịch Vụ</label>
-						<input type="text" name="services_name" id="services_name_edit" class=" form-control form-control-sm "/>
-					</div>
-					<div class="form-group">
-                        <label> Mô Tả</label>
-						<textarea  name="services_description" id="services_description_edit" class=" form-control form-control-sm "></textarea>
-					</div>
 				</div>
 				
 			</div>
