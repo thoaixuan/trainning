@@ -25,15 +25,14 @@
 
                     <div class="navbar-collapse navbar-collapse-one collapse clearfix">
                         <ul class="navigation clearfix">
-                            <li class="current dropdown"><a href="#">Trang chủ</a>
-                               
-                            </li>
-                            <li><a href="about.html">Trung tâm trợ giúp</a></li>
-                            <li class="dropdown"><a href="#">An toàn mua bán</a>
-                               
-                            </li>
-                            <li class="dropdown"><a href="#">Quy định cần biết</a>    
-                            </li>
+                            <li class="current dropdown"><a href="{{route('guest.home')}}">Trang chủ</a></li>
+                            @foreach(getPage() as $data )
+                                @if($data->status==0)
+                                    <li>
+                                        <a href="{{route('guest.page',$data->slug)}}">{{$data->name}}</a>
+                                    </li>
+                                @endif
+                            @endforeach
                             @auth
                             <li class="dropdown text-uppercase"  data-toggle="modal" data-target="#info"><a href="#">{{Auth::user()->name}}</a>    
                             </li>

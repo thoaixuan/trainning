@@ -10,6 +10,7 @@ function projects() {
         datas = this.datas;
         var me = this;
         me.datatables();
+        me.ckeditor();
     }
     this.datatables = function () {
         var me = this;
@@ -64,7 +65,32 @@ function projects() {
                     name: "user.name",
                     className: "",
                 },
-
+                {
+                    title: "Thời gian bắt đầu",
+                    data: "time_begin",
+                    name: "time_begin",
+                    className: "",
+                    render: function (data, type, row, meta) {
+                        if (data == null) {
+                            return 'Chưa có dữ liệu'
+                        } else {
+                            return data;
+                        }
+                    }
+                },
+                {
+                    title: "Thời gian kết thúc",
+                    data: "time_end",
+                    name: "time_end",
+                    className: "",
+                    render: function (data, type, row, meta) {
+                        if (data == null) {
+                            return 'Chưa có dữ liệu'
+                        } else {
+                            return data;
+                        }
+                    }
+                },
                 {
                     title: "Action",
                     data: "id",
@@ -120,8 +146,11 @@ function projects() {
                     console.log(response);
                     $('input[name="id"]').val(response.data.id);
                     $('input[name="projects_name"]').val(response.data.projects_name);
-                    $("select#select_service_edit").val(response.data.service_id)
-                    $("select#select_user_edit").val(response.data.user_id)
+                    $("select#select_service_edit").val(response.data.service_id);
+                    $("select#select_user_edit").val(response.data.user_id);
+                    $("input[name=time_begin]").val(response.data.time_begin);
+                    $("input[name=time_end]").val(response.data.time_end);
+                    editor.setData(response.data.projects_detail);
                     $("#projectEditModal").modal("toggle");
                 }
             });
@@ -259,10 +288,13 @@ function projects() {
                     $('#projectEditModal').ready(function (e) {
                         // e.preventDefault();
                         var id = $('#id').val();
-                        var projects_name = $('#projects_name').val();
+                        var projects_name = $("input[name=projects_name]").val();
                         var service_id = $("select#select_service_edit").val()
                         var user_id = $("select#select_user_edit").val()
                         var _token = $("input[name=_token]").val();
+                        var time_begin = $("input[name=time_begin_edit]").val();
+                        var time_end = $("input[name=time_end_edit]").val();
+                        var projects_detail = editor.getData();
 
                         $.ajax({
                             url: datas.routes.updates_data,
@@ -272,7 +304,10 @@ function projects() {
                                 projects_name: projects_name,
                                 service_id: service_id,
                                 user_id: user_id,
+                                time_begin: time_begin,
+                                time_end: time_end,
                                 _token: _token,
+                                projects_detail: projects_detail
 
                             },
                             success: function (response) {
@@ -303,6 +338,12 @@ function projects() {
                 },
                 "user_id": {
                     required: true,
+                },
+                "time_begin": {
+                    required: true,
+                },
+                "time_end": {
+                    required: true,
                 }
             },
             messages: {
@@ -317,6 +358,12 @@ function projects() {
                 user_id: {
                     required: "Bắt buộc nhập dữ liệu",
                     minlength: "Hãy nhập ít nhất 1 ký tự",
+                },
+                time_begin: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                time_end: {
+                    required: "Bắt buộc nhập dữ liệu",
                 }
             },
             errorElement: "span",
@@ -338,6 +385,10 @@ function projects() {
                         var service_id = $("select#select_service").val()
                         var user_id = $("select#select_user").val()
                         var _token = $("input[name=_token]").val();
+                        var time_begin = $("input[name=time_begin]").val();
+                        var time_end = $("input[name=time_end]").val();
+                        var projects_detail = editor.getData();
+
                         $('.modal-backdrop').remove();
                         $.ajax({
                             url: datas.routes.insert,
@@ -346,7 +397,10 @@ function projects() {
                                 projects_name: projects_name,
                                 service_id: service_id,
                                 user_id: user_id,
-                                _token: _token
+                                time_begin: time_begin,
+                                time_end: time_end,
+                                _token: _token,
+                                projects_detail: projects_detail
                             },
                             success: function (response) {
                                 console.log(this.data);
@@ -373,6 +427,48 @@ function projects() {
         $.validator.addMethod("validateName", function (value, elemt) {
             return this.optional(elemt) || /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);
         }, 'Vui lòng hãy nhập đúng định dạng tên');
+
+    }
+
+
+    this.ckeditor = function () {
+        ClassicEditor
+            .create(document.querySelector('#projects_detail'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    ]
+                }
+            }).then(newEditor => {
+                editor = newEditor;
+                // editor.ui.view.editable.element.style.height = '300px';
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#projects_detail_edit'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    ]
+                }
+            }).then(newEditor => {
+                editor = newEditor;
+                // editor.ui.view.editable.element.style.height = '300px';
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
     }
 

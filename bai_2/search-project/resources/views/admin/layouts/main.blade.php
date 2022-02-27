@@ -10,7 +10,7 @@
 
 <body class="hold-transition sidebar-mini layout-fixed">
 <!-- Preloader -->
-@include('admin.includes.preloader')
+<!-- @include('admin.includes.preloader') -->
 
 <!-- Navbar -->
 @include('admin.includes.main-header')

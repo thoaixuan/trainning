@@ -31,6 +31,7 @@ Route::middleware('checkLogin')->group(function(){
         Route::post('/insert-project','ProjectController@add')->name('admin.insert.project');
         Route::get('/project-user','ProjectController@getUser')->name('admin.get_user.project');
         Route::get('/project-service','ProjectController@getService')->name('admin.get_service.project');
+
     });
 
     Route::prefix('page')->group(function(){
@@ -40,6 +41,8 @@ Route::middleware('checkLogin')->group(function(){
         Route::put('/edit-page','PageController@postUpdate')->name('admin.update_data.page');
         Route::get('/delete-page','PageController@delete')->name('admin.delete.page');
         Route::post('/insert-page','PageController@add')->name('admin.insert.page');
+        Route::get('/swap','PageController@swap')->name('admin.swap.page');
+
     });
 
     Route::get('/info-admin','LoginController@getInfo')->name('admin.get_info.index');

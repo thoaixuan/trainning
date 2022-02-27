@@ -15,26 +15,29 @@ class PageSeeder extends Seeder
             [
                 'id' => 1,
                 'name'=>"Trung tâm trợ giúp" ,
-                'key'=>"TRO_GIUP",
+                'key'=>"TRUNG_TAM_TRO_GIUP",
+                'slug'=>"trung-tam-tro-giup",
                 'type_open'=>0,
                 'status'=>0,
-                'content'=>"<p>Chưa có thông tin</p>"
+                'content'=>"Chưa có thông tin"
             ],
             [
                 'id' => 2,
                 'name'=>"An toàn mua bán" ,
                 'key'=>"AN_TOAN_MUA_BAN",
+                'slug'=>"an-toan-mua-ban",
                 'type_open'=>0,
                 'status'=>0,
-                'content'=>"<p>Chưa có thông tin</p>"
+                'content'=>"Chưa có thông tin"
             ],
             [
                 'id' => 3,
                 'name'=>"Quy định cần biết" ,
                 'key'=>"QUY_DINH_CAN_BIET",
+                'slug'=>"quy-dinh-can-biet",
                 'type_open'=>0,
                 'status'=>0,
-                'content'=>"<p>Chưa có thông tin</p>"
+                'content'=>"Chưa có thông tin"
             ],
         ]);
     }

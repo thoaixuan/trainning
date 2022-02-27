@@ -57,9 +57,12 @@
           updates:"{{route('admin.update.page')}}",
           updates_data:"{{route('admin.update_data.page')}}",
           delete:"{{route('admin.delete.page')}}",
+          swap:"{{route('admin.swap.page')}}",
       }
     }
       pages.init();
+     
+
 </script>
 @endsection
 

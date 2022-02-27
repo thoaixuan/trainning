@@ -21,7 +21,7 @@ function renderSwitch(data) {
             + (item.value == 0 ? 'checked' : '')
             + ' class="custom-control-input" id="custom-action-'
             + item.id + '" value="' + item.id + '"data-status='
-            + item.value + '>';
+            + item.value + ' data-id="' + item.id + '">';
         htmlSwitch += '<label class="custom-control-label" for="custom-action-'
             + item.id + '"></label>';
     });

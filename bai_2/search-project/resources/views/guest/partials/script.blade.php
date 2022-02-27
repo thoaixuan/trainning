@@ -13,4 +13,6 @@
 <script src="{{asset('themes\guest\assets\js\isotope.pkgd.min.js')}}"></script>
 <script src="{{asset('themes\guest\assets\js\main.js')}}"></script>
 <script src="{{asset('themes/admin/plugins/datatables-bs5/datatables.js')}}"></script>
-<script type="text/javascript" src="{{asset('themes/admin/dist/validate/jquery.validate.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/dist/validate/jquery.validate.min.js')}}"></script><script type="text/javascript" src="{{asset('ckeditor/ckeditor.js')}}"></script>
+<script type="text/javascript" src="{{asset('ckeditor/ckeditor.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/dist/jquery2/js/select2.min.js')}}"> </script>

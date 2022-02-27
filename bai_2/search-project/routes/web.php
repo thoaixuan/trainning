@@ -13,16 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/','HomeController@index')->name('guest.home');
+Route::get('/any-data','HomeController@anyData')->name('guest.datatables.home');
+Route::get('/data','HomeController@getData')->name('guest.data.home');
+Route::get('/count','HomeController@countServices')->name('guest.count_service.home');
+Route::get('/get-data','HomeController@getDataProject')->name('guest.get_data_project.home');
+
+Route::prefix('page')->group(function(){
+    Route::get('/{slug?}','PageController@getPage')->name('guest.page');
+});
 
 Route::get('/signin', 'GuestController@index')->name('guest.signin');
 Route::post('/signin', 'GuestController@signin')->name('guest.signin');
 Route::get('/logout', 'GuestController@logout')->name('guest.logout');
 
-
-Route::get('/any-data','HomeController@anyData')->name('guest.datatables.home');
-Route::get('/data','HomeController@getData')->name('guest.data.home');
-Route::get('/count','HomeController@countServices')->name('guest.count_service.home');
-
-Route::get('/react','ContentController@getData')->name('guest.getdata.react');
 
 

@@ -267,7 +267,7 @@ function users() {
                 },
                 password: {
                     required: "Bắt buộc nhập password",
-                    minlength: "Hãy nhập ít nhất 8 ký tự",
+                    minlength: "Hãy nhập lớn hơn 8 ký tự",
                 },
                 phone: {
                     required: "Bắt buộc nhập số điện thoại",

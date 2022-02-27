@@ -33,6 +33,9 @@
       home.datas={
         routes:{
           datatable:"{{route('guest.datatables.home')}}",
+          get_data_project:"{{route('guest.get_data_project.home')}}",
+          get_user:"{{route('admin.get_user.project')}}",
+          get_service:"{{route('admin.get_service.project')}}",
         }
       }
       home.init();

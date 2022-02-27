@@ -16,6 +16,7 @@ class ProjectSeeder extends Seeder
                 'user_id' => 1,
                 'service_id'=>1 ,
                 'projects_name'=>"Ung dung nghe nhac",
+                'projects_detail'=>"Chưa có dữ liệu",
                 'status'=>0
             ],
         ]);

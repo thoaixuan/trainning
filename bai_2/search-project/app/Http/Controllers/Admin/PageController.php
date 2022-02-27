@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Validator;
 use App\Page;
 
 class PageController extends Controller
@@ -18,8 +20,6 @@ class PageController extends Controller
         $columns[]='name';
         $columns[]='key';
         $columns[]='link';
-
-
 
         $limit=$request->input('length');
         $start=$request->input('start');
@@ -58,9 +58,9 @@ class PageController extends Controller
             'required'=>":attribute không được để trống",
         ];
         $validate=Validator::make($request->all(),[
-            'service_name'=>['required'],
-            'service_description'=>['required'],
-                
+            'name'=>['required'],
+            'type_open'=>['required'],
+            'status'=>['required'],
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -69,33 +69,39 @@ class PageController extends Controller
                 'code'=>200
             ]);
         }
-        $service=new Service();
-        $service->service_name=$request->service_name;
-        $service->service_description=$request->service_description;
-        $service->save();
-        if($service){
+        $page=new Page();
+        $page->name=$request->name;
+        $page->link=$request->link;
+        $page->type_open=$request->type_open;
+        $page->status=$request->status;
+        $page->content=$request->content;
+        $page->slug=Str::slug($request->name,'-');
+        $page->save();
+        if($page){
             return response()->json([
                 'status'=>1,
-                'message'=>"Data Inserted Successfully",
-                'code'=>200
+                'message'=>"Thêm dữ liệu thành công",
+                'code'=>200,
+                'data'=>$page
             ]);
         }
         else{
             return response()->json([
                 'status'=>0,
-                'message'=>"Internal Server Error",
-                'code'=>500
+                'message'=>"Đã xảy ra lỗi",
+                'code'=>500,
+                'data'=>$page
             ]);
         }
     }
 
     public function getUpdate(Request $request){
-        $service=Service::where('id','=',$request->id)->first();
-        if($service){
+        $page=Page::where('id','=',$request->id)->first();
+        if($page){
             return response()->json([
                 'message'=>"Data Inserted Successfully",
                 'code'=>200,
-                'data'=>$service
+                'data'=>$page
             ]);
         }else{
             return response()->json([
@@ -106,15 +112,19 @@ class PageController extends Controller
     }
 
     public function postUpdate(Request $request){
-        $service=Service::find($request->id);
-        $service->service_name=$request->service_name;
-        $service->service_description=$request->service_description;
-        $service->save();
-        if($service){
+        $page=Page::where('id','=',$request->id)->first();
+        $page->name=$request->name;
+        $page->link=$request->link;
+        $page->type_open=$request->type_open;
+        $page->status=$request->status;
+        $page->content=$request->content;
+        $page->slug=Str::slug($request->name,'-');
+        $page->save();
+        if($page){
             return response()->json([
                 'message'=>"Data Update Successfully",
                 'code'=>200,
-                'data'=>$service
+                'data'=>$page
             ]);
         }else{
             return response()->json([
@@ -125,18 +135,40 @@ class PageController extends Controller
     }
 
     public function delete(Request $request){
-        $service=Service::find($request->id);
-        $service->delete();
-        if($service){
+        $page=Page::find($request->id);
+        $page->delete();
+        if($page){
             return response()->json([
                 'message'=>"Data Delete Successfully",
                 'code'=>200,
-                'data'=>$service
+                'data'=>$page
             ]);
         }else{
             return response()->json([
                 'message'=>"Internal Server Error",
                 'code'=>500,
+            ]);
+        }
+    }
+
+    public function swap(Request $request){
+        $page=Page::where('id','=',$request->id)->first();
+        $page->status = !$page->status;
+        $page->save();
+        if($page){
+            return response()->json([
+                'status'=>1,
+                'message'=>"Thêm dữ liệu thành công",
+                'code'=>200,
+                'data'=>$page
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>0,
+                'message'=>"Đã xảy ra lỗi",
+                'code'=>500,
+                'data'=>$page
             ]);
         }
     }

@@ -25,7 +25,8 @@ class ProjectController extends Controller
         $validate=Validator::make($request->all(),[
             'projects_name'=>['required'],
             'service_id'=>['required'],
-            'user_id'=>['required']
+            'user_id'=>['required'],
+            
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -38,6 +39,13 @@ class ProjectController extends Controller
         $project->projects_name=$request->projects_name;
         $project->service_id=$request->service_id;
         $project->user_id=$request->user_id;
+        $project->time_begin=$request->time_begin;
+        $project->time_end=$request->time_end;
+        if($request->projects_detail==null){
+            $project->projects_detail='Chưa có dữ liệu';
+        }else{
+            $project->projects_detail=$request->projects_detail;
+        }
         $project->status=0;
         $project->save();
         if($project){
@@ -65,6 +73,8 @@ class ProjectController extends Controller
         $columns[]='status';
         $columns[]='user.name';
         $columns[]='service.name';
+        $columns[]='time_begin';
+        $columns[]='time_end';
 
         $limit=$request->input('length');
         $start=$request->input('start');
@@ -136,8 +146,12 @@ class ProjectController extends Controller
     public function postUpdate(Request $request){
         $project=Project::find($request->id);
         $project->projects_name=$request->projects_name;
-        $project->user_id=$request->user_id;
         $project->service_id=$request->service_id;
+        $project->user_id=$request->user_id;
+        $project->time_begin=$request->time_begin;
+        $project->time_end=$request->time_end;
+        $project->projects_detail=$request->projects_detail;
+        $project->status=0;
         $project->save();
         if($project){
             return response()->json([

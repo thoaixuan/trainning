@@ -56,7 +56,7 @@ class HomeController extends Controller
                         ->orWhere('phone','=',$search);
             })
             ->select(
-                'users.id',
+                'projects.id',
                 'users.name',
                 'users.phone',
                 'users.email',
@@ -85,12 +85,20 @@ class HomeController extends Controller
             'data'=>$user
         ],206);
     }
-    public function countServices(){
-        $service=Service::count();
-        return response()->json([
-            'message'=>"Internal Server Error",
-            'code'=>500,
-            data=>$service
-        ]);
+    public function getDataProject(Request $request){
+        $project=Project::where('id','=',$request->id)->first();
+
+        if($project){
+            return response()->json([
+                'message'=>"Data Inserted Successfully",
+                'code'=>200,
+                'data'=>$project
+            ]);
+        }else{
+            return response()->json([
+                'message'=>"Internal Server Error",
+                'code'=>500,
+            ]);
+        }
     }
 }

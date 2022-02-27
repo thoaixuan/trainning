@@ -10,6 +10,7 @@ function home() {
         datas = this.datas;
         var me = this;
         me.datatables();
+        me.ckeditor();
     }
     this.datatables = function () {
         var me = this;
@@ -42,6 +43,9 @@ function home() {
                     data: "id",
                     name: "id",
                     className: "text-center",
+                    render: function (data, type, row, meta) {
+                        return meta.row + meta.settings._iDisplayStart + 1;
+                    }
                 },
                 {
                     title: "Name user",
@@ -68,10 +72,12 @@ function home() {
                     className: "",
                     render: function (data, type, row, meta) {
                         if (data == null) {
-                            return 'Chưa có dữ liệu'
-                        } else {
+                            return 'Chưa có dữ liệu';
+                        }
+                        else {
                             return data;
                         }
+
                     }
                 },
                 {
@@ -82,9 +88,14 @@ function home() {
                     render: function (data, type, row, meta) {
                         if (data == null) {
                             return 'Chưa có dữ liệu'
-                        } else {
-                            return data;
                         }
+                        else {
+                            return renderAction([{
+                                data: data,
+                                value: row.id,
+                            }]);
+                        }
+
                     }
                 },
 
@@ -95,8 +106,59 @@ function home() {
         me.action(table);
     }
     this.action = function (table) {
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_user,
+                dataType: 'JSON',
+                success: function (response) {
+                    $.each(response.data, function (key, item) {
+                        $('#select_user').append('<option value=' + item.id + '>' + item.name + '</option');
+                    });
+                }
+            })
+        });
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_service,
+                dataType: 'JSON',
+                success: function (response) {
+                    $.each(response.data, function (key, item) {
+                        $('#select_service').append('<option value=' + item.id + '>' + item.service_name + '</option');
+                    });
+                }
+            })
+        });
         $("#btn-search").on('click', function (e) {
             table.ajax.reload();
+        });
+        $(document).on('click', '#projects', function () {
+            $.ajax({
+                url: datas.routes.get_data_project,
+                type: "get",
+                dataType: 'json',
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    "id": $(this).data("id"),
+                },
+                success: function (response) {
+                    // var dat = new Date();
+                    console.log(response);
+                    $('input[name="id"]').val(response.data.id);
+                    $('input[name="projects_name"]').val(response.data.projects_name);
+                    $('input[name="time_begin"]').val(response.data.time_begin);
+                    // document.getElementById("time_begin").value = "2014-02-09";
+                    // document.getElementById("time_end").value = "2014-02-09";
+                    $('input[name="time_end"]').val(response.data.time_end);
+                    $("select#select_service").val(response.data.service_id);
+                    $("select#select_user").val(response.data.user_id);
+                    editor.setData(response.data.projects_detail);
+                    $("#projectModal").modal("toggle");
+                }
+            });
         });
         $("#search").on('keypress', function (e) {
             if (e.which == 13) {
@@ -104,6 +166,27 @@ function home() {
             }
         });
 
+
+    }
+    this.ckeditor = function () {
+        ClassicEditor
+            .create(document.querySelector('#projects_detail'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    ]
+                }
+            }).then(newEditor => {
+                editor = newEditor;
+                // editor.ui.view.editable.element.style.height = '300px';
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
     }
 }

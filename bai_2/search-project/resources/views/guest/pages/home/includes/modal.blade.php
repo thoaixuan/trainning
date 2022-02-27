@@ -1,3 +1,58 @@
+<!-- Modal Create -->
+<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin dựa án</h5>
+                  </div>
+                  <div class="modal-body">
+                    <form id="projectForm" name="projectForm"> 
+                    @csrf
+                    <div class="row">
+                      <div class="col-md-8 border"> 
+                        <div class="form-group">
+                           <label for="user_id">Chọn cá nhân</label>
+                           <select name="user_id" id="select_user" class="form-control required" disabled>
+                             <option value="0" disabled selected>-- Chọn cá nhân--</option>
+                            </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="service_id">Chọn dịch vụ </label>
+                        <select name="service_id" id="select_service" class="form-control required" disabled>
+                          <option value="0" disabled selected>-- Chọn dịch vụ--</option>
+                        </select>
+                      </div> </div>
+                      <div class="col-md-4 border">
+                        <div class="form-group">
+                          <label for="time_begin">Ngày bắt đầu</label>
+                          <input class="form-control" type="date" name="time_begin" id="time_begin" value="2022-02-27" disabled>
+                        </div>
+                        <div class="form-group">
+                          <label for="time_end">Ngày kết thúc</label>
+                          <input class="form-control" type="date" name="time_end" disabled>
+                        </div>
+                      </div>
+                        <div class="col-md-12 border">
+                        <span class="border-bottom d-block">Chi tiết dựa án</span>
+                          <div class="form-group">
+                            <label for="projects_name">Tên dựa án</label>
+                            <input type="text" name="projects_name" class="form-control" disabled />
+                          </div>
+                          <div class="form-group">
+                            <label for="projects_detail">Nội dung</label>
+                            <textarea name="projects_detail" class="form-group" id="projects_detail" rows="8" disabled></textarea>
+                          </div>   
+                      </div>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
 @auth
 <div class="modal fade"  id="info" class="modal" tabindex="-1">
   <div class="modal-dialog">
@@ -24,3 +79,4 @@
   </div>
 </div>
 @endauth
+

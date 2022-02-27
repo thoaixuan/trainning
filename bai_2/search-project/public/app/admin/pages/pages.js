@@ -7,6 +7,7 @@ function pages() {
     this.datas = null;
     var datas = null;
     this.init = function () {
+        // CKEDITOR.replace('content');
         datas = this.datas;
         var me = this;
         me.datatables();
@@ -101,9 +102,11 @@ function pages() {
             ],
         });
         me.ckeditor(table);
+        me.action(table);
+        me.validator(table);
     }
 
-    this.action = function (table, editor) {
+    this.action = function (table) {
         $("#btn-search").on('click', function (e) {
             table.ajax.reload();
         });
@@ -132,10 +135,12 @@ function pages() {
                 success: function (response) {
                     console.log(response);
                     $('input[name="id"]').val(response.data.id);
-                    $('input[name="projects_name"]').val(response.data.projects_name);
-                    $("select#select_service_edit").val(response.data.service_id)
-                    $("select#select_user_edit").val(response.data.user_id)
-                    $("#projectEditModal").modal("toggle");
+                    $('input[name="name"]').val(response.data.name);
+                    $('input[name="link"]').val(response.data.link);
+                    $("select#select_open_edit").val(response.data.type_open);
+                    $("select#select_status_edit").val(response.data.status);
+                    editor.setData(response.data.content);
+                    $("#pageEditModal").modal("toggle");
                 }
             });
         });
@@ -172,25 +177,41 @@ function pages() {
                 }
             })
         });
+        // find by id service
+        $(document).on('click', ".custom-control-input", function () {
+            console.log("cập nhật trạng thái");
+            $.ajax({
+                url: datas.routes.swap,
+                type: "get",
+                dataType: 'json',
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    "id": $(this).data("id"),
+                },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        });
 
 
     }
 
 
-    this.validator = function (table, editor) {
+    this.validator = function (table) {
         console.log("validate");
-        $("#projectEditForm").validate({
+        $("#pageEditForm").validate({
             rules: {
-                "projects_name": {
+                "name": {
                     required: true,
                     maxlength: 20,
                     minlength: 3,
                     validateName: true,
                 },
-                "service_id": {
+                "type_open": {
                     required: true,
                 },
-                "user_id": {
+                "status": {
                     required: true,
                 },
 
@@ -201,7 +222,7 @@ function pages() {
                     maxlength: "Nhập tối đa 20 ký tự",
                     minlength: "Hãy nhập ít nhất 3 ký tự"
                 },
-                service_id: {
+                type_open: {
                     required: "Bắt buộc nhập service",
                 },
                 user_id: {
@@ -224,29 +245,32 @@ function pages() {
                 console.log("update data");
                 // update student
                 $(document).ready(function () {
-                    $('#projectEditModal').ready(function (e) {
+                    $('#pageEditModal').ready(function (e) {
                         // e.preventDefault();
                         var id = $('#id').val();
-                        var projects_name = $('#projects_name').val();
-                        var service_id = $("select#select_service_edit").val()
-                        var user_id = $("select#select_user_edit").val()
+                        var name = $("input[name=name]").val();
+                        var link = $("input[name=link]").val();
+                        var type_open = $("select#select_open").val();
+                        var status = $("select#select_status").val();
                         var _token = $("input[name=_token]").val();
-
+                        var content = editor.getData();
                         $.ajax({
                             url: datas.routes.updates_data,
                             type: 'PUT',
                             data: {
                                 id: id,
-                                projects_name: projects_name,
-                                service_id: service_id,
-                                user_id: user_id,
-                                _token: _token,
+                                name: name,
+                                link: link,
+                                type_open: type_open,
+                                status: status,
+                                content: content,
+                                _token: _token
 
                             },
                             success: function (response) {
                                 console.log(this.data);
-                                $("#projectEditForm")[0].reset();
-                                $('#projectEditModal').modal('hide');
+                                $("#pageEditForm")[0].reset();
+                                $('#pageEditModal').modal('hide');
                                 $('.modal-backdrop').remove();
                                 table.ajax.reload();
                             }
@@ -257,7 +281,7 @@ function pages() {
         }
 
         );
-        $("#projectForm").validate({
+        $("#pageForm").validate({
 
             rules: {
                 "name": {
@@ -300,20 +324,24 @@ function pages() {
             },
             submitHandler: function () {
                 $(document).ready(function () {
-                    $('#projectForm').ready(function (e) {
+                    $('#pageForm').ready(function (e) {
                         // e.preventDefault();
-                        var projects_name = $("input[name=projects_name]").val();
-                        var service_id = $("select#select_service").val()
-                        var user_id = $("select#select_user").val()
+                        var name = $("input[name=name]").val();
+                        var link = $("input[name=link]").val();
+                        var type_open = $("select#select_open").val();
+                        var status = $("select#select_status").val();
                         var _token = $("input[name=_token]").val();
+                        var content = editor.getData();
                         $('.modal-backdrop').remove();
                         $.ajax({
                             url: datas.routes.insert,
                             type: "POST",
                             data: {
-                                projects_name: projects_name,
-                                service_id: service_id,
-                                user_id: user_id,
+                                name: name,
+                                link: link,
+                                type_open: type_open,
+                                status: status,
+                                content: content,
                                 _token: _token
                             },
                             success: function (response) {
@@ -323,8 +351,8 @@ function pages() {
                                 }
                                 if (response.status === 1) {
                                     console.log(response);
-                                    $('#projectForm')[0].reset();
-                                    $('#projectModal').modal('hide');
+                                    $('#pageForm')[0].reset();
+                                    $('#pageModal').modal('hide');
                                     $('.modal-backdrop').remove();
                                     table.ajax.reload();
                                 }
@@ -345,29 +373,41 @@ function pages() {
     }
 
     this.ckeditor = function (table) {
-        var me = this;
-        let editor;
-        ClassicEditor
-            .create(document.querySelector('#editor'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                    ]
-                }
-            }).then(newEditor => {
-                editor = newEditor;
-                // editor.ui.view.editable.element.style.height = '300px';
-            })
+        ClassicEditor.create(document.querySelector('#content'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                ]
+            }
+        }).then(newEditor => {
+            editor = newEditor;
+            // editor.ui.view.editable.element.style.height = '300px';
+        })
             .catch(error => {
                 console.log(error);
             });
-        me.action(table, editor);
-        me.validator(table, editor);
 
+
+        ClassicEditor.create(document.querySelector('#content_edit'), {
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+            heading: {
+                options: [
+                    { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                    { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                    { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                    { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                ]
+            }
+        }).then(newEditor => {
+            editor = newEditor;
+            // editor.ui.view.editable.element.style.height = '300px';
+        })
+            .catch(error => {
+                console.log(error);
+            });
     }
-
 }

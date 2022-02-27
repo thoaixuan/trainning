@@ -26,13 +26,11 @@ function info() {
                     },
                     "reset_password": {
                         required: true,
-                        // minlength: 8,
-                        // validatePassword: true,
+                        validatePassword: true,
                     },
                     "re_password": {
                         required: true,
                         equalTo: "#reset_password",
-                        // minlength: 8
                     }
 
                 },
@@ -43,11 +41,10 @@ function info() {
                     },
                     reset_password: {
                         required: "Bắt buộc nhập password",
-                        // minlength: "Hãy nhập ít nhất 8 ký tự",
+                        minlength: "Hãy nhập nhiều hơn 8 ký tự",
                     },
                     re_password: {
                         required: "Bắt buộc nhập password",
-                        // minlength: "Hãy nhập ít nhất 8 ký tự",
                         equalTo: "Mật khẩu chưa khớp",
                     }
                 },
