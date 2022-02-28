@@ -58,7 +58,7 @@ function page() {
 					return renderAction([ {
 						class: 'btn-update',
 						value: row.id,
-						title: 'Sửa',
+						title: 'Chỉnh Sửa',
 						icon: 'fas fa-edit',
 						color: 'primary'
 					},
