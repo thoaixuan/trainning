@@ -5,8 +5,6 @@ $(document).ready(function () {
         infinite: true,
         autoplay: true,
         autoplaySpeed: 3000,
-        // prevArrow: "<button type='button' class='slick-prev pull-left'><i class='fa fa-angle-left' aria-hidden='true'></i></button>",
-        // nextArrow: "<button type='button' class='slick-next pull-right'><i class='fa fa-angle-right' aria-hidden='true'></i></button>"
     });
 });
 
@@ -35,3 +33,21 @@ $(document).ready(function () {
             }]
     });
 });
+
+// bai 2
+
+$(document).ready(function () {
+    $(".card-header").click(function () {
+
+        if ($(this).next(".card-body").hasClass("active")) {
+            $(this).next(".card-body").removeClass("active").slideUp()
+            $(this).children("span").removeClass("fa-minus").addClass("fa-plus")
+        } else {
+            $(".card .card-body").removeClass("active").slideUp()
+            $(".card .card-header span").removeClass("fa-minus").addClass("fa-plus")
+            $(this).next(".card-body").addClass("active").slideDown()
+            $(this).children("span").removeClass("fa-plus").addClass("fa-minus")
+        }
+
+    })
+})

@@ -34,3 +34,39 @@
     border:none;
     z-index: 1;
 }
+/*`````````````````````````````````````````````````````````````` */
+
+.accordian{
+    margin: 20px;
+}
+.accordian .card{
+    box-shadow: 0px 0px 5px #d4d4d4;
+    margin-top:20px ;
+}
+
+.accordian .card .card-header{
+    position: relative;
+    background-color: white;
+    padding: 20px;
+}
+.accordian .card .card-header p{
+    cursor: pointer;
+    margin: 0;
+}
+.accordian .card .card-header span{
+    position: absolute;
+    right:0;
+    top:50%;
+    transform: translateY(-50%);
+    color: #d4d4d4;
+    margin-right: 20px;
+}
+.accordian .card .card-body {
+   display: none;
+}
+
+.accordian .card .card-body p{
+    font-size: 15px;
+    line-height: 24px;
+    color:grey;
+}
