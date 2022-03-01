@@ -20,6 +20,9 @@ class ProjectsController extends Controller
        
         $columns [] ='services_name';
         $columns [] ='projects_name';
+        $columns [] ='time_start';
+        $columns [] ='time_end';
+        $columns [] ='projects_description';
         $columns [] ='id';
      
         $limit = $request->input('length');
@@ -70,6 +73,9 @@ class ProjectsController extends Controller
 	    $Projects->userID = $Request->userID;
 	    $Projects->serviceID = $Request->serviceID;
 	    $Projects->projects_name = $Request->projects_name;
+        $Projects->time_start = $Request->time_start;
+        $Projects->time_end = $Request->time_end;
+        $Projects->projects_description = $Request->projects_description;
 	    if($Projects->save()){
 	        return response()->json([
                 'name' => 'Thành công',
@@ -100,6 +106,9 @@ class ProjectsController extends Controller
 	        $Projects->projects_name = $Request->projects_name;
 		    $Projects->userID = $Request->userID;
 		    $Projects->serviceID = $Request->serviceID;
+            $Projects->time_start = $Request->time_start;
+            $Projects->time_end = $Request->time_end;
+            $Projects->projects_description = $Request->projects_description;
 	        if($Projects->save()){
                 return response()->json([
                     'name' => 'Thành công',

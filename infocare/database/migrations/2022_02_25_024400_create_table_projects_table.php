@@ -20,6 +20,9 @@ class CreateTableProjectsTable extends Migration
             $table->foreign('serviceID')->references('id')->on('services')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('serviceID')->nullable();
             $table->string('projects_name')->nullable();
+            $table->string('projects_description')->nullable();
+            $table->date('time_start')->nullable();
+            $table->date('time_end')->nullable();
             $table->timestamps();
         });
     }

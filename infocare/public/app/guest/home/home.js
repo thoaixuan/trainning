@@ -93,7 +93,7 @@ function home() {
 						if (data === null) {
 							return 'Chưa có dữ liệu';
 						}else{
-							return data;
+							return data + '<span class="btn-info-project" id-project="'+row.projects_name+'"> (Chi tiết) </a>';
 						}
 
 					},
@@ -147,7 +147,47 @@ function home() {
 
         });
 
-		
+		$(document).delegate(".btn-info-project", "click", function () {
+        	var projectID = $(this).attr('id-project');
+			$.ajax({
+				url: datas.routes.information,
+				data: {
+					projectID: projectID
+				},
+				type: 'GET',
+				dataType: 'JSON',
+				success: function (data) {
+					console.log(data.data);
+					$('.projects_name').text(data.data.projects_name);
+					$('.time_start').text(data.data.time_start);
+					$('.time_end').text(data.data.time_end);
+					$('.projects_description').html(data.data.projects_description);
+					
+					$("#ModalInfoProject").modal('show');
+				},
+				error: function (error) {
+					alert("Lỗi");
+					console.log(error);
+				}
+			});
+
+            // $.ajax({
+			// 	url: datas.routes.information,
+			// 	data: {
+			// 		id: id,
+			// 		projectID: projectID
+			// 	},
+			// 	type: 'GET',
+			// })
+			// .done(function(response) {
+            //     var obj = $.parseJSON(response);
+			// 		$("#ModalBaoTinDaBan .modal-body").empty().append(obj.data);
+            // 		$("#ModalBaoTinDaBan").modal('show');
+            // })
+            // .fail(function(jqXHR, ajaxOptions, thrownError) {
+            //     alert("error");
+            // });
+        });
 
 
     } 

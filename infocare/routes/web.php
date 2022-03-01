@@ -17,6 +17,7 @@ Route::group(['namespace' => 'Guest'], function () {
     
     Route::group(['prefix' => '/'], function () {
         Route::get('/', 'HomeController@getHome')->name('guest_home');
+        Route::get('/infomation', 'HomeController@getInformation')->name('guest_information');
         Route::get('/search', 'HomeController@searchInfomation')->name('guest_search_info');
     });
 

@@ -118,24 +118,24 @@
 
     <!--==================================================================== -->
 
-
-@endsection
-
-@section('jsGuest')
-<script src="{{asset('themes/admin/plugins/datatables/jquery.dataTables.js')}}"></script>
-    <script src="{{asset('themes/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
-    <script src="{{asset('themes/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{asset('themes/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{asset('app/guest/home/home.js')}}"></script>
-    <script>
-        var home = new home();
-        home.datas={
-            routes:{
-                search:"{{route('guest_search_info')}}"
+    @include('Guest.pages.home.modal')
+    @section('jsGuest')
+    <script src="{{asset('themes/admin/plugins/datatables/jquery.dataTables.js')}}"></script>
+        <script src="{{asset('themes/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.js')}}"></script>
+        <script src="{{asset('themes/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+        <script src="{{asset('themes/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+        <script src="{{asset('app/guest/home/home.js')}}"></script>
+        <script>
+            var home = new home();
+            home.datas={
+                routes:{
+                    search:"{{route('guest_search_info')}}",
+                    information:"{{route('guest_information')}}"
+                }
             }
-        }
-        home.init();
-
-    </script>
-
+            home.init();
+    
+        </script>
+    
+    @endsection
 @endsection

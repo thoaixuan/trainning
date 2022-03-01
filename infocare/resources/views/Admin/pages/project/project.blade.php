@@ -70,6 +70,8 @@ var project = new project();
 	    }   
 	    project.init();
       
+      CKEDITOR.replace('projects_description');
+      CKEDITOR.replace('projects_description_edit');
 </script>
 @endsection
   

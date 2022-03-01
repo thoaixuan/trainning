@@ -30,7 +30,7 @@
 					</div>
                     <div class="form-group">
                         <label>Số điện thoại</label>
-						<input type="text" name="phone_number" id="phone_number" class="form-control form-control-sm"/>
+						<input type="number" name="phone_number" id="phone_number" class="form-control form-control-sm"/>
 					</div>
                     <div class="form-group">
                         <label>Từ khóa</label>
@@ -85,7 +85,7 @@
 					</div>
                     <div class="form-group">
                         <label>Số điện thoại</label>
-						<input type="text" name="phone_number" id="phone_number_edit" class="form-control form-control-sm"/>
+						<input type="number" name="phone_number" id="phone_number_edit" class="form-control form-control-sm"/>
 					</div>
                     <div class="form-group">
                         <label>Từ khóa</label>

@@ -110,6 +110,22 @@ function user() {
 			
 		});
 
+		jQuery.validator.addMethod("validatePhone", function(value, element){
+			if (/((09|03|07|08|05)+([0-9]{8})\b)/g.test(value)) {
+				return true;  
+			} else {
+				return false;
+			};
+		}, "Vui lòng hãy nhập đúng định dạng số điện thoại"); 
+
+		jQuery.validator.addMethod("validatePassword", function(value, element){
+			if (/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/.test(value)) {
+				return true;  
+			} else {
+				return false;
+			};
+		}, "Password phải bao gồm chữ và số"); 
+		
 		$('#formActionAdd').validate({
 			rules: {
 				full_name: {
@@ -119,13 +135,18 @@ function user() {
 					required: true
 				},
 				password: {
-					required: true
+					required: true,
+					minlength: 8,
+					validatePassword: true
 				},
 				address: {
 					required: true
 				},
 				phone_number: {
-					required: true
+					required: true,
+                    validatePhone: true,
+                    minlength: 10,
+                    maxlength: 10,
 				},
 				keyword: {
 					required: true
@@ -140,13 +161,16 @@ function user() {
 					required: "Email không được trống !"
 				},
 				password:{
-					required: "Password không được trống !"
+					required: "Password không được trống !",
+					minlength: "Password phải ít nhất 8 ký tự"
 				},
 				address:{
 					required: "Địa chỉ không được trống !"
 				},
 				phone_number:{
-					required: "Số điện thoại không được trống !"
+					required: "Số điện thoại không được trống !",
+                    minlength: "Vui lòng nhập đủ 10 ký tự",
+                    maxlength: "Vui lòng nhập tối thiểu 10 ký tự"
 				},
 				keyword:{
 					required: "Từ khóa không được trống !"
@@ -189,8 +213,11 @@ function user() {
                     	});
             }
 			
+			
 		});
 		
+
+
 		$('#formActionEdit').validate({
 			rules: {
 				full_name: {
@@ -200,13 +227,18 @@ function user() {
 					required: true
 				},
 				password: {
-					required: true
+					required: true,
+					validatePassword: true,
+					minlength: 8
 				},
 				address: {
 					required: true
 				},
 				phone_number: {
-					required: true
+					required: true,
+                    validatePhone: true,
+                    minlength: 10,
+                    maxlength: 10,
 				},
 				keyword: {
 					required: true
@@ -227,7 +259,9 @@ function user() {
 					required: "Địa chỉ không được trống !"
 				},
 				phone_number:{
-					required: "Số điện thoại không được trống !"
+					required: "Số điện thoại không được trống !",
+                    minlength: "Vui lòng nhập đủ 10 ký tự",
+                    maxlength: "Vui lòng nhập tối thiểu 10 ký tự"
 				},
 				keyword:{
 					required: "Từ khóa không được trống !"

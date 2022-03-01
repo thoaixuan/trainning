@@ -6179,3 +6179,6 @@ body.hp-six {
 .prevention-item:hover .prevention-content h5 a {
     color: #fff;
 }
+.btn-info-project {
+    cursor: pointer;
+}

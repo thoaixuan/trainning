@@ -49,6 +49,24 @@ function project() {
 				className: "text-center",
 			},
 			{
+				title: "Ngày bắt đầu",
+				data: "time_start",
+				name: "time_start",
+				className: "text-center",
+			},
+			{
+				title: "Ngày kết thúc",
+				data: "time_end",
+				name: "time_end",
+				className: "text-center",
+			},
+			{
+				title: "Mô tả",
+				data: "projects_description",
+				name: "projects_description",
+				className: "text-center",
+			},
+			{
 				title: "Thao tác",
 				data: "id",
 				name: "id",
@@ -96,11 +114,15 @@ function project() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
+					console.log(data.data);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
 					$("#btnSaveEdit").attr('data-id', data.data.id);
 					$('#projects_name_edit').val(data.data.projects_name);
 					$('#userID_edit').val(data.data.userID);
-					$('#serviceID_edit').val(data.data.serviceID);					
+					$('#serviceID_edit').val(data.data.serviceID);
+					$('#time_start_edit').val(data.data.time_start),
+					$('#time_end_edit').val(data.data.time_end),
+					CKEDITOR.instances['projects_description_edit'].setData(data.data.projects_description)					
 				},
 				error: function (error) {
 					console.log(error);
@@ -114,6 +136,9 @@ function project() {
         $("#btn-insert").on("click", function () {
             $('#modal-action-title').text("Thêm mới");
 			$('#projects_name').val('');
+			$('#time_start').val('');
+			$('#time_end').val('');
+			CKEDITOR.instances['projects_description'].setData('');
 			$("#modal-action-add").modal('show');
 			
 		});
@@ -130,6 +155,12 @@ function project() {
 					required: true,
 					maxlength:300
 				},
+				time_start: {
+					required: true
+				},
+				time_end: {
+					required: true
+				}
 			},
 			messages: {
 				serviceID:{
@@ -142,6 +173,12 @@ function project() {
 					required: "Vui lòng nhập tên dự án !",
 					maxlength: "Tên dự án không quá 300 ký tự !"
 				},
+				time_start: {
+					required: "Vui lòng chọn ngày bắt đầu !"
+				},
+				time_end: {
+					required: "Vui lòng chọn ngày kết thúc !"
+				}
 			},
 			errorElement: 'span',
 			errorPlacement: function (error, element) {
@@ -160,7 +197,10 @@ function project() {
                     		data: {
                     			projects_name: $('#projects_name').val(),
                     			userID: $('#userID').val(),
-								serviceID: $('#serviceID').val()
+								serviceID: $('#serviceID').val(),
+								time_start: $('#time_start').val(),
+								time_end: $('#time_end').val(),
+								projects_description: CKEDITOR.instances['projects_description'].getData()
                     		},
                     		type: 'POST',
                     		dataType: 'JSON',
@@ -190,6 +230,12 @@ function project() {
 					required: true,
 					maxlength:300
 				},
+				time_start: {
+					required: true
+				},
+				time_end: {
+					required: true
+				}
 			},
 			messages: {
 				serviceID:{
@@ -202,6 +248,12 @@ function project() {
 					required: "Vui lòng nhập tên dự án !",
 					maxlength: "Tên dự án không quá 300 ký tự !"
 				},
+				time_start: {
+					required: "Vui lòng chọn ngày bắt đầu !"
+				},
+				time_end: {
+					required: "Vui lòng chọn ngày kết thúc !"
+				}
 			},
 			errorElement: 'span',
 			errorPlacement: function (error, element) {
@@ -221,7 +273,10 @@ function project() {
                         id: $("#btnSaveEdit").attr('data-id'),
                         projects_name: $('#projects_name_edit').val(),
                         userID: $('#userID_edit').val(),
-						serviceID: $('#serviceID_edit').val()
+						serviceID: $('#serviceID_edit').val(),
+						time_start: $('#time_start_edit').val(),
+						time_end: $('#time_end_edit').val(),
+						projects_description: CKEDITOR.instances['projects_description_edit'].getData()
                     },
                     type: 'POST',
                     dataType: 'JSON',

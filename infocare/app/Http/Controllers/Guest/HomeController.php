@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
-
+use App\Projects;
 class HomeController extends Controller
 {
     public function getHome()
@@ -76,5 +76,15 @@ class HomeController extends Controller
         echo json_encode($json_data);
 	}
 
+    public function getInformation(Request $Request){
+		$projectID = $Request->projectID;
+		$project = Projects::where('projects.projects_name', '=' , $projectID)->first();
+        return response()->json([
+            'name' => 'Thành công',
+            'status' => 200,
+            'data' => $project
+        ]);
+
+	}
 
 }

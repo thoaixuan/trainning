@@ -1,6 +1,6 @@
 {{-- Modal Add --}}
 <div class="modal fade" id="modal-action-add" >
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<form id="formActionAdd" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
@@ -11,7 +11,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>Tên dự án</label>
 						<input type="text" name="projects_name" id="projects_name" class="form-control form-control-sm" required/>
@@ -38,7 +38,26 @@
                             @endforeach
                         </select>
                     </div>
+                    
 				</div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Ngày bắt đầu</label>
+						<input type="date" name="time_start" id="time_start" class="form-control form-control-sm" required/>
+					</div>
+                    <div class="form-group">
+                        <label>Ngày kết thúc</label>
+						<input type="date" name="time_end" id="time_end" class="form-control form-control-sm" required/>
+					</div>
+                    
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Mô tả dự án</label>
+						<textarea name="projects_description" id="projects_description" class="form-control form-control-sm" required>
+                        </textarea>
+					</div>
+                </div>
 				
 			</div>
 		</div>
@@ -53,7 +72,7 @@
 
 {{-- Modal Edit --}}
 <div class="modal fade" id="modal-action-edit" >
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<form id="formActionEdit" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
@@ -64,7 +83,7 @@
 		</div>
 		<div class="modal-body">
 			<div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label>Tên dự án</label>
 						<input type="text" name="projects_name" id="projects_name_edit" class="form-control form-control-sm" required/>
@@ -94,6 +113,23 @@
                         </select>
                     </div>
 				</div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Ngày bắt đầu</label>
+						<input type="date" name="time_start" id="time_start_edit" class="form-control form-control-sm" required/>
+					</div>
+                    <div class="form-group">
+                        <label>Ngày kết thúc</label>
+						<input type="date" name="time_end" id="time_end_edit" class="form-control form-control-sm" required/>
+					</div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>Mô tả dự án</label>
+						<textarea name="projects_description" id="projects_description_edit" class="form-control form-control-sm" required>
+                        </textarea>
+					</div>
+                </div>
 				
 			</div>
 		</div>
