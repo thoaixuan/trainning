@@ -1,3 +1,8 @@
+function handleDate(date){
+	var d1 = new Date();
+	var d2 = new Date(date);
+	return d1<d2;
+}
 function home() {
 
     this.datas = null;
@@ -103,6 +108,23 @@ function home() {
 					data: "keyword",
 					name: "keyword",
 					className: "text-center",
+				},
+				{
+					title: "Trạng Thái",
+					data: "time_end",
+					name: "time_end",
+					className: "text-center",
+					render: function (data, type, row, meta) {
+						if(data == null){
+							return data;
+						}else{
+							if(handleDate(data)){
+								return 'Còn Hiệu Lực';
+							}else{
+								return '<span class="text-danger">Hết Hiệu Lực</span>';
+							}
+						}
+					}
 				}
 			]
 		});

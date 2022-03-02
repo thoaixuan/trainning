@@ -84,6 +84,13 @@ function service() {
 			table.ajax.reload();
 		});
 
+		jQuery.validator.addMethod("validateScript", function(value, element){
+			return !(value.includes("script>") ||
+							value.includes("script&gt;") ||
+							value.includes("<?") ||
+							value.includes("&lt;?"));
+		}, "Vui lòng nhập đúng định dạng chữ");
+
 		$(document).delegate(".btn-update", "click", function () {
 			var id = $(this).val();
 			$('#modal-action-title-edit').text("Chỉnh sửa");
@@ -125,7 +132,8 @@ function service() {
 				
 				services_name: {
 					required: true,
-					maxlength: 150
+					maxlength: 150,
+					validateScript: true
 				},
 				
 			},
@@ -156,11 +164,13 @@ function service() {
 					type: 'POST',
 					dataType: 'JSON',
 					success: function (data) {
-							console.log(data);
+						if(data.status_validate === 1){
+							alert(data.data_error);
+						}else {
 							$("#modal-action-add").modal('hide');
 							toastr.success("Thêm thành công");
 							table.ajax.reload();
-	
+						}
 					},
 					error: function (error) {
 						console.log("Lỗi");
@@ -207,9 +217,13 @@ function service() {
 					type: 'POST',
 					dataType: 'JSON',
 					success: function (data) {
-						$("#modal-action-edit").modal('hide');
-						toastr.success("Sửa thành công");
-						table.ajax.reload();
+						if(data.status_validate === 1){
+							alert(data.data_error);
+						}else {
+							$("#modal-action-edit").modal('hide');
+							toastr.success("Sửa thành công");
+							table.ajax.reload();
+						}
 					},
 					error: function (error) {
 						console.log(error);

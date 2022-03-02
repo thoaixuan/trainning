@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services;
+use Validator;
 
 class ServicesController extends Controller
 {
@@ -55,6 +56,19 @@ class ServicesController extends Controller
     }
     
     public function postInsertServices(Request $Request) {
+        $message = [
+            'required'=>":attribute không được để trống",
+        ];
+        $validate = Validator::make($Request->all(),[
+            'services_name'=>['required']
+                
+        ],$message);
+        if($validate->fails()){
+            return response()->json([
+                'status_validate' => 1,
+                'data_error' => $validate->errors()->first()
+            ]);
+        }
         $Services = new Services();
 	    $Services->services_name=$Request->services_name;
 	    $Services->services_description=$Request->services_description;
@@ -84,6 +98,19 @@ class ServicesController extends Controller
 
     public function postUpdateServices(Request $Request)
 	{
+            $message = [
+                'required'=>":attribute không được để trống",
+            ];
+            $validate = Validator::make($Request->all(),[
+                'services_name'=>['required']
+                    
+            ],$message);
+            if($validate->fails()){
+                return response()->json([
+                    'status_validate' => 1,
+                    'data_error' => $validate->errors()->first()
+                ]);
+            }
 	        $Services =  Services::find($Request->id);
 	        $Services->services_name = $Request->services_name;
 		    $Services->services_description = $Request->services_description;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Pages;
+use Validator;
 
 class PagesController extends Controller
 {
@@ -55,6 +56,19 @@ class PagesController extends Controller
     }
 
     public function postInsertPages(Request $Request) {
+        $message = [
+            'required'=>":attribute không được để trống",
+        ];
+        $validate = Validator::make($Request->all(),[
+            'pages_name'=>['required']
+            
+        ],$message);
+        if($validate->fails()){
+            return response()->json([
+                'status_validate' => 1,
+                'data_error' => $validate->errors()->first()
+            ]);
+        }
         $Pages = new Pages();
 	    $Pages->pages_name = $Request->pages_name;
 	    $Pages->pages_content = $Request->pages_content;
@@ -85,6 +99,19 @@ class PagesController extends Controller
 
     public function postUpdatePages(Request $Request)
 	{
+            $message = [
+                'required'=>":attribute không được để trống",
+            ];
+            $validate = Validator::make($Request->all(),[
+                'pages_name'=>['required']
+                
+            ],$message);
+            if($validate->fails()){
+                return response()->json([
+                    'status_validate' => 1,
+                    'data_error' => $validate->errors()->first()
+                ]);
+            }
 	        $Pages =  Pages::find($Request->id);
 	        $Pages->pages_name = $Request->pages_name;
 		    $Pages->pages_content = $Request->pages_content;

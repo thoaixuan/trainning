@@ -22,4 +22,5 @@
 <link rel="stylesheet" href="{{ asset('themes/admin/plugins/toastr/toastr.min.css')}}">
 <!-- CkEditor -->
 <script src="{{ asset('themes/admin/plugins/ckeditor/ckeditor.js')}}"></script>
+<link rel="stylesheet" href="{{ asset('themes/admin/plugins/jquery-ui/jquery-ui.css')}}">
 

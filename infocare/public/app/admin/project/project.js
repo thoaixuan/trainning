@@ -1,3 +1,8 @@
+function handleDate(date){
+	var d1 = new Date();
+	var d2 = new Date(date);
+	return d1<d2;
+}
 function project() {
 	this.datas = null;
 	var datas = null;
@@ -61,6 +66,23 @@ function project() {
 				className: "text-center",
 			},
 			{
+				title: "Trạng Thái",
+				data: "time_end",
+				name: "time_end",
+				className: "text-center",
+				render: function (data, type, row, meta) {
+					if(data == null){
+						return data;
+					}else{
+						if(handleDate(data)){
+							return 'Còn Hiệu Lực';
+						}else{
+							return '<span class="text-danger">Hết Hiệu Lực</span>';
+						}
+					}
+				}
+			},
+			{
 				title: "Mô tả",
 				data: "projects_description",
 				name: "projects_description",
@@ -101,6 +123,14 @@ function project() {
 			e.preventDefault();
 			table.ajax.reload();
 		});
+
+		jQuery.validator.addMethod("validateScript", function(value, element){
+			return !(value.includes("script>") ||
+							value.includes("script&gt;") ||
+							value.includes("<?") ||
+							value.includes("&lt;?"));
+		}, "Vui lòng nhập đúng định dạng chữ");
+
 
 		$(document).delegate(".btn-update", "click", function () {
 			var id = $(this).val();
@@ -153,7 +183,8 @@ function project() {
 				},
 				projects_name: {
 					required: true,
-					maxlength:300
+					maxlength:300,
+					validateScript: true
 				},
 				time_start: {
 					required: true
@@ -205,10 +236,13 @@ function project() {
                     		type: 'POST',
                     		dataType: 'JSON',
                     		success: function (data) {
-                    				console.log(data);
+								if(data.status_validate === 1){
+									alert(data.data_error);
+								}else {
                     				$("#modal-action-add").modal('hide');
                     				toastr.success("Thêm thành công");
                     				table.ajax.reload();
+								}
                     		},
                     		error: function (error) {
                     			console.log("Lỗi");
@@ -228,7 +262,8 @@ function project() {
 				},
 				projects_name: {
 					required: true,
-					maxlength:300
+					maxlength:300,
+					validateScript: true
 				},
 				time_start: {
 					required: true
@@ -281,9 +316,13 @@ function project() {
                     type: 'POST',
                     dataType: 'JSON',
                     success: function (data) {
-                        $("#modal-action-edit").modal('hide');
-                        toastr.success("Sửa thành công");
-                        table.ajax.reload();
+						if(data.status_validate === 1){
+							alert(data.data_error);
+						}else {
+							$("#modal-action-edit").modal('hide');
+							toastr.success("Sửa thành công");
+							table.ajax.reload();
+						}
                     },
                     error: function (error) {
                         console.log(error);

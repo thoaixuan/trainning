@@ -20,6 +20,7 @@ class HomeController extends Controller
         $columns[] = 'services_name';
         $columns[] = 'projects_name';
         $columns[] = 'keyword';
+        $columns[] = 'time_end';
         $columns[] = 'id';
 
         $limit = $Request->input('length');
@@ -40,6 +41,7 @@ class HomeController extends Controller
                 'users.phone_number',
                 'users.keyword',
                 'projects.projects_name',
+                'projects.time_end',
                 'services.services_name'
             )
             ->offset($start)
@@ -60,6 +62,7 @@ class HomeController extends Controller
                     'users.phone_number',
                     'users.keyword',
                     'projects.projects_name',
+                    'projects.time_end',
                     'services.services_name'
                 )
 	            ->offset($start)

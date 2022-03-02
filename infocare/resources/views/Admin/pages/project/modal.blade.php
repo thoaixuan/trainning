@@ -43,11 +43,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Ngày bắt đầu</label>
-						<input type="date" name="time_start" id="time_start" class="form-control form-control-sm" required/>
+						<input type="text" name="time_start" id="time_start" class="form-control form-control-sm" required/>
 					</div>
                     <div class="form-group">
                         <label>Ngày kết thúc</label>
-						<input type="date" name="time_end" id="time_end" class="form-control form-control-sm" required/>
+						<input type="text" name="time_end" id="time_end" class="form-control form-control-sm" required/>
 					</div>
                     
                 </div>
@@ -116,11 +116,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Ngày bắt đầu</label>
-						<input type="date" name="time_start" id="time_start_edit" class="form-control form-control-sm" required/>
+						<input type="text" name="time_start" id="time_start_edit" class="form-control form-control-sm" required/>
 					</div>
                     <div class="form-group">
                         <label>Ngày kết thúc</label>
-						<input type="date" name="time_end" id="time_end_edit" class="form-control form-control-sm" required/>
+						<input type="text" name="time_end" id="time_end_edit" class="form-control form-control-sm" required/>
 					</div>
                 </div>
                 <div class="col-md-12">

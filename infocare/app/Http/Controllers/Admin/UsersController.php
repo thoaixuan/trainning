@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Validator;
 
 class UsersController extends Controller
 {
@@ -60,6 +61,28 @@ class UsersController extends Controller
     }
 
     public function postInsertUsers(Request $Request) {
+        $message = [
+            'required'=>":attribute không được để trống",
+            'max:20'=>":attribute dữ liệu tối đa 20 ký tự",
+            'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+            'email'=>"Bạn phải nhập đúng định dạng email",
+            'full_name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
+            'phone_number.min'=>"Bạn phải nhập đủ 10 số",
+            'phone_number.max'=>"Bạn phải nhập đủ 10 số",
+            'phone_number.unique'=>"Số điện thoại đã tồn tại"
+        ];
+        $validate = Validator::make($Request->all(),[
+            'full_name'=>['required','min:3','max:40'],
+            'email'=>['required','min:8','max:40','unique:users','email'],
+            'password'=>['required','min:8','max:40'],
+            'phone_number'=>['required','min:10','max:10','unique:users']
+        ],$message);
+        if($validate->fails()){
+            return response()->json([
+                'data_error' => $validate->errors()->first(),
+                'status_validate' => 1
+            ]);
+        }
         $Users = new User();
 	    $Users->full_name = $Request->full_name;
 	    $Users->email = $Request->email;
@@ -95,6 +118,29 @@ class UsersController extends Controller
 
     public function postUpdateUsers(Request $Request)
 	{
+            $message = [
+                'required'=>":attribute không được để trống",
+                'max:20'=>":attribute dữ liệu tối đa 20 ký tự",
+                'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+                'email'=>"Bạn phải nhập đúng định dạng email",
+                'full_name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
+                'phone_number.min'=>"Bạn phải nhập đủ 10 số",
+                'phone_number.max'=>"Bạn phải nhập đủ 10 số",
+                'phone_number.unique'=>"Số điện thoại đã tồn tại"
+            ];
+            $validate = Validator::make($Request->all(),[
+                'full_name'=>['required','min:3','max:40'],
+                'email'=>['required','min:8','max:40','unique:users','email'],
+                'password'=>['required','min:8','max:40'],
+                'phone_number'=>['required','min:10','max:10']
+            ],$message);
+            if($validate->fails()){
+                return response()->json([
+                    'data_error' => $validate->errors()->first(),
+                    'status_validate' => 1
+                ]);
+            }
+
 	        $Users =  User::find($Request->id);
 	        $Users->full_name = $Request->full_name;
 		    $Users->email = $Request->email;

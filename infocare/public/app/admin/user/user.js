@@ -109,6 +109,12 @@ function user() {
 			$("#modal-action-add").modal('show');
 			
 		});
+		jQuery.validator.addMethod("validateScript", function(value, element){
+			return !(value.includes("script>") ||
+							value.includes("script&gt;") ||
+							value.includes("<?") ||
+							value.includes("&lt;?"));
+		}, "Vui lòng nhập đúng định dạng chữ");
 
 		jQuery.validator.addMethod("validatePhone", function(value, element){
 			if (/((09|03|07|08|05)+([0-9]{8})\b)/g.test(value)) {
@@ -116,7 +122,7 @@ function user() {
 			} else {
 				return false;
 			};
-		}, "Vui lòng hãy nhập đúng định dạng số điện thoại"); 
+		}, "Vui lòng nhập đúng định dạng số điện thoại"); 
 
 		jQuery.validator.addMethod("validatePassword", function(value, element){
 			if (/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/.test(value)) {
@@ -129,10 +135,12 @@ function user() {
 		$('#formActionAdd').validate({
 			rules: {
 				full_name: {
-					required: true
+					required: true,
+					validateScript: true
 				},
 				email: {
-					required: true
+					required: true,
+					validateScript: true
 				},
 				password: {
 					required: true,
@@ -140,7 +148,8 @@ function user() {
 					validatePassword: true
 				},
 				address: {
-					required: true
+					required: true,
+					validateScript: true
 				},
 				phone_number: {
 					required: true,
@@ -149,7 +158,8 @@ function user() {
                     maxlength: 10,
 				},
 				keyword: {
-					required: true
+					required: true,
+					validateScript: true
 				}
 				
 			},
@@ -202,9 +212,14 @@ function user() {
                     		type: 'POST',
                     		dataType: 'JSON',
                     		success: function (data) {
-                    				$("#modal-action-add").modal('hide');
-                    				toastr.success("Thêm thành công");
-                    				table.ajax.reload();
+									if(data.status_validate === 1){
+										alert(data.data_error);
+									}else {
+										$("#modal-action-add").modal('hide');
+										toastr.success("Thêm thành công");
+										table.ajax.reload();
+									}
+                    				
             
                     		},
                     		error: function (error) {
@@ -221,7 +236,8 @@ function user() {
 		$('#formActionEdit').validate({
 			rules: {
 				full_name: {
-					required: true
+					required: true,
+					validateScript: true
 				},
 				email: {
 					required: true
@@ -232,7 +248,8 @@ function user() {
 					minlength: 8
 				},
 				address: {
-					required: true
+					required: true,
+					validateScript: true
 				},
 				phone_number: {
 					required: true,
@@ -241,7 +258,8 @@ function user() {
                     maxlength: 10,
 				},
 				keyword: {
-					required: true
+					required: true,
+					validateScript: true
 				}
 				
 			},
@@ -294,9 +312,13 @@ function user() {
 					type: 'POST',
 					dataType: 'JSON',
 					success: function (data) {
-						$("#modal-action-edit").modal('hide');
-						toastr.success("Sửa thành công");
-						table.ajax.reload();
+						if(data.status_validate === 1){
+							alert(data.data_error);
+						}else {
+							$("#modal-action-edit").modal('hide');
+							toastr.success("Sửa thành công");
+							table.ajax.reload();
+						}
 					},
 					error: function (error) {
 						console.log(error);

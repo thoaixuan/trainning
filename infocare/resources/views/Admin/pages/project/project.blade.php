@@ -72,6 +72,19 @@ var project = new project();
       
       CKEDITOR.replace('projects_description');
       CKEDITOR.replace('projects_description_edit');
+
+      $( "#time_start" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
+      $( "#time_end" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
+      $( "#time_start_edit" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
+      $( "#time_end_edit" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
 </script>
 @endsection
   

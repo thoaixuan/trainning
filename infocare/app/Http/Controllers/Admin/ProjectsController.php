@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Projects;
+use Validator;
 
 class ProjectsController extends Controller
 {
@@ -69,6 +70,21 @@ class ProjectsController extends Controller
     }
 
     public function postInsertProjects(Request $Request) {
+        $message = [
+            'required'=>":attribute không được để trống",
+        ];
+        $validate = Validator::make($Request->all(),[
+            'projects_name'=>['required'],
+            'serviceID'=>['required'],
+            'userID'=>['required'],
+            
+        ],$message);
+        if($validate->fails()){
+            return response()->json([
+                'status_validate' => 1,
+                'data_error' => $validate->errors()->first()
+            ]);
+        }
         $Projects = new Projects();
 	    $Projects->userID = $Request->userID;
 	    $Projects->serviceID = $Request->serviceID;
@@ -102,6 +118,20 @@ class ProjectsController extends Controller
 
     public function postUpdateProjects(Request $Request)
 	{
+            $message = [
+                'required'=>":attribute không được để trống",
+            ];
+            $validate = Validator::make($Request->all(),[
+                'projects_name'=>['required'],
+                'serviceID'=>['required'],
+                'userID'=>['required'],
+            ],$message);
+            if($validate->fails()){
+                return response()->json([
+                    'status_validate' => 1,
+                    'data_error' => $validate->errors()->first()
+                ]);
+            }
 	        $Projects =  Projects::find($Request->id);
 	        $Projects->projects_name = $Request->projects_name;
 		    $Projects->userID = $Request->userID;
