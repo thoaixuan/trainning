@@ -1,0 +1,141 @@
+
+ 
+ <!-- Modal Create -->
+ <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thêm mới user</h5>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-xmark"></i></button>
+
+                  </div>
+                  <div class="modal-body">
+                    <form id="userForm" name="userForm"> 
+                    @csrf
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    <div class="row">
+                        <div class="col-6">
+                        <div class="form-group">
+                        <label for="full_name">full_name</label>
+                        <input type="text" name="full_name" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="text" name="password" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" name="address" class="form-control" />
+                      </div>
+                   
+                      <div class="form-group">
+                        <label for="image">Chứng minh thư mặt trước</label>
+                        <input id="input-file" type="file" name="cover" class="form-control"/>
+                      </div>
+                        </div>
+                        <div class="col-6">
+                        <div class="form-group">
+                        <label for="phone_number">Số điện thoại</label>
+                        <input type="text" name="phone_number" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                        <label for="date_start">Ngày vào làm</label>
+                        <input type="date" name="date_start" class="form-control" />
+                      </div>  
+                       <div class="form-group">
+                        <label for="keyword">Từ khóa</label>
+                        <input type="text" name="keyword" class="form-control" />
+                      </div> 
+                      <div class="form-group">
+                        <label for="gender">Giới tính</label>
+                        <input type="text" name="gender" class="form-control" />
+                      </div> 
+                      <div class="form-group">
+                        <label for="image">Chứng minh thư mặt sau</label>
+                        <input id="input-file-after" type="file" name="cover_after" class="form-control"/>
+                      </div>
+                        </div>
+                    </div>
+                      <button id="#submit" class="btn btn-success">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+ <!-- Modal update -->
+ 
+ <!-- Modal Create -->
+ <div class="modal fade" id="userEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Cập nhật user</h5>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-xmark"></i></button>
+
+                  </div>
+                  <div class="modal-body">
+                    <form id="userEditForm" name="userForm"> 
+                    @csrf 
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    <input type="hidden" id="id">
+                    <div class="row">
+                        <div class="col-6">
+                        <div class="form-group">
+                        <label for="full_name">full_name</label>
+                        <input type="text" name="full_name" id="full_name" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" class="form-control" />
+                      </div>
+  
+                      <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" name="address" id="address" class="form-control" />
+                      </div>
+                   
+                      <div class="form-group">
+                        <label for="image">Chứng minh thư mặt trước</label>
+
+                        <input id="input-file" type="file" name="cover" id="cover" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                        <label for="image">Chứng minh thư mặt sau</label>
+                        <input id="input-file-after" type="file" id="cover_after" name="cover_after" class="form-control"/>
+                      </div>
+                        </div>
+                        <div class="col-6">
+                        <div class="form-group">
+                        <label for="phone_number">Số điện thoại</label>
+                        <input type="text" name="phone_number" id="phone_number" class="form-control" />
+                      </div>
+                      <div class="form-group">
+                        <label for="date_start">Ngày vào làm</label>
+                        <input type="date" name="date_start" id="date_start" class="form-control" />
+                      </div>  
+                       <div class="form-group">
+                        <label for="keyword">Từ khóa</label>
+                        <input type="text" name="keyword" id="keyword" class="form-control" />
+                      </div> 
+                      <div class="form-group">
+                        <label for="gender">Giới tính</label>
+                        <input type="text" name="gender" id="gender" class="form-control" />
+                      </div> 
+                    
+                        </div>
+                    </div>
+                      <button id="#submit" class="btn btn-success">update</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+                   

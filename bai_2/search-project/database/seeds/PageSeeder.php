@@ -19,7 +19,7 @@ class PageSeeder extends Seeder
                 'slug'=>"trung-tam-tro-giup",
                 'type_open'=>0,
                 'status'=>0,
-                'content'=>"Chưa có thông tin"
+                'content'=>"<p>Chưa có thông tin</p>"
             ],
             [
                 'id' => 2,
@@ -28,7 +28,7 @@ class PageSeeder extends Seeder
                 'slug'=>"an-toan-mua-ban",
                 'type_open'=>0,
                 'status'=>0,
-                'content'=>"Chưa có thông tin"
+                'content'=>"<p>Chưa có thông tin</p>"
             ],
             [
                 'id' => 3,
@@ -37,7 +37,7 @@ class PageSeeder extends Seeder
                 'slug'=>"quy-dinh-can-biet",
                 'type_open'=>0,
                 'status'=>0,
-                'content'=>"Chưa có thông tin"
+                'content'=>"<p>Chưa có thông tin</p>"
             ],
         ]);
     }

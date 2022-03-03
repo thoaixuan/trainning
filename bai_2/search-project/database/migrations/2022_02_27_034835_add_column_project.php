@@ -14,8 +14,8 @@ class AddColumnProject extends Migration
     public function up()
     {
         Schema::table('projects', function (Blueprint $table) {
-            $table->timestamp('time_begin')->nullable();
-            $table->timestamp('time_end')->nullable();    
+            $table->date('time_begin')->nullable();
+            $table->date('time_end')->nullable();    
             $table->text('projects_detail')->nullable();  
         });
     }
