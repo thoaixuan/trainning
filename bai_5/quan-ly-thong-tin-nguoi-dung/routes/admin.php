@@ -3,7 +3,7 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\DashboardController;
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [DashboardController::class,'index'])->name('admin.index.dashboard');
+    Route::get('/home', [DashboardController::class,'index'])->name('admin.index.dashboard');
 
     Route::prefix('user')->group(function(){
         Route::get('/', [UserController::class,'index'])->name('admin.index.user');

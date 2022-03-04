@@ -34,9 +34,15 @@
             
           <table class="table" id="users-table">
           </table>
-          @include('admin.pages.user.modal');
+          <div class="row">
+            <div class="col-md-4">
+                <input type="button" id="userExport" value="Export" class="btn btn-success"/>
+            </div>
+          </div>
 
+          @include('admin.pages.user.modal');
         </div><!-- /.container-fluid -->
+
       </section>
     <!-- /.content -->
   </div>

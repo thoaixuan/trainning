@@ -36,5 +36,10 @@
 <script type="text/javascript" src="{{asset('themes/admin/plugins/bootstrap-5.0.2-dist/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('themes/admin/dist/validate/jquery.validate.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('ckeditor/ckeditor.js')}}"></script>
+<script type="text/javascript" src="{{asset('pdfmake-master/build/pdfmake.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('pdfmake-master/build/vfs_fonts.js')}}"></script>
+<script type="text/javascript" src="{{asset('html2canvas/html2canvas.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('html2canvas/html2canvas.js')}}"></script>
+
 <script type="text/javascript" src="{{asset('themes/admin/dist/jquery2/js/select2.min.js')}}"> </script>
 <script type="text/javascript" src="{{asset('themes/admin/plugins/sweetalert2/sweetalert2.min.js')}}"></script>

@@ -1,9 +1,11 @@
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
+
 function users() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     this.datas = null;
     var datas = null;
     this.init = function () {
@@ -182,6 +184,22 @@ function users() {
                 });
             }
         });
+
+        //export pdf
+        $(document).on('click', '#userExport', function () {
+            html2canvas(document.querySelector("#users-table")).then(canvas => {
+                document.body.appendChild(canvas);
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("user.pdf");
+            });
+
+        });
     }
 
     this.validator = function (table) {
@@ -297,7 +315,6 @@ function users() {
                         formData.append('keyword', keyword);
                         formData.append('date_start', date_start);
                         formData.append('gender', gender);
-                        formData.append('_token', _token);
                         formData.append('cover_after', cover_after);
                         formData.append('cover', cover);
                         $('.modal-backdrop').remove();
@@ -306,7 +323,7 @@ function users() {
                             type: "POST",
                             contentType: false,
                             processData: false,
-                            data: formData,
+                            data: { formData, _token: '{{csrf_token()}}' },
                             success: function (response) {
                                 if (response.status === 0) {
                                     $('#userModal').modal('hide');

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Validator;
-
+use PDF;
 
 class UserController extends Controller
 {
@@ -147,34 +147,33 @@ class UserController extends Controller
     }
 
     public function postUpdate(Request $request){
-        dd($request);
-        $message=[
-            'required'=>":attribute không được để trống",
-            'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
-            'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
-            'email.unique'=>":attribute đã tồn tại trong dữ liệu",
-            'email'=>"Bạn phải nhập đúng định dạng email",
-            'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
-            'phone.min'=>"Bạn phải nhập đủ 10 số",
-            'phone.max'=>"Bạn phải nhập đủ 10 số",
-            'phone.unique'=>"Số điện thoại đã tồn tại",
-            'phone.integer'=>"Định dạng số điện thoại phải là số"
-        ];
-        $validate=Validator::make($request->all(),[
-            'name'=>['required','min:3','max:40'],
-            'email'=>['required','min:8','max:40','email'],
-            'phone'=>['required']
-        ],$message);
-        if($validate->fails()){
-            return response()->json([
-                'status'=>0,
-                'message'=>$validate->errors()->first(),
-                'code'=>200
-            ]);
-        }
+        // $message=[
+        //     'required'=>":attribute không được để trống",
+        //     'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
+        //     'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
+        //     'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+        //     'email'=>"Bạn phải nhập đúng định dạng email",
+        //     'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
+        //     'phone.min'=>"Bạn phải nhập đủ 10 số",
+        //     'phone.max'=>"Bạn phải nhập đủ 10 số",
+        //     'phone.unique'=>"Số điện thoại đã tồn tại",
+        //     'phone.integer'=>"Định dạng số điện thoại phải là số"
+        // ];
+        // $validate=Validator::make($request->all(),[
+        //     'name'=>['required','min:3','max:40'],
+        //     'email'=>['required','min:8','max:40','email'],
+        //     'phone'=>['required']
+        // ],$message);
+        // if($validate->fails()){
+        //     return response()->json([
+        //         'status'=>0,
+        //         'message'=>$validate->errors()->first(),
+        //         'code'=>200
+        //     ]);
+        // }
     
-        $user=User::find($request->id);
-        $file=$request->file("cover");
+            $user=User::find($request->id);
+            $file=$request->file("cover");
             $imageName=time().'_'.$file->getClientOriginalName();
             $file->move(\public_path("admin/cover"),$imageName);
 
@@ -185,7 +184,6 @@ class UserController extends Controller
 
             $user->full_name=$request->full_name;
             $user->email=$request->email;
-            $user->password=Hash::make($request->password);
             $user->address=$request->address;
             $user->phone_number=$request->phone_number;
             $user->note=$request->note;
@@ -225,6 +223,11 @@ class UserController extends Controller
                 'code'=>500,
             ]);
         }
+    }
+    public function downloadPDF(){
+        $users=User::all();
+        $pdf=PDF::loadView('admin.pages.user.user',compact('users'));
+        return $pdf->download('users.pdf');
     }
 
 
