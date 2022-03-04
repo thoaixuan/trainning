@@ -47,36 +47,34 @@ $('#contact-form').validate({
         $(element).removeClass('is-invalid');
     },
     submitHandler: function(e) {
-        var contact = JSON.parse(localStorage.getItem("contact"));
-        
-            
-        if( contact === null){
-            contact = [];
-            contact.push({
-                yourIP: myIP,
-                contact_name: $('#contact_name').val(),
-                contact_email: $('#contact_email').val(),
-                contact_content: $('#contact_content').val()
-            });
-        }
-        localStorage.setItem("contact", JSON.stringify(contact));
-        // $.ajax({
-        //             url: url_submit_contact,
-        //             data: {
-        //                 contact_name: $('#contact_name').val(),
-        //                 contact_email: $('#contact_name').val(),
-        //                 contact_content: $('#contact_content').val()
-        //             },
-        //             type: 'POST',
-        //             dataType: 'JSON',
-        //             success: function (data) {
-        //                 alert("Gửi thông tin thành công !");
-        //             },
-        //             error: function (error) {
-        //                 console.log("Lỗi");
-        //                 console.log(error);
-        //             }
-        //         });
+        // var contact = JSON.parse(localStorage.getItem("contact"));
+        // if( contact === null){
+        //     contact = [];
+        //     contact.push({
+        //         yourIP: myIP,
+        //         contact_name: $('#contact_name').val(),
+        //         contact_email: $('#contact_email').val(),
+        //         contact_content: $('#contact_content').val()
+        //     });
+        // }
+        // localStorage.setItem("contact", JSON.stringify(contact));
+        $.ajax({
+                    url: url_submit_contact,
+                    data: {
+                        contact_name: $('#contact_name').val(),
+                        contact_email: $('#contact_email').val(),
+                        contact_content: $('#contact_content').val()
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        alert("Gửi thông tin thành công !");
+                    },
+                    error: function (error) {
+                        console.log("Lỗi");
+                        console.log(error);
+                    }
+                });
     }
     
 });

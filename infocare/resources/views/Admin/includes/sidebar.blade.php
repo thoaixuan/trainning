@@ -70,6 +70,15 @@
             </a>
           </li>
 
+          <li class="nav-item has-treeview menu-open-new">
+            <a href="{{route('contact')}}" class="nav-link ">
+              <i class="nav-icon fas fa-address-book"></i>
+              <p>
+                  Liên hệ
+              </p>
+            </a>
+          </li>
+
           <li class="nav-item menu-open-new">
             <a href="{{route('logout-admin')}}" class="nav-link ">
               <i class="nav-icon fas fa-sign-out-alt"></i>

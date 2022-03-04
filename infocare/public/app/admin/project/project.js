@@ -157,6 +157,7 @@ function project() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
+					console.log(data);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
 					$("#btnSaveEdit").attr('data-id', data.data.id);
 					$('#projects_name_edit').val(data.data.projects_name);
@@ -164,7 +165,8 @@ function project() {
 					$('#serviceID_edit').val(data.data.serviceID);
 					$('#time_start_edit').val(data.data.time_start),
 					$('#time_end_edit').val(data.data.time_end),
-					CKEDITOR.instances['projects_description_edit'].setData(data.data.projects_description)					
+					CKEDITOR.instances['projects_description_edit'].setData(data.data.projects_description),
+					$('#projects_file_old').val(data.data.projects_file)
 				},
 				error: function (error) {
 					console.log(error);
@@ -334,19 +336,28 @@ function project() {
 				$(element).removeClass('is-invalid');
 			},
             submitHandler: function(e) {
+				let input_file = $('#projects_file_edit')[0].files[0];
+				let file_old = $('#projects_file_old').val();
+				console.log(input_file);
+				let formData = new FormData();
+				formData.append('id',$("#btnSaveEdit").attr('data-id'));
+				formData.append('projects_name',$('#projects_name_edit').val());
+				formData.append('userID',$('#userID_edit').val());
+				formData.append('serviceID',$('#serviceID_edit').val());
+				formData.append('time_start',$('#time_start_edit').val());
+				formData.append('time_end', $('#time_end_edit').val());
+				if(input_file != null){
+					formData.append('projects_file',input_file);
+				}else {
+					formData.append('projects_file_old',file_old);
+				}
+				formData.append('projects_description', CKEDITOR.instances['projects_description_edit'].getData());
                 $.ajax({
                     url: datas.routes.update,
-                    data: {
-                        id: $("#btnSaveEdit").attr('data-id'),
-                        projects_name: $('#projects_name_edit').val(),
-                        userID: $('#userID_edit').val(),
-						serviceID: $('#serviceID_edit').val(),
-						time_start: $('#time_start_edit').val(),
-						time_end: $('#time_end_edit').val(),
-						projects_description: CKEDITOR.instances['projects_description_edit'].getData()
-                    },
+					data: formData,
                     type: 'POST',
-                    dataType: 'JSON',
+                    contentType: false,
+					processData: false,
                     success: function (data) {
 						if(data.status_validate === 1){
 							alert(data.data_error);

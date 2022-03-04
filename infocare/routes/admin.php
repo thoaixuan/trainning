@@ -51,4 +51,11 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'authAd
         Route::post('/insert','UsersController@postInsertUsers')->name('user_insert');
         Route::post('/delete','UsersController@destroyUser')->name('user_delete');
     });
+
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('/','ContactController@getContact')->name('contact');
+        Route::get('/datatable','ContactController@getDatatable')->name('contact_datatable');
+        Route::post('/delete','ContactController@destroyContact')->name('contact_delete');
+
+    });
 });

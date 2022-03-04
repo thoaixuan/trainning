@@ -128,7 +128,8 @@
 					</div>
                     <div class="form-group">
                         <label>File đính kèm</label>
-						<input type="file" name="projects_file_edit" id="projects_file_edit" class="form-control-file" required/>
+                        <input type="hidden" name="projects_file_old" id="projects_file_old">
+						<input type="file" name="projects_file_edit" id="projects_file_edit" class="form-control-file"/>
 					</div>
                 </div>
                 <div class="col-md-12">

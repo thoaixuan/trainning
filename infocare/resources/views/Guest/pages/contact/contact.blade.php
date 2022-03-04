@@ -136,9 +136,7 @@ function get_client_ip() {
         $ipaddress = 'UNKNOWN';
     return $ipaddress;
 }
-$data = get_client_ip();
-echo $data;
-die();
+
 ?>
 <script>
     var url_submit_contact = "{{route('guest_insert_contact')}}";

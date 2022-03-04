@@ -259,27 +259,56 @@ class ProjectsController extends Controller
                     'data_error' => $validate->errors()->first()
                 ]);
             }
-            
-	        $Projects =  Projects::find($Request->id);
-	        $Projects->projects_name = $Request->projects_name;
-		    $Projects->userID = $Request->userID;
-		    $Projects->serviceID = $Request->serviceID;
-            $Projects->time_start = $Request->time_start;
-            $Projects->time_end = $Request->time_end;
-            $Projects->projects_description = $Request->projects_description;
-	        if($Projects->save()){
-                return response()->json([
-                    'name' => 'Thành công',
-                    'status' => 200,
-                    'data' => $Projects
-                ]);
-            }else{
-                return response()->json([
-                    'name' => 'Thất bại',
-                    'status' => 500,
-                    'data' => $Projects
-                ]);
+            if ($Request->hasFile('projects_file')) {
+                $input_file = $Request->file("projects_file");
+                $file = time().'_'.$input_file->getClientOriginalName();
+                $input_file->move('uploads', $file);
+
+                $Projects =  Projects::find($Request->id);
+                $Projects->projects_name = $Request->projects_name;
+                $Projects->userID = $Request->userID;
+                $Projects->serviceID = $Request->serviceID;
+                $Projects->time_start = $Request->time_start;
+                $Projects->time_end = $Request->time_end;
+                $Projects->projects_description = $Request->projects_description;
+                $Projects->projects_file = $file;
+                if($Projects->save()){
+                    return response()->json([
+                        'name' => 'Thành công',
+                        'status' => 200,
+                        'data' => $Projects
+                    ]);
+                }else{
+                    return response()->json([
+                        'name' => 'Thất bại',
+                        'status' => 500,
+                        'data' => $Projects
+                    ]);
+                }
+            }else {
+                $Projects =  Projects::find($Request->id);
+                $Projects->projects_name = $Request->projects_name;
+                $Projects->userID = $Request->userID;
+                $Projects->serviceID = $Request->serviceID;
+                $Projects->time_start = $Request->time_start;
+                $Projects->time_end = $Request->time_end;
+                $Projects->projects_description = $Request->projects_description;
+                $Projects->projects_file = $Request->projects_file_old;
+                if($Projects->save()){
+                    return response()->json([
+                        'name' => 'Thành công',
+                        'status' => 200,
+                        'data' => $Projects
+                    ]);
+                }else{
+                    return response()->json([
+                        'name' => 'Thất bại',
+                        'status' => 500,
+                        'data' => $Projects
+                    ]);
+                }
             }
+	        
 	 
 	}
 
