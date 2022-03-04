@@ -6,5 +6,7 @@
 <script src="{{asset('themes/guest/js/isotope.pkgd.min.js')}}"></script>
 <script src="{{asset('themes/admin/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
 <script src="{{asset('themes/admin/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+<!-- daterangepicker -->
+<script src="{{asset('themes/admin/plugins/moment/moment.min.js')}}"></script>
 <script src="{{asset('themes/guest/js/main.js')}}"></script>
 <script src="{{asset('app/guest/main.js')}}"></script>

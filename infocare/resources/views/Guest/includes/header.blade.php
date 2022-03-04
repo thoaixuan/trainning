@@ -35,6 +35,7 @@
                                         <a href="{{route('guest_pages',$item->pages_slug)}}">{{$item->pages_name}}</a>
                                     </li>
                             @endforeach
+                            <li><a href="{{route('guest_contact')}}">Liên hệ</a></li>
                         </ul>
                     </div>
                 </nav>

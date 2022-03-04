@@ -6,6 +6,7 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
+<script src="{{ asset('themes/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <!-- DataTables  & Plugins -->
 <script src="{{ asset('themes/admin/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{ asset('themes/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>

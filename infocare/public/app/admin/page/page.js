@@ -133,13 +133,15 @@ function page() {
 				
 				pages_name: {
 					required: true,
-					validateScript: true
+					validateScript: true,
+					maxlength: 150
 				},
 				
 			},
 			messages: {
 				pages_name:{
-					required: "Tên trang không được trống !"
+					required: "Tên trang không được trống !",
+					maxlength: "Tên trang không quá 150 ký tự !"
 				}
 			},
 			errorElement: 'span',

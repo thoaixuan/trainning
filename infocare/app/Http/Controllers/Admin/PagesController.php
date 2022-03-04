@@ -60,7 +60,7 @@ class PagesController extends Controller
             'required'=>":attribute không được để trống",
         ];
         $validate = Validator::make($Request->all(),[
-            'pages_name'=>['required']
+            'pages_name'=>['required','max:150']
             
         ],$message);
         if($validate->fails()){

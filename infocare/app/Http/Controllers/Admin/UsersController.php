@@ -130,8 +130,7 @@ class UsersController extends Controller
             ];
             $validate = Validator::make($Request->all(),[
                 'full_name'=>['required','min:3','max:40'],
-                'email'=>['required','min:8','max:40','unique:users','email'],
-                'password'=>['required','min:8','max:40'],
+                'email'=>['required','min:8','max:40'],
                 'phone_number'=>['required','min:10','max:10']
             ],$message);
             if($validate->fails()){
@@ -144,7 +143,6 @@ class UsersController extends Controller
 	        $Users =  User::find($Request->id);
 	        $Users->full_name = $Request->full_name;
 		    $Users->email = $Request->email;
-		    $Users->password = bcrypt($Request->password);
             $Users->address = $Request->address;
             $Users->phone_number = $Request->phone_number;
             $Users->keyword = $Request->keyword;

@@ -19,8 +19,15 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'authAd
     });
 
     Route::group(['prefix' => 'projects'], function () {
-        Route::get('/','ProjectsController@getProject')->name('projects');
+        Route::get('/all','ProjectsController@getProject')->name('projects');
+        Route::get('/expired','ProjectsController@getExpired')->name('projects_expired');
+        Route::get('/unexpired','ProjectsController@getUnexpired')->name('projects_unexpired');
+
+
         Route::get('/datatable','ProjectsController@getDatatable')->name('project_datatable');
+        Route::get('/datatable-expired','ProjectsController@getDatatableExpired')->name('projects_datatable_exprired');
+        Route::get('/datatable-unexpired','ProjectsController@getDatatableUnexpired')->name('projects_datatable_unexpired');
+
         Route::get('/update','ProjectsController@getUpdateProjects')->name('project_update');
         Route::post('/update','ProjectsController@postUpdateProjects')->name('project_update');
         Route::post('/insert','ProjectsController@postInsertProjects')->name('project_insert');

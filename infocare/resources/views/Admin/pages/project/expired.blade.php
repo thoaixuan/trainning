@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Khách hàng / Công ty</h1>
+          <h1>Dự án</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Admin</a></li>
-            <li class="breadcrumb-item active">Khách hàng</li>
+            <li class="breadcrumb-item active">Dự án</li>
           </ol>
         </div>
       </div>
@@ -43,7 +43,7 @@
 
           <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered hover table-hover table-striped" id="table-users">
+                <table class="table table-bordered hover table-hover table-striped" id="table-projects">
                 </table>
             </div>
         </div>
@@ -54,25 +54,37 @@
     <!-- /.card -->
 
   </section>
-    @include('Admin.pages.user.modal')
+    @include('Admin.pages.project.modal')
     @section('jsAdmin')
-    <script src="{{asset('app/admin/user/user.js')}}"></script>
+    <script src="{{asset('app/admin/project/project.js')}}"></script>
 <script>
   
-var user = new user(); 
-	    user.datas={
+var project = new project(); 
+	    project.datas={
 	        routes:{
-	            datatable:"{{route('user_datatable')}}",
-              insert:"{{route('user_insert')}}",
-	            update:"{{route('user_update')}}",
-			        delete:"{{route('user_delete')}}"
+	            datatable:"{{route('projects_datatable_exprired')}}",
+                insert:"{{route('project_insert')}}",
+	            update:"{{route('project_update')}}",
+			    delete:"{{route('project_delete')}}"
 	        }
 	    }   
-	    user.init();
-
-      CKEDITOR.replace('note');
-      CKEDITOR.replace('note_edit');
+	    project.init();
       
+      CKEDITOR.replace('projects_description');
+      CKEDITOR.replace('projects_description_edit');
+
+      $( "#time_start" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
+      $( "#time_end" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
+      $( "#time_start_edit" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
+      $( "#time_end_edit" ).datepicker({
+        dateFormat: 'yy/mm/dd'
+      });
 </script>
 @endsection
   

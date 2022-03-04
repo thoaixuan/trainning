@@ -60,7 +60,7 @@ class ServicesController extends Controller
             'required'=>":attribute không được để trống",
         ];
         $validate = Validator::make($Request->all(),[
-            'services_name'=>['required']
+            'services_name'=>['required','max:150']
                 
         ],$message);
         if($validate->fails()){

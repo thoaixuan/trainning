@@ -14,6 +14,7 @@
                 <p><b>Ngày bắt đầu:</b> <span class="time_start"></span></p>
                 <p><b>Ngày kết thúc:</b> <span class="time_end"></span></p>
                 <p><b>Mô tả dự án:</b> <span class="projects_description"></span></p>
+                <p><b>File đính kèm:</b> <span class="projects_file"></span></p>
             </div>
         </div>
     </div>

@@ -170,10 +170,6 @@ function user() {
 				email:{
 					required: "Email không được trống !"
 				},
-				password:{
-					required: "Password không được trống !",
-					minlength: "Password phải ít nhất 8 ký tự"
-				},
 				address:{
 					required: "Địa chỉ không được trống !"
 				},
@@ -207,7 +203,7 @@ function user() {
 								address: $('#address').val(),
 								phone_number: $('#phone_number').val(),
 								keyword: $('#keyword').val(),
-								note: $('#note').val()
+								note: CKEDITOR.instances['note'].getData()
                     		},
                     		type: 'POST',
                     		dataType: 'JSON',
@@ -242,11 +238,6 @@ function user() {
 				email: {
 					required: true
 				},
-				password: {
-					required: true,
-					validatePassword: true,
-					minlength: 8
-				},
 				address: {
 					required: true,
 					validateScript: true
@@ -269,9 +260,6 @@ function user() {
 				},
 				email:{
 					required: "Email không được trống !"
-				},
-				password:{
-					required: "Password không được trống !"
 				},
 				address:{
 					required: "Địa chỉ không được trống !"
@@ -303,11 +291,10 @@ function user() {
 						id: $("#btnSaveEdit").attr('data-id'),
 						full_name: $('#full_name_edit').val(),
 						email: $('#email_edit').val(),
-						password: $('#password_edit').val(),
 						address: $('#address_edit').val(),
 						phone_number: $('#phone_number_edit').val(),
 						keyword: $('#keyword_edit').val(),
-						note: $('#note_edit').val()
+						note: CKEDITOR.instances['note_edit'].getData()
 					},
 					type: 'POST',
 					dataType: 'JSON',
@@ -347,7 +334,7 @@ function user() {
 					$('#address_edit').val(data.data.address);
 					$('#phone_number_edit').val(data.data.phone_number);
 					$('#keyword_edit').val(data.data.keyword);
-					$('#note_edit').val(data.data.note);
+					CKEDITOR.instances['note_edit'].setData(data.data.note);
 				},
 				error: function (error) {
 					console.log(error);

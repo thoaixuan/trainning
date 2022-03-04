@@ -21,6 +21,7 @@ class CreateTableProjectsTable extends Migration
             $table->unsignedBigInteger('serviceID')->nullable();
             $table->string('projects_name')->nullable();
             $table->string('projects_description')->nullable();
+            $table->string('projects_file')->nullable();
             $table->date('time_start')->nullable();
             $table->date('time_end')->nullable();
             $table->timestamps();

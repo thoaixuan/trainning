@@ -1,7 +1,7 @@
 {{-- Modal Add --}}
 <div class="modal fade" id="modal-action-add" >
 	<div class="modal-dialog modal-lg" role="document">
-		<form id="formActionAdd" onsubmit="return false">
+		<form id="formActionAdd" enctype="multipart/form-data" action="" autocomplete="off" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
 		<h5 class="modal-title" id="modal-action-title"></h5>
@@ -49,6 +49,10 @@
                         <label>Ngày kết thúc</label>
 						<input type="text" name="time_end" id="time_end" class="form-control form-control-sm" required/>
 					</div>
+                    <div class="form-group">
+                        <label>File đính kèm</label>
+						<input type="file" name="projects_file" id="projects_file" class="form-control-file"/>
+					</div>
                     
                 </div>
                 <div class="col-md-12">
@@ -73,7 +77,7 @@
 {{-- Modal Edit --}}
 <div class="modal fade" id="modal-action-edit" >
 	<div class="modal-dialog modal-lg" role="document">
-		<form id="formActionEdit" onsubmit="return false">
+		<form id="formActionEdit" enctype="multipart/form-data" autocomplete="off" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
 		<h5 class="modal-title" id="modal-action-title-edit"></h5>
@@ -121,6 +125,10 @@
                     <div class="form-group">
                         <label>Ngày kết thúc</label>
 						<input type="text" name="time_end" id="time_end_edit" class="form-control form-control-sm" required/>
+					</div>
+                    <div class="form-group">
+                        <label>File đính kèm</label>
+						<input type="file" name="projects_file_edit" id="projects_file_edit" class="form-control-file" required/>
 					</div>
                 </div>
                 <div class="col-md-12">

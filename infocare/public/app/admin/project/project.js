@@ -3,6 +3,13 @@ function handleDate(date){
 	var d2 = new Date(date);
 	return d1<d2;
 }
+function changeDate(data){
+	if(data==null||data==""){
+		return "";
+	}else{
+		return moment(data, "YYYY-MM-DD").format('DD/MM/YYYY')
+	}
+}
 function project() {
 	this.datas = null;
 	var datas = null;
@@ -58,12 +65,18 @@ function project() {
 				data: "time_start",
 				name: "time_start",
 				className: "text-center",
+				render: function (data, type, row, meta) {
+					return changeDate(data);
+				}
 			},
 			{
 				title: "Ngày kết thúc",
 				data: "time_end",
 				name: "time_end",
 				className: "text-center",
+				render: function (data, type, row, meta) {
+					return changeDate(data);
+				}
 			},
 			{
 				title: "Trạng Thái",
@@ -144,7 +157,6 @@ function project() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data.data);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
 					$("#btnSaveEdit").attr('data-id', data.data.id);
 					$('#projects_name_edit').val(data.data.projects_name);
@@ -168,6 +180,7 @@ function project() {
 			$('#projects_name').val('');
 			$('#time_start').val('');
 			$('#time_end').val('');
+			$('#projects_file').val('');
 			CKEDITOR.instances['projects_description'].setData('');
 			$("#modal-action-add").modal('show');
 			
@@ -183,7 +196,7 @@ function project() {
 				},
 				projects_name: {
 					required: true,
-					maxlength:300,
+					maxlength:150,
 					validateScript: true
 				},
 				time_start: {
@@ -191,6 +204,10 @@ function project() {
 				},
 				time_end: {
 					required: true
+				},
+				projects_file: {
+					required: false,
+            		extension: "jpeg|png|jpg|gif|pdf|doc|docx|xls|xlxs|zip|rar|txt"
 				}
 			},
 			messages: {
@@ -202,13 +219,16 @@ function project() {
 				},
 				projects_name: {
 					required: "Vui lòng nhập tên dự án !",
-					maxlength: "Tên dự án không quá 300 ký tự !"
+					maxlength: "Tên dự án không quá 150 ký tự !"
 				},
 				time_start: {
 					required: "Vui lòng chọn ngày bắt đầu !"
 				},
 				time_end: {
 					required: "Vui lòng chọn ngày kết thúc !"
+				},
+				projects_file: {
+					extension: "Vui lòng chọn file jpeg,png,jpg,gif,pdf,doc,docx,xls,xlxs,zip,rar,txt"
 				}
 			},
 			errorElement: 'span',
@@ -223,19 +243,23 @@ function project() {
 				$(element).removeClass('is-invalid');
 			},
             submitHandler: function(e) {
+				let input_file = $('#projects_file')[0].files[0];
+				let formData = new FormData();
+				formData.append('projects_name',$('#projects_name').val());
+				formData.append('userID',$('#userID').val());
+				formData.append('serviceID',$('#serviceID').val());
+				formData.append('time_start',$('#time_start').val());
+				formData.append('time_end', $('#time_end').val());
+				formData.append('projects_file',input_file ? input_file : null);
+				formData.append('projects_description', CKEDITOR.instances['projects_description'].getData());
                 $.ajax({
                     		url: datas.routes.insert,
-                    		data: {
-                    			projects_name: $('#projects_name').val(),
-                    			userID: $('#userID').val(),
-								serviceID: $('#serviceID').val(),
-								time_start: $('#time_start').val(),
-								time_end: $('#time_end').val(),
-								projects_description: CKEDITOR.instances['projects_description'].getData()
-                    		},
+							data: formData,
                     		type: 'POST',
-                    		dataType: 'JSON',
+							contentType: false,
+							processData: false,
                     		success: function (data) {
+								console.log(data);
 								if(data.status_validate === 1){
 									alert(data.data_error);
 								}else {
@@ -246,6 +270,7 @@ function project() {
                     		},
                     		error: function (error) {
                     			console.log("Lỗi");
+								console.log(error);
                     		}
                     	});
             }
@@ -270,6 +295,10 @@ function project() {
 				},
 				time_end: {
 					required: true
+				},
+				projects_file: {
+					required: false,
+            		extension: "jpeg|png|jpg|gif|pdf|doc|docx|xls|xlxs|zip|rar|txt"
 				}
 			},
 			messages: {
@@ -288,6 +317,9 @@ function project() {
 				},
 				time_end: {
 					required: "Vui lòng chọn ngày kết thúc !"
+				},
+				projects_file: {
+					extension: "Vui lòng chọn file jpeg,png,jpg,gif,pdf,doc,docx,xls,xlxs,zip,rar,txt"
 				}
 			},
 			errorElement: 'span',

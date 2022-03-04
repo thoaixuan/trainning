@@ -25,11 +25,33 @@
             </a>
           </li>
 
-          <li class="nav-item menu-open-new">
+          <li class="nav-item has-treeview menu-open menu-open-new">
             <a href="{{route('projects')}}" class="nav-link">
+              <i class="fas fa-angle-left right"></i>
               <i class="nav-icon far fa-file-alt"></i>
-              <p>Dự án</p>
+              <p>Dự án <i class="fas fa-angle-left right"></i></p>
             </a>
+            <ul class="nav nav-treeview ">
+              <li class="nav-item">
+                <a href="{{route('projects')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tất cả</p>
+                  <span class="badge badge-info right countBlock" ></span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('projects_expired')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Còn Hạn</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('projects_unexpired')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hết Hạn</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item menu-open-new">

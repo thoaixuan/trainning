@@ -1,8 +1,3 @@
-function handleDate(date){
-	var d1 = new Date();
-	var d2 = new Date(date);
-	return d1<d2;
-}
 function home() {
 
     this.datas = null;
@@ -129,6 +124,19 @@ function home() {
 			]
 		});
 
+		function handleDate(date){
+			var d1 = new Date();
+			var d2 = new Date(date);
+			return d1<d2;
+		}
+		function changeDate(data){
+			if(data==null||data==""){
+				return "";
+			}else{
+				return moment(data, "YYYY-MM-DD").format('DD/MM/YYYY')
+			}
+		}
+
         $('#form-search').on('submit', function(event) {
         	event.preventDefault();
         });
@@ -179,12 +187,15 @@ function home() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data.data);
 					$('.projects_name').text(data.data.projects_name);
-					$('.time_start').text(data.data.time_start);
-					$('.time_end').text(data.data.time_end);
+					$('.time_start').text(changeDate(data.data.time_start));
+					$('.time_end').text(changeDate(data.data.time_end));
 					$('.projects_description').html(data.data.projects_description);
-					
+					if(data.data.projects_file === null){
+						$('.projects_file').html('Chưa có file nào');
+					}else {
+						$('.projects_file').html('<a href="uploads/'+data.data.projects_file+'">Download</a>');
+					}
 					$("#ModalInfoProject").modal('show');
 				},
 				error: function (error) {
@@ -193,22 +204,6 @@ function home() {
 				}
 			});
 
-            // $.ajax({
-			// 	url: datas.routes.information,
-			// 	data: {
-			// 		id: id,
-			// 		projectID: projectID
-			// 	},
-			// 	type: 'GET',
-			// })
-			// .done(function(response) {
-            //     var obj = $.parseJSON(response);
-			// 		$("#ModalBaoTinDaBan .modal-body").empty().append(obj.data);
-            // 		$("#ModalBaoTinDaBan").modal('show');
-            // })
-            // .fail(function(jqXHR, ajaxOptions, thrownError) {
-            //     alert("error");
-            // });
         });
 
 

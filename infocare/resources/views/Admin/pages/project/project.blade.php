@@ -58,7 +58,7 @@
     @section('jsAdmin')
     <script src="{{asset('app/admin/project/project.js')}}"></script>
 <script>
-  
+
 var project = new project(); 
 	    project.datas={
 	        routes:{

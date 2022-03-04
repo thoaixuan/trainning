@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Projects;
 use Validator;
+use File;
+use Storage;
 
 class ProjectsController extends Controller
 {
@@ -13,6 +15,97 @@ class ProjectsController extends Controller
     {
        return view('Admin.pages.project.project'); 
     }
+    public function getExpired()
+    {
+        return view('Admin.pages.project.expired');
+    }
+    public function getUnexpired()
+    {
+        return view('Admin.pages.project.unExpired');
+    }
+
+    public function getDatatableExpired(Request $request)
+    {
+        $columns[] = 'id';
+        $columns[] = 'projects_name';
+        $columns[] = 'userID';
+        $columns[] = 'services_name';
+        $columns[] = 'time_start';
+        $columns[] = 'time_end';
+        $columns[] = 'id';
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        $search = $request->input('search');
+        $totalData = Projects::count();
+
+        $Projects = Projects::join('services', 'projects.serviceID', '=', 'services.id')
+            ->join('users', 'users.id', '=', 'projects.userID')
+            ->whereDate('time_end','>', date('Y-m-d'))
+            ->when(!empty($search), function ($query) use ($search){
+                $query->where('projects.projects_name', 'LIKE', "%{$search}%")
+                ->orwhere('services.services_name', 'LIKE', "%{$search}%");
+            })
+            ->select('projects.*', 'services.services_name', 'users.full_name')
+            ->offset($start)
+            ->limit($limit)
+            ->orderBy($order, $dir)
+            ->get();
+        $totalFiltered = $Projects->count();
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalData),
+            "data"            => $Projects
+        );
+
+        echo json_encode($json_data);
+    }
+    
+    public function getDatatableUnexpired(Request $request)
+    {
+        $columns[] = 'id';
+        $columns[] = 'projects_name';
+        $columns[] = 'userID';
+        $columns[] = 'services_name';
+        $columns[] = 'time_start';
+        $columns[] = 'time_end';
+        $columns[] = 'id';
+
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        $search = $request->input('search');
+        $totalData = Projects::count();
+
+        $Projects = Projects::join('services', 'projects.serviceID', '=', 'services.id')
+            ->join('users', 'users.id', '=', 'projects.userID')
+            ->whereDate('time_end','<', date('Y-m-d'))
+            ->when(!empty($search), function ($query) use ($search){
+                $query->where('projects.projects_name', 'LIKE', "%{$search}%")
+                ->orwhere('services.services_name', 'LIKE', "%{$search}%");
+            })
+            ->select('projects.*', 'services.services_name', 'users.full_name')
+            ->offset($start)
+            ->limit($limit)
+            ->orderBy($order, $dir)
+            ->get();
+        $totalFiltered = $Projects->count();
+
+        $json_data = array(
+            "draw"            => intval($request->input('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalData),
+            "data"            => $Projects
+        );
+
+        echo json_encode($json_data);
+    }
+
     public function getDatatable(Request $request)
     {
       
@@ -74,9 +167,10 @@ class ProjectsController extends Controller
             'required'=>":attribute không được để trống",
         ];
         $validate = Validator::make($Request->all(),[
-            'projects_name'=>['required'],
+            'projects_name'=>['required','max:150'],
             'serviceID'=>['required'],
             'userID'=>['required'],
+            // 'projects_file'=>['nullable','mimes:jpeg,png,jpg,gif,pdf,doc,docx,xls,xlxs,zip,rar,txt']
             
         ],$message);
         if($validate->fails()){
@@ -85,26 +179,59 @@ class ProjectsController extends Controller
                 'data_error' => $validate->errors()->first()
             ]);
         }
-        $Projects = new Projects();
-	    $Projects->userID = $Request->userID;
-	    $Projects->serviceID = $Request->serviceID;
-	    $Projects->projects_name = $Request->projects_name;
-        $Projects->time_start = $Request->time_start;
-        $Projects->time_end = $Request->time_end;
-        $Projects->projects_description = $Request->projects_description;
-	    if($Projects->save()){
-	        return response()->json([
-                'name' => 'Thành công',
-                'status' => 200,
-                'data' => $Projects
-            ]);
-	    }else{
-	        return response()->json([
-                'name' => 'Thất bại',
-                'status' => 500,
-                'data' => $Projects
-            ]);
-	    }
+        
+        if ($Request->hasFile('projects_file')) {
+            $Projects = new Projects();
+            $input_file = $Request->file("projects_file");
+            $file = time().'_'.$input_file->getClientOriginalName();
+            $input_file->move('uploads', $file);
+
+            $Projects->userID = $Request->userID;
+            $Projects->serviceID = $Request->serviceID;
+            $Projects->projects_name = $Request->projects_name;
+            $Projects->time_start = $Request->time_start;
+            $Projects->time_end = $Request->time_end;
+            $Projects->projects_description = $Request->projects_description;
+            $Projects->projects_file = $file;
+            if($Projects->save()){
+                return response()->json([
+                    'name' => 'Thành công',
+                    'status' => 200,
+                    'data' => $Projects
+                ]);
+            }else{
+                return response()->json([
+                    'name' => 'Thất bại',
+                    'status' => 500,
+                    'data' => $Projects
+                ]);
+            }
+        }
+        else {
+            $Projects = new Projects();
+            $Projects->userID = $Request->userID;
+            $Projects->serviceID = $Request->serviceID;
+            $Projects->projects_name = $Request->projects_name;
+            $Projects->time_start = $Request->time_start;
+            $Projects->time_end = $Request->time_end;
+            $Projects->projects_description = $Request->projects_description;
+            $Projects->projects_file = '';
+            if($Projects->save()){
+                return response()->json([
+                    'name' => 'Thành công',
+                    'status' => 200,
+                    'data' => $Projects
+                ]);
+            }else{
+                return response()->json([
+                    'name' => 'Thất bại',
+                    'status' => 500,
+                    'data' => $Projects
+                ]);
+            }
+        }
+
+	    
     }
 
     public function getUpdateProjects(Request $Request) {
@@ -132,6 +259,7 @@ class ProjectsController extends Controller
                     'data_error' => $validate->errors()->first()
                 ]);
             }
+            
 	        $Projects =  Projects::find($Request->id);
 	        $Projects->projects_name = $Request->projects_name;
 		    $Projects->userID = $Request->userID;

@@ -19,6 +19,9 @@ Route::group(['namespace' => 'Guest'], function () {
         Route::get('/', 'HomeController@getHome')->name('guest_home');
         Route::get('/infomation', 'HomeController@getInformation')->name('guest_information');
         Route::get('/search', 'HomeController@searchInfomation')->name('guest_search_info');
+        Route::get('/contact', 'ContactController@getContact')->name('guest_contact');
+        Route::post('/insert-contact', 'ContactController@postContact')->name('guest_insert_contact');
+        
     });
 
     Route::group(['prefix' => 'pages'], function () {
