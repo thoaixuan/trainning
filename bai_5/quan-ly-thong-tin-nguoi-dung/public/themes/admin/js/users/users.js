@@ -12,6 +12,8 @@ function users() {
         datas = this.datas;
         var me = this;
         me.datatables();
+        me.ckeditor();
+
     }
     this.datatables = function () {
         var me = this;
@@ -40,9 +42,43 @@ function users() {
             },
             columns: [
                 {
-                    title: "full_name",
+                    title: "Họ và tên",
                     data: "full_name",
                     name: "full_name",
+                    className: "",
+                },
+                {
+                    title: "Giới tính",
+                    data: "gender",
+                    name: "gender",
+                    className: "",
+                    render: function (data, type, row, meta) {
+                        switch (data) {
+                            case 0:
+                                return "Nam";
+                            case 1:
+                                return "Nữ";
+                            default:
+                                return "Chưa có dữ liệu"
+                        }
+                    }
+                },
+                {
+                    title: "Ngày sinh",
+                    data: "date",
+                    name: "date",
+                    className: "",
+                },
+                {
+                    title: "Ngày bắt đầu",
+                    data: "date_start",
+                    name: "date_start",
+                    className: "",
+                },
+                {
+                    title: "Số điện thoại",
+                    data: "phone_number",
+                    name: "phone_number",
                     className: "",
                 },
                 {
@@ -52,25 +88,52 @@ function users() {
                     className: "",
                 },
                 {
-                    title: "address",
-                    data: "address",
-                    name: "address",
+                    title: "Phòng ban",
+                    data: "room_id",
+                    name: "room_id",
                     className: "",
-                }, {
-                    title: "phone_number",
-                    data: "phone_number",
-                    name: "phone_number",
+                    render: function (data, type, row, meta) {
+                        switch (data) {
+                            case 1:
+                                return "PTS";
+                            default:
+                                return data;
+                        }
+                    }
+                },
+                {
+                    title: "Chức vụ",
+                    data: "position",
+                    name: "position",
                     className: "",
-                }, {
-                    title: "note",
-                    data: "note",
-                    name: "note",
+                    render: function (data, type, row, meta) {
+                        switch (data) {
+                            case 0:
+                                return "Nhân viên";
+                            case 1:
+                                return "Quản lý";
+                            default:
+                                return "Chưa có dữ liệu";
+                        }
+                    }
+                },
+                {
+                    title: "Trạng thái",
+                    data: "action",
+                    name: "action",
                     className: "",
-                }, {
-                    title: "keyword",
-                    data: "keyword",
-                    name: "keyword",
-                    className: "",
+                    render: function (data, type, row, meta) {
+                        switch (data) {
+                            case 0:
+                                return "Đang làm việc";
+                            case 1:
+                                return "Nghỉ việc";
+                            case 1:
+                                return "Đình chỉ";
+                            default:
+                                return "Chưa có dữ liệu";
+                        }
+                    }
                 },
                 {
                     title: "Mặt trước",
@@ -136,11 +199,14 @@ function users() {
         });
         // open dialog user
         $(document).on('click', '#open', function () {
+            var me = this;
             $("#userForm")[0].reset();
             $("#userModal").modal("toggle");
         })
         // find by id user
         $(document).on('click', '#update', function () {
+            var me = this;
+            me.ckeditor_edit();
             console.log("update");
             $.ajax({
                 url: datas.routes.updates,
@@ -200,6 +266,21 @@ function users() {
             });
 
         });
+
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_room,
+                dataType: 'JSON',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.data, function (key, item) {
+                        $('#room_id').append('<option value=' + item.id + '>' + item.name + '</option');
+                    });
+                }
+            });
+
+        });
     }
 
     this.validator = function (table) {
@@ -217,15 +298,6 @@ function users() {
                     required: true,
                     validateEmail: true,
                 },
-                "password": {
-                    required: true,
-                    minlength: 8,
-                    validatePassword: true,
-                },
-                "address": {
-                    required: true,
-                    validateAddress: true
-                },
                 "phone_number": {
                     required: true,
                     validatePhone: true,
@@ -233,17 +305,41 @@ function users() {
                     maxlength: 10,
 
                 },
-                "note": {
+                "gender": {
                     required: true,
 
                 },
-                "keyword": {
+                "date": {
                     required: true,
-                    minlength: 2,
-                    maxlength: 10,
 
                 },
+                "date_start": {
+                    required: true,
 
+                },
+                "room_id": {
+                    required: true,
+
+                },
+                "position": {
+                    required: true,
+
+                },
+                "action": {
+                    required: true,
+
+                },
+                "cover": {
+                    required: true,
+
+                },
+                "cover_after": {
+                    required: true,
+
+                },
+                "description": {
+                    required: true,
+                },
 
             },
             messages: {
@@ -267,8 +363,33 @@ function users() {
                     minlength: "Hãy nhập đủ 10 ký tự",
                     maxlength: "Hãy nhập tối thiểu 10 ký tự"
                 },
-                note: {
-                    required: "Bắt buộc nhập số điện thoại",
+                gender: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                date: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                date_start: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                room_id: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                position: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                action: {
+
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                cover: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                cover_after: {
+                    required: "Bắt buộc nhập dữ liệu",
+                },
+                description: {
+                    required: "Bắt buộc nhập dữ liệu",
                 },
                 keyword: {
                     required: "Bắt buộc nhập key",
@@ -293,37 +414,39 @@ function users() {
                     $('#userForm').ready(function (e) {
                         // e.preventDefault();
                         var full_name = $("input[name=full_name]").val();
-                        var email = $("input[name=email]").val();
-                        var password = $("input[name=password]").val();
-                        var address = $("input[name=address]").val();
-                        var phone_number = $("input[name=phone_number]").val();
-                        var note = $("input[name=note]").val();
-                        var gender = $("input[name=gender]").val();
+                        var gender = $("select#gender").val();
+                        var date = $("input[name=date]").val();
                         var date_start = $("input[name=date_start]").val();
-                        var keyword = $("input[name=keyword]").val();
+                        var phone_number = $("input[name=phone_number]").val();
                         var cover = $('#input-file')[0].files[0];
+                        var email = $("input[name=email]").val();
+                        var room_id = $("select#room_id").val();
+                        var position = $("select#position").val();
+                        var action = $("select#action").val();
                         var cover_after = $('#input-file-after')[0].files[0];
                         var _token = $("input[name=_token]").val();
                         var formData = new FormData();
-                        formData.append('cover', cover);
                         formData.append('full_name', full_name);
-                        formData.append('email', email);
-                        formData.append('password', password);
-                        formData.append('address', address);
-                        formData.append('phone_number', phone_number);
-                        formData.append('note', note);
-                        formData.append('keyword', keyword);
+                        formData.append('gender', gender);
+                        formData.append('date', date);
                         formData.append('date_start', date_start);
+                        formData.append('phone_number', phone_number);
+                        formData.append('email', email);
+                        formData.append('room_id', room_id);
+                        formData.append('position', position);
+                        formData.append('action', action);
                         formData.append('gender', gender);
                         formData.append('cover_after', cover_after);
                         formData.append('cover', cover);
+                        formData.append('_token', _token);
+
                         $('.modal-backdrop').remove();
                         $.ajax({
                             url: datas.routes.insert,
                             type: "POST",
                             contentType: false,
                             processData: false,
-                            data: { formData, _token: '{{csrf_token()}}' },
+                            data: formData,
                             success: function (response) {
                                 if (response.status === 0) {
                                     $('#userModal').modal('hide');
@@ -513,5 +636,49 @@ function users() {
             return this.optional(elemt) || /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);
         }, 'Vui lòng hãy nhập đúng định dạng địa chỉ');
     }
+    this.ckeditor = function () {
+        ClassicEditor
+            .create(document.querySelector('#user_description'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    ]
+                }
+            }).
+            then(newEditor => {
+                editor = newEditor;
+            })
+            .then(editor => {
+                editor.destroy(true);
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
+    }
+    this.ckeditor_edit = function () {
+        ClassicEditor
+            .create(document.querySelector('#user_edit_description'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                    ]
+                }
+            }).then(newEditor => {
+                editor = newEditor;
+                // editor.ui.view.editable.element.style.height = '300px';
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 }
+

@@ -60,6 +60,7 @@
           updates:"{{route('admin.update.user')}}",
           updates_data:"{{route('admin.update_data.user')}}",
           delete:"{{route('admin.delete.user')}}",  
+          get_room:"{{route('admin.get_room.user')}}",  
         }
       }
       users.init();

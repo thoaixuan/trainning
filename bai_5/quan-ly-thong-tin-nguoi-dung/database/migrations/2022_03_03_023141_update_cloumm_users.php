@@ -14,10 +14,14 @@ class UpdateCloummUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->date('date')->nullable();
+            $table->integer('gender')->default(0);
+            $table->date('date_start')->nullable();
             $table->string('cover')->nullable();
             $table->string('cover_after')->nullable();
-            $table->string('gender')->nullable();
-            $table->date('date_start')->nullable();
+            $table->string('description')->nullable();
+            $table->integer('position')->default(0);
+            $table->integer('action')->default(0);
         });
     }
 

@@ -17,6 +17,7 @@ class CreateTableUserImages extends Migration
             $table->id();
             $table->string("image");
             $table->foreignId("user_id")->constraint("users")->onDelete("cascade");
+            
             $table->timestamps();
         });
     }

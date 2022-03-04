@@ -16,6 +16,11 @@ class SedderUser extends Seeder
         DB::table('users')->insert([
             [
                 'full_name' => 'admin',
+                'date' => '2000/03/17',
+                'date_start' => '2022/02/11',
+                'gender'=>0,
+                'room_id' => 1,
+                'position' => 1,
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('123456'),
                 'address' => 'cong ty ing',

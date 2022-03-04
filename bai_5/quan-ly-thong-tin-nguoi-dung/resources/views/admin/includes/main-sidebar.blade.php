@@ -19,7 +19,16 @@
             <a href="{{route('admin.index.user')}}" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
               <p id="user">
-                Thông tin người dùng
+                Người dùng
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin.index.room')}}" class="nav-link">
+              <i class="nav-icon fas fa-layer-group"></i>
+              <p id="user">
+                Phòng ban
               </p>
             </a>
           </li>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Room;
 use Validator;
 use PDF;
 
@@ -19,11 +20,15 @@ class UserController extends Controller
         $columns[]='id';
 
         $columns[]='full_name';
-        $columns[]='email';
-        $columns[]='address';
+        $columns[]='gender';
+        $columns[]='date';
+        $columns[]='date_start';
         $columns[]='phone_number';
-        $columns[]='note';
-        $columns[]='keyword';
+        $columns[]='room_id';
+        $columns[]='position';
+        $columns[]='action';
+        $columns[]='cover';
+        $columns[]='cover_after';
 
         $limit=$request->input('length');
         $start=$request->input('start');
@@ -75,7 +80,6 @@ class UserController extends Controller
         $validate=Validator::make($request->all(),[
             'full_name'=>['required','min:3','max:40'],
             'email'=>['required','min:8','max:40','unique:users','email'],
-            'password'=>['required','min:8','max:40'],
             'phone_number'=>['required','min:10','max:10','unique:users']
         ],$message);
         if($validate->fails()){
@@ -97,14 +101,14 @@ class UserController extends Controller
 
 
             $user->full_name=$request->full_name;
-            $user->email=$request->email;
-            $user->password=Hash::make($request->password);
-            $user->address=$request->address;
-            $user->phone_number=$request->phone_number;
-            $user->note=$request->note;
-            $user->date_start=$request->date_start;
             $user->gender=$request->gender;
-            $user->keyword=$request->keyword;
+            $user->date=$request->date;
+            $user->date_start=$request->date_start;
+            $user->phone_number=$request->phone_number;
+            $user->email=$request->email;
+            $user->room_id=$request->room_id;
+            $user->position=$request->position;
+            $user->action=$request->action;
             $user->cover=$imageName;
             $user->cover_after=$imageNameAfter;
             $user->save();
@@ -147,30 +151,31 @@ class UserController extends Controller
     }
 
     public function postUpdate(Request $request){
-        // $message=[
-        //     'required'=>":attribute không được để trống",
-        //     'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
-        //     'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
-        //     'email.unique'=>":attribute đã tồn tại trong dữ liệu",
-        //     'email'=>"Bạn phải nhập đúng định dạng email",
-        //     'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
-        //     'phone.min'=>"Bạn phải nhập đủ 10 số",
-        //     'phone.max'=>"Bạn phải nhập đủ 10 số",
-        //     'phone.unique'=>"Số điện thoại đã tồn tại",
-        //     'phone.integer'=>"Định dạng số điện thoại phải là số"
-        // ];
-        // $validate=Validator::make($request->all(),[
-        //     'name'=>['required','min:3','max:40'],
-        //     'email'=>['required','min:8','max:40','email'],
-        //     'phone'=>['required']
-        // ],$message);
-        // if($validate->fails()){
-        //     return response()->json([
-        //         'status'=>0,
-        //         'message'=>$validate->errors()->first(),
-        //         'code'=>200
-        //     ]);
-        // }
+
+            $message=[
+                'required'=>":attribute không được để trống",
+                'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
+                'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
+                'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+                'email'=>"Bạn phải nhập đúng định dạng email",
+                'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
+                'phone.min'=>"Bạn phải nhập đủ 10 số",
+                'phone.max'=>"Bạn phải nhập đủ 10 số",
+                'phone.unique'=>"Số điện thoại đã tồn tại",
+                'phone.integer'=>"Định dạng số điện thoại phải là số"
+            ];
+            $validate=Validator::make($request->all(),[
+                'name'=>['required','min:3','max:40'],
+                'email'=>['required','min:8','max:40','email'],
+                'phone'=>['required']
+            ],$message);
+            if($validate->fails()){
+                return response()->json([
+                    'status'=>0,
+                    'message'=>$validate->errors()->first(),
+                    'code'=>200
+                ]);
+            }
     
             $user=User::find($request->id);
             $file=$request->file("cover");
@@ -224,10 +229,13 @@ class UserController extends Controller
             ]);
         }
     }
-    public function downloadPDF(){
-        $users=User::all();
-        $pdf=PDF::loadView('admin.pages.user.user',compact('users'));
-        return $pdf->download('users.pdf');
+    public function getRoom(){
+        $rooms=Room::all();
+        return response()->json([
+            'message'=>"Lấy dữ liệu phòng ban thành công",
+            'code'=>200,
+            'data'=>$rooms
+        ]);
     }
 
 
