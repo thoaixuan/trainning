@@ -4,11 +4,9 @@
 <section class="login-area another-page pt-60">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-md-6">
                 <div class="login-information pb-150">
-                    <h2>Hey There!</h2>
-                    <p>Welcome Back. <br>
-                    You are just one step away to your feed.</p>
+                    <h2>Đăng nhập</h2>
                     <form class="login-form" method="post" id="login-form" name="login">
                     @csrf
                         <div class="text-field form-group">

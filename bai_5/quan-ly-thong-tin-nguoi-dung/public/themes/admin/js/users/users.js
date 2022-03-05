@@ -12,7 +12,6 @@ function users() {
         datas = this.datas;
         var me = this;
         me.datatables();
-        me.ckeditor();
 
     }
     this.datatables = function () {
@@ -188,6 +187,8 @@ function users() {
         me.validator(table);
     }
     this.action = function (table) {
+        var me = this;
+
         // search user
         $("#btn_search").on('click', function (e) {
             table.ajax.reload();
@@ -199,14 +200,11 @@ function users() {
         });
         // open dialog user
         $(document).on('click', '#open', function () {
-            var me = this;
             $("#userForm")[0].reset();
             $("#userModal").modal("toggle");
         })
         // find by id user
         $(document).on('click', '#update', function () {
-            var me = this;
-            me.ckeditor_edit();
             console.log("update");
             $.ajax({
                 url: datas.routes.updates,
@@ -220,13 +218,20 @@ function users() {
                     console.log(response);
                     $('input[name="id"]').val(response.data.id);
                     $('input[name="full_name"]').val(response.data.full_name);
-                    $('input[name="email"]').val(response.data.email);
-                    $('input[name="address"]').val(response.data.address);
-                    $('input[name="phone_number"]').val(response.data.phone_number);
-                    $('input[name="note"]').val(response.data.note);
-                    $('input[name="keyword"]').val(response.data.keyword);
+                    $("select#gender_edit").val(response.data.gender);
+                    $('input[name="date"]').val(response.data.date);
                     $('input[name="date_start"]').val(response.data.date_start);
-                    $('input[name="gender"]').val(response.data.gender);
+                    $('input[name="phone_number"]').val(response.data.phone_number);
+                    $('input[name="email"]').val(response.data.email);
+                    $("select#room_id_edit").val(response.data.room_id);
+                    $("select#position_edit").val(response.data.position);
+                    $("select#action_edit").val(response.data.position);
+
+                    // $('input[name="action"]').val(response.data.action);
+                    CKEDITOR.instances['user_description_edit'].setData(response.data.description);
+
+                    // $('input[name="cover"]').val(response.data.cover);
+                    // $('input[name="cover_after"]').val(response.data.cover_after);
                     $("#userEditModal").modal("toggle");
                 }
             });
@@ -280,7 +285,20 @@ function users() {
                 }
             });
 
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_room,
+                dataType: 'JSON',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.data, function (key, item) {
+                        $('#room_id_edit').append('<option value=' + item.id + '>' + item.name + '</option');
+                    });
+                }
+            });
+
         });
+
     }
 
     this.validator = function (table) {
@@ -304,6 +322,11 @@ function users() {
                     minlength: 10,
                     maxlength: 10,
 
+                },
+                "password": {
+                    required: true,
+                    minlength: 8,
+                    validatePassword: true,
                 },
                 "gender": {
                     required: true,
@@ -347,6 +370,10 @@ function users() {
                     required: "Bắt buộc nhập name",
                     maxlength: "Hãy nhập tối đa 15 ký tự",
                     minlength: "Hãy nhập ít nhất 3 ký tự"
+                },
+                password: {
+                    required: "Bắt buộc nhập password",
+                    minlength: "Hãy nhập lớn hơn 8 ký tự",
                 },
                 email: {
                     required: "Bắt buộc nhập email",
@@ -414,6 +441,7 @@ function users() {
                     $('#userForm').ready(function (e) {
                         // e.preventDefault();
                         var full_name = $("input[name=full_name]").val();
+                        var password = $("input[name=password]").val();
                         var gender = $("select#gender").val();
                         var date = $("input[name=date]").val();
                         var date_start = $("input[name=date_start]").val();
@@ -424,9 +452,11 @@ function users() {
                         var position = $("select#position").val();
                         var action = $("select#action").val();
                         var cover_after = $('#input-file-after')[0].files[0];
+                        var description = CKEDITOR.instances['user_description'].getData();
                         var _token = $("input[name=_token]").val();
                         var formData = new FormData();
                         formData.append('full_name', full_name);
+                        formData.append('password', password);
                         formData.append('gender', gender);
                         formData.append('date', date);
                         formData.append('date_start', date_start);
@@ -439,6 +469,8 @@ function users() {
                         formData.append('cover_after', cover_after);
                         formData.append('cover', cover);
                         formData.append('_token', _token);
+                        formData.append('description', description);
+                        console.log(formData);
 
                         $('.modal-backdrop').remove();
                         $.ajax({
@@ -476,6 +508,11 @@ function users() {
                     maxlength: 20,
                     minlength: 3,
                     validateName: true,
+                },
+                "password": {
+                    required: true,
+                    minlength: 8,
+                    validatePassword: true,
                 },
                 "email": {
                     required: true,
@@ -515,6 +552,10 @@ function users() {
                     required: "Bắt buộc nhập name",
                     maxlength: "Hãy nhập tối đa 15 ký tự",
                     minlength: "Hãy nhập ít nhất 3 ký tự"
+                },
+                password: {
+                    required: "Bắt buộc nhập password",
+                    minlength: "Hãy nhập lớn hơn 8 ký tự",
                 },
                 email: {
                     required: "Bắt buộc nhập email",
@@ -562,40 +603,44 @@ function users() {
                 // update student
                 $(document).ready(function () {
                     $('#userEditForm').ready(function (e) {
-                        var full_name = $("input[name=full_name]").val();
-                        var email = $("input[name=email]").val();
-                        var password = $("input[name=password]").val();
-                        var address = $("input[name=address]").val();
-                        var phone_number = $("input[name=phone_number]").val();
-                        var note = $("input[name=note]").val();
-                        var gender = $("input[name=gender]").val();
-                        var date_start = $("input[name=date_start]").val();
-                        var keyword = $("input[name=keyword]").val();
-                        var cover = $('#input-file')[0].files[0];
-                        var cover_after = $('#input-file-after')[0].files[0];
+                        var id = $('#id').val();
+                        var full_name = $("#full_name").val();
+                        var gender = $("select#gender_edit").val();
+                        var date = $("#date").val();
+                        var date_start = $("#date_start").val();
+                        var phone_number = $("#phone_number").val();
+                        var email = $("#email").val();
+                        var room_id = $("select#room_id_edit").val();
+                        var position = $("select#position_edit").val();
+                        var action = $("select#action_edit").val();
+                        var cover = $("#input-file-edit")[0].files[0];
+                        var cover_after = $('#input-file-after-edit')[0].files[0];
+                        var description = CKEDITOR.instances['user_description_edit'].getData();
                         var _token = $("input[name=_token]").val();
-                        var formData = new FormData();
-                        formData.append('cover', cover);
-                        formData.append('full_name', full_name);
-                        formData.append('email', email);
-                        formData.append('password', password);
-                        formData.append('address', address);
-                        formData.append('phone_number', phone_number);
-                        formData.append('note', note);
-                        formData.append('keyword', keyword);
-                        formData.append('date_start', date_start);
-                        formData.append('gender', gender);
-                        formData.append('cover_after', cover_after);
-                        formData.append('cover', cover);
-                        formData.append('_token', _token);
-                        console.log(formData);
+                        var formDataEdit = new FormData($('form#userEditForm')[0]);
+                        formDataEdit.append('id', id);
+                        formDataEdit.append('full_name', full_name);
+                        formDataEdit.append('gender', gender);
+                        formDataEdit.append('date', date);
+                        formDataEdit.append('date_start', date_start);
+                        formDataEdit.append('phone_number', phone_number);
+                        formDataEdit.append('email', email);
+                        formDataEdit.append('room_id', room_id);
+                        formDataEdit.append('position', position);
+                        formDataEdit.append('action', action);
+                        formDataEdit.append('gender', gender);
+                        formDataEdit.append('cover_after', cover_after);
+                        formDataEdit.append('cover', cover);
+                        formDataEdit.append('_token', _token);
+                        formDataEdit.append('description', description);
 
                         $.ajax({
                             url: datas.routes.updates_data,
-                            type: 'PUT',
-                            contentType: false,
+                            type: 'post',
                             processData: false,
-                            data: formData,
+                            contentType: false,
+                            data: formDataEdit,
+
                             success: function (response) {
                                 if (response.status === 1) {
                                     console.log(response);
@@ -636,49 +681,6 @@ function users() {
             return this.optional(elemt) || /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);
         }, 'Vui lòng hãy nhập đúng định dạng địa chỉ');
     }
-    this.ckeditor = function () {
-        ClassicEditor
-            .create(document.querySelector('#user_description'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                    ]
-                }
-            }).
-            then(newEditor => {
-                editor = newEditor;
-            })
-            .then(editor => {
-                editor.destroy(true);
-            })
-            .catch(error => {
-                console.log(error);
-            });
 
-    }
-    this.ckeditor_edit = function () {
-        ClassicEditor
-            .create(document.querySelector('#user_edit_description'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                    ]
-                }
-            }).then(newEditor => {
-                editor = newEditor;
-                // editor.ui.view.editable.element.style.height = '300px';
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
 }
 

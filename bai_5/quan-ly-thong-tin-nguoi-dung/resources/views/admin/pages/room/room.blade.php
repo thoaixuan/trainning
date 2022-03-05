@@ -58,6 +58,8 @@
         }
       }
       rooms.init();
+      CKEDITOR.replace('room_detail');
+      CKEDITOR.replace('room_detail_edit');
 
 </script>
 @endsection

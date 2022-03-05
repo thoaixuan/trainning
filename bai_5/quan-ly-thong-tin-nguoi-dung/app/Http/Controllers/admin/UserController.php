@@ -89,7 +89,13 @@ class UserController extends Controller
                 'code'=>200
             ]);
         }
-        if($request->hasFile("cover")){
+        if(!$request->hasFile("cover")||!$request->hasFile("cover_after")){   
+            return response()->json([
+            'status'=>0,
+            'message'=>"File không được nhận",
+            'code'=>500
+            ]);  
+        }
             $user=new User();
             $file=$request->file("cover");
             $imageName=time().'_'.$file->getClientOriginalName();
@@ -101,6 +107,7 @@ class UserController extends Controller
 
 
             $user->full_name=$request->full_name;
+            $user->password=Hash::make($request->password);
             $user->gender=$request->gender;
             $user->date=$request->date;
             $user->date_start=$request->date_start;
@@ -109,6 +116,10 @@ class UserController extends Controller
             $user->room_id=$request->room_id;
             $user->position=$request->position;
             $user->action=$request->action;
+            $user->description=$request->description;
+            if($request->description==null){
+            $user->description="Chưa có dữ liệu";
+            }
             $user->cover=$imageName;
             $user->cover_after=$imageNameAfter;
             $user->save();
@@ -127,12 +138,7 @@ class UserController extends Controller
                     'code'=>500
                 ]);
             }
-        }
-        return response()->json([
-            'status'=>0,
-            'message'=>"Internal Server Error",
-            'code'=>500
-        ]);      
+        
     }
     public function getUpdate(Request $request){
         $user=User::where('id','=',$request->id)->first();
@@ -151,24 +157,21 @@ class UserController extends Controller
     }
 
     public function postUpdate(Request $request){
-
-            $message=[
-                'required'=>":attribute không được để trống",
-                'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
-                'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
-                'email.unique'=>":attribute đã tồn tại trong dữ liệu",
-                'email'=>"Bạn phải nhập đúng định dạng email",
-                'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
-                'phone.min'=>"Bạn phải nhập đủ 10 số",
-                'phone.max'=>"Bạn phải nhập đủ 10 số",
-                'phone.unique'=>"Số điện thoại đã tồn tại",
-                'phone.integer'=>"Định dạng số điện thoại phải là số"
-            ];
-            $validate=Validator::make($request->all(),[
-                'name'=>['required','min:3','max:40'],
-                'email'=>['required','min:8','max:40','email'],
-                'phone'=>['required']
-            ],$message);
+        $message=[
+            'required'=>":attribute không được để trống",
+            'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
+            'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
+            'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+            'email'=>"Bạn phải nhập đúng định dạng email",
+            'phone.min'=>"Bạn phải nhập đủ 10 số",
+            'phone.max'=>"Bạn phải nhập đủ 10 số",
+            'phone.unique'=>"Số điện thoại đã tồn tại"
+        ];
+        $validate=Validator::make($request->all(),[
+            'full_name'=>['required','min:3','max:40'],
+            'email'=>['required','min:8','max:40','email'],
+            'phone_number'=>['required','min:10','max:10']
+        ],$message);
             if($validate->fails()){
                 return response()->json([
                     'status'=>0,
@@ -176,42 +179,81 @@ class UserController extends Controller
                     'code'=>200
                 ]);
             }
+            if(!$request->hasFile("cover")||!$request->hasFile("cover_after")){   
+                $user=User::find($request->id);
+                $user->full_name=$request->full_name;
+                $user->password=Hash::make($request->password);
+                $user->gender=$request->gender;
+                $user->date=$request->date;
+                $user->date_start=$request->date_start;
+                $user->phone_number=$request->phone_number;
+                $user->email=$request->email;
+                $user->room_id=$request->room_id;
+                $user->position=$request->position;
+                $user->action=$request->action;
+                $user->description=$request->description;
+                if($request->description==null){
+                $user->description="Chưa có dữ liệu";
+                }
+                $user->save();
+                if($user){
+                    return response()->json([
+                        'status'=>1,
+                        'message'=>"Data Inserted Successfully",
+                        'code'=>200,
+                        'data'=>$user
+                    ]);
+                }
+                else{
+                    return response()->json([
+                        'status'=>0,
+                        'message'=>"Internal Server Error",
+                        'code'=>500
+                    ]);
+                }
+            }
+                $user=User::find($request->id);
+                $file=$request->file("cover");
+                $imageName=time().'_'.$file->getClientOriginalName();
+                $file->move(\public_path("admin/cover"),$imageName);
     
-            $user=User::find($request->id);
-            $file=$request->file("cover");
-            $imageName=time().'_'.$file->getClientOriginalName();
-            $file->move(\public_path("admin/cover"),$imageName);
-
-            $file_after=$request->file("cover_after");
-            $imageNameAfter=time().'_'.$file_after->getClientOriginalName();
-            $file_after->move(\public_path("admin/cover"),$imageNameAfter);
-
-
-            $user->full_name=$request->full_name;
-            $user->email=$request->email;
-            $user->address=$request->address;
-            $user->phone_number=$request->phone_number;
-            $user->note=$request->note;
-            $user->date_start=$request->date_start;
-            $user->gender=$request->gender;
-            $user->keyword=$request->keyword;
-            $user->cover=$imageName;
-            $user->cover_after=$imageNameAfter;
-            $user->save();
-        if($user){
-            return response()->json([
-                'status'=>1,
-                'message'=>"Data Update Successfully",
-                'code'=>200,
-                'data'=>$user
-            ]);
-        }else{
-            return response()->json([
-                'status'=>0,
-                'message'=>"Internal Server Error",
-                'code'=>500,
-            ]);
-        }
+                $file_after=$request->file("cover_after");
+                $imageNameAfter=time().'_'.$file_after->getClientOriginalName();
+                $file_after->move(\public_path("admin/cover"),$imageNameAfter);
+    
+    
+                $user->full_name=$request->full_name;
+                $user->password=Hash::make($request->password);
+                $user->gender=$request->gender;
+                $user->date=$request->date;
+                $user->date_start=$request->date_start;
+                $user->phone_number=$request->phone_number;
+                $user->email=$request->email;
+                $user->room_id=$request->room_id;
+                $user->position=$request->position;
+                $user->action=$request->action;
+                $user->description=$request->description;
+                if($request->description==null){
+                $user->description="Chưa có dữ liệu";
+                }
+                $user->cover=$imageName;
+                $user->cover_after=$imageNameAfter;
+                $user->save();
+                if($user){
+                    return response()->json([
+                        'status'=>1,
+                        'message'=>"Data Inserted Successfully",
+                        'code'=>200,
+                        'data'=>$user
+                    ]);
+                }
+                else{
+                    return response()->json([
+                        'status'=>0,
+                        'message'=>"Internal Server Error",
+                        'code'=>500
+                    ]);
+                }
     }
     public function delete(Request $request){
         $user=User::find($request->id);

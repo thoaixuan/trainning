@@ -11,7 +11,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/anydata', [UserController::class,'anyData'])->name('admin.datatables.user');
         Route::post('/insert-user',[UserController::class,'add'])->name('admin.insert.user');
         Route::get('/edit-user',[UserController::class,'getUpdate'])->name('admin.update.user');
-        Route::put('/edit-user',[UserController::class,'postUpdate'])->name('admin.update_data.user');
+        Route::post('/edit-user',[UserController::class,'postUpdate'])->name('admin.update_data.user');
         Route::get('/delete-user',[UserController::class,'delete'])->name('admin.delete.user');
         Route::get('/get-room',[UserController::class,'getRoom'])->name('admin.get_room.user');
       

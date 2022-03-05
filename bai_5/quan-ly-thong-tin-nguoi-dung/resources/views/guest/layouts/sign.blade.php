@@ -13,7 +13,6 @@
 <div class="page-wrapper">
     @yield('content')
 </div>
-@include('guest.includes.footer')
 @include('guest.partials.script')
 
 <script src="{{asset('app/guest/main.js')}}"></script>

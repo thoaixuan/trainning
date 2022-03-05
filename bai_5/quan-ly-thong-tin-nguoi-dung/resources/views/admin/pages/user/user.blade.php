@@ -64,6 +64,8 @@
         }
       }
       users.init();
+      CKEDITOR.replace('user_description');
+      CKEDITOR.replace('user_description_edit');
 </script>
 @endsection
 

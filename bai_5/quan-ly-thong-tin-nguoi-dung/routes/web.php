@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\guest\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('guest.pages.home.home');
 });
+
+// Auth::routes();
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/login',[HomeController::class, 'login'])->name('login');
+Route::post('/login',[HomeController::class, 'postLogin'])->name('login');

@@ -89,7 +89,6 @@ function rooms() {
     }
     this.action = function (table) {
         var me = this;
-        me.ckeditor();
         $("#btn-search").on('click', function (e) {
             table.ajax.reload();
         });
@@ -136,7 +135,6 @@ function rooms() {
         // find by id service
         $(document).on('click', '#update', function () {
             $("#roomEditForm")[0].reset();
-            me.ckeditor_edit();
             console.log("update");
             $.ajax({
                 url: datas.routes.updates,
@@ -150,7 +148,7 @@ function rooms() {
                     console.log(response);
                     $('input[name="id"]').val(response.data.id);
                     $('input[name="name"]').val(response.data.name);
-                    editor.setData(response.data.description);
+                    CKEDITOR.instances['room_detail_edit'].setData(response.data.description);
                     $("select#permission_edit_id").val(response.data.permission_id);
                     $("#roomEditModal").modal("toggle");
                 }
@@ -230,7 +228,7 @@ function rooms() {
                         var id = $('#id').val();
                         var permission_id = $("select#permission_edit_id").val();
                         var name = $('#name').val();
-                        var description = editor.getData();
+                        var description = CKEDITOR.instances['room_detail_edit'].getData();
                         var _token = $("input[name=_token]").val();
 
                         $.ajax({
@@ -305,7 +303,7 @@ function rooms() {
                     $('#roomForm').ready(function (e) {
                         // e.preventDefault();
                         var name = $("input[name=name]").val();
-                        var description = editor.getData();
+                        var description = CKEDITOR.instances['room_detail'].getData();
                         var permission_id = $("select#permission_id").val();
                         var _token = $("input[name=_token]").val();
                         $('.modal-backdrop').remove();
@@ -346,49 +344,5 @@ function rooms() {
     }
 
 
-    this.ckeditor = function () {
-        ClassicEditor
-            .create(document.querySelector('#room_detail'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                    ]
-                }
-            }).
-            then(newEditor => {
-                editor = newEditor;
-            })
-            .then(editor => {
-                editor.destroy(true);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-
-    }
-    this.ckeditor_edit = function () {
-        ClassicEditor
-            .create(document.querySelector('#room_detail_edit'), {
-                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-                heading: {
-                    options: [
-                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
-                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
-                    ]
-                }
-            }).then(newEditor => {
-                editor = newEditor;
-                // editor.ui.view.editable.element.style.height = '300px';
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
 
 }

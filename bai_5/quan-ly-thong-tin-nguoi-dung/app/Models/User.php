@@ -28,6 +28,7 @@ class User extends Authenticatable
          'action',
          'cover',
          'cover_after',
+         'description'
     ];
 
     /**

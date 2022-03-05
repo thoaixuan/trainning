@@ -28,6 +28,7 @@ class SedderUser extends Seeder
                 'note' => 'nothing',
                 'keyword' => 'ADMIN',
                 'permissions' => 1,
+                'description'=>"Chưa có dữ liệu",
                 'created_at' => now(),
                 'updated_at' => now(),
                 'cover'=>'1646295620_7.jpg',
