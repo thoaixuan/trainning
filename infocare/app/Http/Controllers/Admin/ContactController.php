@@ -18,7 +18,7 @@ class ContactController extends Controller
         $columns [] ='id';
         $columns [] ='contact_name';
        
-        $columns [] ='contact_email';
+        $columns [] ='contact_phone';
         $columns [] ='contact_content';
         $columns [] ='id';
      
@@ -36,7 +36,7 @@ class ContactController extends Controller
         } else {
             $Contact = Contact::Where(function($query)use($search){
 	            $query->where('contact_name', 'LIKE',"%{$search}%")
-	            ->orWhere('contact_email', 'LIKE',"%{$search}%")
+	            ->orWhere('contact_phone', 'LIKE',"%{$search}%")
 	            ->orWhere('contact_content', 'LIKE',"%{$search}%");
 	        })
 	        ->offset($start)

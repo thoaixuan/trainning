@@ -34,10 +34,10 @@
                                    <input type="text" id="contact_name" name="contact_name" placeholder="Họ và tên" required="">
                                </div>
                                <div class="form-group">
-                                   <input type="email" id="contact_email" name="contact_email" placeholder="Nhập email" required="">
+                                   <input type="number" id="contact_phone" name="contact_phone" placeholder="Nhập Số điện thoại" required="">
                                </div>
                                <div class="form-group">
-                                   <textarea name="contact_content" id="contact_content" placeholder="Lời nhắn"></textarea>
+                                   <textarea name="contact_content" id="contact_content" placeholder="Lời nhắn" required></textarea>
                                </div>
                                <div class="form-group ">
                                    <button id="submitContact" class="btn-bg" type="submit" data-loading-text="Please wait...">Gửi ngay</button>

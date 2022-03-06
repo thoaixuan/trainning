@@ -13,7 +13,7 @@ $('#contact-form').validate({
             validateScript: true,
             maxlength: 150
         },
-        contact_email: {
+        contact_phone: {
             required: true,
             validateScript: true
         },
@@ -28,8 +28,8 @@ $('#contact-form').validate({
             required: "Tên không được trống !",
             maxlength: "Tên không quá 150 ký tự !"
         },
-        contact_email:{
-            required: "Email không được trống !"
+        contact_phone:{
+            required: "Điện thoại không được trống !"
         },
         contact_content:{
             required: "Nội dung không được trống !"
@@ -62,7 +62,7 @@ $('#contact-form').validate({
                     url: url_submit_contact,
                     data: {
                         contact_name: $('#contact_name').val(),
-                        contact_email: $('#contact_email').val(),
+                        contact_phone: $('#contact_phone').val(),
                         contact_content: $('#contact_content').val()
                     },
                     type: 'POST',

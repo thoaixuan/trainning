@@ -20,7 +20,7 @@ class ContactController extends Controller
         ];
         $validate = Validator::make($Request->all(),[
             'contact_name'=>['required','max:150'],
-            'contact_email'=>['required'],
+            'contact_phone'=>['required'],
             'contact_content'=>['required']
             
         ],$message);
@@ -36,7 +36,7 @@ class ContactController extends Controller
             $array_data = json_decode($current_data, true, JSON_UNESCAPED_UNICODE);
             $extra = array(
                 'name' => $Request->contact_name,
-                'email' => $Request->contact_email,
+                'phone' => $Request->contact_phone,
                 'content' => $Request->contact_content
             );
             $array_data[] = $extra;
