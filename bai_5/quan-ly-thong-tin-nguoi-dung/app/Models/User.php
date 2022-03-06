@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Image;
+use App\Models\Room;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -51,5 +53,8 @@ class User extends Authenticatable
 
     public function images(){
         return $this->hasMany(Image::class);
+    }
+    public function rooms(){
+        return $this->belongsTo(Room::class,'room_id');
     }
 }

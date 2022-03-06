@@ -40,11 +40,11 @@ class UserController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $users=User::offset($start)
+            $users=User::with('rooms')->offset($start)
             ->limit($limit)
             ->orderBy($order,$dir)->get();
         }else{
-            $users=User::Where(function($query)use($search){
+            $users=User::with('rooms')->Where(function($query)use($search){
                 $query->where('full_name','like',"%{$search}%")
                         ->orWhere('email','like',"%{$search}%")
                         ->orWhere('phone_number','like',"%{$search}%")

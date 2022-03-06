@@ -16,3 +16,5 @@
 <script type="text/javascript" src="{{asset('themes/admin/dist/validate/jquery.validate.min.js')}}"></script><script type="text/javascript" src="{{asset('ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript" src="{{asset('ckeditor/ckeditor.js')}}"></script>
 <script type="text/javascript" src="{{asset('themes/admin/dist/jquery2/js/select2.min.js')}}"> </script>
+<script type="text/javascript" src="{{asset('themes/admin/plugins/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/plugins/bootstrap-5.0.2-dist/js/bootstrap.min.js')}}"></script>

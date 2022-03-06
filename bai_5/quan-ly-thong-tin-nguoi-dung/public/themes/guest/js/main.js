@@ -2,7 +2,7 @@ function renderAction(data) {
     var htmlButton = `<div class="btn-group">`;
     $.each(data, function (index, item) {
 
-        htmlButton += '<button data-id="' +
+        htmlButton += '<button button="dropdown-item" data-id="' +
             item.value + '" class="' +
             item.class + '" id="' +
             item.title + '">' +
@@ -32,7 +32,7 @@ function renderSwitch(data) {
 function renderImage(data) {
     var htmlImage = '<div>';
     $.each(data, function (index, item) {
-        htmlImage += '<img src="' + item.folder + '/' + item.value + '" class="img-thumbnail" alt="' + item.value + '">'
+        htmlImage += '<img src="' + 'admin/' + item.folder + '/' + item.value + '" class="img-thumbnail" alt="' + item.value + '">'
     })
     htmlImage += '</div>'
     return htmlImage;

@@ -3,11 +3,14 @@
 @section('content')
 <section class="login-area another-page pt-60">
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="login-information pb-150">
-                    <h2>Đăng nhập</h2>
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 bg-white card shadow-lg p-3 mb-5 bg-body rounded">
+                <div class="login-information pb-30 card-body ">
+                    <div class="text-center ">
+                    <h2 class="text-muted card-title">Đăng nhập</h2>
+                    </div>
                     <form class="login-form" method="post" id="login-form" name="login">
+                    @method('post')
                     @csrf
                         <div class="text-field form-group">
                             <input class="form-control" type="text" placeholder="Email" name="email">
@@ -26,4 +29,14 @@
 </section>
 @endsection
 @section('jsGuest')
+<script src="{{asset('themes/guest/js/signin/signin.js')}}"></script>
+<script>
+  var signin=new signin();
+      signin.datas={
+        routes:{
+            login:"{{route('guest.post_signin.home')}}",
+        }
+      }
+      signin.init();
+</script>
 @endsection

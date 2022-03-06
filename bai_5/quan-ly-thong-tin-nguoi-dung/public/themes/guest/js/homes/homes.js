@@ -1,5 +1,5 @@
 
-function users() {
+function homes() {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -16,7 +16,7 @@ function users() {
     }
     this.datatables = function () {
         var me = this;
-        var table = $("#users-table").DataTable({
+        var table = $("#userstable").DataTable({
             serverSide: true,
             processing: true,
             paging: true,
@@ -160,12 +160,12 @@ function users() {
                     bSortable: false,
                     render: function (data, type, row, meta) {
                         return renderAction([{
-                            class: 'btn btn-danger',
+                            class: 'custom-color-badge custom-color-badge-three ',
                             value: row.id,
                             title: 'delete',
                             icon: 'fa fa-trash',
                         }, {
-                            class: 'btn btn-info',
+                            class: 'custom-color-badge custom-color-badge-twelve',
                             value: row.id,
                             title: 'update',
                             icon: 'fa fa-edit',
@@ -173,10 +173,12 @@ function users() {
                     }
                 },
 
+
             ],
         });
         me.action(table);
         me.validator(table);
+
     }
     this.action = function (table) {
         var me = this;
@@ -292,206 +294,8 @@ function users() {
         });
 
     }
-
     this.validator = function (table) {
         console.log("validate");
-        $("#userForm").validate({
-
-            rules: {
-                "full_name": {
-                    required: true,
-                    maxlength: 20,
-                    minlength: 3,
-                    validateName: true,
-                },
-                "email": {
-                    required: true,
-                    validateEmail: true,
-                },
-                "phone_number": {
-                    required: true,
-                    validatePhone: true,
-                    minlength: 10,
-                    maxlength: 10,
-
-                },
-                "password": {
-                    required: true,
-                    minlength: 8,
-                    validatePassword: true,
-                },
-                "gender": {
-                    required: true,
-
-                },
-                "date": {
-                    required: true,
-
-                },
-                "date_start": {
-                    required: true,
-
-                },
-                "room_id": {
-                    required: true,
-
-                },
-                "position": {
-                    required: true,
-
-                },
-                "action": {
-                    required: true,
-
-                },
-                "cover": {
-                    required: true,
-
-                },
-                "cover_after": {
-                    required: true,
-
-                },
-                "description": {
-                    required: true,
-                },
-
-            },
-            messages: {
-                name: {
-                    required: "Bắt buộc nhập name",
-                    maxlength: "Hãy nhập tối đa 15 ký tự",
-                    minlength: "Hãy nhập ít nhất 3 ký tự"
-                },
-                password: {
-                    required: "Bắt buộc nhập password",
-                    minlength: "Hãy nhập lớn hơn 8 ký tự",
-                },
-                email: {
-                    required: "Bắt buộc nhập email",
-                },
-                password: {
-                    required: "Bắt buộc nhập password",
-                    minlength: "Hãy nhập lớn hơn 8 ký tự",
-                },
-                address: {
-                    required: "Bắt buộc nhập địa chỉ",
-                },
-                phone_number: {
-                    required: "Bắt buộc nhập số điện thoại",
-                    minlength: "Hãy nhập đủ 10 ký tự",
-                    maxlength: "Hãy nhập tối thiểu 10 ký tự"
-                },
-                gender: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                date: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                date_start: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                room_id: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                position: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                action: {
-
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                cover: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                cover_after: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                description: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                keyword: {
-                    required: "Bắt buộc nhập key",
-                    minlength: "Hãy nhập hơn 2 ký tự",
-                    maxlength: "Hãy nhập không quá 10 ký tự"
-                },
-
-            },
-            errorElement: "span",
-            errorPlacement: function (error, element) {
-                error.addClass('invalid-feedback');
-                element.closest(".form-group").append(error);
-            },
-            highlight: function (element) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function (element) {
-                $(element).removeClass('is-invalid');
-            },
-            submitHandler: function () {
-                $(document).ready(function () {
-                    $('#userForm').ready(function (e) {
-                        // e.preventDefault();
-                        var full_name = $("input[name=full_name]").val();
-                        var password = $("input[name=password]").val();
-                        var gender = $("select#gender").val();
-                        var date = $("input[name=date]").val();
-                        var date_start = $("input[name=date_start]").val();
-                        var phone_number = $("input[name=phone_number]").val();
-                        var cover = $('#input-file')[0].files[0];
-                        var email = $("input[name=email]").val();
-                        var room_id = $("select#room_id").val();
-                        var position = $("select#position").val();
-                        var action = $("select#action").val();
-                        var cover_after = $('#input-file-after')[0].files[0];
-                        var description = CKEDITOR.instances['user_description'].getData();
-                        var _token = $("input[name=_token]").val();
-                        var formData = new FormData();
-                        formData.append('full_name', full_name);
-                        formData.append('password', password);
-                        formData.append('gender', gender);
-                        formData.append('date', date);
-                        formData.append('date_start', date_start);
-                        formData.append('phone_number', phone_number);
-                        formData.append('email', email);
-                        formData.append('room_id', room_id);
-                        formData.append('position', position);
-                        formData.append('action', action);
-                        formData.append('gender', gender);
-                        formData.append('cover_after', cover_after);
-                        formData.append('cover', cover);
-                        formData.append('_token', _token);
-                        formData.append('description', description);
-                        console.log(formData);
-
-                        $('.modal-backdrop').remove();
-                        $.ajax({
-                            url: datas.routes.insert,
-                            type: "POST",
-                            contentType: false,
-                            processData: false,
-                            data: formData,
-                            success: function (response) {
-                                if (response.status === 0) {
-                                    $('#userModal').modal('hide');
-                                    alert(response.message);
-                                }
-                                if (response.status === 1) {
-                                    console.log(response);
-                                    $('#userForm')[0].reset();
-                                    $('#userModal').modal('hide');
-                                    $('.modal-backdrop').remove();
-                                    table.ajax.reload();
-                                }
-                            }
-                        })
-
-                    })
-                });
-            },
-        }
-
-        );
 
         $("#userEditForm").validate({
             rules: {

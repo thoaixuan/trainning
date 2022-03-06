@@ -21,7 +21,7 @@
 				</button>				
 			</form>
 			<div class="social-login">
-				<h3>log in via</h3>
+				<h3>Đăng nhập</h3>
 				<div class="social-icons">
 					<a href="#" class="social-login__icon fab fa-instagram"></a>
 					<a href="#" class="social-login__icon fab fa-facebook"></a>
@@ -40,12 +40,12 @@
 @endsection
 
 @section('jsAdmin')
-<script src="{{asset('app/admin/signin/signin.js')}}"></script>
+<script src="{{asset('themes/admin/js/signin/signin.js')}}"></script>
 <script>
   var signin=new signin();
       signin.datas={
         routes:{
-            login:"{{route('guest.signin')}}",
+            login:"{{route('admin.post.login')}}",
         }
       }
       signin.init();

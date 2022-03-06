@@ -15,7 +15,8 @@
 </div>
 @include('guest.partials.script')
 
-<script src="{{asset('app/guest/main.js')}}"></script>
+<script src="{{asset('themes/guest/js/main.js')}}"></script>
+
 @yield('jsGuest')
 </body>
 </html>

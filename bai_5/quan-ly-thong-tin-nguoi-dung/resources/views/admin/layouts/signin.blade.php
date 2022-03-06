@@ -9,7 +9,7 @@
 <body>
 @yield('content')
 <!-- partial -->
-<script src="{{asset('app/admin/main.js')}}"></script>
+<script src="{{asset('themes/admin/js/main.js')}}"></script>
 @include('admin.partials.script')
 @yield('jsAdmin')
 </body>
