@@ -37,3 +37,25 @@ function renderImage(data) {
     htmlImage += '</div>'
     return htmlImage;
 }
+function renderDetail(data) {
+    var htmlButton = `<div class="btn-group">`;
+    $.each(data, function (index, item) {
+
+        htmlButton += '<p data-id="' +
+            item.value + '" class="' +
+            item.class + '" id="' +
+            item.title + '">' +
+            'xem chi tiết'
+            +
+            "</p>";
+    });
+    htmlButton += "</div>";
+    return htmlButton;
+}
+function changeDate(data) {
+    if (data == null || data == "") {
+        return "";
+    } else {
+        return moment(data, "YYYY-MM-DD").format('DD/MM/YYYY')
+    }
+}

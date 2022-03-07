@@ -16,7 +16,7 @@
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
+        <div class="container-fluid card p-3">
         <div class="row">
           <div class="col-12 row">
             <div class="col-8 row">
@@ -24,7 +24,7 @@
                <input class="form-control" id="search"  name="search" vale="" placeholder="Từ khóa tìm kiếm ....">
               </div>
               <div class="col-md-4">
-                <button class="btn btn-primary" id="btn-search">Tìm kiếm dữ liệu</button>
+                <button class="btn btn-info text-light" id="btn-search">Tìm kiếm dữ liệu</button>
               </div>  
             </div>
             <div class="col-4">
@@ -32,7 +32,7 @@
             </div>
           </div>
             
-          <table class="table" id="rooms-table">
+          <table class="table table-bordered hover table-hover table-striped" id="rooms-table">
           </table>
                        
           @include('admin.pages.room.modal')

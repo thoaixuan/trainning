@@ -6,7 +6,7 @@
   @include('admin.partials.stylesheet')
 
 </head>
-<body>
+<body id="signin">
 @yield('content')
 <!-- partial -->
 <script src="{{asset('themes/admin/js/main.js')}}"></script>

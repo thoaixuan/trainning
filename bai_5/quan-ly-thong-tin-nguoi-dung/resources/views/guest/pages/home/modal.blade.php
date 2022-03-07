@@ -155,6 +155,38 @@
             </div>
         </div>
 
+        <!-- Modal Detail  -->
+
+<div class="modal fade" id="userDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Thông tin user</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+
+                  </div>
+                  <div class="modal-body">
+                    <div id="user_content" class="content">
+                    <div ><p><b>Tên: </b></p><p id="ten"></p></div>
+                    <div><p><b>Mô tả: </b></p><p id="mota"></p></div>
+                    <div class="row">
+                      <div class="col-md-6">
+                    <div><p><b>Chứng minh nhân dân mặt trước: </b></p><img id="cmnd_before" width="200" height="100"></div>
+                      </div>
+                      <div class="col-md-6">
+                    <div><p><b>Chứng minh nhân dân mặt sau: </b></p><img id="cmnd_after" width="200" height="100"></div>
+
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
 
 <!-- @endif -->
 @endauth

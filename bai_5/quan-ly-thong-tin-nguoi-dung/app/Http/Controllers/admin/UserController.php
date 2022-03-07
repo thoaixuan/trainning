@@ -10,6 +10,8 @@ use App\Models\Room;
 use Validator;
 use PDF;
 use File;  
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -48,7 +50,7 @@ class UserController extends Controller
         if(empty($search)){
             $users=User::with('rooms')->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)->get();
+            ->orderByDesc($order,$dir)->get();
         }else{
             $users=User::with('rooms')->Where(function($query)use($search){
                 $query->where('full_name','like',"%{$search}%")
@@ -292,6 +294,16 @@ class UserController extends Controller
             'data'=>$rooms
         ]);
     }
-
-
+    public function checkLogin(){
+        $user=User::leftjoin('rooms','users.room_id','=','rooms.id')
+                ->leftjoin('permissions','rooms.permission_id','=','permissions.id')
+                ->select(
+                    'users.full_name',
+                    'rooms.name',
+                    'permissions.name',
+                    'permissions.action'
+                )->where('users.id','=',Auth::user()->id)->get();
+         $action= json_decode($user[0]->action);
+            return $action->update; 
+    }
 }

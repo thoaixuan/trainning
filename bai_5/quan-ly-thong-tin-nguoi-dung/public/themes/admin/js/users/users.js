@@ -44,13 +44,13 @@ function users() {
                     title: "Họ và tên",
                     data: "full_name",
                     name: "full_name",
-                    className: "",
+                    className: "text-center",
                 },
                 {
                     title: "Giới tính",
                     data: "gender",
                     name: "gender",
-                    className: "",
+                    className: "text-center",
                     render: function (data, type, row, meta) {
                         switch (data) {
                             case 0:
@@ -67,12 +67,18 @@ function users() {
                     data: "date",
                     name: "date",
                     className: "",
+                    render: function (data, type, row, meta) {
+                        return changeDate(data);
+                    }
                 },
                 {
                     title: "Ngày bắt đầu",
                     data: "date_start",
                     name: "date_start",
                     className: "",
+                    render: function (data, type, row, meta) {
+                        return changeDate(data);
+                    }
                 },
                 {
                     title: "Số điện thoại",
@@ -127,31 +133,22 @@ function users() {
                     }
                 },
                 {
-                    title: "Mặt trước",
-                    data: "cover",
-                    name: "cover",
+                    title: "Xem chi tiết",
+                    data: "id",
+                    name: "id",
                     className: "",
                     render: function (data, type, row, meta) {
-                        return renderImage([{
-                            folder: 'cover',
-                            value: data,
+                        return renderDetail([{
+                            class: 'btn btn-outline-success',
+                            value: row.id,
+                            data: data,
+                            title: 'detail',
+                            icon: 'fa-solid fa-eye'
                         }]);
                     }
 
                 },
-                {
-                    title: "Mặt sau",
-                    data: "cover_after",
-                    name: "cover_after",
-                    className: "",
-                    render: function (data, type, row, meta) {
-                        return renderImage([{
-                            folder: 'cover',
-                            value: data,
-                        }]);
-                    }
 
-                },
                 {
                     title: "Action",
                     data: "id",
@@ -225,6 +222,32 @@ function users() {
                     // $('input[name="cover"]').val(response.data.cover);
                     // $('input[name="cover_after"]').val(response.data.cover_after);
                     $("#userEditModal").modal("toggle");
+                }
+            });
+        });
+        // find by id user detail
+        $(document).on('click', '#detail', function () {
+            $.ajax({
+                url: datas.routes.updates,
+                type: "get",
+                dataType: 'json',
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    "id": $(this).data("id"),
+                },
+                success: function (response) {
+                    console.log(response);
+                    $('#ten').html(response.data.full_name);
+                    $('#mota').html(response.data.description);
+                    $('#cmnd_before').attr("src", "http://127.0.0.1:8000/admin/cover/" + response.data.cover);
+                    $('#cmnd_after').attr("src", "http://127.0.0.1:8000/admin/cover/" + response.data.cover_after);
+
+
+                    // CKEDITOR.instances['user_description_edit'].setData(response.data.description);
+
+                    // $('input[name="cover"]').val(response.data.cover);
+                    // $('input[name="cover_after"]').val(response.data.cover_after);
+                    $("#userDetailModal").modal("toggle");
                 }
             });
         });
@@ -427,12 +450,12 @@ function users() {
 
                     required: "Bắt buộc nhập dữ liệu",
                 },
-                cover: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
-                cover_after: {
-                    required: "Bắt buộc nhập dữ liệu",
-                },
+                // cover: {
+                //     required: "Bắt buộc nhập dữ liệu",
+                // },
+                // cover_after: {
+                //     required: "Bắt buộc nhập dữ liệu",
+                // },
                 description: {
                     required: "Bắt buộc nhập dữ liệu",
                 },

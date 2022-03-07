@@ -39,12 +39,6 @@ function rooms() {
             order: [0, "asc"],
             columns: [
                 {
-                    title: "#",
-                    data: "id",
-                    name: "id",
-                    className: "text-center",
-                },
-                {
                     title: "Tên",
                     data: "name",
                     name: "name",
@@ -57,7 +51,7 @@ function rooms() {
                     className: "",
                 },
                 {
-                    title: "Bộ phận",
+                    title: "Quyền",
                     data: "permissions.name",
                     name: "permissions.name",
                     className: "",
@@ -70,7 +64,7 @@ function rooms() {
                     bSortable: false,
                     render: function (data, type, row, meta) {
                         return renderAction([{
-                            class: 'btn btn-danger',
+                            class: 'btn btn-danger mr-2',
                             value: row.id,
                             title: 'delete',
                             icon: 'fa fa-trash',

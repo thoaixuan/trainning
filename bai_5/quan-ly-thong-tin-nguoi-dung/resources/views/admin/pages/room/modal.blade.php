@@ -19,7 +19,7 @@
                                 <input type="text" name="name" class="form-control" />
                             </div>       
                             <div class="form-group">
-                                <label for="status">Bộ phận</label>
+                                <label for="status">Chức vụ</label>
                                 <select name="status" id="permission_id" class="form-control select">
 
                                 </select>

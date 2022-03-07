@@ -33,7 +33,7 @@ class RoomController extends Controller
         if(empty($search)){
             $rooms=Room::with('permissions')->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)->get();  
+            ->orderByDesc($order,$dir)->get();  
         }else{
             $rooms=Room::with('permissions')->Where(function($query)use($search){
                 $query->where('name','like',"%{$search}%")
@@ -42,7 +42,7 @@ class RoomController extends Controller
             })
             ->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)
+            ->orderByDesc($order,$dir)
             ->get();
             $totalFiltered =$rooms->count();
         }

@@ -16,7 +16,7 @@
     <!-- /.content-header -->
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
+        <div class="container-fluid card p-3">
         <div class="row">
           <div class="col-12 row">
             <div class="col-8 row">
@@ -32,7 +32,7 @@
             </div>
           </div>
             
-          <table class="table" id="users-table">
+          <table class="table table-hover table-striped" id="users-table">
           </table>
           <div class="row">
             <div class="col-md-4">
@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          @include('admin.pages.user.modal');
+          @include('admin.pages.user.modal')
         </div><!-- /.container-fluid -->
 
       </section>

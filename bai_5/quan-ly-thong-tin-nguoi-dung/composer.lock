@@ -104,7 +104,10 @@
             "autoload": {
                 "psr-4": {
                     "Barryvdh\\DomPDF\\": "src"
-                }
+                },
+                "files": [
+                    "app/Console/helpers.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [

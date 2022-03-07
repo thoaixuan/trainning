@@ -18,7 +18,7 @@ class SeederRoom extends Seeder
             [
                 'name' => 'PTS',
                 'description' => 'Thiết kế và làm dựa án',
-                'permission_id'=>2,
+                'permission_id'=>1,
             ]
         ]);
     }
