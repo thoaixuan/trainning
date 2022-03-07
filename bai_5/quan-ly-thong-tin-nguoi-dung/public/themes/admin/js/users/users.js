@@ -265,6 +265,32 @@ function users() {
         });
 
         $(document).ready(function () {
+            $('#room_id').select2({
+                dropdownParent: $('#userModal')
+            });
+            $('#gender').select2({
+                dropdownParent: $('#userModal')
+            });
+            $('#position').select2({
+                dropdownParent: $('#userModal')
+            });
+            $('#action').select2({
+                dropdownParent: $('#userModal')
+            });
+
+            $('#room_id_edit').select2({
+                dropdownParent: $('#userEditModal')
+            });
+            $('#gender_edit').select2({
+                dropdownParent: $('#userEditModal')
+            });
+            $('#position_edit').select2({
+                dropdownParent: $('#userEditModal')
+            });
+            $('#action_edit').select2({
+                dropdownParent: $('#userEditModal')
+            });
+
             $.ajax({
                 type: "get",
                 url: datas.routes.get_room,

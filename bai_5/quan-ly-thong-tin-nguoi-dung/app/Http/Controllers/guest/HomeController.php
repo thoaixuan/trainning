@@ -9,9 +9,15 @@ use App\Models\Room;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use File;  
 
 class HomeController extends Controller
 {
+    private $uploadFolder;  
+    public function __construct()  
+    {  
+      $this->uploadFolder = 'admin/cover/';  
+    } 
     public function index(){
         return view('guest.pages.home.home');
     }
@@ -186,6 +192,8 @@ class HomeController extends Controller
     }
     public function delete(Request $request){
         $user=User::find($request->id);
+        File::delete($this->uploadFolder. $user->cover);
+        File::delete($this->uploadFolder. $user->cover_after);
         $user->delete();
         if($user){
             return response()->json([

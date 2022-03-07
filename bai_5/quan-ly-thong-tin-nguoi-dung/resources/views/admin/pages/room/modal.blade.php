@@ -20,7 +20,7 @@
                             </div>       
                             <div class="form-group">
                                 <label for="status">Bộ phận</label>
-                                <select name="status" id="permission_id" class="form-control">
+                                <select name="status" id="permission_id" class="form-control select">
 
                                 </select>
                             </div>
@@ -65,7 +65,7 @@
                             </div>       
                             <div class="form-group">
                                 <label for="status" class="d-block">Bộ phận</label>
-                                <select name="status" id="permission_edit_id" class="js-states form-control"> 
+                                <select class="form-control select" name="status" id="permission_edit_id" > 
                                 </select>
                             </div>
                         </div>

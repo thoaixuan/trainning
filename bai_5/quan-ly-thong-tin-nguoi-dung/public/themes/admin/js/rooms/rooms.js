@@ -107,6 +107,9 @@ function rooms() {
         })
 
         $(document).ready(function () {
+            $('#permission_id').select2({
+                dropdownParent: $('#roomModal')
+            });
             $('#permission_edit_id').select2({
                 dropdownParent: $('#roomEditModal')
             });

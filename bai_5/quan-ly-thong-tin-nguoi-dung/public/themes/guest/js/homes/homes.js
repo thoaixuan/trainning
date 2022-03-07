@@ -267,6 +267,18 @@ function homes() {
         });
 
         $(document).ready(function () {
+            // $('#room_id_edit').select2({
+            //     dropdownParent: $('#userEditModal')
+            // });
+            // $('#gender_edit').select2({
+            //     dropdownParent: $('#userEditModal')
+            // });
+            // $('#position_edit').select2({
+            //     dropdownParent: $('#userEditModal')
+            // });
+            // $('#action_edit').select2({
+            //     dropdownParent: $('#userEditModal')
+            // });
             $.ajax({
                 type: "get",
                 url: datas.routes.get_room,

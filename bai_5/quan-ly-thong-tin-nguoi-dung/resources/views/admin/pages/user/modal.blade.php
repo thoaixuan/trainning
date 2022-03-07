@@ -33,8 +33,8 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="status">Giới tính</label>
-                                  <select id="gender" class="form-control">
+                                  <label for="status" class="d-block">Giới tính</label>
+                                  <select id="gender" class="form-control select-user">
                                   <option value=0>Nam</option>
                                   <option value=1>Nữ</option>
                                   </select>
@@ -42,8 +42,8 @@
                             </div>
                             <div class="col-md-6">
                                <div class="form-group">
-                                  <label for="status">Phòng ban</label>
-                                  <select id="room_id" class="form-control">
+                                  <label for="status" class="d-block">Phòng ban</label>
+                                  <select id="room_id" class="form-control select-user">
                                   </select>
                               </div>
                             </div>
@@ -99,8 +99,8 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="status">Chức vụ</label>
-                              <select id="position" class="form-control">
+                            <label for="status" class="d-block">Chức vụ</label>
+                              <select id="position" class="form-control select-user">
                                 <option value=0>Nhân viên</option>
                                 <option value=1>Quản lý</option>
                               </select>
@@ -108,8 +108,8 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
-                          <label for="status">Trạng thái</label>
-                            <select id="action" class="form-control">
+                          <label for="status" class="d-block">Trạng thái</label>
+                            <select id="action" class="form-control select-user">
                               <option value=0>Đang làm việc</option>
                               <option value=1>Nghỉ việc</option>
                               <option value=1>Đình chỉ</option>
@@ -170,8 +170,8 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
-                                  <label for="status">Giới tính</label>
-                                  <select id="gender_edit" class="form-control">
+                                  <label for="status" class="d-block">Giới tính</label>
+                                  <select id="gender_edit" class="form-control select-user">
                                   <option value=0>Nam</option>
                                   <option value=1>Nữ</option>
                                   </select>
@@ -179,8 +179,8 @@
                             </div>
                             <div class="col-md-6">
                                <div class="form-group">
-                                  <label for="status">Phòng ban</label>
-                                  <select id="room_id_edit" class="form-control">
+                                  <label for="status" class="d-block">Phòng ban</label>
+                                  <select id="room_id_edit" class="form-control select-user">
                                   </select>
                               </div>
                             </div>
@@ -236,8 +236,8 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="status">Chức vụ</label>
-                              <select id="position_edit" class="form-control">
+                            <label for="status" class="d-block">Chức vụ</label>
+                              <select id="position_edit" class="form-control select-user">
                                 <option value=0>Nhân viên</option>
                                 <option value=1>Quản lý</option>
                               </select>
@@ -246,7 +246,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                           <label for="status">Trạng thái</label>
-                            <select id="action_edit" class="form-control">
+                            <select id="action_edit" class="form-control select-user">
                               <option value=0>Đang làm việc</option>
                               <option value=1>Nghỉ việc</option>
                               <option value=1>Đình chỉ</option>

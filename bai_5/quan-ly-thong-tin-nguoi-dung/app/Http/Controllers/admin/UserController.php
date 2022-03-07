@@ -9,9 +9,15 @@ use App\Models\User;
 use App\Models\Room;
 use Validator;
 use PDF;
+use File;  
 
 class UserController extends Controller
 {
+    private $uploadFolder;  
+    public function __construct()  
+    {  
+      $this->uploadFolder = 'admin/cover/';  
+    } 
     public function index(){
         return view("admin.pages.user.user");
     }
@@ -179,6 +185,7 @@ class UserController extends Controller
                     'code'=>200
                 ]);
             }
+          
             if(!$request->hasFile("cover")||!$request->hasFile("cover_after")){   
                 $user=User::find($request->id);
                 $user->full_name=$request->full_name;
@@ -213,6 +220,10 @@ class UserController extends Controller
                 }
             }
                 $user=User::find($request->id);
+
+                File::delete($this->uploadFolder. $user->cover);
+                File::delete($this->uploadFolder. $user->cover_after);
+
                 $file=$request->file("cover");
                 $imageName=time().'_'.$file->getClientOriginalName();
                 $file->move(\public_path("admin/cover"),$imageName);
@@ -257,6 +268,8 @@ class UserController extends Controller
     }
     public function delete(Request $request){
         $user=User::find($request->id);
+        File::delete($this->uploadFolder. $user->cover);
+        File::delete($this->uploadFolder. $user->cover_after);
         $user->delete();
         if($user){
             return response()->json([

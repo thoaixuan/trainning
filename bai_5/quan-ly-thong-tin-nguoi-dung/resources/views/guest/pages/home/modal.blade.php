@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-md-6">
                                <div class="form-group">
-                                  <label for="status">Phòng ban</label>
+                                  <label for="status" class="d-block">Phòng ban</label>
                                   <select id="room_id_edit" class="form-control" disabled>
                                   </select>
                               </div>

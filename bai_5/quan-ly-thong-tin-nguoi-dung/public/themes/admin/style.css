@@ -175,3 +175,9 @@ body {
 .social-login__icon:hover {
 	transform: scale(1.5);	
 }
+.select{
+	width: 355px !important;
+}
+.select-user{
+	width: 260px !important;
+}
