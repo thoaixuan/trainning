@@ -38,7 +38,7 @@ $('#contact-form').validate({
             maxlength: "Tên không quá 150 ký tự !"
         },
         contact_phone:{
-            required: "Điện thoại không được trống !",
+            required: "Số điện thoại không được trống !",
             minlength: "Vui lòng nhập đủ 10 ký tự",
             maxlength: "Vui lòng nhập tối thiểu 10 ký tự"
         },
@@ -83,7 +83,8 @@ $('#contact-form').validate({
                     success: function (data) {
                         $('#submitContact').prop("disabled", false);
                         $('#submitContact').text("Gửi ngay")
-                        alert("Gửi thông tin thành công !");
+                        alert("Gửi liên hệ thành công !");
+                        window.location.href = "./";
                     },
                     error: function (error) {
                         console.log("Lỗi");

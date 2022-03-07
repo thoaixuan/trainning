@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <div class="search-field">
                             <form id="form-search" onsubmit="return false">
                                <div class="form-group">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="row d-none" id="result">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <table class="table table-bordered hover table-hover table-striped" id="table-search-info">
                         </table>
                     </div>

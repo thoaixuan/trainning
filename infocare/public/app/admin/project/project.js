@@ -58,13 +58,13 @@ function project() {
 				title: "Tên dự án",
 				data: "projects_name",
 				name: "projects_name",
-				className: "text-center",
+				className: "",
 			},
 			{
 				title: "Ngày bắt đầu",
 				data: "time_start",
 				name: "time_start",
-				className: "text-center",
+				className: "",
 				render: function (data, type, row, meta) {
 					return changeDate(data);
 				}
@@ -73,7 +73,7 @@ function project() {
 				title: "Ngày kết thúc",
 				data: "time_end",
 				name: "time_end",
-				className: "text-center",
+				className: "",
 				render: function (data, type, row, meta) {
 					return changeDate(data);
 				}
@@ -82,7 +82,7 @@ function project() {
 				title: "Trạng Thái",
 				data: "time_end",
 				name: "time_end",
-				className: "text-center",
+				className: "",
 				render: function (data, type, row, meta) {
 					if(data == null){
 						return data;
@@ -99,7 +99,7 @@ function project() {
 				title: "Mô tả",
 				data: "id",
 				name: "id",
-				className: "text-center",
+				className: "",
 				render: function (data, type, row, meta) {
 					if (data === null) {
 						return 'Chưa có dữ liệu';
@@ -113,7 +113,7 @@ function project() {
 				title: "Thao tác",
 				data: "id",
 				name: "id",
-				className: "text-center",
+				className: "",
 				bSortable: false,
 				render: function (data, type, row, meta) {
 					return renderAction([ {

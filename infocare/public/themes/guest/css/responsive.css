@@ -239,7 +239,7 @@
 	.funfact .section-title {
 	    margin-bottom: 75px;
 	}
-
+	.search-field .keyword {width: 100% !important;}
 	/* ----about -----*/
 	.about-content {
 	    padding: 50px 50px 50px 50px;

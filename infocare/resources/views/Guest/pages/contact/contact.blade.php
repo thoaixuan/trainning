@@ -1,13 +1,10 @@
 @extends('Guest.main') 
 @section('main')
 
-<!--==================================================================== 
-                            Start breadcumb section
-    =====================================================================-->
-        <section class="banner-section pt-200 pb-175">
+        <section class="banner-section pt-140 pb-80">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-md-12">
                         <div class="page-title text-center">
                             <h1>Liên hệ</h1>
                         </div>
@@ -15,18 +12,11 @@
                 </div>
             </div>
         </section>
-    <!--==================================================================== 
-                            end breadcumb section
-    =====================================================================-->
-    
- <!--==================================================================== 
-                            Start Map Section
-    =====================================================================-->
-    <section class="map-section another-page pt-95 pb-100">
+    <section class="map-section another-page">
         <div class="container">
 
             <div class="row">
-                <div class="col-lg-7 form-wrapper">
+                <div class="col-md-7 form-wrapper">
                     <div class="form-box">
                        <div class="contact-form">
                            <form id="contact-form" onsubmit="return false">
@@ -34,7 +24,7 @@
                                    <input type="text" id="contact_name" name="contact_name" placeholder="Họ và tên" required="">
                                </div>
                                <div class="form-group">
-                                   <input type="number" id="contact_phone" name="contact_phone" placeholder="Nhập Số điện thoại" required="">
+                                   <input type="text" id="contact_phone" name="contact_phone" placeholder="Nhập Số điện thoại" required="">
                                </div>
                                <div class="form-group">
                                    <textarea name="contact_content" id="contact_content" placeholder="Lời nhắn" required></textarea>
@@ -46,7 +36,7 @@
                        </div>
                     </div>
                 </div>
-                <div class="col-lg-5 map-wrapper">
+                <div class="col-md-5 map-wrapper">
                     <div class="map" style="padding-top: 0">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3924.6922742059796!2d107.08750261474535!3d10.366471392600515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31756fc8c7863579%3A0x2a959d34ca70a288!2zQ8O0bmcgVHkgVE5ISCBUxrAgduG6pW4gxJHhuqd1IFTGsCBJTkc!5e0!3m2!1svi!2s!4v1646297997690!5m2!1svi!2s" style="border:0" allowfullscreen=""></iframe>
                     </div>
@@ -54,11 +44,6 @@
             </div>
         </div>
     </section>
-
-    <!--==================================================================== 
-                        End Map Section
-=====================================================================-->
-
 <!--==================================================================== 
                         Start Get in Touch section
 =====================================================================-->
