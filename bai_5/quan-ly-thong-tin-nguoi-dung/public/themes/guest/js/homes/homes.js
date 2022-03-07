@@ -149,17 +149,21 @@ function homes() {
                     className: "text-center",
                     bSortable: false,
                     render: function (data, type, row, meta) {
-                        return renderAction([{
-                            class: 'custom-color-badge custom-color-badge-three ',
-                            value: row.id,
-                            title: 'delete',
-                            icon: 'fa fa-trash',
-                        }, {
-                            class: 'custom-color-badge custom-color-badge-twelve',
-                            value: row.id,
-                            title: 'update',
-                            icon: 'fa fa-edit',
-                        },]);
+                        if (row.is_admin == 0) {
+                            return renderAction([{
+                                class: 'custom-color-badge custom-color-badge-three ',
+                                value: row.id,
+                                title: 'delete',
+                                icon: 'fa fa-trash',
+                            }, {
+                                class: 'custom-color-badge custom-color-badge-twelve',
+                                value: row.id,
+                                title: 'update',
+                                icon: 'fa fa-edit',
+                            },]);
+                        }
+                        return "<p>Không được chỉnh sửa</p>"
+
                     }
                 },
 

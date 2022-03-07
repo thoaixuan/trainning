@@ -181,3 +181,6 @@
 .select-user{
 	width: 260px !important;
 }
+.select2-selection{
+	padding: 2px !important;
+}

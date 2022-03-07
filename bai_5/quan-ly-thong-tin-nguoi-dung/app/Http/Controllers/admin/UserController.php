@@ -26,7 +26,6 @@ class UserController extends Controller
     public function anyData(Request $request)
     {
         $columns[]='id';
-
         $columns[]='full_name';
         $columns[]='gender';
         $columns[]='date';
@@ -48,22 +47,48 @@ class UserController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $users=User::with('rooms')->offset($start)
-            ->limit($limit)
-            ->orderByDesc($order,$dir)->get();
+            if(Auth::user()->position==1){
+                $users=User::with('rooms')->whereHas('rooms',function($query){
+                    $query->where('id',Auth::user()->room_id);
+                })->offset($start)
+                ->limit($limit)
+                ->orderBy($order,$dir)->get();
+            }else{
+                $users=User::with('rooms')->offset($start)
+                ->limit($limit)
+                ->orderByDesc($order,$dir)->get();
+            }   
+     
         }else{
-            $users=User::with('rooms')->Where(function($query)use($search){
-                $query->where('full_name','like',"%{$search}%")
-                        ->orWhere('email','like',"%{$search}%")
-                        ->orWhere('phone_number','like',"%{$search}%")
-                        ->orWhere('keyword','like',"%{$search}%")
-                        ->orWhere('id','like',"%{$search}%");
-            })
-            ->offset($start)
-            ->limit($limit)
-            ->orderByDesc($order,$dir)
-            ->get();
-            $totalFiltered =$users->count();
+            if(Auth::user()->position==1){
+                $users=User::with('rooms')->whereHas('rooms',function($query){
+                    $query->where('id',Auth::user()->room_id);
+                })->Where(function($query)use($search){
+                    $query->where('full_name','like',"%{$search}%")
+                            ->orWhere('email','like',"%{$search}%")
+                            ->orWhere('phone_number','like',"%{$search}%")
+                            ->orWhere('keyword','like',"%{$search}%")
+                            ->orWhere('id','like',"%{$search}%");
+                })
+                ->offset($start)
+                ->limit($limit)
+                ->orderByDesc($order,$dir)
+                ->get();
+                $totalFiltered =$users->count();
+            }else{
+                $users=User::with('rooms')->Where(function($query)use($search){
+                    $query->where('full_name','like',"%{$search}%")
+                            ->orWhere('email','like',"%{$search}%")
+                            ->orWhere('phone_number','like',"%{$search}%")
+                            ->orWhere('keyword','like',"%{$search}%")
+                            ->orWhere('id','like',"%{$search}%");
+                })
+                ->offset($start)
+                ->limit($limit)
+                ->orderByDesc($order,$dir)
+                ->get();
+                $totalFiltered =$users->count();
+            } 
         }
 
         $json_data=array(
@@ -98,11 +123,37 @@ class UserController extends Controller
             ]);
         }
         if(!$request->hasFile("cover")||!$request->hasFile("cover_after")){   
-            return response()->json([
-            'status'=>0,
-            'message'=>"File không được nhận",
-            'code'=>500
-            ]);  
+            $user=new User();
+            $user->full_name=$request->full_name;
+            $user->password=Hash::make($request->password);
+            $user->gender=$request->gender;
+            $user->date=$request->date;
+            $user->date_start=$request->date_start;
+            $user->phone_number=$request->phone_number;
+            $user->email=$request->email;
+            $user->room_id=$request->room_id;
+            $user->position=$request->position;
+            $user->action=$request->action;
+            $user->description=$request->description;
+            if($request->description==null){
+            $user->description="Chưa có dữ liệu";
+            }
+            $user->save();
+            if($user){
+                return response()->json([
+                    'status'=>1,
+                    'message'=>"Data Inserted Successfully",
+                    'code'=>200,
+                    'data'=>$user
+                ]);
+            }
+            else{
+                return response()->json([
+                    'status'=>0,
+                    'message'=>"Internal Server Error",
+                    'code'=>500
+                ]);
+            }
         }
             $user=new User();
             $file=$request->file("cover");

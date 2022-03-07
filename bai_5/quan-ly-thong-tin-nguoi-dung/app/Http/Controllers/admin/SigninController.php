@@ -12,20 +12,20 @@ class SigninController extends Controller
         return view("admin.pages.signin.signin");
     }
     public function login(Request $request){
-       
         if(Auth::attempt($request->only('email','password'))){
-            if(!Auth::user()->is_admin){
+            if(Auth::user()->position==1 || Auth::user()->is_admin==1){
                 return response()->json([
-                    'status'=>0,
-                    'message'=>"Bạn không đủ quyền truy cập",
-                    'code'=>500
-                ]);
+                    'status'=>1,
+                    'message'=>"Đăng nhập thành công",
+                    'code'=>200
+                ],200);
             }
             return response()->json([
-                'status'=>1,
-                'message'=>"Đăng nhập thành công",
-                'code'=>200
-            ],200);
+                'status'=>0,
+                'message'=>"Bạn không đủ quyền truy cập",
+                'code'=>500
+            ]);
+           
         }
         return response()->json([
             'status'=>0,

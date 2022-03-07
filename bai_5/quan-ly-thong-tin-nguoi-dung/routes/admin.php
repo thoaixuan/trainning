@@ -3,8 +3,9 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\RoomController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\SigninController;
+use App\Http\Controllers\admin\PermissionController;
 
-Route::get('/admin-info', [DashboardController::class,'index'])->name('admin.index.dashboard')->middleware('checkLogin')->middleware('checkPermission');
+Route::get('/admin-info', [DashboardController::class,'index'])->name('admin.index.dashboard');
 Route::get('/admin-login', [SigninController::class,'index'])->name('admin.index.login');
 Route::post('/admin-login', [SigninController::class,'login'])->name('admin.post.login');
 Route::get('/admin-logout',[SigninController::class, 'logout'])->name('admin.logout.login');
@@ -32,5 +33,17 @@ Route::prefix('admin')->middleware('checkLogin')->middleware('checkPermission')-
         Route::get('/delete-room',[RoomController::class,'delete'])->name('admin.delete.room');
         Route::get('/permision-room',[RoomController::class,'getPermision'])->name('admin.get_permision.room');
     });
+
+    Route::prefix('permission')->group(function(){
+        Route::get('/', [PermissionController::class,'index'])->name('admin.index.permission');
+        Route::get('/getdata', [PermissionController::class,'getDate'])->name('admin.get_data.permission');
+        Route::get('/anydata', [PermissionController::class,'anyData'])->name('admin.datatables.permission');
+        Route::post('/insert-permission',[PermissionController::class,'add'])->name('admin.insert.permission');
+        Route::get('/edit-permission',[PermissionController::class,'getUpdate'])->name('admin.update.permission');
+        Route::put('/edit-permission',[PermissionController::class,'postUpdate'])->name('admin.update_data.permission');
+        Route::get('/delete-permission',[PermissionController::class,'delete'])->name('admin.delete.permission');
+        Route::get('/permision-permission',[PermissionController::class,'getPermision'])->name('admin.get_permision.permission');
+    });
+
 
 });

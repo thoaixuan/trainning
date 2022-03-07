@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class checkLoginMiddleware
+class checkGroup
 {
     /**
      * Handle an incoming request.
@@ -17,13 +16,12 @@ class checkLoginMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
-            if(Auth::user()->is_admin ==1|| Auth::user()->position==1 ){
+            if( Auth::user()->is_admin ==1 ){
                 return $next($request);
+            }else{
+             return redirect()->route('admin.index.dashboard');
             }
-         return redirect()->route('admin.index.login');
-        }
-        return redirect()->route('admin.index.login');
+
 
     }
 }

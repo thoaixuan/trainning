@@ -17,7 +17,7 @@ class CreateTableRooms extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('description')->nullable();
-            $table->foreignId("permission_id")->constraint("permissions")->onDelete("cascade")->nullable();
+            $table->foreignId("permission_id")->constraint("permissions")->onDelete("cascade")->default(1);
 
             $table->timestamps();
         });

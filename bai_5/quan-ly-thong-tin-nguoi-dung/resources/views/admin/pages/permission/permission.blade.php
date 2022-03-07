@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">User</h1>
+            <h1 class="m-0">Room</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -24,26 +24,18 @@
                <input class="form-control" id="search"  name="search" vale="" placeholder="Từ khóa tìm kiếm ....">
               </div>
               <div class="col-md-4">
-                <button class="btn btn-primary" id="btn-search">Tìm kiếm dữ liệu</button>
+                <button class="btn btn-info text-light" id="btn-search">Tìm kiếm dữ liệu</button>
               </div>  
             </div>
             <div class="col-4">
-              @if(Auth::user()->is_admin)
               <button class="btn btn-success float-sm-right" id="open"><i class="fa fa-plus"></i></button>
-              @endif
-           
             </div>
           </div>
             
-          <table class="table table-hover table-striped" id="users-table">
+          <table class="table table-bordered hover table-hover table-striped" id="rooms-table">
           </table>
-          <div class="row">
-            <div class="col-md-4">
-                <input type="button" id="userExport" value="Export" class="btn btn-success"/>
-            </div>
-          </div>
-
-          @include('admin.pages.user.modal')
+                       
+          @include('admin.pages.room.modal')
         </div><!-- /.container-fluid -->
 
       </section>
@@ -53,22 +45,20 @@
 
 @endsection
 @section('jsAdmin')
-<script src="{{asset('themes/admin/js/users/users.js')}}"></script>
+<script src="{{asset('themes/admin/js/permissions/permissions.js')}}"></script>
 <script>
-  var users=new users();
-      users.datas={
+  var permissions=new permissions();
+      permissions.datas={
         routes:{
-          datatable:"{{route('admin.datatables.user')}}",
-          insert:"{{route('admin.insert.user')}}",
-          updates:"{{route('admin.update.user')}}",
-          updates_data:"{{route('admin.update_data.user')}}",
-          delete:"{{route('admin.delete.user')}}",  
-          get_room:"{{route('admin.get_room.user')}}",  
+          datatable:"{{route('admin.datatables.permission')}}",
+          insert:"{{route('admin.insert.permission')}}",
+          updates:"{{route('admin.update.permission')}}",
+          updates_data:"{{route('admin.update_data.permission')}}",
+          delete:"{{route('admin.delete.permission')}}", 
+          get_permision:"{{route('admin.get_permision.permission')}}" 
         }
       }
-      users.init();
-      CKEDITOR.replace('user_description');
-      CKEDITOR.replace('user_description_edit');
+      permissions.init();
 </script>
 @endsection
 

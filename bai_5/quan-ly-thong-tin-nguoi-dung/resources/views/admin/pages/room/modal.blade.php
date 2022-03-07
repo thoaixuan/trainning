@@ -18,12 +18,11 @@
                                 <label for="name">Tên phòng ban</label>
                                 <input type="text" name="name" class="form-control" />
                             </div>       
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="status">Chức vụ</label>
                                 <select name="status" id="permission_id" class="form-control select">
-
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-8">
                             <div class="centered form-group ck-editor">
@@ -63,11 +62,11 @@
                                 <label for="name">Tên phòng ban</label>
                                 <input type="text" name="name" id="name" class="form-control" />
                             </div>       
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="status" class="d-block">Bộ phận</label>
                                 <select class="form-control select" name="status" id="permission_edit_id" > 
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-8">
                             <div class="centered form-group ck-editor">

@@ -237,7 +237,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="status" class="d-block">Chức vụ</label>
-                              <select id="position_edit" class="form-control select-user">
+                              <select id="position_edit" class="form-control select-user" >
                                 <option value=0>Nhân viên</option>
                                 <option value=1>Quản lý</option>
                               </select>

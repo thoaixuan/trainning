@@ -50,12 +50,12 @@ function rooms() {
                     name: "description",
                     className: "",
                 },
-                {
-                    title: "Quyền",
-                    data: "permissions.name",
-                    name: "permissions.name",
-                    className: "",
-                },
+                // {
+                //     title: "Quyền",
+                //     data: "permissions.name",
+                //     name: "permissions.name",
+                //     className: "",
+                // },
                 {
                     title: "Action",
                     data: "id",

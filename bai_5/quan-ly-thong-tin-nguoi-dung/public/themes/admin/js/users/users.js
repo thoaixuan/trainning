@@ -156,17 +156,20 @@ function users() {
                     className: "text-center",
                     bSortable: false,
                     render: function (data, type, row, meta) {
-                        return renderAction([{
-                            class: 'btn btn-danger',
-                            value: row.id,
-                            title: 'delete',
-                            icon: 'fa fa-trash',
-                        }, {
-                            class: 'btn btn-info',
-                            value: row.id,
-                            title: 'update',
-                            icon: 'fa fa-edit',
-                        },]);
+                        if (!row.is_admin) {
+                            return renderAction([{
+                                class: 'btn btn-danger',
+                                value: row.id,
+                                title: 'delete',
+                                icon: 'fa fa-trash',
+                            }, {
+                                class: 'btn btn-info',
+                                value: row.id,
+                                title: 'update',
+                                icon: 'fa fa-edit',
+                            },]);
+                        }
+                        return "Không đủ quyền"
                     }
                 },
 
@@ -390,14 +393,6 @@ function users() {
 
                 },
                 "action": {
-                    required: true,
-
-                },
-                "cover": {
-                    required: true,
-
-                },
-                "cover_after": {
                     required: true,
 
                 },
@@ -705,7 +700,7 @@ function users() {
 
         $.validator.addMethod("validatePassword", function (value, elemt) {
             return this.optional(elemt) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,16})/.test(value);
-        }, 'Vui lòng hãy nhập đúng định dạng mật khẩu gồm 8-16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một số');
+        }, 'Vui lòng nhập ký tự chữ thường và hoa và ký tự số');
 
         $.validator.addMethod("validateEmail", function (value, elemt) {
             return this.optional(elemt) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test(value);
