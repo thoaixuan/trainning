@@ -97,9 +97,17 @@ function project() {
 			},
 			{
 				title: "Mô tả",
-				data: "projects_description",
-				name: "projects_description",
+				data: "id",
+				name: "id",
 				className: "text-center",
+				render: function (data, type, row, meta) {
+					if (data === null) {
+						return 'Chưa có dữ liệu';
+					}else{
+						return '<button class="badge badge-light btn-view-description" value="'+ row.id + '">Xem chi tiết</button>';
+					}
+
+				}
 			},
 			{
 				title: "Thao tác",
@@ -144,6 +152,25 @@ function project() {
 							value.includes("&lt;?"));
 		}, "Vui lòng nhập đúng định dạng chữ");
 
+		$(document).delegate(".btn-view-description", "click", function () {
+			var id = $(this).val();
+			$('#modal-action-title-view').text("Chi tiết mô tả");
+			$("#modal-action-view-description").modal('show');
+			$.ajax({
+				url: datas.routes.update,
+				data: {
+					id: id
+				},
+				type: 'GET',
+				dataType: 'JSON',
+				success: function (data) {
+					$('#projects_description_view').html(data.data.projects_description);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		});
 
 		$(document).delegate(".btn-update", "click", function () {
 			var id = $(this).val();

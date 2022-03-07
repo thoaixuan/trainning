@@ -22,6 +22,10 @@ function getServices()
 function getCompany(){
     return \App\User::select('users.id', 'users.full_name')->get();
 }
+function getConfigMail()
+{
+    return \App\Settings::find(1);
+}
 function change_to_slug($str) {
     $str = trim(mb_strtolower($str));
     $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);

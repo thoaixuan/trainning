@@ -2051,6 +2051,7 @@ Footer Section
 }
 
 .contact-form .form-group input[type="text"],
+.contact-form .form-group input[type="number"],
 .contact-form .form-group input[type="email"],
 .contact-form .form-group textarea {
     position: relative;

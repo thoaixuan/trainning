@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Contact;
 use Validator;
+// use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -15,6 +17,7 @@ class ContactController extends Controller
     }
     public function postContact(Request $Request)
     {
+        // Validate contact
         $message = [
             'required'=>":attribute không được để trống",
         ];
@@ -31,6 +34,7 @@ class ContactController extends Controller
             ]);
         }
 
+        // Save data json contact 
         if(file_exists('data_contact.json')) {
             $current_data = file_get_contents('data_contact.json');
             $array_data = json_decode($current_data, true, JSON_UNESCAPED_UNICODE);
@@ -43,36 +47,58 @@ class ContactController extends Controller
             $final_data = json_encode($array_data, JSON_UNESCAPED_UNICODE);
 
             file_put_contents('data_contact.json',$final_data);
-            return response()->json([
-                'name' => 'Thành công',
-                'status' => 200,
-                'data' => $final_data
-            ]);
-        }else {
-            return response()->json([
-                'name' => 'Thất bại',
-                'status' => 500,
-                'data' => $final_data
-            ]);
+            
         }
+
+        // Config mail
+        config([
+            'mail.default' => getConfigMail()->mail_driver,
+            'mail.mailers.smtp.host' => getConfigMail()->mail_host,
+            'mail.mailers.smtp.port' => getConfigMail()->mail_port,
+            'mail.mailers.smtp.encryption' => getConfigMail()->mail_encryption,
+            'mail.mailers.smtp.username' => getConfigMail()->mail_username,
+            'mail.mailers.smtp.password' => getConfigMail()->mail_password,
+            'mail.from.address' => getConfigMail()->mail_from_address,
+            'mail.from.name' => getConfigMail()->mail_from_name
+        ]);
+
+        // Send mail
+        // if(count(getConfigMail())>0){
+            $title_mail = "Thông tin liên hệ";
+            $data = array(
+                "subject" => $title_mail,
+                "contact_name" => $Request->contact_name,
+                'contact_phone' => $Request->contact_phone,
+                'contact_content' => $Request->contact_content,
+                "email_to" => getConfigMail()->mail_receive,
+                "email_from" => getConfigMail()->mail_from_address
+            );
+            Mail::send('Guest.mails.contact',
+                    ['data' => $data], function ($message) use ($title_mail, $data)
+                    {
+                        $message->to($data['email_to'])->subject($title_mail);
+                        $message->from($data['email_from'],getConfigMail()->mail_from_name);
+                    });
+        // }
         
 
-        // $Contact = new Contact();
-	    // $Contact->contact_name = $Request->contact_name;
-	    // $Contact->contact_email = $Request->contact_email;
-	    // $Contact->contact_content = $Request->contact_content;
-	    // if($Contact->save()){
-	    //     return response()->json([
-        //         'name' => 'Thành công',
-        //         'status' => 200,
-        //         'data' => $Contact
-        //     ]);
-	    // }else{
-	    //     return response()->json([
-        //         'name' => 'Thất bại',
-        //         'status' => 500,
-        //         'data' => $Contact
-        //     ]);
-	    // }
+        // Insert database contact
+        $Contact = new Contact();
+	    $Contact->contact_name = $Request->contact_name;
+	    $Contact->contact_phone = $Request->contact_phone;
+	    $Contact->contact_content = $Request->contact_content;
+	    if($Contact->save()){
+	        return response()->json([
+                'name' => 'Thành công',
+                'status' => 200,
+                'data' => $Contact
+            ]);
+	    }else{
+	        return response()->json([
+                'name' => 'Thất bại',
+                'status' => 500,
+                'data' => $Contact
+            ]);
+	    }
     }
 }

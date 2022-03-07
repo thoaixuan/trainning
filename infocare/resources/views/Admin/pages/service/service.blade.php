@@ -46,7 +46,7 @@
                 <table class="table table-bordered hover table-hover table-striped" id="table-services">
                 </table>
             </div>
-        </div>
+        </div> 
 
       </div>
       <!-- /.card-footer -->

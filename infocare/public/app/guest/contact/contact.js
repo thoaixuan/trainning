@@ -5,7 +5,13 @@ jQuery.validator.addMethod("validateScript", function(value, element){
                     value.includes("<?") ||
                     value.includes("&lt;?"));
 }, "Vui lòng nhập đúng định dạng chữ");
-
+jQuery.validator.addMethod("validatePhone", function(value, element){
+    if (/((09|03|07|08|05)+([0-9]{8})\b)/g.test(value)) {
+        return true;  
+    } else {
+        return false;
+    };
+}, "Vui lòng nhập đúng định dạng số điện thoại");
 $('#contact-form').validate({
     rules: {
         contact_name: {
@@ -15,7 +21,10 @@ $('#contact-form').validate({
         },
         contact_phone: {
             required: true,
-            validateScript: true
+            validatePhone: true,
+            validateScript: true,
+            minlength: 10,
+            maxlength: 10
         },
         contact_content: {
             required: true,
@@ -29,7 +38,9 @@ $('#contact-form').validate({
             maxlength: "Tên không quá 150 ký tự !"
         },
         contact_phone:{
-            required: "Điện thoại không được trống !"
+            required: "Điện thoại không được trống !",
+            minlength: "Vui lòng nhập đủ 10 ký tự",
+            maxlength: "Vui lòng nhập tối thiểu 10 ký tự"
         },
         contact_content:{
             required: "Nội dung không được trống !"
@@ -58,6 +69,8 @@ $('#contact-form').validate({
         //     });
         // }
         // localStorage.setItem("contact", JSON.stringify(contact));
+        $('#submitContact').text("Đang gửi liên hệ...")
+        $('#submitContact').prop("disabled", true);
         $.ajax({
                     url: url_submit_contact,
                     data: {
@@ -68,6 +81,8 @@ $('#contact-form').validate({
                     type: 'POST',
                     dataType: 'JSON',
                     success: function (data) {
+                        $('#submitContact').prop("disabled", false);
+                        $('#submitContact').text("Gửi ngay")
                         alert("Gửi thông tin thành công !");
                     },
                     error: function (error) {

@@ -37,7 +37,7 @@ function contact() {
 				
 			},
 			{
-				title: "Email",
+				title: "Số điện thoại",
 				data: "contact_phone",
 				name: "contact_phone",
 				className: "",

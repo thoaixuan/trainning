@@ -56,6 +56,10 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'authAd
         Route::get('/','ContactController@getContact')->name('contact');
         Route::get('/datatable','ContactController@getDatatable')->name('contact_datatable');
         Route::post('/delete','ContactController@destroyContact')->name('contact_delete');
+    });
 
+    Route::group(['prefix' => 'settings'], function () {
+        Route::get('/','SettingsController@getSetting')->name('settings');
+        Route::post('/update-mail','SettingsController@updateMail')->name('settings_update_mail');
     });
 });

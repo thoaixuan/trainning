@@ -38,9 +38,17 @@ function service() {
 			},
 			{
 				title: "Mô Tả",
-				data: "services_description",
-				name: "service_description",
-				className: "",
+				data: "id",
+				name: "id",
+				className: "text-center",
+				render: function (data, type, row, meta) {
+					if (data === null) {
+						return 'Chưa có dữ liệu';
+					}else{
+						return '<button class="badge badge-light btn-view-description" value="'+ row.id + '">Xem chi tiết</button>';
+					}
+
+				}
 			},
 			{
 				title: "Đường dẫn",
@@ -91,6 +99,26 @@ function service() {
 							value.includes("&lt;?"));
 		}, "Vui lòng nhập đúng định dạng chữ");
 
+		$(document).delegate(".btn-view-description", "click", function () {
+			var id = $(this).val();
+			$('#modal-action-title-view').text("Chi tiết mô tả");
+			$("#modal-action-view-description").modal('show');
+			$.ajax({
+				url: datas.routes.update,
+				data: {
+					id: id
+				},
+				type: 'GET',
+				dataType: 'JSON',
+				success: function (data) {
+					$('#services_description_view').html(data.data.services_description);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		});
+
 		$(document).delegate(".btn-update", "click", function () {
 			var id = $(this).val();
 			$('#modal-action-title-edit').text("Chỉnh sửa");
@@ -103,7 +131,6 @@ function service() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data.data);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
 					$("#btnSaveEdit").attr('data-id', data.data.id);
 					$('#services_name_edit').val(data.data.services_name)

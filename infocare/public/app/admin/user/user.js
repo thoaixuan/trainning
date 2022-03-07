@@ -59,6 +59,14 @@ function user() {
 				data: "note",
 				name: "note",
 				className: "text-center",
+				render: function (data, type, row, meta) {
+					if (data === null) {
+						return 'Chưa có dữ liệu';
+					}else{
+						return '<button class="badge badge-light btn-view-description" value="'+ row.id + '">Xem chi tiết</button>';
+					}
+
+				}
 			},
             {
 				title: "Từ khóa",
@@ -313,6 +321,26 @@ function user() {
 				});
 			}
 			
+		});
+
+		$(document).delegate(".btn-view-description", "click", function () {
+			var id = $(this).val();
+			$('#modal-action-title-view').text("Chi tiết mô tả");
+			$("#modal-action-view-description").modal('show');
+			$.ajax({
+				url: datas.routes.update,
+				data: {
+					id: id
+				},
+				type: 'GET',
+				dataType: 'JSON',
+				success: function (data) {
+					$('#users_note_view').html(data.data.note);
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
 		});
 
 		$(document).delegate(".btn-update", "click", function () {
