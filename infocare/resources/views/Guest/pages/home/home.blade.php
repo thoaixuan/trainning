@@ -86,6 +86,7 @@
             <div class="d-none d-xl-block featured-round"><img src="{{route('guest_home')}}/themes/guest/img/feature.png" alt=""></div>
             <div class="d-none d-xl-block featured-round-small"><img src="{{route('guest_home')}}/themes/guest/img/small-feature.png" alt=""></div>
             <div class="container">
+            {{--
                 <div class="row justify-content-center">
                     <div class="col-lg-6 text-center">
                         <div class="section-title">
@@ -109,6 +110,7 @@
                     </div>
                     @endforeach
                 </div>
+            --}}
             </div>
         </section>
 
