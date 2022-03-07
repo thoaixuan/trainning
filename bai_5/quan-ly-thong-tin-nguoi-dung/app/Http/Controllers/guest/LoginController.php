@@ -20,14 +20,14 @@ class LoginController extends Controller
                 'status'=>1,
                 'message'=>"Đăng nhập thành công",
                 'code'=>200
-            ],200);
+            ]);
         }
         return response()->json([
             
             'status'=>0,
             'message'=>"Email và mật khẩu không khớp",
             'code'=>500
-        ],500);
+        ]);
     }
     public function logout(){
         Auth::logout();

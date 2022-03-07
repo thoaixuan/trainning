@@ -34,6 +34,7 @@
             
           <table class="table" id="rooms-table">
           </table>
+                       
           @include('admin.pages.room.modal')
         </div><!-- /.container-fluid -->
 
