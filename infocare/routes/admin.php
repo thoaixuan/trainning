@@ -60,6 +60,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'authAd
 
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/','SettingsController@getSetting')->name('settings');
+        Route::post('/update-guest','SettingsController@updateGuest')->name('settings_update_guest');
         Route::post('/update-mail','SettingsController@updateMail')->name('settings_update_mail');
     });
 });

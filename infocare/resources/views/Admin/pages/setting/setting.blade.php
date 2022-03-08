@@ -20,13 +20,57 @@
   <!-- Main content -->
   <section class="content">
 
-    <!-- Default box -->
     <div class="card card-solid">
-      <div class="card-body pb-0">
+      <div class="card-body">
+        <form action="{{route('settings_update_guest')}}" method="post" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" name="id" value="{{ getConfigMail()->id }}">
+        <div class="row">
+          <div class="col-md-12 mb-3">
+            <h4>Cài đặt trang chủ</h4>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label>Logo header</label>
+              @if(isset(getConfigMail()->guest_logo_header))
+              <p><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_header }}"/></p>
+              @else
+              @endif
+              <input type="hidden" name="header_file_old" value="{{ getConfigMail()->guest_logo_header }}" class="img-fluid"/>
+              <input type="file" name="guest_logo_header" class="w-100"/>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label>Logo footer</label>
+              @if (isset(getConfigMail()->guest_logo_footer))
+              <p><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_footer }}" class="img-fluid"/></p>
+              @else
+              @endif
+              <input type="hidden" name="footer_file_old" value="{{ getConfigMail()->guest_logo_footer }}"/>
+              <input type="file" name="guest_logo_footer" class="w-100"/>
+            </div>
+            <div class="form-group">
+              <label>Mô tả footer</label>
+              <textarea name="guest_description_footer" class="form-control">{{ getConfigMail()->guest_description_footer }}</textarea>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <button type="submit" class="btn btn-primary btn-block">Lưu</button>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+    <!-- Default box -->
+    <div class="card card-solid mt-4">
+      <div class="card-body">
         <form action="{{route('settings_update_mail')}}" method="post">
           @csrf
           <div class="row">
-            
+            <div class="col-md-12 mb-3">
+              <h4>Cài đặt cấu hình gửi mail</h4>
+            </div>
                 <input type="hidden" name="id" value="{{ getConfigMail()->id }}">
             <div class="col-md-6">
               <div class="form-group">

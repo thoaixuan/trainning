@@ -48,7 +48,7 @@ class SedderUser extends Seeder
                 'phone_number' => '0921100517',
                 'note' => 'nothing',
                 'keyword' => 'ADMIN',
-                'permissions' => 1,
+                'permissions' => 0,
                 'description'=>"Chưa có dữ liệu",
                 'created_at' => now(),
                 'updated_at' => now(),

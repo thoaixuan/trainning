@@ -81,20 +81,24 @@ function user() {
 				className: "text-center",
 				bSortable: false,
 				render: function (data, type, row, meta) {
-					return renderAction([ {
-						class: 'btn-update',
-						value: row.id,
-						title: 'Sửa',
-						icon: 'fas fa-edit',
-						color: 'primary'
-					},
-					{
-						class: 'btn-delete',
-						value: row.id,
-						title: 'Xóa',
-						icon: 'fa fa-trash',
-						color: 'danger'
-					}]);
+					if(row.is_admin == 0) {
+						return renderAction([ {
+							class: 'btn-update',
+							value: row.id,
+							title: 'Sửa',
+							icon: 'fas fa-edit',
+							color: 'primary'
+						},
+						{
+							class: 'btn-delete',
+							value: row.id,
+							title: 'Xóa',
+							icon: 'fa fa-trash',
+							color: 'danger'
+						}]);
+					}
+					return '<i class="fas fa-ban"></i>';
+					
 				}
 			}, ]
 		});

@@ -10,15 +10,15 @@
 
             <div class="header-inner clearfix d-lg-flex">
                 <div class="logo-outer">
-                    <div class="logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/themes/guest/img/logo.png" alt="" title=""></a></div>
-                    <div class="fixed-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/themes/guest/img/logo.png" alt="" title=""></a></div>
+                    <div class="logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_header }}" alt="" title=""></a></div>
+                    <div class="fixed-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_header }}" alt="" title=""></a></div>
                 </div>
 
                 <!-- Main Menu -->
                 <nav class="main-menu navbar-expand-md ml-md-auto">
                     <div class="navbar-header clearfix">
-                    <div class="logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/themes/guest/img/logo.png" alt="" title=""></a></div>
-                    <div class="fixed-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/themes/guest/img/logo.png" alt="" title=""></a></div>
+                    <div class="logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_header }}" alt="" title=""></a></div>
+                    <div class="fixed-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_header }}" alt="" title=""></a></div>
                         <!-- Toggle Button -->
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-one">
                             <span class="icon-bar"></span>

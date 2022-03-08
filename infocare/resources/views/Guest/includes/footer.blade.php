@@ -13,10 +13,12 @@
                     <!--Footer Column-->
                     <div class="col-sm-7">
                         <div class="footer-widget logo-widget">
-                            <div class="footer-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/themes/guest/img/logo.png" alt=""></a></div>
+                            <div class="footer-logo"><a href="{{route('guest_home')}}"><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_footer }}" alt=""></a></div>
                             <div class="widget-content">
                                 <div class="text">
-                                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat</p>
+                                    <p>
+                                        {{ getConfigMail()->guest_description_footer }}
+                                    </p>
                                 </div>
                                 <div class="footer-social-icon">
                                     <ul class="social-icon-one">

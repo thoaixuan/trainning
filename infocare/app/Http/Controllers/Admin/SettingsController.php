@@ -29,4 +29,32 @@ class SettingsController extends Controller
 
             return back();
 	}
+    public function updateGuest(Request $Request)
+    {
+        $Settings =  Settings::find($Request->id);
+        if ($Request->hasFile('guest_logo_header')) {
+            $input_file = $Request->file("guest_logo_header");
+            $file = time().'_'.$input_file->getClientOriginalName();
+            $input_file->move('uploads', $file);
+
+            $Settings->guest_logo_header = $file;
+        }else {
+            $Settings->guest_logo_header = $Request->header_file_old;
+        }
+
+        if ($Request->hasFile('guest_logo_footer')) {
+            $input_file_footer = $Request->file("guest_logo_footer");
+            $file_footer = time().'_'.$input_file_footer->getClientOriginalName();
+            $input_file_footer->move('uploads', $file_footer);
+
+            $Settings->guest_logo_footer = $file_footer;
+        }else {
+            $Settings->guest_logo_footer = $Request->footer_file_old;
+        }
+
+        $Settings->guest_description_footer = $Request->guest_description_footer;
+	    $Settings->save();
+
+            return back();
+    }
 }

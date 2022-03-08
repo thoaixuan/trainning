@@ -23,6 +23,8 @@ class SedderSettings extends Seeder
                 'mail_username' => 's1357299@gmail.com',
                 'mail_password' => 'untstjclvahltaqr',
                 'mail_receive' => 'nguyenngocsang.dev@gmail.com',
+                'guest_logo_header' => '1646703493_logo_header.png',
+                'guest_logo_footer' => '1646703118_logo_footer.png',
             ], 
         ]);
     }
