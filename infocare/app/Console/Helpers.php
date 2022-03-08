@@ -19,6 +19,14 @@ function getServices()
 {
     return \App\Services::get();
 }
+function countProjectsUnexpired()
+{
+    return \App\Projects::whereDate('time_end','<', date('Y-m-d H:i:s'))->count();
+}
+function countProjectsExpired()
+{
+    return \App\Projects::whereDate('time_end','>', date('Y-m-d H:i:s'))->count();
+}
 function getCompany(){
     return \App\User::select('users.id', 'users.full_name')->get();
 }

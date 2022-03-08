@@ -22,6 +22,7 @@
             <a href="{{route('services')}}" class="nav-link">
               <i class="nav-icon fas fa-list-alt"></i>
               <p>Dịch Vụ </p>
+              <span class="badge badge-success right countPending" >{{countServices()}}</span>
             </a>
           </li>
 
@@ -30,6 +31,7 @@
               <i class="fas fa-angle-left right"></i>
               <i class="nav-icon far fa-file-alt"></i>
               <p>Dự án <i class="fas fa-angle-left right"></i></p>
+              
             </a>
             <ul class="nav nav-treeview ">
               <li class="nav-item">
@@ -43,12 +45,14 @@
                 <a href="{{route('projects_expired')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Còn Hạn</p>
+                  <span class="badge badge-success right countPending" >{{countProjectsExpired()}}</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{route('projects_unexpired')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hết Hạn</p>
+                  <span class="badge badge-danger right countPending" >{{countProjectsUnexpired()}}</span>
                 </a>
               </li>
             </ul>
@@ -67,6 +71,7 @@
               <p>
                   Khách hàng
               </p>
+              <span class="badge badge-success right countPending" >{{countUser()}}</span>
             </a>
           </li>
 
@@ -84,6 +89,15 @@
               <i class="nav-icon fas fa-cog"></i>
               <p>
                   Cài đặt
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item has-treeview menu-open-new">
+            <a href="{{route('profile_admin')}}" class="nav-link ">
+              <i class="nav-icon fas fa-address-card"></i>
+              <p>
+                  Hồ sơ admin
               </p>
             </a>
           </li>

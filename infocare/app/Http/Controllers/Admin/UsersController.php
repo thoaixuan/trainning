@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use Validator;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -166,5 +167,29 @@ class UsersController extends Controller
     public function destroyUser( Request $Request ) {
         $result = User::where('id','=',$Request->id)->delete();
         return $result;
+    }
+
+    public function getProfileAdmin()
+    {
+       return view('Admin.pages.user.profile-admin'); 
+    }
+
+    public function postUpdateProfileAdmin( request $request )
+    {
+        // $Profile_admin =  User::find($Request->id);
+        // $Profile_admin = $Request->email;
+        // $Profile_admin = bcrypt($Request->password);
+        // $Profile_admin->save();
+
+        // $Profile_admin=User::find($Request->id);
+        // $Profile_admin->update($Request->all());
+
+        $Profile_admin = $request->input('id');
+        DB::table('users')->where('id', $Profile_admin)->update([
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->password)
+        ]);
+
+        return back();
     }
 }
