@@ -369,7 +369,6 @@ function users() {
                 },
                 "password": {
                     required: true,
-                    minlength: 8,
                     validatePassword: true,
                 },
                 "gender": {
@@ -402,7 +401,7 @@ function users() {
 
             },
             messages: {
-                name: {
+                full_name: {
                     required: "Bắt buộc nhập name",
                     maxlength: "Hãy nhập tối đa 15 ký tự",
                     minlength: "Hãy nhập ít nhất 3 ký tự"
@@ -700,7 +699,7 @@ function users() {
 
         $.validator.addMethod("validatePassword", function (value, elemt) {
             return this.optional(elemt) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,16})/.test(value);
-        }, 'Vui lòng nhập ký tự chữ thường và hoa và ký tự số');
+        }, 'Vui lòng nhập 8 ký tự, có chữ và số');
 
         $.validator.addMethod("validateEmail", function (value, elemt) {
             return this.optional(elemt) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test(value);

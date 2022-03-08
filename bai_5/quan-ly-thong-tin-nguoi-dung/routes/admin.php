@@ -5,7 +5,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\SigninController;
 use App\Http\Controllers\admin\PermissionController;
 
-Route::get('/admin-info', [DashboardController::class,'index'])->name('admin.index.dashboard')->middleware('checkLogin');
+Route::get('/admin-info', [DashboardController::class,'index'])->name('admin.index.dashboard');
 Route::get('/admin-login', [SigninController::class,'index'])->name('admin.index.login');
 Route::post('/admin-login', [SigninController::class,'login'])->name('admin.post.login');
 Route::get('/admin-logout',[SigninController::class, 'logout'])->name('admin.logout.login');

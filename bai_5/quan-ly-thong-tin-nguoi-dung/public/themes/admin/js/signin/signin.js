@@ -26,7 +26,7 @@ function signin() {
                 "password": {
                     required: true,
 
-                    // validatePassword: true,
+                    validatePassword: true,
                 }
 
             },
@@ -85,7 +85,7 @@ function signin() {
         );
         $.validator.addMethod("validatePassword", function (value, elemt) {
             return this.optional(elemt) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,16})/.test(value);
-        }, 'Vui lòng hãy nhập đúng định dạng mật khẩu gồm 8-16 ký tự bao gồm chữ hoa, chữ thường và ít nhất một số');
+        }, 'Vui lòng hãy nhập đúng 8 ký tự, có chữ và số');
 
         $.validator.addMethod("validateEmail", function (value, elemt) {
             return this.optional(elemt) || /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@(?:\S{1,63})$/.test(value);
