@@ -33,7 +33,7 @@
             <div class="form-group">
               <label>Logo header</label>
               @if(isset(getConfigMail()->guest_logo_header))
-              <p><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_header }}"/></p>
+              <p><img class="w-25" src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_header }}"/></p>
               @else
               @endif
               <input type="hidden" name="header_file_old" value="{{ getConfigMail()->guest_logo_header }}" class="img-fluid"/>
@@ -44,7 +44,7 @@
             <div class="form-group">
               <label>Logo footer</label>
               @if (isset(getConfigMail()->guest_logo_footer))
-              <p><img src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_footer }}" class="img-fluid"/></p>
+              <p><img class="w-25" src="{{route('guest_home')}}/uploads/{{ getConfigMail()->guest_logo_footer }}" class="img-fluid"/></p>
               @else
               @endif
               <input type="hidden" name="footer_file_old" value="{{ getConfigMail()->guest_logo_footer }}"/>
