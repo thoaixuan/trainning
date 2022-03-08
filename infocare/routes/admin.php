@@ -50,6 +50,9 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'authAd
         Route::post('/update','UsersController@postUpdateUsers')->name('user_update');
         Route::post('/insert','UsersController@postInsertUsers')->name('user_insert');
         Route::post('/delete','UsersController@destroyUser')->name('user_delete');
+        Route::get('/profile-admin','UsersController@getProfileAdmin')->name('profile_admin');
+        Route::post('/profile-admin-update','UsersController@postUpdateProfileAdmin')->name('profile_admin_update');
+
     });
 
     Route::group(['prefix' => 'contact'], function () {
