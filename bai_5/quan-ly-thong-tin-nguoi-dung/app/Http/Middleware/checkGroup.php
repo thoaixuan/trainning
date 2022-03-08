@@ -16,7 +16,7 @@ class checkGroup
      */
     public function handle(Request $request, Closure $next)
     {
-            if( Auth::user()->is_admin ==1 ){
+            if( Auth::user()->is_admin ){
                 return $next($request);
             }else{
              return redirect()->route('admin.index.dashboard');

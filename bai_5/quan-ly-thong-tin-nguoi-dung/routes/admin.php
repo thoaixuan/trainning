@@ -5,12 +5,12 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\SigninController;
 use App\Http\Controllers\admin\PermissionController;
 
-Route::get('/admin-info', [DashboardController::class,'index'])->name('admin.index.dashboard');
+Route::get('/admin-info', [DashboardController::class,'index'])->name('admin.index.dashboard')->middleware('checkLogin');
 Route::get('/admin-login', [SigninController::class,'index'])->name('admin.index.login');
 Route::post('/admin-login', [SigninController::class,'login'])->name('admin.post.login');
 Route::get('/admin-logout',[SigninController::class, 'logout'])->name('admin.logout.login');
 
-Route::prefix('admin')->middleware('checkLogin')->middleware('checkPermission')->group(function () {
+Route::prefix('admin')->middleware('checkLogin')->group(function () {
     Route::prefix('user')->group(function(){
         Route::get('/', [UserController::class,'index'])->name('admin.index.user');
         Route::get('/anydata', [UserController::class,'anyData'])->name('admin.datatables.user');
@@ -23,7 +23,7 @@ Route::prefix('admin')->middleware('checkLogin')->middleware('checkPermission')-
 
     });
 
-    Route::prefix('room')->group(function(){
+    Route::prefix('room')->middleware('checkGroup')->group(function(){
         Route::get('/', [RoomController::class,'index'])->name('admin.index.room');
         Route::get('/getdata', [RoomController::class,'getDate'])->name('admin.get_data.room');
         Route::get('/anydata', [RoomController::class,'anyData'])->name('admin.datatables.room');

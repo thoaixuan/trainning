@@ -10,7 +10,9 @@
     <ul class="navbar-nav ml-auto">
       <div class="dropdown my-auto">
         <span class="text-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <b>{{Auth::user()->full_name}}</b></span>
+         @auth
+         <b>{{Auth::user()->full_name}}</b></span>
+         @endauth
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href=""> <i class="fas fa-user"> </i>   Hồ sơ cá nhân </a>
         </div>

@@ -23,6 +23,7 @@
               </p>
             </a>
           </li>
+      @auth
           @if(Auth::user()->is_admin)
           <li class="nav-item">
             <a href="{{route('admin.index.room')}}" class="nav-link">
@@ -33,7 +34,7 @@
             </a>
           </li>
           @endif
-      
+      @endauth
           <li class="nav-item">
             <a href="{{route('admin.logout.login')}}" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
