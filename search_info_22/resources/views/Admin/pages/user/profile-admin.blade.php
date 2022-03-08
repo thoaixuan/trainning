@@ -26,10 +26,14 @@
         @csrf
         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
         <div class="row">
-          <div class="col-md-12 mb-3">
-            <h4>Cài đặt trang chủ</h4>
+          <div class="col-md-4">
+            <h5>
+            @if(session('alert'))
+              <span class='alert alert-success'>{{session('alert')}}</span>
+            @endif  
+            </h5>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-8">
             <div class="form-group">
                 <label>Email</label>
                 <input type="text" name="email" class="form-control form-control-sm" value="{{ Auth::user()->email }}"/>

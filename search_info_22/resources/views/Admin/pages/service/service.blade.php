@@ -30,14 +30,13 @@
                 </div>
               </div>
               <div class="col-md-3">
-                <div class="form-group row">
-                <button type="submit" class="btn btn-info formSearch">Tìm kiếm</button>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-info formSearch">Tìm kiếm</button>
+                  <button type="button" class="btn btn-success" id="btn-insert"><i class="fa fa-plus" aria-hidden="true"></i> Thêm Mới</button>
                 </div>
               </div>
               <div class="col-md-3">
-                <div class="form-group text-right">
-                    <button type="button" class="btn btn-success" id="btn-insert"><i class="fa fa-plus" aria-hidden="true"></i> Thêm Mới</button>
-                </div>
+                <span class="text-red" title="Lưu ý: Để tránh lỗi dữ liệu nên xoá dự án trước khi xoá dịch vụ.">Lưu ý*</span>
               </div>
           </div>
 

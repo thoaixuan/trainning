@@ -190,6 +190,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return back();
+        $alert='Thay đổi thông tin thành công!';
+        return redirect()->back()->with('alert',$alert);
     }
 }
