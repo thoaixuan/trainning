@@ -26,7 +26,7 @@ function signin() {
                 "password": {
                     required: true,
 
-                    validatePassword: true,
+                    // validatePassword: true,
                 }
 
             },

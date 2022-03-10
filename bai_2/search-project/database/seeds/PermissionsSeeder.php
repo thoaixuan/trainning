@@ -13,10 +13,7 @@ class PermissionsSeeder extends Seeder
     {
         DB::table('permissions')->insert([
             ['name' => 'review'],
-            ['name' => 'update'],
-            ['name' => 'delete'],
-            ['name' => 'restore'],
-            ['name' => 'force_delete'],
+       
         ]);
         
     }
