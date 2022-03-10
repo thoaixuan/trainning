@@ -1,8 +1,11 @@
-Vue.createApp({
+new Vue({
+    el: '#app',
+    vuetify: new Vuetify(),
     data: () => ({
         laguages: [],
-        yeuthich: [],
-        localTime: " "
+        storages: [],
+        localTime: " ",
+        ghim: "fa-solid fa-star",
     }),
     methods: {
         getData: function() {
@@ -11,7 +14,6 @@ Vue.createApp({
                 headers: {
                     'accept': 'application/json',
                     'X-API-KEY': 'N6z3BnXy1y5B50g1QYYY9BFhy2xknmr1QP5sXOj0'
-
                 }
             }).then(
                 res => {
@@ -51,9 +53,8 @@ Vue.createApp({
                 regions,
                 quoteTypes
             ];
-            this.yeuthich.push(tmp);
-            this.yeuthich.filter(function(e) { return e === 0 || e });
-            console.log(this.yeuthich);
+            this.storages.push(tmp);
+            console.log(this.storages);
         }
 
 
@@ -62,8 +63,8 @@ Vue.createApp({
     mounted() {
         this.getData();
         this.showLocaleTime();
-        this.theoDoi();
+        this.yeuthich.shift();
+
         // this.getDataRealTime();
     }
-}).mount('#app');
-setInterval(Vue.createApp, 3000);
+})
