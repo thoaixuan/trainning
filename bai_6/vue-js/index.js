@@ -1,35 +1,16 @@
-// Vue.createApp({
-//     data() {
-//         users: []
-//     },
-//     methods: {
-//         getUser() {
-//             const URL = "https://reqres.in/api/users?page=2";
-//             axios
-//             .get(URL)
-//             .then(
-//                 res => {
-//                     console.log(res.data.data);
-//                 }
-//             )
-//         },
-//         mounted() {
-//             this.getUser();
-//         }
-//     },
-// }).mount('#app')
 Vue.createApp({
     data: () => ({
         laguages: [],
+        yeuthich: [],
         localTime: " "
     }),
     methods: {
-        getData: function () {
+        getData: function() {
             const URL = "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=AAPL%2CBTC-USD%2CEURUSD%3DX";
             axios.get(URL, {
                 headers: {
                     'accept': 'application/json',
-                    'X-API-KEY': 'z5sssETknma7YJombSiSpgNoYSmj2VZ84hRY5TJ8'
+                    'X-API-KEY': 'N6z3BnXy1y5B50g1QYYY9BFhy2xknmr1QP5sXOj0'
 
                 }
             }).then(
@@ -41,14 +22,14 @@ Vue.createApp({
                 console.log(err);
             });
         },
-        getDataRealTime: function () {
+        getDataRealTime: function() {
             var item = this;
-            setInterval(function () {
+            setInterval(function() {
                 const URL = "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=AAPL%2CBTC-USD%2CEURUSD%3DX";
                 axios.get(URL, {
                     headers: {
                         'accept': 'application/json',
-                        'X-API-KEY': 'z5sssETknma7YJombSiSpgNoYSmj2VZ84hRY5TJ8'
+                        'X-API-KEY': 'N6z3BnXy1y5B50g1QYYY9BFhy2xknmr1QP5sXOj0'
                     }
                 }).then(
                     res => {
@@ -58,17 +39,30 @@ Vue.createApp({
                 )
             }, 10000);
         },
-        showLocaleTime: function () {
+        showLocaleTime: function() {
             var time = this;
-            setInterval(function () {
+            setInterval(function() {
                 time.localTime = new Date().toLocaleTimeString();
             }, 1000);
+        },
+        theoDoi: function(languges, regions, quoteTypes) {
+            const tmp = [
+                languges,
+                regions,
+                quoteTypes
+            ];
+            this.yeuthich.push(tmp);
+            this.yeuthich.filter(function(e) { return e === 0 || e });
+            console.log(this.yeuthich);
         }
+
+
 
     },
     mounted() {
         this.getData();
         this.showLocaleTime();
+        this.theoDoi();
         // this.getDataRealTime();
     }
 }).mount('#app');
