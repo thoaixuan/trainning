@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'admin',
-                'date_of_birth' => '1999/01/01',
-                'date_start' => '2022/02/02',
+                'date_of_birth' => '1999-01-01',
+                'date_start' => '2022-02-02',
                 'gender'=>0,
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('123456'),
@@ -28,8 +28,8 @@ class UserSeeder extends Seeder
             ], 
             [
                 'name' => 'user',
-                'date_of_birth' => '2000/01/01',
-                'date_start' => '2022/02/02',
+                'date_of_birth' => '2000-01-01',
+                'date_start' => '2022-02-02',
                 'gender'=>0,
                 'email' => 'user@gmail.com',
                 'password' => bcrypt('123456'),

@@ -15,10 +15,10 @@ class CreateTableGroup extends Migration
     {
         Schema::create('group', function (Blueprint $table) {
             $table->id();
-            $table->string('group_name');
-            $table->integer('phongban_id');
-            $table->integer('position_id');
-            $table->integer('user_id');
+            $table->string('group_name')->nullable();
+            $table->integer('phongban_id')->nullable();
+            $table->integer('position_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }

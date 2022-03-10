@@ -1,7 +1,7 @@
 {{-- Modal Add --}}
 <div class="modal fade" id="modal-action-add" >
 	<div class="modal-dialog modal-xl" role="document">
-		<form id="formActionAdd" onsubmit="return false">
+		<form id="formActionAdd" onsubmit="return false" enctype="multipart/form-data">
 		<div class="modal-content">
 		<div class="modal-header">
 		<h5 class="modal-title" id="modal-action-title"></h5>
@@ -16,13 +16,13 @@
 					<div class="col-md-6">
 					  <div class="form-group">
 						<label for="name">Họ tên</label>
-						<input type="text" name="name" class="form-control" />
+						<input type="text" name="name" id="name" class="form-control" />
 					  </div>
 					</div>
 					<div class="col-md-6">
 					<div class="form-group">
 					  <label for="phone_number">Số điện thoại</label>
-					  <input type="text" name="phone_number" class="form-control" />
+					  <input type="text" name="phone_number" id="phone_number" class="form-control" />
 					</div>
 					</div>
 				  </div>
@@ -31,7 +31,7 @@
 					<div class="col-md-6">
 					  <div class="form-group">
 						  <label>Giới tính</label>
-						  <select id="gender" class="form-control select-user">
+						  <select name="gender" id="gender" class="form-control select-user">
 						  <option value=0>Nam</option>
 						  <option value=1>Nữ</option>
 						  </select>
@@ -39,8 +39,8 @@
 					</div>
 					<div class="col-md-6">
 					   <div class="form-group">
-						  <label for="status" class="d-block">Phòng ban</label>
-						  <select id="phongban_list" class="form-control select-user">
+						  <label>Phòng ban</label>
+						  <select name="phongban_id" id="phongban_list" class="form-control select-user">
 						  </select>
 					  </div>
 					</div>
@@ -50,14 +50,14 @@
 				<div class="col-md-6">
 				<div class="form-group">
 				  <label>Ngày sinh</label>
-				  <input type="date" name="date_of_birth" class="form-control" />
+				  <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" />
 				</div>  
 				</div>
 
 				<div class="col-md-6">
 				<div class="form-group">
 					<label for="date_start">Ngày vào làm</label>
-					<input type="date" name="date_start" class="form-control" />
+					<input type="date" name="date_start" id="date_start" class="form-control" />
 				  </div> 
 				</div>
 			  </div>
@@ -65,13 +65,13 @@
 			   <div class="col-md-6">
 				  <div class="form-group">
 					<label>Chứng minh mặt trước</label>
-					<input id="input-file" type="file" name="img_before" class="form-control"/>
+					<input id="img_before" type="file" name="img_before" class="form-control"/>
 				  </div>
 			   </div>
 			   <div class="col-md-6">
 				  <div class="form-group">
 					<label>Chứng minh mặt sau</label>
-					<input id="input-file-after" type="file" name="img_after" class="form-control"/>
+					<input id="img_after" type="file" name="img_after" class="form-control"/>
 				  </div>
 			   </div>
 			 </div>
@@ -82,39 +82,39 @@
 					<div class="col-md-6">
 					<div class="form-group">
 					  <label>Email</label>
-					  <input type="text" name="email" class="form-control" />
+					  <input type="text" name="email" id="email" class="form-control" />
 					</div> 
 					</div>
 					<div class="col-md-6">
 					<div class="form-group">
 					  <label>Mật khẩu</label>
-					  <input type="text" name="password" class="form-control" />
+					  <input type="password" name="password" id="password" class="form-control" />
 					</div> 
 					</div>
 				  </div>
 				
 			  <div class="row">
 				<div class="col-md-6">
-				  <div class="form-group">
-					<label for="status" class="d-block">Chức vụ</label>
-					  <select id="position" class="form-control select-user">
-						<option value=0>Nhân viên</option>
-						<option value=1>Quản lý</option>
-					  </select>
-				  </div>
+					<div class="form-group">
+						<label for="position_id" class="d-block">Chức vụ</label>
+						  <select name="position_id" id="position_id" class="form-control select-user">
+							<option value=0>Nhân viên</option>
+							<option value=1>Quản lí</option>
+						  </select>
+						</div>
 				</div>
 				<div class="col-md-6">
 				  <div class="form-group">
 				  <label for="status" class="d-block">Trạng thái</label>
-					<select id="action" class="form-control select-user">
+					<select name="status" id="status" class="form-control select-user">
 					  <option value=0>Đang làm việc</option>
 					  <option value=1>Nghỉ việc</option>
-					  <option value=1>Đình chỉ</option>
+					  <option value=2>Đình chỉ</option>
 					</select>
 				  </div>
 				</div>
 			  </div>
-			  <div class="form-group ck-editor">
+			  		<div class="form-group">
 						<label for="description">Mô tả</label>
 						<textarea name="description" class="form-group" id="description" rows="8"></textarea>
 					</div>
@@ -132,7 +132,7 @@
 
 {{-- Modal Edit --}}
 <div class="modal fade" id="modal-action-edit" >
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-xl" role="document">
 		<form id="formActionEdit" onsubmit="return false">
 		<div class="modal-content">
 		<div class="modal-header">
@@ -143,22 +143,122 @@
 		</div>
 		<div class="modal-body">
 			<div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Tên phòng ban</label>
-						<input type="text" name="phongban_name" id="phongban_name_edit" class=" form-control form-control-sm " required/>
+				<div class="col-6">
+				  <div class="row">
+					<div class="col-md-6">
+					  <div class="form-group">
+						<label for="name">Họ tên</label>
+						<input type="text" name="name" id="name_edit" class="form-control" />
+					  </div>
 					</div>
+					<div class="col-md-6">
 					<div class="form-group">
-                        <label>Mô tả</label>
-						<textarea name="phongban_description" id="description_edit" class=" form-control form-control-sm "></textarea>
+					  <label for="phone_number">Số điện thoại</label>
+					  <input type="text" name="phone_number" id="phone_number_edit" class="form-control" />
+					</div>
+					</div>
+				  </div>
+			  
+				  <div class="row">
+					<div class="col-md-6">
+					  <div class="form-group">
+						  <label>Giới tính</label>
+						  <select name="gender" id="gender_edit" class="form-control select-user">
+						  <option value="0" selected>Nam</option>
+						  <option value="1">Nữ</option>
+						  </select>
+					  </div>
+					</div>
+					<div class="col-md-6">
+					   <div class="form-group">
+						  <label>Phòng ban</label>
+						  	@php
+							  $getIdPb = 1;
+							@endphp
+						  <select name="phongban_id" id="phongban_list_edit" class="form-control select-user">
+							  
+							  @foreach (getPhongban() as $listPhongban)
+							  <option {{$listPhongban->id == $getIdPb?'selected':''}} value="{{$listPhongban->id}}">{{$listPhongban->phongban_name}}</option>
+							  @endforeach
+						  </select>
+					  </div>
+					</div>
+				  </div>
+			 
+			  <div class="row">
+				<div class="col-md-6">
+				<div class="form-group">
+				  <label>Ngày sinh</label>
+				  <input type="date" name="date_of_birth" id="date_of_birth_edit" class="form-control" />
+				</div>  
+				</div>
+
+				<div class="col-md-6">
+				<div class="form-group">
+					<label for="date_start">Ngày vào làm</label>
+					<input type="date" name="date_start" id="date_start_edit" class="form-control" />
+				  </div> 
+				</div>
+			  </div>
+			 <div class="row">
+			   <div class="col-md-6">
+				  <div class="form-group">
+					<label>Chứng minh mặt trước</label>
+					<input id="img_before_edit" type="file" name="img_before" class="form-control"/>
+				  </div>
+			   </div>
+			   <div class="col-md-6">
+				  <div class="form-group">
+					<label>Chứng minh mặt sau</label>
+					<input id="img_after_edit" type="file" name="img_after" class="form-control"/>
+				  </div>
+			   </div>
+			 </div>
+		   
+				</div>
+				<div class="col-6">
+				  <div class="row">
+					<div class="col-md-6">
+					<div class="form-group">
+					  <label>Email</label>
+					  <input type="text" name="email" id="email_edit" class="form-control" />
+					</div> 
+					</div>
+					<div class="col-md-6">
+					</div>
+				  </div>
+				
+			  <div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="position_id" class="d-block">Chức vụ</label>
+						  <select name="position_id" id="position_id_edit" class="form-control select-user">
+							<option value=0 selected>Nhân viên</option>
+							<option value=1>Quản lí</option>
+						  </select>
+						</div>
+				</div>
+				<div class="col-md-6">
+				  <div class="form-group">
+				  <label for="status" class="d-block">Trạng thái</label>
+					<select name="status" id="status_edit" class="form-control select-user">
+					  <option value=0>Đang làm việc</option>
+					  <option value=1>Nghỉ việc</option>
+					  <option value=2>Đình chỉ</option>
+					</select>
+				  </div>
+				</div>
+			  </div>
+			  		<div class="form-group">
+						<label for="description">Mô tả</label>
+						<textarea name="description" class="form-group" id="description_edit" rows="8"></textarea>
 					</div>
 				</div>
-				
 			</div>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>
-			<button type="submit" class="btn btn-success" data-id="" data-url="" id="btnSaveEdit">Lưu</button>
+			<button type="submit" class="btn btn-success" data-id-group="" data-id="" data-url="" id="btnSaveEdit">Lưu</button>
 		</div>
 	</div>
 	</div>

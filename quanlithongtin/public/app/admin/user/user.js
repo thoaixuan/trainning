@@ -182,11 +182,17 @@ function page() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data.data);
+					console.log(data.data.group_id);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
+					$("#btnSaveEdit").attr('data-id-group', data.data.group_id);
 					$("#btnSaveEdit").attr('data-id', data.data.id);
-					$('#phongban_name_edit').val(data.data.phongban_name)
-					CKEDITOR.instances['phongban_description_edit'].setData(data.data.phongban_description);
+					$('#name_edit').val(data.data.name);
+					$('#phone_number_edit').val(data.data.phone_number);
+					$('#date_of_birth_edit').val(data.data.date_of_birth);
+					$('#date_start_edit').val(data.data.date_start);
+					$('#email_edit').val(data.data.email);
+					$('#status_edit').val(data.data.status);
+					CKEDITOR.instances['description_edit'].setData(data.data.description);
 					
 				},
 				error: function (error) {
@@ -234,14 +240,29 @@ function page() {
 				$(element).removeClass('is-invalid');
 			},
             submitHandler: function(e) {
+				let img_before = $('#img_before')[0].files[0];
+				let img_after = $('#img_after')[0].files[0];
+				let formData = new FormData();
+				formData.append('name',$('#name').val());
+				formData.append('phone_number',$('#phone_number').val());
+				formData.append('gender',$('#gender').val());
+				formData.append('phongban_id',$('#phongban_list').val());
+				formData.append('date_of_birth',$('#date_of_birth').val());
+				formData.append('date_start',$('#date_start').val());
+				formData.append('email',$('#email').val());
+				formData.append('password',$('#password').val());
+				formData.append('position_id',$('#position_id').val());
+				formData.append('status',$('#status').val());
+				formData.append('description',CKEDITOR.instances['description'].getData());
+				formData.append('img_before',img_before ? img_before : null);
+				formData.append('img_after',img_after ? img_after : null);
+				
                 $.ajax({
                     		url: datas.routes.insert,
-                    		data: {
-                    			phongban_name: $('#phongban_name').val(),
-                    			phongban_description: CKEDITOR.instances['phongban_description'].getData()
-                    		},
+                    		data: formData,
                     		type: 'POST',
-                    		dataType: 'JSON',
+                    		contentType: false,
+							processData: false,
                     		success: function (data) {
 								if(data.status_validate === 1){
 									alert(data.data_error);
@@ -264,14 +285,14 @@ function page() {
         $('#formActionEdit').validate({
 			rules: {
 				
-				phongban_name: {
+				name: {
 					required: true,
 					validateScript: true
 				},
 				
 			},
 			messages: {
-				phongban_name:{
+				name:{
 					required: "Tên không được trống !"
 				}
 			},
@@ -287,15 +308,29 @@ function page() {
 				$(element).removeClass('is-invalid');
 			},
             submitHandler: function(e) {
+				let img_before = $('#img_before_edit')[0].files[0];
+				let img_after = $('#img_after_edit')[0].files[0];
+				let formData = new FormData();
+				formData.append('group_id',$("#btnSaveEdit").attr('data-id-group'));
+				formData.append('id',$("#btnSaveEdit").attr('data-id'));
+				formData.append('name',$('#name_edit').val());
+				formData.append('phone_number',$('#phone_number_edit').val());
+				formData.append('gender',$('#gender_edit').val());
+				formData.append('phongban_id',$('#phongban_list_edit').val());
+				formData.append('date_of_birth',$('#date_of_birth_edit').val());
+				formData.append('date_start',$('#date_start_edit').val());
+				formData.append('email',$('#email_edit').val());
+				formData.append('position_id',$('#position_id_edit').val());
+				formData.append('status',$('#status_edit').val());
+				formData.append('description',CKEDITOR.instances['description_edit'].getData());
+				formData.append('img_before',img_before ? img_before : null);
+				formData.append('img_after',img_after ? img_after : null);
                 $.ajax({
                     url: datas.routes.update,
-                    data: {
-                        id: $("#btnSaveEdit").attr('data-id'),
-                        phongban_name: $('#phongban_name_edit').val(),
-                        phongban_description: CKEDITOR.instances['phongban_description_edit'].getData()
-                    },
+                    data: formData,
                     type: 'POST',
-                    dataType: 'JSON',
+                    contentType: false,
+					processData: false,
                     success: function (data) {
 						if(data.status_validate === 1){
 							alert(data.data_error);
@@ -339,12 +374,12 @@ function page() {
 			url: datas.routes.get_phongban,
 			dataType: 'JSON',
 			success: function (response) {
-				console.log(response);
 				$.each(response.data, function (key, item) {
 					$('#phongban_list').append('<option value=' + item.id + '>' + item.phongban_name + '</option');
 				});
 			}
 		});
+
 	
 		
 	}

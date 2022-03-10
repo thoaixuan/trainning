@@ -8,6 +8,9 @@ use App\User;
 use App\Phongban;
 use App\Group;
 use App\Position;
+use Validator;
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     public function getUser()
@@ -16,7 +19,7 @@ class UserController extends Controller
    }
    public function getDatatable(Request $Request)
     {
-      
+        $pb[]="";
         $columns [] ='id';
         $columns [] ='name';
         $columns [] ='date_of_birth';
@@ -34,9 +37,13 @@ class UserController extends Controller
         $search = $Request->input('search');
         $totalData =  User::count();
         if(empty($search)){
-        $User = User::offset($start)
-        ->limit($limit)
-        ->orderBy($order,$dir)
+        $User = Group::join('users', 'users.id', '=', 'group.user_id')
+        ->join('phongban','phongban.id','=','group.phongban_id')
+        // ->join('position','position.id','=','group.position_id')
+        ->whereIn('phongban.id', [1,2])
+        // ->offset($start)
+        // ->limit($limit)
+        // ->orderBy($order,$dir)
         ->get();
         } else {
             $User = User::Where(function($query)use($search){
@@ -63,7 +70,7 @@ class UserController extends Controller
             'required'=>":attribute không được để trống",
         ];
         $validate = Validator::make($Request->all(),[
-            'phongban_name'=>['required','max:150']
+            'name'=>['required','max:150']
             
         ],$message);
         if($validate->fails()){
@@ -72,26 +79,75 @@ class UserController extends Controller
                 'data_error' => $validate->errors()->first()
             ]);
         }
-        $Phongban = new Phongban();
-	    $Phongban->phongban_name = $Request->phongban_name;
-	    $Phongban->phongban_description = $Request->phongban_description;
-	    if($Phongban->save()){
-	        return response()->json([
-                'name' => 'Thành công',
-                'status' => 200,
-                'data' => $Phongban
-            ]);
-	    }else{
-	        return response()->json([
-                'name' => 'Thất bại',
-                'status' => 500,
-                'data' => $Phongban
-            ]);
-	    }
+
+        if(!$Request->hasFile("img_before")||!$Request->hasFile("img_after")){
+        $User = new User();
+	    $User->name = $Request->name;
+	    $User->email = $Request->email;
+        $User->password = bcrypt($Request->password);
+        $User->phone_number = $Request->phone_number;
+        $User->gender = $Request->gender;
+        $User->date_of_birth = $Request->date_of_birth;
+        $User->date_start = $Request->date_start;
+        $User->status = $Request->status;
+        $User->description = $Request->description;
+        $User->save();
+
+        DB::table('group')->insert([
+            'group_name' => 'Group IT',
+            'phongban_id' => $Request->phongban_id,
+            'position_id' => $Request->position_id,
+            'user_id' => $User->id++
+        ]);
+        return response()->json([
+            'name' => 'Thành công',
+            'status' => 200,
+            'data_user' => $User
+        ]);
+        }
+        $User = new User();
+	    $User->name = $Request->name;
+	    $User->email = $Request->email;
+        $User->password = bcrypt($Request->password);
+        $User->phone_number = $Request->phone_number;
+        $User->gender = $Request->gender;
+        $User->date_of_birth = $Request->date_of_birth;
+        $User->date_start = $Request->date_start;
+        $User->status = $Request->status;
+        $User->description = $Request->description;
+
+        $input_file = $Request->file("img_before");
+        $file_before = time().'_'.$input_file->getClientOriginalName();
+        $input_file->move('uploads', $file_before);
+
+        $input_file = $Request->file("img_after");
+        $file_after = time().rand(10,100).'_'.$input_file->getClientOriginalName();
+        $input_file->move('uploads', $file_after);
+
+
+        $User->img_before = $file_before;
+        $User->img_after = $file_after;
+
+        $User->save();
+
+        DB::table('group')->insert([
+            'group_name' => 'Group IT',
+            'phongban_id' => $Request->phongban_id,
+            'position_id' => $Request->position_id,
+            'user_id' => $User->id++
+        ]);
+        return response()->json([
+            'name' => 'Thành công',
+            'status' => 200,
+            'data_user' => $User
+        ]);
+        
     }
 
     public function getUpdateUser(Request $Request) {
-        $User = User::where('id','=',$Request->id)->first();
+        $User = Group::join('users', 'users.id', '=', 'group.user_id')
+        ->join('phongban','phongban.id','=','group.phongban_id')
+        ->where('users.id','=',$Request->id)->first();
         return response()->json([
             'name' => 'Thành công',
             'status' => 200,
@@ -105,7 +161,7 @@ class UserController extends Controller
                 'required'=>":attribute không được để trống",
             ];
             $validate = Validator::make($Request->all(),[
-                'phongban_name'=>['required']
+                'name'=>['required']
                 
             ],$message);
             if($validate->fails()){
@@ -114,22 +170,66 @@ class UserController extends Controller
                     'data_error' => $validate->errors()->first()
                 ]);
             }
-	        $Phongban =  Phongban::find($Request->id);
-	        $Phongban->phongban_name = $Phongban->phongban_name;
-		    $Phongban->phongban_description = $Request->phongban_description;
-	        if($Phongban->save()){
+	        if(!$Request->hasFile("img_before")||!$Request->hasFile("img_after")){
+                $User = User::find($Request->id);
+                $User->name = $Request->name;
+                $User->email = $Request->email;
+                $User->password = bcrypt($Request->password);
+                $User->phone_number = $Request->phone_number;
+                $User->gender = $Request->gender;
+                $User->date_of_birth = $Request->date_of_birth;
+                $User->date_start = $Request->date_start;
+                $User->status = $Request->status;
+                $User->description = $Request->description;
+                $User->save();
+        
+                DB::table('group')->update([
+                    'phongban_id' => $Request->phongban_id,
+                    'position_id' => $Request->position_id,
+                    'user_id' => $User->id
+                ]);
                 return response()->json([
                     'name' => 'Thành công',
                     'status' => 200,
-                    'data' => $Phongban
+                    'data_user' => $User
                 ]);
-            }else{
+                }
+                $User = User::find($Request->id);
+                $User->name = $Request->name;
+                $User->email = $Request->email;
+                $User->password = bcrypt($Request->password);
+                $User->phone_number = $Request->phone_number;
+                $User->gender = $Request->gender;
+                $User->date_of_birth = $Request->date_of_birth;
+                $User->date_start = $Request->date_start;
+                $User->status = $Request->status;
+                $User->description = $Request->description;
+        
+                $input_file = $Request->file("img_before");
+                $file_before = time().'_'.$input_file->getClientOriginalName();
+                $input_file->move('uploads', $file_before);
+        
+                $input_file = $Request->file("img_after");
+                $file_after = time().rand(10,100).'_'.$input_file->getClientOriginalName();
+                $input_file->move('uploads', $file_after);
+        
+        
+                $User->img_before = $file_before;
+                $User->img_after = $file_after;
+        
+                $User->save();
+        
+                DB::table('group')->where('group_id', $Request->group_id)->update([
+                    'group_name' => 'Group IT',
+                    'phongban_id' => $Request->phongban_id,
+                    'position_id' => $Request->position_id,
+                    'user_id' => $User->id++
+                ]);
                 return response()->json([
-                    'name' => 'Thất bại',
-                    'status' => 500,
-                    'data' => $Phongban
+                    'name' => 'Thành công',
+                    'status' => 200,
+                    'data_user' => $User
                 ]);
-            }
 	 
 	}
 
@@ -139,14 +239,7 @@ class UserController extends Controller
     }
 
     public function getPhongban(){
-
-        $Phongban = Group::join('users', 'users.id', '=', 'group.user_id')
-        ->join('phongban','phongban.id','=','group.phongban_id')
-        ->join('position','position.id','=','group.position_id')
-        ->whereIn('phongban.id', [1])
-        ->select('users.name','phongban.phongban_name','position.position_name','position.id')
-        ->get();
-        // $Phongban = Phongban::all();
+        $Phongban = Phongban::all();
         return response()->json([
             'message'=>"Success",
             'status'=>200,
