@@ -115,6 +115,8 @@ import VueAxios from 'vue-axios'
                 avatar
             ];
             this.storages.push(tmp);
+            localStorage.setItem('storages',this.storages);
+            // localstorages=localStorage.getItem('storages');
             console.log(this.storages);
         }
 

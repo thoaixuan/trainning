@@ -141,4 +141,9 @@ img {
 .content {
   margin-top: 24px;
 }
+
+table tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+
 </style>
