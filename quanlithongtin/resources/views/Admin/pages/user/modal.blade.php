@@ -1,7 +1,8 @@
 {{-- Modal Add --}}
-<div class="modal fade" id="modal-action-add" >
+<div class="modal fade" id="modal-action-add">
 	<div class="modal-dialog modal-xl" role="document">
 		<form id="formActionAdd" onsubmit="return false" enctype="multipart/form-data">
+			
 		<div class="modal-content">
 		<div class="modal-header">
 		<h5 class="modal-title" id="modal-action-title"></h5>
@@ -31,7 +32,7 @@
 					<div class="col-md-6">
 					  <div class="form-group">
 						  <label>Giới tính</label>
-						  <select name="gender" id="gender" class="form-control select-user">
+						  <select name="gender" id="gender" class="form-control">
 						  <option value=0>Nam</option>
 						  <option value=1>Nữ</option>
 						  </select>
@@ -40,7 +41,7 @@
 					<div class="col-md-6">
 					   <div class="form-group">
 						  <label>Phòng ban</label>
-						  <select name="phongban_id" id="phongban_list" class="form-control select-user">
+						  <select name="phongban_id" id="phongban_list" class="form-control">
 						  </select>
 					  </div>
 					</div>
@@ -97,16 +98,16 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="position_id" class="d-block">Chức vụ</label>
-						  <select name="position_id" id="position_id" class="form-control select-user">
-							<option value=0>Nhân viên</option>
-							<option value=1>Quản lí</option>
+						  <select name="position_id" id="position_id" class="form-control">
+							<option value="1">Nhân viên</option>
+							<option value="2">Quản lí</option>
 						  </select>
 						</div>
 				</div>
 				<div class="col-md-6">
 				  <div class="form-group">
 				  <label for="status" class="d-block">Trạng thái</label>
-					<select name="status" id="status" class="form-control select-user">
+					<select name="status" id="status" class="form-control">
 					  <option value=0>Đang làm việc</option>
 					  <option value=1>Nghỉ việc</option>
 					  <option value=2>Đình chỉ</option>
@@ -134,6 +135,7 @@
 <div class="modal fade" id="modal-action-edit" >
 	<div class="modal-dialog modal-xl" role="document">
 		<form id="formActionEdit" onsubmit="return false">
+		<input type="hidden" name="group_id" id="group_id_edit"/>
 		<div class="modal-content">
 		<div class="modal-header">
 		<h5 class="modal-title" id="modal-action-title-edit"></h5>
@@ -163,7 +165,7 @@
 					<div class="col-md-6">
 					  <div class="form-group">
 						  <label>Giới tính</label>
-						  <select name="gender" id="gender_edit" class="form-control select-user">
+						  <select name="gender" id="gender_edit" class="form-control">
 						  <option value="0" selected>Nam</option>
 						  <option value="1">Nữ</option>
 						  </select>
@@ -175,7 +177,7 @@
 						  	@php
 							  $getIdPb = 1;
 							@endphp
-						  <select name="phongban_id" id="phongban_list_edit" class="form-control select-user">
+						  <select name="phongban_id" id="phongban_list_edit" class="form-control">
 							  
 							  @foreach (getPhongban() as $listPhongban)
 							  <option {{$listPhongban->id == $getIdPb?'selected':''}} value="{{$listPhongban->id}}">{{$listPhongban->phongban_name}}</option>
@@ -232,16 +234,16 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="position_id" class="d-block">Chức vụ</label>
-						  <select name="position_id" id="position_id_edit" class="form-control select-user">
-							<option value=0 selected>Nhân viên</option>
-							<option value=1>Quản lí</option>
+						  <select name="position_id" id="position_id_edit" class="form-control">
+							<option value="1">Nhân viên</option>
+							<option value="2">Quản lí</option>
 						  </select>
 						</div>
 				</div>
 				<div class="col-md-6">
 				  <div class="form-group">
 				  <label for="status" class="d-block">Trạng thái</label>
-					<select name="status" id="status_edit" class="form-control select-user">
+					<select name="status" id="status_edit" class="form-control">
 					  <option value=0>Đang làm việc</option>
 					  <option value=1>Nghỉ việc</option>
 					  <option value=2>Đình chỉ</option>

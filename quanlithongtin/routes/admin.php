@@ -1,6 +1,12 @@
 <?php
-
-Route::group(['namespace' => 'Admin','prefix' => 'admin'],function (){
+Route::group(['namespace' => 'Auth'], function () {
+    Route::get('/admin', function () {
+        return view('Admin.auth.login');
+    });
+    Route::post('/checkLoginAdmin', 'LoginController@checkLogin');
+    Route::get('/logoutAdmin', 'LoginController@logoutAdmin')->name('logout-admin');
+});
+Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'checkAdmin'],function (){
     Route::get('/dashboard','DashboardController@getDashboard')->name('dashboard');
 
     Route::prefix('phongban')->group(function(){

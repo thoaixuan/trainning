@@ -14,7 +14,7 @@ class CreateTableGroup extends Migration
     public function up()
     {
         Schema::create('group', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('group_id');
             $table->string('group_name')->nullable();
             $table->integer('phongban_id')->nullable();
             $table->integer('position_id')->nullable();

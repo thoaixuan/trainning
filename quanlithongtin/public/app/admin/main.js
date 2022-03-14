@@ -8,10 +8,13 @@ function renderAction(data) {
 			item.color +
 			' ' +
 			item.class +
+			
 			'" value="' +
 			item.value +
 			'" title="' +
 			item.title +
+			'" data-id-group="'+
+			item.idGroup +
 			'">' +
 			'<i class="'+
 			item.icon +

@@ -14,11 +14,14 @@ class PositionSeeder extends Seeder
     {
         DB::table('position')->insert([
             [
+                'position_name' => 'Nhân viên',
+            ],
+            [
                 'position_name' => 'Quản lý',
             ],
             [
-                'position_name' => 'Nhân viên',
+                'position_name' => 'Admin',
             ]
-        ]);
+            ]);
     }
 }

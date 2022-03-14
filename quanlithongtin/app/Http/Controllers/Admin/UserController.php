@@ -19,8 +19,7 @@ class UserController extends Controller
    }
    public function getDatatable(Request $Request)
     {
-        $pb[]="";
-        $columns [] ='id';
+        $columns [] ='userID';
         $columns [] ='name';
         $columns [] ='date_of_birth';
         $columns [] ='gender';
@@ -28,7 +27,7 @@ class UserController extends Controller
         $columns [] ='phone_number';
         $columns [] ='status';
 
-        $columns [] ='id';
+        $columns [] ='userID';
      
         $limit = $Request->input('length');
         $start = $Request->input('start');
@@ -41,6 +40,20 @@ class UserController extends Controller
         ->join('phongban','phongban.id','=','group.phongban_id')
         // ->join('position','position.id','=','group.position_id')
         ->whereIn('phongban.id', [1,2])
+        ->select(
+            'users.id as userID',
+            'users.name',
+            'users.date_of_birth',
+            'users.gender',
+            'users.date_start',
+            'users.phone_number',
+            'users.status',
+            'users.email',
+            'users.description',
+            'users.img_before',
+            'users.img_after',
+            'group.*',
+            'group.group_id as idGroup')
         // ->offset($start)
         // ->limit($limit)
         // ->orderBy($order,$dir)
@@ -183,10 +196,9 @@ class UserController extends Controller
                 $User->description = $Request->description;
                 $User->save();
         
-                DB::table('group')->update([
+                DB::table('group')->where('group_id', $Request->group_id)->update([
                     'phongban_id' => $Request->phongban_id,
-                    'position_id' => $Request->position_id,
-                    'user_id' => $User->id
+                    'position_id' => $Request->position_id
                 ]);
                 return response()->json([
                     'name' => 'Thành công',
@@ -220,10 +232,8 @@ class UserController extends Controller
                 $User->save();
         
                 DB::table('group')->where('group_id', $Request->group_id)->update([
-                    'group_name' => 'Group IT',
                     'phongban_id' => $Request->phongban_id,
-                    'position_id' => $Request->position_id,
-                    'user_id' => $User->id++
+                    'position_id' => $Request->position_id
                 ]);
                 return response()->json([
                     'name' => 'Thành công',

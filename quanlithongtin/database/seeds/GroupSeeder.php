@@ -16,7 +16,7 @@ class GroupSeeder extends Seeder
             [
                 'group_name' => 'Group IT',
                 'phongban_id' => '1',
-                'position_id' => '1',
+                'position_id' => '3',
                 'user_id' => '1'
             ]
         ]);

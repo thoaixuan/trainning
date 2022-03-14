@@ -90,35 +90,37 @@ function page() {
 			},
             {
 				title: "Xem chi tiết",
-				data: "id",
-				name: "id",
+				data: "userID",
+				name: "userID",
 				className: "text-center",
 				render: function (data, type, row, meta) {
 					if (data === null) {
 						return 'Chưa có dữ liệu';
 					}else{
-						return '<button class="badge badge-light btn-view-description" value="'+ row.id + '">Xem thêm</button>';
+						return '<button class="badge badge-light btn-view-description" value="'+ row.userID + '">Xem thêm</button>';
 					}
 
 				}
 			},
 			{
 				title: "Thao tác",
-				data: "id",
-				name: "id",
+				data: "userID",
+				name: "userID",
 				className: "text-center",
 				bSortable: false,
 				render: function (data, type, row, meta) {
 					return renderAction([ {
 						class: 'btn-update',
-						value: row.id,
+						value: row.userID,
+						idGroup: row.idGroup,
 						title: 'Chỉnh Sửa',
 						icon: 'fas fa-edit',
 						color: 'primary'
 					},
 					{
 						class: 'btn-delete',
-						value: row.id,
+						value: row.userID,
+						idGroup: row.idGroup,
 						title: 'Xóa',
 						icon: 'fa fa-trash',
 						color: 'danger'
@@ -157,6 +159,7 @@ function page() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
+					console.log(data);
 					$('#name_detail').html(data.data.name);
 					$('#email_detail').html(data.data.email);
 					$('#description_detail').html(data.data.description);
@@ -172,6 +175,8 @@ function page() {
 
 		$(document).delegate(".btn-update", "click", function () {
 			var id = $(this).val();
+			var idGroup = $(this).attr('data-id-group');
+			console.log(idGroup);
 			$('#modal-action-title-edit').text("Chỉnh sửa");
 			$("#modal-action-edit").modal('show');
 			$.ajax({
@@ -182,16 +187,18 @@ function page() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data.data.group_id);
+					console.log(data.data);
+					$('#group_id_edit').val(idGroup);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
-					$("#btnSaveEdit").attr('data-id-group', data.data.group_id);
-					$("#btnSaveEdit").attr('data-id', data.data.id);
+					$("#btnSaveEdit").attr('data-id', id);
 					$('#name_edit').val(data.data.name);
 					$('#phone_number_edit').val(data.data.phone_number);
 					$('#date_of_birth_edit').val(data.data.date_of_birth);
 					$('#date_start_edit').val(data.data.date_start);
 					$('#email_edit').val(data.data.email);
 					$('#status_edit').val(data.data.status);
+					$('#phongban_list_edit').val(data.data.phongban_id);
+					$('position_id_edit').val(data.data.position_id);
 					CKEDITOR.instances['description_edit'].setData(data.data.description);
 					
 				},
@@ -380,7 +387,48 @@ function page() {
 			}
 		});
 
-	
+		$(document).ready(function () {
+			$('#gender').select2({
+			  dropdownParent: $('#modal-action-add')
+			});
+			$('#phongban_list').select2({
+				dropdownParent: $('#modal-action-add')
+			  });
+			$('#position_id').select2({
+				dropdownParent: $('#modal-action-add')
+			});
+			$('#status').select2({
+				dropdownParent: $('#modal-action-add')
+			});
+
+			$('#gender_edit').select2({
+			  dropdownParent: $('#modal-action-edit')
+			});
+			$('#phongban_list_edit').select2({
+				dropdownParent: $('#modal-action-edit')
+			  });
+			$('#position_id_edit').select2({
+				dropdownParent: $('#modal-action-edit')
+			});
+			$('#status_edit').select2({
+				dropdownParent: $('#modal-action-edit')
+			});
+		  });
+		//export pdf
+		$(document).on('click', '#userExportPDF', function () {
+			html2canvas(document.querySelector("#table-user")).then(canvas => {
+				document.body.appendChild(canvas);
+				var data = canvas.toDataURL();
+				var docDefinition = {
+					content: [{
+						image: data,
+						width: 500
+					}]
+				};
+				pdfMake.createPdf(docDefinition).download("user-info.pdf");
+			});
+
+		});
 		
 	}
 }

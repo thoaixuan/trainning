@@ -22,7 +22,7 @@
 
     <!-- Default box -->
     <div class="card card-solid">
-      <div class="card-body pb-0">
+      <div class="card-body">
           <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -47,7 +47,11 @@
                 </table>
             </div>
         </div>
-
+        <div class="row">
+          <div class="col-md-4">
+              <input type="button" id="userExportPDF" value="Export PDF" class="btn btn-info"/>
+          </div>
+        </div>
       </div>
       <!-- /.card-footer -->
     </div>
@@ -74,7 +78,7 @@ var page = new page();
 
     CKEDITOR.replace('description');
     CKEDITOR.replace('description_edit');
-      
+    
 </script>
 @endsection
   

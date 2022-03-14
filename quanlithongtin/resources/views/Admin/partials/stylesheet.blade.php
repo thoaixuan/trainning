@@ -24,3 +24,5 @@
 <script src="{{ asset('themes/admin/plugins/ckeditor/ckeditor.js')}}"></script>
 <link rel="stylesheet" href="{{ asset('themes/admin/plugins/jquery-ui/jquery-ui.css')}}">
 
+<link rel="stylesheet" href="{{asset('themes/admin/plugins/select2-4.0.13/dist/css/select2.min.css')}}"> 
+<link rel="stylesheet" href="{{asset('themes/admin/dist/css/style.css')}}"> 

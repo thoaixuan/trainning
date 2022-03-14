@@ -32,5 +32,11 @@
 <script src="{{ asset('themes/admin/plugins/toastr/toastr.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('themes/admin/dist/js/adminlte.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('themes/admin/plugins/pdfmake-master/build/pdfmake.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/plugins/pdfmake-master/build/vfs_fonts.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/plugins/html2canvas/html2canvas.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/plugins/html2canvas/html2canvas.js')}}"></script>
+<script type="text/javascript" src="{{asset('themes/admin/plugins/select2-4.0.13/dist/js/select2.full.js')}}"> </script>
 <!-- JS main -->
 <script src="{{asset('app/admin/main.js')}}"></script>

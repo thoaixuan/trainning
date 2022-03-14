@@ -38,7 +38,7 @@
           </li>
 
           <li class="nav-item menu-open-new">
-            <a href="" class="nav-link ">
+            <a href="{{ route('logout-admin') }}" class="nav-link ">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Đăng Xuất
