@@ -113,7 +113,7 @@ export default {
     this.showLocaleTime();
     this.storages.shift();
     this.data();
-    // this.getDataRealTime();
+	this.getDataRealTime();
   },
 };
 </script>
