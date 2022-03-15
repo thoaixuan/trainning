@@ -1,3 +1,10 @@
+function changeDate(data){
+	if(data==null||data==""){
+		return "";
+	}else{
+		return moment(data, "YYYY-MM-DD").format('DD/MM/YYYY')
+	}
+}
 function page() {
 	this.datas = null;
 	var datas = null;
@@ -41,6 +48,9 @@ function page() {
 				data: "date_of_birth",
 				name: "date_of_birth",
 				className: "",
+				render: function (data, type, row, meta) {
+					return changeDate(data);
+				}
 			},
             {
 				title: "Giới tính",
@@ -63,6 +73,9 @@ function page() {
 				data: "date_start",
 				name: "date_start",
 				className: "",
+				render: function (data, type, row, meta) {
+					return changeDate(data);
+				}
 			},
 			{
 				title: "Số điện thoại",
@@ -147,6 +160,22 @@ function page() {
 							value.includes("&lt;?"));
 		}, "Vui lòng nhập đúng định dạng chữ");
 
+		jQuery.validator.addMethod("validatePhone", function(value, element){
+			if (/((09|03|07|08|05)+([0-9]{8})\b)/g.test(value)) {
+				return true;  
+			} else {
+				return false;
+			};
+		}, "Vui lòng nhập đúng định dạng số điện thoại"); 
+
+		jQuery.validator.addMethod("validatePassword", function(value, element){
+			if (/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/.test(value)) {
+				return true;  
+			} else {
+				return false;
+			};
+		}, "Password phải bao gồm chữ và số");
+
 		$(document).delegate(".btn-view-description", "click", function () {
 			var id = $(this).val();
 			$('#modal-action-title-view').text("Xem chi tiết");
@@ -159,7 +188,6 @@ function page() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data);
 					$('#name_detail').html(data.data.name);
 					$('#email_detail').html(data.data.email);
 					$('#description_detail').html(data.data.description);
@@ -176,7 +204,6 @@ function page() {
 		$(document).delegate(".btn-update", "click", function () {
 			var id = $(this).val();
 			var idGroup = $(this).attr('data-id-group');
-			console.log(idGroup);
 			$('#modal-action-title-edit').text("Chỉnh sửa");
 			$("#modal-action-edit").modal('show');
 			$.ajax({
@@ -187,7 +214,6 @@ function page() {
 				type: 'GET',
 				dataType: 'JSON',
 				success: function (data) {
-					console.log(data.data);
 					$('#group_id_edit').val(idGroup);
 					$("#btnSaveEdit").attr('data-url', datas.routes.update);
 					$("#btnSaveEdit").attr('data-id', id);
@@ -221,18 +247,72 @@ function page() {
 
 		$('#formActionAdd').validate({
 			rules: {
-				
-				phongban_name: {
+				name: {
 					required: true,
 					validateScript: true,
 					maxlength: 150
 				},
+				email: {
+					required: true,
+					validateScript: true,
+					maxlength: 150
+				},
+				password: {
+					required: true,
+					minlength: 8,
+					maxlength: 150,
+					validatePassword: true,
+					validateScript: true
+				},
+				phone_number: {
+					required: true,
+                    validatePhone: true,
+                    minlength: 10,
+                    maxlength: 10,
+				},
+				date_of_birth: {
+					required: true
+				},
+				date_start: {
+					required: true
+				},
+				img_before: {
+					required: true
+				},
+				img_after: {
+					required: true
+				},
 				
 			},
 			messages: {
-				phongban_name:{
+				name:{
 					required: "Tên không được trống !",
 					maxlength: "Tên không quá 150 ký tự !"
+				},
+				email:{
+					required: "Email không được trống !",
+					maxlength: "Tên không quá 150 ký tự !"
+				},
+				password:{
+					required: "Password không được trống !",
+					minlength: "Password ít nhất 8 kí tự !"
+				},
+				phone_number:{
+					required: "Số điện thoại không được trống !",
+                    minlength: "Vui lòng nhập đủ 10 ký tự",
+                    maxlength: "Vui lòng nhập tối thiểu 10 ký tự"
+				},
+				date_of_birth:{
+					required: "Vui lòng chọn ngày sinh !"
+				},
+				date_start:{
+					required: "Vui lòng chọn ngày vào làm !"
+				},
+				img_before: {
+					required: "Vui lòng chọn ảnh chứng minh mặt trước !"
+				},
+				img_after: {
+					required: "Vui lòng chọn ảnh chứng minh mặt sau !"
 				}
 			},
 			errorElement: 'span',
@@ -291,17 +371,49 @@ function page() {
 
         $('#formActionEdit').validate({
 			rules: {
-				
 				name: {
 					required: true,
+					validateScript: true,
+					maxlength: 150
+				},
+				email: {
+					required: true,
+					validateScript: true,
+					maxlength: 150
+				},
+				password: {
+					required: true,
+					minlength: 8,
+					maxlength: 150,
+					validatePassword: true,
 					validateScript: true
 				},
-				
+				phone_number: {
+					required: true,
+                    validatePhone: true,
+                    minlength: 10,
+                    maxlength: 10,
+				},
 			},
 			messages: {
 				name:{
-					required: "Tên không được trống !"
-				}
+					required: "Tên không được trống !",
+					maxlength: "Tên không quá 150 ký tự !"
+				},
+				email:{
+					required: "Email không được trống !",
+					maxlength: "Tên không quá 150 ký tự !"
+				},
+				password:{
+					required: "Password không được trống !",
+					minlength: "Password ít nhất 8 kí tự !",
+					maxlength: "Tên không quá 150 ký tự !"
+				},
+				phone_number:{
+					required: "Số điện thoại không được trống !",
+                    minlength: "Vui lòng nhập đủ 10 ký tự",
+                    maxlength: "Vui lòng nhập tối thiểu 10 ký tự"
+				},
 			},
 			errorElement: 'span',
 			errorPlacement: function (error, element) {

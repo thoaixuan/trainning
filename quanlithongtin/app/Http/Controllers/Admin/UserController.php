@@ -79,12 +79,22 @@ class UserController extends Controller
     }
 
     public function postInsertUser(Request $Request) {
-        $message = [
+        $message=[
             'required'=>":attribute không được để trống",
+            'max:20'=>":attribute dữ liệu tối đa 20 ký tự",
+            'max:40'=>":attribute dữ liệu tối đa 40 ký tự",
+            'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+            'email'=>"Bạn phải nhập đúng định dạng email",
+            'phone.min'=>"Bạn phải nhập đủ 10 số",
+            'phone.max'=>"Bạn phải nhập đủ 10 số",
         ];
-        $validate = Validator::make($Request->all(),[
-            'name'=>['required','max:150']
-            
+        $validate=Validator::make($request->all(),[
+            'name'=>['required','max:40'],
+            'email'=>['required','max:40','unique:users','email'],
+            'password'=>['required'],
+            'phone_number'=>['required','min:10','max:10'],
+            'date_of_birth'=>['required'],
+            'date_start'=>['required']
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -170,12 +180,22 @@ class UserController extends Controller
 
     public function postUpdateUser(Request $Request)
 	{
-            $message = [
+            $message=[
                 'required'=>":attribute không được để trống",
+                'max:20'=>":attribute dữ liệu tối đa 20 ký tự",
+                'max:40'=>":attribute dữ liệu tối đa 40 ký tự",
+                'email.unique'=>":attribute đã tồn tại trong dữ liệu",
+                'email'=>"Bạn phải nhập đúng định dạng email",
+                'phone.min'=>"Bạn phải nhập đủ 10 số",
+                'phone.max'=>"Bạn phải nhập đủ 10 số",
             ];
-            $validate = Validator::make($Request->all(),[
-                'name'=>['required']
-                
+            $validate=Validator::make($request->all(),[
+                'name'=>['required','max:40'],
+                'email'=>['required','max:40','email'],
+                'password'=>['required'],
+                'phone_number'=>['required','min:10','max:10'],
+                'date_of_birth'=>['required'],
+                'date_start'=>['required']
             ],$message);
             if($validate->fails()){
                 return response()->json([
