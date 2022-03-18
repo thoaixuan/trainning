@@ -4,26 +4,31 @@ use App\Http\Controllers\admin\RoomController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\SigninController;
 use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\admin\RoleController;
+
+
+
 
 Route::get('/admin-info', [DashboardController::class,'index'])->name('admin.index.dashboard');
 Route::get('/admin-login', [SigninController::class,'index'])->name('admin.index.login');
 Route::post('/admin-login', [SigninController::class,'login'])->name('admin.post.login');
 Route::get('/admin-logout',[SigninController::class, 'logout'])->name('admin.logout.login');
 
-Route::prefix('admin')->middleware('checkLogin')->middleware('checkGroup')->group(function () {
+Route::prefix('admin')->middleware('checkLogin')->group(function () {
     Route::prefix('user')->group(function(){
-        Route::get('/', [UserController::class,'index'])->name('admin.index.user');
+        Route::get('/', [UserController::class,'index'])->name('admin.index.user')->middleware('checkPermission');
         Route::get('/anydata', [UserController::class,'anyData'])->name('admin.datatables.user');
         Route::post('/insert-user',[UserController::class,'add'])->name('admin.insert.user');
         Route::get('/edit-user',[UserController::class,'getUpdate'])->name('admin.update.user');
         Route::post('/edit-user',[UserController::class,'postUpdate'])->name('admin.update_data.user');
         Route::get('/delete-user',[UserController::class,'delete'])->name('admin.delete.user');
         Route::get('/get-room',[UserController::class,'getRoom'])->name('admin.get_room.user');
+        Route::get('/data-role',[UserController::class,'dataRole'])->name('admin.data_role.user');
         Route::get('/check-login',[UserController::class,'checkLogin'])->name('guest.check_login.user');
 
     });
 
-    Route::prefix('room')->middleware('checkGroup')->group(function(){
+    Route::prefix('room')->group(function(){
         Route::get('/', [RoomController::class,'index'])->name('admin.index.room');
         Route::get('/getdata', [RoomController::class,'getDate'])->name('admin.get_data.room');
         Route::get('/anydata', [RoomController::class,'anyData'])->name('admin.datatables.room');
@@ -44,6 +49,17 @@ Route::prefix('admin')->middleware('checkLogin')->middleware('checkGroup')->grou
         Route::get('/delete-permission',[PermissionController::class,'delete'])->name('admin.delete.permission');
         Route::get('/permision-permission',[PermissionController::class,'getPermision'])->name('admin.get_permision.permission');
     });
+
+    Route::prefix('role')->group(function(){
+        Route::get('/', [RoleController::class,'index'])->name('admin.index.role');
+        Route::get('/getdata', [RoleController::class,'getDate'])->name('admin.get_data.role');
+        Route::get('/anydata', [RoleController::class,'anyData'])->name('admin.datatables.role');
+        Route::post('/insert-role',[RoleController::class,'add'])->name('admin.insert.role');
+        Route::get('/edit-role',[RoleController::class,'getUpdate'])->name('admin.update.role');
+        Route::put('/edit-role',[RoleController::class,'postUpdate'])->name('admin.update_data.role');
+        Route::get('/delete-role',[RoleController::class,'delete'])->name('admin.delete.role');
+    });
+
 
 
 });

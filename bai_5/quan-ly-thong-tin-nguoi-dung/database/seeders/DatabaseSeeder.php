@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             SedderProjects::class,
             SedderPermission::class,
             SeederRoom::class,
+            SeederRole::class,
+            SeederPermissionRole::class,
         ]);
     }
 }

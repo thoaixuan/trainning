@@ -100,9 +100,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                             <label for="status" class="d-block">Chức vụ</label>
-                              <select id="position" class="form-control select-user">
-                                <option value=0>Nhân viên</option>
-                                <option value=1>Quản lý</option>
+                              <select id="position" class="form-control select-user" multiple="multiple">
                               </select>
                           </div>
                         </div>

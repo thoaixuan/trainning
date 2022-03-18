@@ -19,22 +19,11 @@ class checkPermissions
      */
     public function handle(Request $request, Closure $next)
     {
-        $user=User::leftjoin('rooms','users.room_id','=','rooms.id')
-                ->leftjoin('permissions','rooms.permission_id','=','permissions.id')
-                ->select(
-                    'users.full_name',
-                    'rooms.name',
-                    'permissions.name',
-                    'permissions.action'
-                )->where('users.id','=',Auth::user()->id)->get();
-         if($user){
-            $action=json_decode($user[0]->action);
-                 if($action->create&&$action->update&&$action->delete&&$action->view){
-                      return $next($request);
-                 }
-                return redirect()->route('admin.index.login');
-
-         }
-        // $action=json_encode(checkLogin()->action);
+        $listRole=DB::table('users')
+        ->join('role_user','users.id','=','role_user.user_id')
+        ->join('roles','role_user.role_id','=','roles.id')
+        ->where('users.id',auth()->id())
+        ->select('roles.*')
+        ->get()->pluck('id')->toArray();
     }
 }

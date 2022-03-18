@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Role;
 use App\Models\Room;
 use Validator;
 use PDF;
 use File;  
+use DB;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -99,6 +101,11 @@ class UserController extends Controller
         echo json_encode($json_data);
     }
     public function add(Request $request){
+        try{
+
+        }catch(Exception $exception){
+            
+        }
         $message=[
             'required'=>":attribute không được để trống",
             'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
@@ -113,7 +120,8 @@ class UserController extends Controller
         $validate=Validator::make($request->all(),[
             'full_name'=>['required','min:3','max:40'],
             'email'=>['required','min:8','max:40','unique:users','email'],
-            'phone_number'=>['required','min:10','max:10','unique:users']
+            'phone_number'=>['required','min:10','max:10','unique:users'],
+            'position'=>['required']
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -122,7 +130,8 @@ class UserController extends Controller
                 'code'=>200
             ]);
         }
-        if(!$request->hasFile("cover")||!$request->hasFile("cover_after")){   
+        if(!$request->hasFile("cover")||!$request->hasFile("cover_after")){ 
+            //Thêm dữ liệu người dùng  
             $user=new User();
             $user->full_name=$request->full_name;
             $user->password=Hash::make($request->password);
@@ -132,13 +141,20 @@ class UserController extends Controller
             $user->phone_number=$request->phone_number;
             $user->email=$request->email;
             $user->room_id=$request->room_id;
-            $user->position=$request->position;
             $user->action=$request->action;
             $user->description=$request->description;
             if($request->description==null){
             $user->description="Chưa có dữ liệu";
             }
             $user->save();
+            //Thêm dữ liệu trong role_user
+            $roles=explode(',',$request->position);
+            foreach($roles as $index){
+                DB::table('role_user')->insert([
+                    'user_id'=>$user->id,
+                    'role_id'=>$index,
+                ]);
+            }
             if($user){
                 return response()->json([
                     'status'=>1,
@@ -357,4 +373,13 @@ class UserController extends Controller
          $action= json_decode($user[0]->action);
             return $action->update; 
     }
+    public function dataRole(){
+        $roles=Role::get();
+        return response()->json([   
+            'message'=>"Lấy dữ liệu chức vụ thành công",
+            'code'=>200,
+            'data'=>$roles
+        ]);
+    }
+
 }
