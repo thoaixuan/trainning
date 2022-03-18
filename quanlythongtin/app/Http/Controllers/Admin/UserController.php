@@ -67,7 +67,7 @@ class UserController extends Controller
             'phone.min'=>"Bạn phải nhập đủ 10 số",
             'phone.max'=>"Bạn phải nhập đủ 10 số",
         ];
-        $validate=Validator::make($request->all(),[
+        $validate=Validator::make($Request->all(),[
             'name'=>['required','max:40'],
             'email'=>['required','max:40','unique:users','email'],
             'password'=>['required'],
