@@ -16,14 +16,7 @@ class checkGroup
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {       if(Auth::check()){
-        return $next($request);
-
-    }    
-            if( Auth::user()->position==1 ){
-                return $next($request);
-            }else{
-             return redirect()->route('admin.index.dashboard');
-            }
+    { 
+        
     }
 }

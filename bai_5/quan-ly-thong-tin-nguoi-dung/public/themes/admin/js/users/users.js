@@ -99,22 +99,7 @@ function users() {
                     name: "rooms.name",
                     className: "",
                 },
-                {
-                    title: "Chức vụ",
-                    data: "position",
-                    name: "position",
-                    className: "",
-                    render: function(data, type, row, meta) {
-                        switch (data) {
-                            case 0:
-                                return "Nhân viên";
-                            case 1:
-                                return "Quản lý";
-                            default:
-                                return "Chưa có dữ liệu";
-                        }
-                    }
-                },
+
                 {
                     title: "Trạng thái",
                     data: "action",
@@ -290,58 +275,88 @@ function users() {
 
         });
 
-        $(document).ready(function() {
-            $('#room_id').select2({
-                dropdownParent: $('#userModal')
-            });
-            $('#gender').select2({
-                dropdownParent: $('#userModal')
-            });
-            $('#position').select2({
-                dropdownParent: $('#userModal')
-            });
-            $('#action').select2({
-                dropdownParent: $('#userModal')
-            });
-
-            $('#room_id_edit').select2({
-                dropdownParent: $('#userEditModal')
-            });
-            $('#gender_edit').select2({
-                dropdownParent: $('#userEditModal')
-            });
-            $('#position_edit').select2({
-                dropdownParent: $('#userEditModal')
-            });
-            $('#action_edit').select2({
-                dropdownParent: $('#userEditModal')
-            });
-
-            $.ajax({
-                type: "get",
-                url: datas.routes.get_room,
-                dataType: 'JSON',
-                success: function(response) {
-                    console.log(response);
-                    $.each(response.data, function(key, item) {
-                        $('#room_id').append('<option value=' + item.id + '>' + item.name + '</option');
-                    });
-                }
-            });
-
-            $.ajax({
-                type: "get",
-                url: datas.routes.get_room,
-                dataType: 'JSON',
-                success: function(response) {
-                    console.log(response);
-                    $.each(response.data, function(key, item) {
-                        $('#room_id_edit').append('<option value=' + item.id + '>' + item.name + '</option');
-                    });
-                }
-            });
-
+        $('#room_id').select2({
+            dropdownParent: $('#userModal')
         });
+        $('#gender').select2({
+            dropdownParent: $('#userModal')
+        });
+        $('#position').select2({
+            dropdownParent: $('#userModal')
+        });
+        $('#action').select2({
+            dropdownParent: $('#userModal')
+        });
+
+        $('#room_id_edit').select2({
+            dropdownParent: $('#userEditModal')
+        });
+        $('#gender_edit').select2({
+            dropdownParent: $('#userEditModal')
+        });
+        $('#position_edit').select2({
+            dropdownParent: $('#userEditModal')
+        });
+        $('#action_edit').select2({
+            dropdownParent: $('#userEditModal')
+        });
+
+        $.ajax({
+            type: "get",
+            url: datas.routes.get_room,
+            dataType: 'JSON',
+            success: function(response) {
+                console.log(response);
+                $.each(response.data, function(key, item) {
+                    $('#room_id').append('<option value=' + item.id + '>' + item.name + '</option');
+                });
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: datas.routes.get_room,
+            dataType: 'JSON',
+            success: function(response) {
+                console.log(response);
+                $.each(response.data, function(key, item) {
+                    $('#room_id_edit').append('<option value=' + item.id + '>' + item.name + '</option');
+                });
+            }
+        });
+        $.ajax({
+            type: "get",
+            url: datas.routes.get_room,
+            dataType: 'JSON',
+            success: function(response) {
+                console.log(response);
+                $.each(response.data, function(key, item) {
+                    $('#room_id_edit').append('<option value=' + item.id + '>' + item.name + '</option');
+                });
+            }
+        });
+
+        //Loadding dữ liệu group
+        $.ajax({
+            type: "get",
+            url: datas.routes.data_role,
+            dataType: 'JSON',
+            success: function(response) {
+                console.log(response);
+
+                var data = response.data
+                var list = document.getElementById("position");
+                for (var i in data) {
+                    list.add(new Option(data[i].name, data[i].id));
+                }
+                var list = document.getElementById("position_edit");
+                for (var i in data) {
+                    list.add(new Option(data[i].name, data[i].id));
+                }
+            }
+        });
+
+
 
     }
 
@@ -484,7 +499,7 @@ function users() {
                             var cover = $('#input-file')[0].files[0];
                             var email = $("input[name=email]").val();
                             var room_id = $("select#room_id").val();
-                            var position = $("select#position").val();
+                            var position = $("#position").val();
                             var action = $("select#action").val();
                             var cover_after = $('#input-file-after')[0].files[0];
                             var description = CKEDITOR.instances['user_description'].getData();

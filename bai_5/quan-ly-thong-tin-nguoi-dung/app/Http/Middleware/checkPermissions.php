@@ -6,7 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Permission;
+use DB;
 
 class checkPermissions
 {
@@ -17,24 +18,27 @@ class checkPermissions
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $permission = null)
     {
-        $user=User::leftjoin('rooms','users.room_id','=','rooms.id')
-                ->leftjoin('permissions','rooms.permission_id','=','permissions.id')
-                ->select(
-                    'users.full_name',
-                    'rooms.name',
-                    'permissions.name',
-                    'permissions.action'
-                )->where('users.id','=',Auth::user()->id)->get();
-         if($user){
-            $action=json_decode($user[0]->action);
-                 if($action->create&&$action->update&&$action->delete&&$action->view){
-                      return $next($request);
-                 }
-                return redirect()->route('admin.index.login');
+        //Lấy tất cả các role của người dùng khi đăng nhập vào hệ thống
+        $listRole=DB::table('users')
+        ->join('role_user','users.id','=','role_user.user_id')
+        ->join('roles','role_user.role_id','=','roles.id')
+        ->where('users.id',auth()->id())
+        ->select('roles.*')
+        ->get()->pluck('id')->toArray();
+        //Lấy tất cả các quyền khi người dùng đăng nhập vào hệ thống
+        $listPermission=DB::table('roles')
+        ->join('permission_role','roles.id','=','permission_role.role_id')
+        ->join('permissions','permission_role.permission_id','=','permissions.id')
+        ->where('roles.id',$listRole)
+        ->select('permissions.*')
+        ->get()->pluck('id')->unique();
+        $checkPermission =Permission::where('name',$permission)->value('id');
+        if( $listPermission->contains($checkPermission)){
+            return $next($request);
+        }
+        return  response()->view('admin.error.401');
 
-         }
-        // $action=json_encode(checkLogin()->action);
     }
 }

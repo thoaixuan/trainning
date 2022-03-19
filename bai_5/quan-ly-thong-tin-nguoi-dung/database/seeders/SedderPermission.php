@@ -23,15 +23,64 @@ class SedderPermission extends Seeder
         $json_read = '{"create":0,"update":0,"delete":0,"view":1}';
         DB::table('permissions')->insert([
             [
-                'name' => 'Tất cả các quyền',
-                'description' => 'Thêm sửa xóa dữ liệu',
-                'action'=>json_encode($json,true),
+                'id'=>1,
+                'name' => 'user-list',
+                'description' => 'Danh sách user',
             ], 
             [
-                'name' => 'Chỉ có quyền đọc dữ liệu',
-                'description' => 'Chỉ đọc dữ liệu',
-                'action'=>json_encode($json_read),
-
+                'id'=>2,
+                'name' => 'user-add',
+                'description' => 'Thêm user',
+            ], 
+            [
+                'id'=>3,
+                'name' => 'user-edit',
+                'description' => 'Cập nhật user',
+            ], 
+            [
+                'id'=>4,
+                'name' => 'user-delete',
+                'description' => 'Xóa user',
+            ], 
+            [
+                'id'=>5,
+                'name' => 'room-list',
+                'description' => 'Danh sách phòng ban',
+            ], 
+            [
+                'id'=>6,
+                'name' => 'room-add',
+                'description' => 'Thêm phòng ban',
+            ], 
+            [
+                'id'=>7,
+                'name' => 'room-edit',
+                'description' => 'Cập nhật phòng ban',
+            ], 
+            [
+                'id'=>8,
+                'name' => 'room-delete',
+                'description' => 'Xóa phòng ban',
+            ], 
+            [
+                'id'=>9,
+                'name' => 'role-list',
+                'description' => 'Danh sách phân quyền',
+            ], 
+            [
+                'id'=>10,
+                'name' => 'role-add',
+                'description' => 'Thêm phân quyền',
+            ], 
+            [
+                'id'=>11,
+                'name' => 'role-edit',
+                'description' => 'Cập nhật phân quyền',
+            ], 
+            [
+                'id'=>12,
+                'name' => 'role-delete',
+                'description' => 'Xóa phân quyền',
             ], 
         ]);
     }

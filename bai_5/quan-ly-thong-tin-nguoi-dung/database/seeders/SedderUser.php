@@ -56,7 +56,7 @@ class SedderUser extends Seeder
                 'cover'=>'1646617999_7.jpg',
                 'cover_after'=>'1646617999_7.jpg',
                 'email_verified_at' => now(),
-                'is_admin'=>0,
+                'is_admin'=>1,
             ], 
         ]);
     }   

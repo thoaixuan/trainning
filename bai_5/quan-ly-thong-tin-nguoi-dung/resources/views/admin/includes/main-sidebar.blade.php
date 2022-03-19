@@ -23,6 +23,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{route('admin.index.role')}}" class="nav-link">
+              <i class="nav-icon fas fa-list-alt"></i>
+              <p id="user">
+                Phân quyền
+              </p>
+            </a>
+          </li>
       @auth
           @if(Auth::user()->is_admin)
           <li class="nav-item">
