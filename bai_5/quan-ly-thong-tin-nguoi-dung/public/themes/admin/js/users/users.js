@@ -99,22 +99,7 @@ function users() {
                     name: "rooms.name",
                     className: "",
                 },
-                {
-                    title: "Chức vụ",
-                    data: "position",
-                    name: "position",
-                    className: "",
-                    render: function(data, type, row, meta) {
-                        switch (data) {
-                            case 0:
-                                return "Nhân viên";
-                            case 1:
-                                return "Quản lý";
-                            default:
-                                return "Chưa có dữ liệu";
-                        }
-                    }
-                },
+
                 {
                     title: "Trạng thái",
                     data: "action",

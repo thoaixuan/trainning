@@ -62,6 +62,26 @@ class SedderPermission extends Seeder
                 'name' => 'room-delete',
                 'description' => 'Xóa phòng ban',
             ], 
+            [
+                'id'=>9,
+                'name' => 'role-list',
+                'description' => 'Danh sách phân quyền',
+            ], 
+            [
+                'id'=>10,
+                'name' => 'role-add',
+                'description' => 'Thêm phân quyền',
+            ], 
+            [
+                'id'=>11,
+                'name' => 'role-edit',
+                'description' => 'Cập nhật phân quyền',
+            ], 
+            [
+                'id'=>12,
+                'name' => 'role-delete',
+                'description' => 'Xóa phân quyền',
+            ], 
         ]);
     }
 }

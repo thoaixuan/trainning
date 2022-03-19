@@ -11,7 +11,6 @@ function roles() {
         datas = this.datas;
         var me = this;
         me.datatables();
-        // me.ckeditor();
     }
     this.datatables = function() {
         var me = this;
@@ -53,12 +52,7 @@ function roles() {
                     name: "description",
                     className: "",
                 },
-                // {
-                //     title: "Quyền",
-                //     data: "permissions.name",
-                //     name: "permissions.name",
-                //     className: "",
-                // },
+
                 {
                     title: "Action",
                     data: "id",
@@ -102,25 +96,20 @@ function roles() {
             console.log("openModal");
 
         })
-
-        $(document).ready(function() {
-
-
-            $.ajax({
-                type: "get",
-                url: datas.routes.get_permision,
-                dataType: 'JSON',
-                success: function(response) {
-                    console.log(response);
-                    $.each(response.data, function(key, item) {
-                        $('.form-check').append(' <input class="form-check-input" type="checkbox" value="' + item.id + '" id="permission" name="permission[]">');
-                        $('.form-check').append('<label class="form-check-label" for="flexCheckDefault">' + item.value + '</label>');
-                    });
-                }
-            });
-
+        $.ajax({
+            type: "get",
+            url: datas.routes.get_permision,
+            dataType: 'JSON',
+            success: function(response) {
+                console.log(response);
+                $.each(response.data, function(key, item) {
+                    $('#form-check').append('<div class="form-check">');
+                    $('#form-check').append(' <input class="form-check-input" type="checkbox" value="' + item.id + '" id="permission" name="permission[]">');
+                    $('#form-check').append('<label class="form-check-label" for="flexCheckDefault">' + item.name + '</label>');
+                    $('#form-check').append('</div>');
+                });
+            }
         });
-
         // find by id service
         $(document).on('click', '#update', function() {
             $("#roomEditForm")[0].reset();
@@ -246,7 +235,7 @@ function roles() {
 
         );
 
-        $("#roomForm").validate({
+        $("#roleForm").validate({
 
                 rules: {
                     "name": {
@@ -288,39 +277,42 @@ function roles() {
                     $(element).removeClass('is-invalid');
                 },
                 submitHandler: function() {
-                    $(document).ready(function() {
-                        $('#roomForm').ready(function(e) {
-                            // e.preventDefault();
-                            var name = $("input[name=name]").val();
-                            var description = CKEDITOR.instances['room_detail'].getData();
-                            var permission_id = $("select#permission_id").val();
-                            var _token = $("input[name=_token]").val();
-                            $('.modal-backdrop').remove();
-                            $.ajax({
-                                url: datas.routes.insert,
-                                type: "POST",
-                                data: {
-                                    name: name,
-                                    description: description,
-                                    permission_id: permission_id,
-                                    _token: _token
-                                },
-                                success: function(response) {
-                                    if (response.status === 0) {
-                                        alert(response.message);
-                                    }
-                                    if (response.status === 1) {
-                                        console.log(response);
-                                        $('#roomForm')[0].reset();
-                                        $('#roomModal').modal('hide');
-                                        $('.modal-backdrop').remove();
-                                        table.ajax.reload();
-                                    }
-                                }
-                            })
+                    $('#roleForm').ready(function(e) {
+                        // e.preventDefault();
+                        var name = $("input[name=name]").val();
+                        var description = CKEDITOR.instances['role_detail'].getData();
+                        var permission_id = document.querySelectorAll("input[type='checkbox']:checked");
+                        var permission = [];
+                        for (var i = 0; i < permission_id.length; i++) {
+                            permission.push($(permission_id[i]).val());
+                        }
 
+                        var _token = $("input[name=_token]").val();
+                        $('.modal-backdrop').remove();
+                        $.ajax({
+                            url: datas.routes.insert,
+                            type: "POST",
+                            data: {
+                                name: name,
+                                description: description,
+                                permission_id: permission,
+                                _token: _token
+                            },
+                            success: function(response) {
+                                if (response.status === 0) {
+                                    alert(response.message);
+                                }
+                                if (response.status === 1) {
+                                    console.log(response);
+                                    $('#roleForm')[0].reset();
+                                    $('#roleModal').modal('hide');
+                                    $('.modal-backdrop').remove();
+                                    table.ajax.reload();
+                                }
+                            }
                         })
-                    });
+
+                    })
                 },
             }
 

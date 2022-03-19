@@ -55,7 +55,7 @@
           updates:"{{route('admin.update.role')}}",
           updates_data:"{{route('admin.update_data.role')}}",
           delete:"{{route('admin.delete.role')}}", 
-          get_permision:"{{route('admin.delete.role')}}"
+          get_permision:"{{route('admin.permission.role')}}"
         }
       }
       roles.init();

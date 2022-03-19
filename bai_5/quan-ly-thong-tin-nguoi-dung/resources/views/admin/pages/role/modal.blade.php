@@ -25,13 +25,11 @@
                     <textarea name="description" class="form-group" id="role_detail" rows="8"></textarea>
                 </div>
             </div>
-           
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{$list->id}}" id="permission" name="permission[]">
-                <label class="form-check-label" for="flexCheckDefault">
-                 {{$list->description}}
-                </label>
+                <label for="position">Phân quyền</label>
+              <div class="form-group mx-5" id="form-check">
+          
               </div>
+      
         
             <button id="#submit" class="btn btn-success">Submit</button>
           </form>

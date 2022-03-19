@@ -198,6 +198,14 @@ class UserController extends Controller
             $user->cover=$imageName;
             $user->cover_after=$imageNameAfter;
             $user->save();
+             //Thêm dữ liệu trong role_user
+             $roles=explode(',',$request->position);
+             foreach($roles as $index){
+                 DB::table('role_user')->insert([
+                     'user_id'=>$user->id,
+                     'role_id'=>$index,
+                 ]);
+             }
             if($user){
                 return response()->json([
                     'status'=>1,
