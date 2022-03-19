@@ -38,9 +38,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+<<<<<<< Updated upstream
     public function service(){
         return $this->hasmany('App\Service');
     }
+=======
+>>>>>>> Stashed changes
     public function project(){
         return $this->hasmany('App\Project');
     }

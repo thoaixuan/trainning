@@ -4,6 +4,7 @@ Route::middleware('checkLogin')->group(function(){
 
     Route::get('/','AdminController@index')->name('admin.get.index');
     
+<<<<<<< Updated upstream
     Route::prefix('user')->group(function () {
         Route::get('/','UserController@index')->name('admin.get.user');
         Route::get('/data-user','UserController@anyData')->name('admin.datatables.user');
@@ -44,6 +45,16 @@ Route::middleware('checkLogin')->group(function(){
         Route::get('/swap','PageController@swap')->name('admin.swap.page');
 
     });
+=======
+    Route::get('/project','ProjectController@index')->name('admin.get.project');
+    Route::get('/data-project','ProjectController@anyData')->name('admin.datatables.project');
+    Route::get('/edit-project','ProjectController@getUpdate')->name('admin.update.project');
+    Route::put('/edit-project','ProjectController@postUpdate')->name('admin.update_data.project');
+    Route::get('/delete-project','ProjectController@delete')->name('admin.delete.project');
+    Route::post('/insert-project','ProjectController@add')->name('admin.insert.project');
+    Route::get('/project-user','ProjectController@getUser')->name('admin.get_user.project');
+    Route::get('/project-service','ProjectController@getService')->name('admin.get_service.project');
+>>>>>>> Stashed changes
 
     Route::get('/info-admin','LoginController@getInfo')->name('admin.get_info.index');
     Route::put('/update-info-admin','LoginController@postUpdate')->name('admin.update_data.info');

@@ -135,6 +135,7 @@ function home() {
         $("#btn-search").on('click', function (e) {
             table.ajax.reload();
         });
+<<<<<<< Updated upstream
         $(document).on('click', '#projects', function () {
             $.ajax({
                 url: datas.routes.get_data_project,
@@ -188,5 +189,7 @@ function home() {
                 console.log(error);
             });
 
+=======
+>>>>>>> Stashed changes
     }
 }

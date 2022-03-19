@@ -118,6 +118,7 @@ function projects() {
     }
 
     this.action = function (table) {
+<<<<<<< Updated upstream
         $("#btn-search").on('click', function (e) {
             table.ajax.reload();
         });
@@ -126,6 +127,44 @@ function projects() {
                 table.ajax.reload();
             }
         });
+=======
+        // find by key
+        $("#search").on('keyup', function (e) {
+            table.ajax.reload();
+        });
+        // loading data user
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_user,
+                dataType: 'JSON',
+                success: function (response) {
+                    $.each(response.data, function (key, item) {
+                        $('#select_user').append('<option value=' + item.id + '>'
+                            + item.name
+                            + '</option>');
+                    });
+                }
+            })
+        });
+        // loading data user
+        $(document).ready(function () {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_service,
+                dataType: 'JSON',
+                success: function (response) {
+                    console.log(response);
+                    $.each(response.data, function (key, item) {
+                        $('#select_service').append('<option value=' + item.id + '>'
+                            + item.service_name
+                            + '</option>');
+                    });
+                }
+            })
+        });
+        // Open modal project
+>>>>>>> Stashed changes
         $(document).on('click', '#open', function () {
             $("#projectForm")[0].reset();
             $("#projectModal").modal("toggle");
@@ -146,17 +185,33 @@ function projects() {
                     console.log(response);
                     $('input[name="id"]').val(response.data.id);
                     $('input[name="projects_name"]').val(response.data.projects_name);
+<<<<<<< Updated upstream
                     $("select#select_service_edit").val(response.data.service_id);
                     $("select#select_user_edit").val(response.data.user_id);
                     $("input[name=time_begin]").val(response.data.time_begin);
                     $("input[name=time_end]").val(response.data.time_end);
                     editor.setData(response.data.projects_detail);
+=======
+                    // $('input[name="service_id"]').val(response.data.service_id);
+                    // $('input[name="user_id"]').val(response.data.user_id);
+
+>>>>>>> Stashed changes
                     $("#projectEditModal").modal("toggle");
                 }
             });
+            // $.ajax({
+            //     type: "get",
+            //     url: datas.routes.get_service,
+            //     dataType: 'JSON',
+            //     success: function (response) {
+            //         console.log(response);
+            //         $.each(response.data, function (key, item) {
+            //             alert(item.id);
+            //         });
+            //     }
+            // })
+
         });
-
-
         // delete service
         $(document).on('click', '#delete', function () {
             if (confirm("Do you really want to delete this record?")) {
@@ -232,6 +287,7 @@ function projects() {
                 }
             })
         });
+
 
 
 
@@ -321,6 +377,7 @@ function projects() {
                     });
                 });
             },
+
         }
 
         );
@@ -382,8 +439,13 @@ function projects() {
                     $('#projectForm').ready(function (e) {
                         // e.preventDefault();
                         var projects_name = $("input[name=projects_name]").val();
+<<<<<<< Updated upstream
                         var service_id = $("select#select_service").val()
                         var user_id = $("select#select_user").val()
+=======
+                        var service_id = $("select#select_service").val();
+                        var user_id = $("select#select_user").val();
+>>>>>>> Stashed changes
                         var _token = $("input[name=_token]").val();
                         var time_begin = $("input[name=time_begin]").val();
                         var time_end = $("input[name=time_end]").val();

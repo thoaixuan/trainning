@@ -1,8 +1,14 @@
+<<<<<<< Updated upstream:bai_2/search-project/resources/views/admin/pages/project/modal.blade.php
 
  
  <!-- Modal Create -->
  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl">
+=======
+<!-- Modal Create -->
+<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+>>>>>>> Stashed changes:bai_2/search-project/resources/views/admin/pages/project/include/modal.blade.php
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Thêm mới dựa án</h5>
@@ -20,6 +26,7 @@
                       </div>
 
                       <div class="form-group">
+<<<<<<< Updated upstream:bai_2/search-project/resources/views/admin/pages/project/modal.blade.php
                         <label for="service_id">Chọn dịch vụ </label>
                         <select name="service_id" id="select_service" class="form-control required">
                           <option value="0" disabled selected>-- Chọn dịch vụ--</option>
@@ -45,6 +52,19 @@
                             <label for="projects_detail">Nội dung</label>
                             <textarea name="projects_detail" class="form-group" id="projects_detail" rows="8"></textarea>
                           </div>   
+=======
+                        <label for="user_id">Chọn cá nhân</label>
+                        <select name="user_id" id="select_user" class="form-control required" placeholder="Chọn cá nhân">
+                          <option value="0" disabled selected>-- Chọn cá nhân --</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="service_id">Chọn dịch vụ</label>
+                        <select name="service_id" id="select_service" class="form-control required" placeholder="Chọn dịch vụ">
+                          <option value="0" disabled selected>-- Chọn dịch vụ --</option>
+                        </select>
+>>>>>>> Stashed changes:bai_2/search-project/resources/views/admin/pages/project/include/modal.blade.php
                       </div>
                     </div>
                    
@@ -59,8 +79,13 @@
 
           
 <!-- Modal Edit-->
+<<<<<<< Updated upstream:bai_2/search-project/resources/views/admin/pages/project/modal.blade.php
             <div class="modal fade" id="projectEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl">
+=======
+<div class="modal fade" id="projectEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+>>>>>>> Stashed changes:bai_2/search-project/resources/views/admin/pages/project/include/modal.blade.php
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit project</h5>  
@@ -79,6 +104,7 @@
                       </div>
 
                       <div class="form-group">
+<<<<<<< Updated upstream:bai_2/search-project/resources/views/admin/pages/project/modal.blade.php
                         <label for="service_id">Chọn dịch vụ </label>
                         <select name="service_id" id="select_service_edit" class="form-control required">
                           <option value="0" disabled selected>-- Chọn dịch vụ--</option>
@@ -104,6 +130,19 @@
                             <label for="projects_detail">Nội dung</label>
                             <textarea name="projects_detail_edit" class="form-group" id="projects_detail_edit" rows="8"></textarea>
                           </div>   
+=======
+                        <label for="user_id">Chọn cá nhân</label>
+                        <select name="user_id" id="select_user" class="form-control required" placeholder="Chọn cá nhân">
+                          <option value="0" disabled selected>-- Chọn cá nhân --</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="service_id">Chọn dịch vụ</label>
+                        <select name="service_id" id="select_service" class="form-control required" placeholder="Chọn dịch vụ">
+                          <option value="0" disabled selected>-- Chọn dịch vụ --</option>
+                        </select>
+>>>>>>> Stashed changes:bai_2/search-project/resources/views/admin/pages/project/include/modal.blade.php
                       </div>
                     </div>
                       <button type="submit" class="btn btn-success">Update</button>

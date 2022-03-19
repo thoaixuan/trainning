@@ -107,7 +107,25 @@ class ProjectController extends Controller
         );
         echo json_encode($json_data);
     }
+    
+    public function getUser(){
+        $user=User::orderBy('id','DESC')->get();
+        if($user){
+            return response()->json([
+                'status'=>0,
+                'message'=>"Get Data User",
+                'code'=>200,
+                'data'=>$user,
+            ]);
+        }
+        return response()->json([
+            'status'=>0,
+            'message'=>"Internal Server Error",
+            'code'=>500
+        ]);
+    }
 
+<<<<<<< Updated upstream
     public function getUser(Request $request){
         $users= User::orderBy('id','DESC')->get();
         return response()->json([
@@ -126,6 +144,25 @@ class ProjectController extends Controller
         ]);
     }
 
+=======
+    public function getService(){
+        $service=Service::orderBy('id','DESC')->get();
+        if($service){
+            return response()->json([
+                'status'=>0,
+                'message'=>"Get Data Service",
+                'code'=>200,
+                'data'=>$service,
+            ]);
+        }
+        return response()->json([
+            'status'=>0,
+            'message'=>"Internal Server Error",
+            'code'=>500
+        ]);
+    }
+    
+>>>>>>> Stashed changes
     public function getUpdate(Request $request){
         $project=Project::where('id','=',$request->id)->first();
 

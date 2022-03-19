@@ -55,7 +55,10 @@ function services() {
                     name: "service_description",
                     className: "",
                 },
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                 {
                     title: "Action",
                     data: "id",
@@ -167,10 +170,7 @@ function services() {
                 service_description: {
                     required: "Bắt buộc nhập service_description",
                 },
-                user_id: {
-                    required: "Bắt buộc nhập user_id",
 
-                },
             },
             errorElement: "span",
             errorPlacement: function (error, element) {
@@ -199,7 +199,6 @@ function services() {
                             type: 'PUT',
                             data: {
                                 id: id,
-                                user_id: user_id,
                                 service_name: service_name,
                                 service_description: service_description,
                                 _token: _token,
@@ -230,7 +229,12 @@ function services() {
                 },
                 "service_description": {
                     required: true,
+<<<<<<< Updated upstream
                 },
+=======
+                }
+
+>>>>>>> Stashed changes
             },
             messages: {
                 service_name: {
@@ -272,7 +276,7 @@ function services() {
                             data: {
                                 service_name: service_name,
                                 service_description: service_description,
-                                user_id: user_id,
+
                                 _token: _token
                             },
                             success: function (response) {

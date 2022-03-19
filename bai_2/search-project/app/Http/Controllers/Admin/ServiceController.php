@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Service;
+use App\User;
 use Validator;
 
 class ServiceController extends Controller
@@ -13,14 +14,16 @@ class ServiceController extends Controller
         $services=Service::orderBy('id','DESC')->get();
         return view('admin.pages.service.service',compact('services'));
     }
-
     public function anyData(Request $request)
     {
         $columns[]='id';
         $columns[]='service_name';
         $columns[]='service_description';
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
 
         $limit=$request->input('length');
         $start=$request->input('start');
@@ -56,6 +59,7 @@ class ServiceController extends Controller
         echo json_encode($json_data);
     }
 
+
     public function add(Request $request){
         $message=[
             'required'=>":attribute không được để trống",
@@ -63,7 +67,10 @@ class ServiceController extends Controller
         $validate=Validator::make($request->all(),[
             'service_name'=>['required'],
             'service_description'=>['required'],
+<<<<<<< Updated upstream
                 
+=======
+>>>>>>> Stashed changes
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -109,6 +116,7 @@ class ServiceController extends Controller
     }
 
     public function postUpdate(Request $request){
+<<<<<<< Updated upstream
         $service=Service::find($request->id);
         $service->service_name=$request->service_name;
         $service->service_description=$request->service_description;
@@ -120,11 +128,38 @@ class ServiceController extends Controller
                 'data'=>$service
             ]);
         }else{
+=======
+        $message=[
+            'required'=>":attribute không được để trống",
+        ];
+        $validate=Validator::make($request->all(),[
+            'service_name'=>['required'],
+            'service_description'=>['required'],
+        ],$message);
+        if($validate->fails()){
+>>>>>>> Stashed changes
             return response()->json([
-                'message'=>"Internal Server Error",
-                'code'=>500,
+                'status'=>0,
+                'message'=>$validate->errors()->first(),
+                'code'=>200
             ]);
         }
+            $service=Service::find($request->id);
+            $service->service_name=$request->service_name;
+            $service->service_description=$request->service_description;
+            $service->save();
+            if($service){
+                return response()->json([
+                    'message'=>"Data Update Successfully",
+                    'code'=>200,
+                    'data'=>$service
+                ]);
+            }else{
+                return response()->json([
+                    'message'=>"Internal Server Error",
+                    'code'=>500,
+                ]);
+            }
     }
 
     public function delete(Request $request){

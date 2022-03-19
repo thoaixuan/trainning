@@ -36,7 +36,7 @@
             
           <table class="table" id="projects-table">
           </table>
-          @include('admin.pages.project.modal');
+          @include('admin.pages.project.include.modal');
         </div><!-- /.container-fluid -->
       </section>
     <!-- /.content -->
