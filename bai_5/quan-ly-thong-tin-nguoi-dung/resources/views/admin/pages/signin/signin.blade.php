@@ -5,6 +5,11 @@
 <div class="container">
 	<div class="screen">
 		<div class="screen__content">
+			@if( session('mess'))
+            <div style="margin: 10px 5px">
+                <span class="text-center" style="color: red;">{{session('mess')}}</span>
+            </div>
+        @endif
 			<form id="login-form" class="login" method="POST" role="form" name="login"> 
        		 @csrf
 				<div class="login__field form-group">
@@ -36,6 +41,7 @@
 			<span class="screen__background__shape screen__background__shape1"></span>
 		</div>		
 	</div>
+
 </div>
 @endsection
 

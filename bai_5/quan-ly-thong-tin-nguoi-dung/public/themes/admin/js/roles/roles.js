@@ -104,7 +104,7 @@ function roles() {
                 console.log(response);
                 $.each(response.data, function(key, item) {
                     $('#form-check').append('<div class="form-check">');
-                    $('#form-check').append(' <input class="form-check-input" type="checkbox" value="' + item.id + '" id="permission" name="permission[]">');
+                    $('#form-check').append(' <input class="form-check-input" type="checkbox" value="' + item.name + '" id="permission" name="permission[]">');
                     $('#form-check').append('<label class="form-check-label" for="flexCheckDefault">' + item.name + '</label>');
                     $('#form-check').append('</div>');
                 });

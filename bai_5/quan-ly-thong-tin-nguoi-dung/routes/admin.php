@@ -18,6 +18,8 @@ Route::prefix('admin')->middleware('checkLogin')->group(function () {
 
     Route::prefix('user')->group(function(){
         Route::get('/', [UserController::class,'index'])->name('admin.index.user')->middleware('checkPermission:user-list');
+        Route::get('/insert-user',[UserController::class,'getUpdate'])->name('admin.get_insert.user')->middleware('checkPermission:user-add');
+
         Route::post('/insert-user',[UserController::class,'add'])->name('admin.insert.user')->middleware('checkPermission:user-add');
         Route::get('/edit-user',[UserController::class,'getUpdate'])->name('admin.update.user')->middleware('checkPermission:user-edit');
         Route::post('/edit-user',[UserController::class,'postUpdate'])->name('admin.update_data.user')->middleware('checkPermission:user-edit');

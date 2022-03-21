@@ -21,9 +21,9 @@ class checkLoginMiddleware
             if(Auth::user()->is_admin ==1){
                 return $next($request);
             }
-         return redirect()->route('admin.index.login');
+         return redirect()->route('admin.index.login')->with('mess','Bạn chưa phải là quản trị viên  hoặc quản lý');
         }
-        return redirect()->route('admin.index.login');
+        return redirect()->route('admin.index.login')->with('mess','Tài khoản và mật khẩu bạn bị sai');
 
     }
 }

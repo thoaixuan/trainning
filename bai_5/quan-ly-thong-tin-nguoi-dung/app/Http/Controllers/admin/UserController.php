@@ -101,11 +101,7 @@ class UserController extends Controller
         echo json_encode($json_data);
     }
     public function add(Request $request){
-        try{
-
-        }catch(Exception $exception){
-            
-        }
+ 
         $message=[
             'required'=>":attribute không được để trống",
             'min:3'=>":attribute dữ liệu tối thiểu chỉ được 3 ký tự",
@@ -143,6 +139,7 @@ class UserController extends Controller
             $user->room_id=$request->room_id;
             $user->action=$request->action;
             $user->description=$request->description;
+            $user->permission_id=$request->position;
             if($request->description==null){
             $user->description="Chưa có dữ liệu";
             }

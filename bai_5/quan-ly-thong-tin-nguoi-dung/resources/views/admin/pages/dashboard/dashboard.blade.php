@@ -139,11 +139,15 @@
         <div class="row">
 
         </div>
+
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
+       @if( session('mess'))
+        echo '<script type="text/javascript"> alert('{{session('mess')}}')</script>';
+        @endif
 
 </div>
 

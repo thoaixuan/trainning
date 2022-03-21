@@ -36,6 +36,7 @@
           </table>
                        
           @include('admin.pages.role.modal')
+        
         </div><!-- /.container-fluid -->
 
       </section>

@@ -28,7 +28,9 @@
               </div>  
             </div>
             <div class="col-4">
+              @if(!session('mess'))
               <button class="btn btn-success float-sm-right" id="open"><i class="fa fa-plus"></i></button>
+              @endif
             </div>
           </div>
             

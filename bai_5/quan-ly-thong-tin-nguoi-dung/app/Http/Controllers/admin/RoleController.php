@@ -41,14 +41,15 @@ class RoleController extends Controller
         $roles=new Role();
         $roles->name=$request->name;
         $roles->description=$request->description;
+        $roles->roles_module=implode (",",$request->permission_id);   
         $roles->save();
-        $permission_id=$request->permission_id;
-        foreach($permission_id as $index){
-            DB::table('permission_role')->insert([
-                'role_id'=>$roles->id,
-                'permission_id'=>(int)$index,
-            ]);
-        }
+        // $permission_id=$request->permission_id;
+        // foreach($permission_id as $index){
+        //     DB::table('permission_role')->insert([
+        //         'role_id'=>$roles->id,
+        //         'permission_id'=>(int)$index,
+        //     ]);
+        // }
         if($roles){
             return response()->json([
                 'status'=>1,

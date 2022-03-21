@@ -28,9 +28,7 @@
               </div>  
             </div>
             <div class="col-4">
-              @if(Auth::user()->is_admin)
               <button class="btn btn-success float-sm-right" id="open"><i class="fa fa-plus"></i></button>
-              @endif
            
             </div>
           </div>
@@ -65,6 +63,7 @@
           delete:"{{route('admin.delete.user')}}",  
           get_room:"{{route('admin.get_room.user')}}",  
           data_role:"{{route('admin.data_role.user')}}",  
+          get_insert:"{{route('admin.get_insert.user')}}",
         }
       }
       users.init();

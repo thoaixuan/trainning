@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Permission;
 use DB;
+use App\Models\Role;
 
 class checkPermissions
 {
@@ -35,10 +36,18 @@ class checkPermissions
         ->select('permissions.*')
         ->get()->pluck('id')->unique();
         $checkPermission =Permission::where('name',$permission)->value('id');
-        if( $listPermission->contains($checkPermission)){
+        // Tối ưu hóa dữ liệu bằng mảng
+        $checkArray=Role::where('id','=',(int)Auth::user()->permission_id)->pluck('roles_module')->first();
+        $array=collect(explode(",",$checkArray));
+        if($array->contains($permission)){
             return $next($request);
         }
-        return  response()->view('admin.error.401');
+        $domain= $_SERVER['REQUEST_URI'];
+        if($permission=='user-list' || $permission=='room-list' || $permission=='role-list'){
+          return redirect('/admin-info')->with('mess', 'Bạn không dùng được chức năng '.$permission.'!');
+        }
+        return redirect($domain)->with('error', 'Bạn không dùng được chức năng '.$permission.'!');
+
 
     }
 }

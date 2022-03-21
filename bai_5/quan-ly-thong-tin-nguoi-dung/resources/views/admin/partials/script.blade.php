@@ -40,6 +40,8 @@
 <script type="text/javascript" src="{{asset('pdfmake-master/build/vfs_fonts.js')}}"></script>
 <script type="text/javascript" src="{{asset('html2canvas/html2canvas.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('html2canvas/html2canvas.js')}}"></script>
+<script type="text/javascript" src="{{asset('toastr/toastr.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('toastr/toastr.js.map')}}"></script>
 
 <script type="text/javascript" src="{{asset('select2-4.0.13/dist/js/select2.full.js')}}"> </script>
 <script type="text/javascript" src="{{asset('themes/admin/plugins/sweetalert2/sweetalert2.min.js')}}"></script>

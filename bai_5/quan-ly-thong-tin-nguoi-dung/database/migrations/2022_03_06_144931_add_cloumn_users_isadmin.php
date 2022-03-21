@@ -14,7 +14,7 @@ class AddCloumnUsersIsadmin extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('is_admin')->default(0);
+            $table->integer('is_admin')->default(1);
         });
     }
 

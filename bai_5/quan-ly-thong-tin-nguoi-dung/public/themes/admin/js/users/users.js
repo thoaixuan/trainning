@@ -142,20 +142,18 @@ function users() {
                     className: "text-center",
                     bSortable: false,
                     render: function(data, type, row, meta) {
-                        if (!row.is_admin) {
-                            return renderAction([{
-                                class: 'btn btn-danger',
-                                value: row.id,
-                                title: 'delete',
-                                icon: 'fa fa-trash',
-                            }, {
-                                class: 'btn btn-info',
-                                value: row.id,
-                                title: 'update',
-                                icon: 'fa fa-edit',
-                            }, ]);
-                        }
-                        return "Không đủ quyền"
+                        return renderAction([{
+                            class: 'btn btn-danger',
+                            value: row.id,
+                            title: 'delete',
+                            icon: 'fa fa-trash',
+                        }, {
+                            class: 'btn btn-info',
+                            value: row.id,
+                            title: 'update',
+                            icon: 'fa fa-edit',
+                        }, ]);
+
                     }
                 },
 
@@ -178,8 +176,18 @@ function users() {
         });
         // open dialog user
         $(document).on('click', '#open', function() {
-                $("#userForm")[0].reset();
-                $("#userModal").modal("toggle");
+                $.ajax({
+                    url: datas.routes.get_insert,
+                    type: "get",
+                    success: function() {
+                        $("#userForm")[0].reset();
+                        $("#userModal").modal("toggle");
+                    },
+                    error: function() {
+                        alert("Bạn không đủ quyền");
+                    }
+                });
+
             })
             // find by id user
         $(document).on('click', '#update', function() {
@@ -210,6 +218,9 @@ function users() {
                     // $('input[name="cover"]').val(response.data.cover);
                     // $('input[name="cover_after"]').val(response.data.cover_after);
                     $("#userEditModal").modal("toggle");
+                },
+                error: function(response) {
+                    alert("Bạn không đủ quyền");
                 }
             });
         });
@@ -712,7 +723,7 @@ function users() {
         );
 
         $.validator.addMethod("validatePassword", function(value, elemt) {
-            return this.optional(elemt) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,16})/.test(value);
+            return this.optional(elemt) || /^[\w'\-,.][^_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{8,}$/.test(value);
         }, 'Vui lòng nhập 8 ký tự, có chữ và số');
 
         $.validator.addMethod("validateEmail", function(value, elemt) {
