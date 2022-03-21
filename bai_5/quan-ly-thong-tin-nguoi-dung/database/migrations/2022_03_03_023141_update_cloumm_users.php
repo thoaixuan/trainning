@@ -20,7 +20,6 @@ class UpdateCloummUsers extends Migration
             $table->string('cover')->nullable();
             $table->string('cover_after')->nullable();
             $table->string('description')->nullable();
-            $table->integer('position')->nullable();
             $table->integer('action')->default(0);
         });
     }

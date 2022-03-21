@@ -217,18 +217,13 @@
                         </div>
                         <div class="col-6">
                           <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                             <div class="form-group">
                               <label for="email">Email</label>
                               <input type="text" name="email" id="email" class="form-control" />
                             </div> 
                             </div>
-                            <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="password ">Mật khẩu</label>
-                              <input type="text" name="password" id="password" class="form-control" disabled />
-                            </div> 
-                            </div>
+                           
                           </div>
                         
                       <div class="row">
@@ -236,8 +231,7 @@
                           <div class="form-group">
                             <label for="status" class="d-block">Chức vụ</label>
                               <select id="position_edit" class="form-control select-user" >
-                                <option value=0>Nhân viên</option>
-                                <option value=1>Quản lý</option>
+                              
                               </select>
                           </div>
                         </div>

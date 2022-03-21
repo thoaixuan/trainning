@@ -51,6 +51,12 @@ function roles() {
                     data: "description",
                     name: "description",
                     className: "",
+                    render: function(data, type, row, meta) {
+                        if (!data) {
+                            return 'Chưa có dữ liệu';
+                        }
+                        return data;
+                    }
                 },
 
                 {

@@ -77,7 +77,6 @@ class RoomController extends Controller
         $rooms=new Room();
         $rooms->name=$request->name;
         $rooms->description=$request->description;
-        $rooms->permission_id=$request->permission_id;
         $rooms->save();
         if($rooms){
             return response()->json([

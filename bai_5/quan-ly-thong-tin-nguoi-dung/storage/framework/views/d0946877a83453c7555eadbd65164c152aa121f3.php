@@ -15,6 +15,7 @@
          <?php endif; ?>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href=""> <i class="fas fa-user"> </i>   Hồ sơ cá nhân </a>
+          <a class="dropdown-item" href="<?php echo e(route('admin.logout.login')); ?>"> <i class="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất</a>
         </div>
       </div>
     </ul>

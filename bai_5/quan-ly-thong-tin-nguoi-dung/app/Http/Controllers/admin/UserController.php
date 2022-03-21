@@ -186,7 +186,7 @@ class UserController extends Controller
             $user->phone_number=$request->phone_number;
             $user->email=$request->email;
             $user->room_id=$request->room_id;
-            $user->position=$request->position;
+            $user->permission_id=$request->position;
             $user->action=$request->action;
             $user->description=$request->description;
             if($request->description==null){
@@ -263,14 +263,13 @@ class UserController extends Controller
             if(!$request->hasFile("cover")||!$request->hasFile("cover_after")){   
                 $user=User::find($request->id);
                 $user->full_name=$request->full_name;
-                $user->password=Hash::make($request->password);
                 $user->gender=$request->gender;
                 $user->date=$request->date;
                 $user->date_start=$request->date_start;
                 $user->phone_number=$request->phone_number;
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
-                $user->position=$request->position;
+                $user->permission_id=$request->position;
                 $user->action=$request->action;
                 $user->description=$request->description;
                 if($request->description==null){
@@ -305,10 +304,7 @@ class UserController extends Controller
                 $file_after=$request->file("cover_after");
                 $imageNameAfter=time().'_'.$file_after->getClientOriginalName();
                 $file_after->move(\public_path("admin/cover"),$imageNameAfter);
-    
-    
                 $user->full_name=$request->full_name;
-                $user->password=Hash::make($request->password);
                 $user->gender=$request->gender;
                 $user->date=$request->date;
                 $user->date_start=$request->date_start;
