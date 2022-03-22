@@ -10,6 +10,11 @@
           <div class="col-sm-6">
             <h1 class="m-0">Quyền</h1>
           </div><!-- /.col -->
+          <div class="col-sm-6"> 
+            <div class="alert alert-danger" id="error" role="alert">
+              Bạn không đủ quyền để truy cập chức năng này
+          </div>
+        </div>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -56,7 +61,8 @@
           updates:"{{route('admin.update.role')}}",
           updates_data:"{{route('admin.update_data.role')}}",
           delete:"{{route('admin.delete.role')}}", 
-          get_permision:"{{route('admin.permission.role')}}"
+          get_permision:"{{route('admin.permission.role')}}",
+          get_insert:"{{route('admin.get_data.role')}}",
         }
       }
       roles.init();

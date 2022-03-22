@@ -56,7 +56,8 @@
           updates:"<?php echo e(route('admin.update.role')); ?>",
           updates_data:"<?php echo e(route('admin.update_data.role')); ?>",
           delete:"<?php echo e(route('admin.delete.role')); ?>", 
-          get_permision:"<?php echo e(route('admin.permission.role')); ?>"
+          get_permision:"<?php echo e(route('admin.permission.role')); ?>",
+          get_insert:"<?php echo e(route('admin.get_data.role')); ?>",
         }
       }
       roles.init();

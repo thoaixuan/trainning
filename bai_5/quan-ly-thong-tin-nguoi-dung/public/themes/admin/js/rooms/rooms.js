@@ -88,6 +88,8 @@ function rooms() {
     }
     this.action = function(table) {
         var me = this;
+        document.getElementById('error').style.display = "none";
+
         $("#btn-search").on('click', function(e) {
             table.ajax.reload();
         });
@@ -98,11 +100,19 @@ function rooms() {
         });
 
         $(document).on('click', '#open', function() {
-            $("#roomForm")[0].reset();
 
-            $("#roomModal").modal("toggle");
-            console.log("openModal");
+            $.ajax({
+                url: datas.routes.get_insert,
+                type: "get",
+                success: function() {
+                    $("#roomForm")[0].reset();
+                    $("#roomModal").modal("toggle");
+                },
+                error: function() {
+                    document.getElementById('error').style.display = "block";
 
+                }
+            })
         })
 
         $(document).ready(function() {
@@ -140,7 +150,6 @@ function rooms() {
         // find by id service
         $(document).on('click', '#update', function() {
             $("#roomEditForm")[0].reset();
-            console.log("update");
             $.ajax({
                 url: datas.routes.updates,
                 type: "get",
@@ -150,12 +159,15 @@ function rooms() {
                     "id": $(this).data("id"),
                 },
                 success: function(response) {
-                    console.log(response);
+
                     $('input[name="id"]').val(response.data.id);
                     $('input[name="name"]').val(response.data.name);
                     CKEDITOR.instances['room_detail_edit'].setData(response.data.description);
                     $("select#permission_edit_id").val(response.data.permission_id);
                     $("#roomEditModal").modal("toggle");
+                },
+                error: function() {
+                    document.getElementById('error').style.display = "block";
                 }
             });
         });
@@ -175,7 +187,11 @@ function rooms() {
                     },
                     success: function(response) {
                         table.ajax.reload();
+                    },
+                    error: function() {
+                        document.getElementById('error').style.display = "block";
                     }
+
                 });
             }
         });

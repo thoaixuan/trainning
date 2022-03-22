@@ -103,6 +103,38 @@ class RoleController extends Controller
         );
         echo json_encode($json_data);
     }
+    public function getUpdate(Request $request)
+    {
+        $roles=Role::where('id','=',$request->id)->first();
+        if($roles){
+            return response()->json([
+                'message'=>"Data Inserted Successfully",
+                'code'=>200,
+                'data'=>$roles
+            ]);
+        }else{
+            return response()->json([
+                'message'=>"Internal Server Error",
+                'code'=>500,
+            ]);
+        }
+    }
+    public function getDate(Request $request)
+    {
+        $roles=Role::where('id','=',$request->id)->first();
+        if($roles){
+            return response()->json([
+                'message'=>"Data Inserted Successfully",
+                'code'=>200,
+                'data'=>$roles
+            ]);
+        }else{
+            return response()->json([
+                'message'=>"Internal Server Error",
+                'code'=>500,
+            ]);
+        }
+    }
     public function delete(Request $request){
         $role=Role::find($request->id);
         $role->delete();

@@ -164,7 +164,7 @@ function users() {
     }
     this.action = function(table) {
         var me = this;
-
+        document.getElementById('error').style.display = "none";
         // search user
         $("#btn_search").on('click', function(e) {
             table.ajax.reload();
@@ -184,7 +184,7 @@ function users() {
                         $("#userModal").modal("toggle");
                     },
                     error: function() {
-                        alert("Bạn không đủ quyền");
+                        document.getElementById('error').style.display = "block";
                     }
                 });
 
@@ -209,7 +209,7 @@ function users() {
                     $('input[name="phone_number"]').val(response.data.phone_number);
                     $('input[name="email"]').val(response.data.email);
                     $("select#room_id_edit").val(response.data.room_id);
-                    $("select#position_edit").val(response.data.position);
+                    $("#position_edit").val(response.data.permission_id);
                     $("select#action_edit").val(response.data.action);
 
                     // $('input[name="action"]').val(response.data.action);
@@ -220,7 +220,7 @@ function users() {
                     $("#userEditModal").modal("toggle");
                 },
                 error: function(response) {
-                    alert("Bạn không đủ quyền");
+                    document.getElementById('error').style.display = "block";
                 }
             });
         });
@@ -240,12 +240,6 @@ function users() {
                     $('#mota').html(response.data.description);
                     $('#cmnd_before').attr("src", "http://127.0.0.1:8000/admin/cover/" + response.data.cover);
                     $('#cmnd_after').attr("src", "http://127.0.0.1:8000/admin/cover/" + response.data.cover_after);
-
-
-                    // CKEDITOR.instances['user_description_edit'].setData(response.data.description);
-
-                    // $('input[name="cover"]').val(response.data.cover);
-                    // $('input[name="cover_after"]').val(response.data.cover_after);
                     $("#userDetailModal").modal("toggle");
                 }
             });
@@ -255,7 +249,6 @@ function users() {
         $(document).on('click', '#delete', function() {
             if (confirm("Do you really want to delete this record?")) {
                 var id = $(this).data("id");
-                console.log(id);
                 $.ajax({
                     url: datas.routes.delete,
                     type: 'GET',
@@ -265,6 +258,9 @@ function users() {
                     },
                     success: function(response) {
                         table.ajax.reload();
+                    },
+                    error: function() {
+                        document.getElementById('error').style.display = "block";
                     }
                 });
             }
@@ -305,9 +301,9 @@ function users() {
         $('#gender_edit').select2({
             dropdownParent: $('#userEditModal')
         });
-        $('#position_edit').select2({
-            dropdownParent: $('#userEditModal')
-        });
+        // $('#position_edit').select2({
+        //     dropdownParent: $('#userEditModal')
+        // });
         $('#action_edit').select2({
             dropdownParent: $('#userEditModal')
         });

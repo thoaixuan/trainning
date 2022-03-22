@@ -56,7 +56,8 @@
           updates:"<?php echo e(route('admin.update.room')); ?>",
           updates_data:"<?php echo e(route('admin.update_data.room')); ?>",
           delete:"<?php echo e(route('admin.delete.room')); ?>", 
-          get_permision:"<?php echo e(route('admin.get_permision.room')); ?>" 
+          get_permision:"<?php echo e(route('admin.get_permision.room')); ?>" ,
+          get_insert:"<?php echo e(route('admin.get_insert.room')); ?>"
         }
       }
       rooms.init();

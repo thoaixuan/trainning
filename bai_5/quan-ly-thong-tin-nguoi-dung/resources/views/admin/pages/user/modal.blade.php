@@ -6,6 +6,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Thêm mới user</h5>
+              
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-xmark"></i></button>
 
                   </div>
@@ -213,7 +214,7 @@
                           </div>
                        </div>
                      </div>
-                   
+                 
                         </div>
                         <div class="col-6">
                           <div class="row">
@@ -229,7 +230,7 @@
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
-                            <label for="status" class="d-block">Chức vụ</label>
+                            <label for="status" class="d-block">Quyền</label>
                               <select id="position_edit" class="form-control select-user" >
                               
                               </select>

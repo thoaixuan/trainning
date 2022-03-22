@@ -86,6 +86,7 @@ function roles() {
     }
     this.action = function(table) {
         var me = this;
+        document.getElementById('error').style.display = "none";
         $("#btn-search").on('click', function(e) {
             table.ajax.reload();
         });
@@ -96,10 +97,17 @@ function roles() {
         });
 
         $(document).on('click', '#open', function() {
-            $("#roleForm")[0].reset();
-
-            $("#roleModal").modal("toggle");
-            console.log("openModal");
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_insert,
+                success: function() {
+                    $("#roleForm")[0].reset();
+                    $("#roleModal").modal("toggle");
+                },
+                error: function() {
+                    document.getElementById('error').style.display = "block";
+                }
+            });
 
         })
         $.ajax({
@@ -107,7 +115,6 @@ function roles() {
             url: datas.routes.get_permision,
             dataType: 'JSON',
             success: function(response) {
-                console.log(response);
                 $.each(response.data, function(key, item) {
                     $('#form-check').append('<div class="form-check">');
                     $('#form-check').append(' <input class="form-check-input" type="checkbox" value="' + item.name + '" id="permission" name="permission[]">');
@@ -135,6 +142,9 @@ function roles() {
                     CKEDITOR.instances['room_detail_edit'].setData(response.data.description);
                     $("select#permission_edit_id").val(response.data.permission_id);
                     $("#roomEditModal").modal("toggle");
+                },
+                error: function() {
+
                 }
             });
         });

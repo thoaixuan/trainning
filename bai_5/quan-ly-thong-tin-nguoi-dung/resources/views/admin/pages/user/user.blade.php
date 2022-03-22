@@ -9,7 +9,12 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">User</h1>
-          </div><!-- /.col -->
+          </div>
+          <div class="col-sm-6"> 
+            <div class="alert alert-danger" id="error" role="alert">
+              Bạn không đủ quyền để truy cập chức năng này
+          </div>
+        </div>
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -63,7 +68,7 @@
           delete:"{{route('admin.delete.user')}}",  
           get_room:"{{route('admin.get_room.user')}}",  
           data_role:"{{route('admin.data_role.user')}}",  
-          get_insert:"{{route('admin.get_insert.user')}}",
+          get_insert:"{{route('admin.get_insert.role')}}",
         }
       }
       users.init();
