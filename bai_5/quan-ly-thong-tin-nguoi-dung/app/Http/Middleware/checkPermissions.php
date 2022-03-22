@@ -23,7 +23,9 @@ class checkPermissions
     {
         // Tối ưu hóa dữ liệu bằng mảng
         $checkArray=Role::where('id','=',(int)Auth::user()->permission_id)->pluck('roles_module')->first();
+
         $array=collect(explode(",",$checkArray));
+        
         if($array->contains($permission)){
             return $next($request);
         }
