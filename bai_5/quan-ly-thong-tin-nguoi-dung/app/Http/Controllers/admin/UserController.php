@@ -34,7 +34,6 @@ class UserController extends Controller
         $columns[]='date_start';
         $columns[]='phone_number';
         $columns[]='room_id';
-        $columns[]='position';
         $columns[]='action';
         $columns[]='cover';
         $columns[]='cover_after';
@@ -224,14 +223,54 @@ class UserController extends Controller
         $user=User::where('id','=',$request->id)->first();
         if($user){
             return response()->json([
-                'message'=>"Data Inserted Successfully",
+                'status'=>1,
+                'message'=>"Lấy dữ liệu người dùng thành công",
                 'code'=>200,
                 'data'=>$user
             ]);
         }else{
             return response()->json([
-                'message'=>"Internal Server Error",
+                'status'=>0,
+                'message'=>"Đã xảy ra lỗi",
                 'code'=>500,
+            ]);
+        }
+    }
+    public function getDetail(Request $request){
+        $userId=Auth::user()->id;
+        $user=User::where('id','=',$userId)->first();
+        if($user){
+            return response()->json([
+                'status'=>1,
+                'message'=>"Lấy dữ liệu người dùng thành công",
+                'code'=>200,
+                'data'=>$user
+            ]);
+        }else{
+            return response()->json([
+                'status'=>0,
+                'message'=>"Đã xảy ra lỗi",
+                'code'=>500,
+                'data'=>$user
+            ]);
+        }
+    }
+    public function getInsert(Request $request){
+        $userId=Auth::user()->id;
+        $user=User::where('id','=',$userId)->first();
+        if($user){
+            return response()->json([
+                'status'=>1,
+                'message'=>"Lấy dữ liệu người dùng thành công",
+                'code'=>200,
+                'data'=>$user
+            ]);
+        }else{
+            return response()->json([
+                'status'=>0,
+                'message'=>"Đã xảy ra lỗi",
+                'code'=>500,
+                'data'=>$user
             ]);
         }
     }
@@ -323,7 +362,7 @@ class UserController extends Controller
                 if($user){
                     return response()->json([
                         'status'=>1,
-                        'message'=>"Data Inserted Successfully",
+                        'message'=>"Cập nhật dữ liệu người dùng thành công",
                         'code'=>200,
                         'data'=>$user
                     ]);
@@ -331,7 +370,7 @@ class UserController extends Controller
                 else{
                     return response()->json([
                         'status'=>0,
-                        'message'=>"Internal Server Error",
+                        'message'=>"Đã xảy ra lỗi ",
                         'code'=>500
                     ]);
                 }
@@ -343,13 +382,15 @@ class UserController extends Controller
         $user->delete();
         if($user){
             return response()->json([
-                'message'=>"Data Delete Successfully",
+                'status'=>1,
+                'message'=>"Xóa dữ liệu người dùng thành công",
                 'code'=>200,
                 'data'=>$user
             ]);
         }else{
             return response()->json([
-                'message'=>"Internal Server Error",
+                'status'=>0,
+                'message'=>"Đã xảy ra lỗi",
                 'code'=>500,
             ]);
         }

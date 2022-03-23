@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Permission;
+use Illuminate\Support\Facades\Response;
 use DB;
 use App\Models\Role;
 
@@ -23,16 +24,25 @@ class checkPermissions
     {
         // Tối ưu hóa dữ liệu bằng mảng
         $checkArray=Role::where('id','=',(int)Auth::user()->permission_id)->pluck('roles_module')->first();
-
-        $array=collect(explode(",",$checkArray));
-        
-        if($array->contains($permission)){
-            return $next($request);
+        if($checkArray){
+            $array=collect(explode(",",$checkArray));
         }
-        $domain= $_SERVER['REQUEST_URI'];
-        if($permission=='user-list' || $permission=='room-list' || $permission=='role-list'){
-          return redirect('/admin-info')->with('mess', 'Bạn không dùng được chức năng '.$permission.'!');
+        if($request->ajax()){
+            if($array->contains($permission)){
+                return $next($request);
+            }else{
+                return response()->json([
+                    'status'=>0,
+                    'message'=>"Bạn không có quyền sử dụng chức năng này",
+                    'code'=>401,
+                ]);
+            }
         }
-        return redirect($domain)->with('error', 'Bạn không dùng được chức năng '.$permission.'!');
+        else{
+            if($array->contains($permission)){
+                return $next($request);
+            }
+            return response(view('admin.error.401'));
+        }
     }
 }

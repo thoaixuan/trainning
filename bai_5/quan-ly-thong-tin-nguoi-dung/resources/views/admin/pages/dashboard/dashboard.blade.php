@@ -145,9 +145,9 @@
     </section>
     <!-- /.content -->
   </div>
-       @if( session('mess'))
+       {{-- @if( session('mess'))
         echo '<script type="text/javascript"> alert('{{session('mess')}}')</script>';
-        @endif
+        @endif --}}
 
 </div>
 

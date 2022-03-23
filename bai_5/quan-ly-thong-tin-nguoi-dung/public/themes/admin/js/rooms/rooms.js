@@ -88,7 +88,6 @@ function rooms() {
     }
     this.action = function(table) {
         var me = this;
-        document.getElementById('error').style.display = "none";
 
         $("#btn-search").on('click', function(e) {
             table.ajax.reload();
@@ -104,14 +103,17 @@ function rooms() {
             $.ajax({
                 url: datas.routes.get_insert,
                 type: "get",
-                success: function() {
-                    $("#roomForm")[0].reset();
-                    $("#roomModal").modal("toggle");
-                },
-                error: function() {
-                    document.getElementById('error').style.display = "block";
+                success: function(response) {
+                    if (response.status) {
+                        $("#roomForm")[0].reset();
+                        $("#roomModal").modal("toggle");
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
 
-                }
+                },
+                error: function() {}
             })
         })
 
@@ -159,16 +161,19 @@ function rooms() {
                     "id": $(this).data("id"),
                 },
                 success: function(response) {
+                    if (response.status) {
+                        $('input[name="id"]').val(response.data.id);
+                        $('input[name="name"]').val(response.data.name);
+                        CKEDITOR.instances['room_detail_edit'].setData(response.data.description);
+                        $("select#permission_edit_id").val(response.data.permission_id);
+                        $("#roomEditModal").modal("toggle");
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
 
-                    $('input[name="id"]').val(response.data.id);
-                    $('input[name="name"]').val(response.data.name);
-                    CKEDITOR.instances['room_detail_edit'].setData(response.data.description);
-                    $("select#permission_edit_id").val(response.data.permission_id);
-                    $("#roomEditModal").modal("toggle");
                 },
-                error: function() {
-                    document.getElementById('error').style.display = "block";
-                }
+                error: function() {}
             });
         });
 
@@ -186,11 +191,14 @@ function rooms() {
                         _token: $("input[name=_token]").val()
                     },
                     success: function(response) {
-                        table.ajax.reload();
+                        if (response.status) {
+                            table.ajax.reload();
+                            toastr.success(response.message);
+                        } else {
+                            toastr.error(response.message);
+                        }
                     },
-                    error: function() {
-                        document.getElementById('error').style.display = "block";
-                    }
+                    error: function() {}
 
                 });
             }

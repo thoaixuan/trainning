@@ -41,7 +41,6 @@
 <script type="text/javascript" src="<?php echo e(asset('html2canvas/html2canvas.min.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('html2canvas/html2canvas.js')); ?>"></script>
 <script type="text/javascript" src="<?php echo e(asset('toastr/toastr.min.js')); ?>"></script>
-<script type="text/javascript" src="<?php echo e(asset('toastr/toastr.js.map')); ?>"></script>
 
 <script type="text/javascript" src="<?php echo e(asset('select2-4.0.13/dist/js/select2.full.js')); ?>"> </script>
 <script type="text/javascript" src="<?php echo e(asset('themes/admin/plugins/sweetalert2/sweetalert2.min.js')); ?>"></script><?php /**PATH C:\laragon\www\trainning\bai_5\quan-ly-thong-tin-nguoi-dung\resources\views/admin/partials/script.blade.php ENDPATH**/ ?>

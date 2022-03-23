@@ -164,7 +164,6 @@ function users() {
     }
     this.action = function(table) {
         var me = this;
-        document.getElementById('error').style.display = "none";
         // search user
         $("#btn_search").on('click', function(e) {
             table.ajax.reload();
@@ -179,13 +178,16 @@ function users() {
                 $.ajax({
                     url: datas.routes.get_insert,
                     type: "get",
-                    success: function() {
-                        $("#userForm")[0].reset();
-                        $("#userModal").modal("toggle");
+                    success: function(response) {
+                        if (response.status) {
+                            $("#userForm")[0].reset();
+                            $("#userModal").modal("toggle");
+                            toastr.success(response.message);
+                        } else {
+                            toastr.error(response.message);
+                        }
                     },
-                    error: function() {
-                        document.getElementById('error').style.display = "block";
-                    }
+                    error: function() {}
                 });
 
             })
@@ -200,34 +202,35 @@ function users() {
                     "id": $(this).data("id"),
                 },
                 success: function(response) {
-                    console.log(response);
-                    $('input[name="id"]').val(response.data.id);
-                    $('input[name="full_name"]').val(response.data.full_name);
-                    $("select#gender_edit").val(response.data.gender);
-                    $('input[name="date"]').val(response.data.date);
-                    $('input[name="date_start"]').val(response.data.date_start);
-                    $('input[name="phone_number"]').val(response.data.phone_number);
-                    $('input[name="email"]').val(response.data.email);
-                    $("select#room_id_edit").val(response.data.room_id);
-                    $("#position_edit").val(response.data.permission_id);
-                    $("select#action_edit").val(response.data.action);
+                    if (response.status) {
+                        $('input[name="id"]').val(response.data.id);
+                        $('input[name="full_name"]').val(response.data.full_name);
+                        $("select#gender_edit").val(response.data.gender);
+                        $('input[name="date"]').val(response.data.date);
+                        $('input[name="date_start"]').val(response.data.date_start);
+                        $('input[name="phone_number"]').val(response.data.phone_number);
+                        $('input[name="email"]').val(response.data.email);
+                        $("select#room_id_edit").val(response.data.room_id);
+                        $("#position_edit").val(response.data.permission_id);
+                        $("select#action_edit").val(response.data.action);
+                        CKEDITOR.instances['user_description_edit'].setData(response.data.description);
+                        $("#userEditModal").modal("toggle");
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
 
-                    // $('input[name="action"]').val(response.data.action);
-                    CKEDITOR.instances['user_description_edit'].setData(response.data.description);
+                    }
 
-                    // $('input[name="cover"]').val(response.data.cover);
-                    // $('input[name="cover_after"]').val(response.data.cover_after);
-                    $("#userEditModal").modal("toggle");
                 },
                 error: function(response) {
-                    document.getElementById('error').style.display = "block";
+
                 }
             });
         });
         // find by id user detail
         $(document).on('click', '#detail', function() {
             $.ajax({
-                url: datas.routes.updates,
+                url: datas.routes.get_detail,
                 type: "get",
                 dataType: 'json',
                 data: {
@@ -257,11 +260,14 @@ function users() {
                         _token: $("input[name=_token]").val()
                     },
                     success: function(response) {
-                        table.ajax.reload();
+                        if (response.status) {
+                            table.ajax.reload();
+                            toastr.success(response.message);
+                        } else {
+                            toastr.error(response.message);
+                        }
                     },
-                    error: function() {
-                        document.getElementById('error').style.display = "block";
-                    }
+                    error: function() {}
                 });
             }
         });

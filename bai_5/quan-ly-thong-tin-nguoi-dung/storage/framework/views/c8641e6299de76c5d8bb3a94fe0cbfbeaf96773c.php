@@ -10,6 +10,7 @@
           <div class="col-sm-6">
             <h1 class="m-0">Quyền</h1>
           </div><!-- /.col -->
+          
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -57,7 +58,7 @@
           updates_data:"<?php echo e(route('admin.update_data.role')); ?>",
           delete:"<?php echo e(route('admin.delete.role')); ?>", 
           get_permision:"<?php echo e(route('admin.permission.role')); ?>",
-          get_insert:"<?php echo e(route('admin.get_data.role')); ?>",
+          get_insert:"<?php echo e(route('admin.get_insert.role')); ?>",
         }
       }
       roles.init();

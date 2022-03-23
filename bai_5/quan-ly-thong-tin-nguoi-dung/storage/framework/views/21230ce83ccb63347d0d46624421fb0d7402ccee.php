@@ -10,11 +10,7 @@
           <div class="col-sm-6">
             <h1 class="m-0">User</h1>
           </div>
-          <div class="col-sm-6"> 
-            <div class="alert alert-danger" id="error" role="alert">
-              Bạn không đủ quyền để truy cập chức năng này
-          </div>
-        </div>
+         
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
@@ -68,7 +64,9 @@
           delete:"<?php echo e(route('admin.delete.user')); ?>",  
           get_room:"<?php echo e(route('admin.get_room.user')); ?>",  
           data_role:"<?php echo e(route('admin.data_role.user')); ?>",  
-          get_insert:"<?php echo e(route('admin.get_insert.role')); ?>",
+          get_detail:"<?php echo e(route('admin.get_detail.user')); ?>",
+          get_insert:"<?php echo e(route('admin.get_insert.user')); ?>",
+ 
         }
       }
       users.init();

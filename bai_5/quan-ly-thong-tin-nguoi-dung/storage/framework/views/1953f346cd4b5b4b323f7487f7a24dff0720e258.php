@@ -145,9 +145,7 @@
     </section>
     <!-- /.content -->
   </div>
-       <?php if( session('mess')): ?>
-        echo '<script type="text/javascript"> alert('<?php echo e(session('mess')); ?>')</script>';
-        <?php endif; ?>
+       
 
 </div>
 

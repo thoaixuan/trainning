@@ -86,7 +86,6 @@ function roles() {
     }
     this.action = function(table) {
         var me = this;
-        document.getElementById('error').style.display = "none";
         $("#btn-search").on('click', function(e) {
             table.ajax.reload();
         });
@@ -100,13 +99,17 @@ function roles() {
             $.ajax({
                 type: "get",
                 url: datas.routes.get_insert,
-                success: function() {
-                    $("#roleForm")[0].reset();
-                    $("#roleModal").modal("toggle");
+                success: function(response) {
+                    if (response.status) {
+                        $("#roleForm")[0].reset();
+                        $("#roleModal").modal("toggle");
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+
                 },
-                error: function() {
-                    document.getElementById('error').style.display = "block";
-                }
+                error: function() {}
             });
 
         })
@@ -120,13 +123,13 @@ function roles() {
                     $('#form-check').append(' <input class="form-check-input" type="checkbox" value="' + item.name + '" id="permission" name="permission[]">');
                     $('#form-check').append('<label class="form-check-label" for="flexCheckDefault">' + item.name + '</label>');
                     $('#form-check').append('</div>');
+
                 });
             }
         });
         // find by id service
         $(document).on('click', '#update', function() {
-            $("#roomEditForm")[0].reset();
-            console.log("update");
+            $("#roleFormEdit")[0].reset();
             $.ajax({
                 url: datas.routes.updates,
                 type: "get",
@@ -136,12 +139,17 @@ function roles() {
                     "id": $(this).data("id"),
                 },
                 success: function(response) {
-                    console.log(response);
-                    $('input[name="id"]').val(response.data.id);
-                    $('input[name="name"]').val(response.data.name);
-                    CKEDITOR.instances['room_detail_edit'].setData(response.data.description);
-                    $("select#permission_edit_id").val(response.data.permission_id);
-                    $("#roomEditModal").modal("toggle");
+                    if (response.status) {
+                        $('input[name="id"]').val(response.data.id);
+                        $('input[name="name"]').val(response.data.name);
+                        CKEDITOR.instances['role_detail_edit'].setData(response.data.description);
+                        $("select#permission_edit_id").val(response.data.permission_id);
+                        $("#roleModalEdit").modal("toggle");
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+
                 },
                 error: function() {
 
@@ -163,7 +171,13 @@ function roles() {
                         _token: $("input[name=_token]").val()
                     },
                     success: function(response) {
-                        table.ajax.reload();
+                        if (response.status) {
+                            table.ajax.reload();
+                            toastr.success(response.message);
+                        } else {
+                            toastr.error(response.message);
+
+                        }
                     }
                 });
             }

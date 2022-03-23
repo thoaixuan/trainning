@@ -43,13 +43,7 @@ class RoleController extends Controller
         $roles->description=$request->description;
         $roles->roles_module=implode (",",$request->permission_id);   
         $roles->save();
-        // $permission_id=$request->permission_id;
-        // foreach($permission_id as $index){
-        //     DB::table('permission_role')->insert([
-        //         'role_id'=>$roles->id,
-        //         'permission_id'=>(int)$index,
-        //     ]);
-        // }
+     
         if($roles){
             return response()->json([
                 'status'=>1,
@@ -108,28 +102,41 @@ class RoleController extends Controller
         $roles=Role::where('id','=',$request->id)->first();
         if($roles){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Inserted Successfully",
                 'code'=>200,
                 'data'=>$roles
             ]);
         }else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500,
             ]);
         }
     }
+
+    public function getInsert(){
+        return response()->json([
+            'status'=>1,
+            'message'=>"Data Inserted Successfully",
+            'code'=>200,
+        ]);
+    }
+
     public function getDate(Request $request)
     {
         $roles=Role::where('id','=',$request->id)->first();
         if($roles){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Inserted Successfully",
                 'code'=>200,
                 'data'=>$roles
             ]);
         }else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500,
             ]);
@@ -140,12 +147,14 @@ class RoleController extends Controller
         $role->delete();
         if($role){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Delete Successfully",
                 'code'=>200,
                 'data'=>$role
             ]);
         }else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500,
             ]);

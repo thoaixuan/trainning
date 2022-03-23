@@ -96,22 +96,32 @@ class RoomController extends Controller
     public function getPermision(){
         $permission=Permission::all();
         return response()->json([
+            'status'=>1,
+
             'message'=>"Lấy dữ liệu dịch vụ thành công",
             'code'=>200,
             'data'=>$permission
         ]);
     }
-    
+    public function getInsert(){
+        return response()->json([
+            'status'=>1,
+            'message'=>"Mở khóa thành công",
+            'code'=>200,
+        ]);
+    }
     public function getUpdate(Request $request){
         $rooms=Room::where('id','=',$request->id)->first();
         if($rooms){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Inserted Successfully",
                 'code'=>200,
                 'data'=>$rooms
             ]);
         }else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500,
             ]);
@@ -123,12 +133,14 @@ class RoomController extends Controller
         $room->update($request->all());
         if($room){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Update Successfully",
                 'code'=>200,
                 'data'=>$room
             ]);
         }else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500,
             ]);
@@ -140,12 +152,14 @@ class RoomController extends Controller
         $room->delete();
         if($room){
             return response()->json([
+                'status'=>1,
                 'message'=>"Data Delete Successfully",
                 'code'=>200,
                 'data'=>$room
             ]);
         }else{
             return response()->json([
+                'status'=>0,
                 'message'=>"Internal Server Error",
                 'code'=>500,
             ]);
