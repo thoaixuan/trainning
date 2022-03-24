@@ -15,7 +15,7 @@ class CreateTableConstrainsUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId("room_id")->constraint("rooms")->onDelete("cascade")->nullable();
-            $table->foreignId("permission_id")->constraint("permissions")->onDelete("cascade")->nullable();
+            $table->foreignId("permission_id")->constraint("roles")->onDelete("cascade")->nullable();
         });
     }
 

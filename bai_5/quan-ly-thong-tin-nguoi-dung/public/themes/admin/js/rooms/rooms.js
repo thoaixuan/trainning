@@ -124,29 +124,8 @@ function rooms() {
             $('#permission_edit_id').select2({
                 dropdownParent: $('#roomEditModal')
             });
-            $.ajax({
-                type: "get",
-                url: datas.routes.get_permision,
-                dataType: 'JSON',
-                success: function(response) {
-                    console.log(response);
-                    $.each(response.data, function(key, item) {
-                        $('#permission_id').append('<option value=' + item.id + '>' + item.name + '</option');
-                    });
-                }
-            });
-            $.ajax({
-                type: "get",
-                url: datas.routes.get_permision,
-                dataType: 'JSON',
-                success: function(response) {
-                    console.log(response);
-                    $.each(response.data, function(key, item) {
-                        $('#permission_edit_id').append('<option value=' + item.id + '>' + item.name + '</option');
-                    });
-                }
-            });
-            // $('#permission_id').select2();
+
+
         });
 
         // find by id service
@@ -165,7 +144,6 @@ function rooms() {
                         $('input[name="id"]').val(response.data.id);
                         $('input[name="name"]').val(response.data.name);
                         CKEDITOR.instances['room_detail_edit'].setData(response.data.description);
-                        $("select#permission_edit_id").val(response.data.permission_id);
                         $("#roomEditModal").modal("toggle");
                         toastr.success(response.message);
                     } else {
@@ -255,7 +233,6 @@ function rooms() {
                     $(document).ready(function() {
                         $('#roomEditForm').ready(function(e) {
                             var id = $('#id').val();
-                            var permission_id = $("select#permission_edit_id").val();
                             var name = $('#name').val();
                             var description = CKEDITOR.instances['room_detail_edit'].getData();
                             var _token = $("input[name=_token]").val();
@@ -266,7 +243,6 @@ function rooms() {
                                 data: {
                                     id: id,
                                     name: name,
-                                    permission_id: permission_id,
                                     description: description,
                                     _token: _token,
 

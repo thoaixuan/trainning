@@ -293,7 +293,7 @@ class UserController extends Controller
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
                 $user->permission_id=$request->position;
-                $user->status=$request->status;
+                $user->status=0;
                 $user->description=$request->description;
                 if($request->description==null){
                 $user->description="Chưa có dữ liệu";
@@ -335,7 +335,7 @@ class UserController extends Controller
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
                 $user->permission_id=$request->position;
-                $user->status=$request->status;
+                $user->status=0;
                 $user->description=$request->description;
                 if($request->description==null){
                 $user->description="Chưa có dữ liệu";

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Permission;
+use App\Models\User;
 use Validator;
 
 class RoomController extends Controller
@@ -19,7 +20,6 @@ class RoomController extends Controller
         $columns[]='id';
         $columns[]='name';
         $columns[]='description';
-        $columns[]='permissions.name';
 
         $limit=$request->input('length');
         $start=$request->input('start');
@@ -31,11 +31,11 @@ class RoomController extends Controller
         $totalFiltered=$totalData;
 
         if(empty($search)){
-            $rooms=Room::with('permissions')->offset($start)
+            $rooms=Room::offset($start)
             ->limit($limit)
             ->orderByDesc($order,$dir)->get();  
         }else{
-            $rooms=Room::with('permissions')->Where(function($query)use($search){
+            $rooms=Room::Where(function($query)use($search){
                 $query->where('name','like',"%{$search}%")
                         ->orWhere('description','like',"%{$search}%")
                         ->orWhere('id','like',"%{$search}%");
@@ -55,7 +55,7 @@ class RoomController extends Controller
         echo json_encode($json_data);
     }
     public function getDate(){
-        $rooms=Room::with('permissions')->get();  
+        $rooms=Room::get();  
 
         return $rooms;
     }
@@ -93,16 +93,7 @@ class RoomController extends Controller
             ]);
         }
     }
-    public function getPermision(){
-        $permission=Permission::all();
-        return response()->json([
-            'status'=>1,
-
-            'message'=>"Lấy dữ liệu dịch vụ thành công",
-            'code'=>200,
-            'data'=>$permission
-        ]);
-    }
+  
     public function getInsert(){
         return response()->json([
             'status'=>1,
@@ -149,20 +140,31 @@ class RoomController extends Controller
     
     public function delete(Request $request){
         $room=Room::find($request->id);
-        $room->delete();
-        if($room){
+        $user=User::where('room_id','=',$room->id);
+        if($user->count()>0){
             return response()->json([
-                'status'=>1,
-                'message'=>"Data Delete Successfully",
+                'status'=>0,
+                'message'=>"Bạn không thể xóa",
                 'code'=>200,
                 'data'=>$room
             ]);
         }else{
-            return response()->json([
-                'status'=>0,
-                'message'=>"Internal Server Error",
-                'code'=>500,
-            ]);
+            $room->delete();
+            if($room){
+                return response()->json([
+                    'status'=>1,
+                    'message'=>"Data Delete Successfully",
+                    'code'=>200,
+                    'data'=>$room
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>0,
+                    'message'=>"Internal Server Error",
+                    'code'=>500,
+                ]);
+            }
         }
+       
     }
 }

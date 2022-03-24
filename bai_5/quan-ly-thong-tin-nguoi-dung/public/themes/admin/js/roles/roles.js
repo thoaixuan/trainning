@@ -129,7 +129,8 @@ function roles() {
         });
         // find by id service
         $(document).on('click', '#update', function() {
-            // $("#roleFormEdit")[0].reset();
+
+            // $("#roleEditForm")[0].reset();
             $.ajax({
                 url: datas.routes.updates,
                 type: "get",
@@ -140,6 +141,7 @@ function roles() {
                 },
                 success: function(response) {
                     if (response.status) {
+                        $("#roleEditForm")[0].reset();
                         $('input[name="id"]').val(response.data.id);
                         $('input[name="name"]').val(response.data.name);
                         CKEDITOR.instances['role_detail_edit'].setData(response.data.description);
@@ -150,6 +152,8 @@ function roles() {
                         });
                         $("#roleModalEdit").modal("toggle");
                         toastr.success(response.message);
+                        $('.permission_edit').multiselect('refresh');
+
                     } else {
                         toastr.error(response.message);
                     }

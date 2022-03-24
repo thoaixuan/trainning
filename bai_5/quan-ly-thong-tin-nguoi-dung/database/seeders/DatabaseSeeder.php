@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             SedderUser::class,
-            SedderPermission::class,
             SeederRoom::class,
             SeederRole::class,
         ]);

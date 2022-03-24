@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Validator;
 use DB;
 class RoleController extends Controller
@@ -144,21 +145,31 @@ class RoleController extends Controller
     }
     public function delete(Request $request){
         $role=Role::find($request->id);
-        $role->delete();
-        if($role){
-            return response()->json([
-                'status'=>1,
-                'message'=>"Data Delete Successfully",
-                'code'=>200,
-                'data'=>$role
-            ]);
-        }else{
+        $user=User::where('permission_id','=',$role->id);
+        if($user->count()>0){
             return response()->json([
                 'status'=>0,
-                'message'=>"Internal Server Error",
+                'message'=>"Bạn không thể xóa",
                 'code'=>500,
             ]);
+        }else{
+            $role->delete();
+            if($role){
+                return response()->json([
+                    'status'=>1,
+                    'message'=>"Data Delete Successfully",
+                    'code'=>200,
+                    'data'=>$role
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>0,
+                    'message'=>"Internal Server Error",
+                    'code'=>500,
+                ]);
+            }
         }
+      
     }
     public function postUpdate(Request $request){
         $message=[
