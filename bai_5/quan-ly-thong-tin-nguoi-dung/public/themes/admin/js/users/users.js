@@ -102,8 +102,8 @@ function users() {
 
                 {
                     title: "Trạng thái",
-                    data: "action",
-                    name: "action",
+                    data: "status",
+                    name: "status",
                     className: "",
                     render: function(data, type, row, meta) {
                         switch (data) {
@@ -419,7 +419,7 @@ function users() {
                         required: true,
 
                     },
-                    "action": {
+                    "status": {
                         required: true,
 
                     },
@@ -468,7 +468,7 @@ function users() {
                     position: {
                         required: "Bắt buộc nhập dữ liệu",
                     },
-                    action: {
+                    status: {
 
                         required: "Bắt buộc nhập dữ liệu",
                     },
@@ -513,7 +513,7 @@ function users() {
                             var email = $("input[name=email]").val();
                             var room_id = $("select#room_id").val();
                             var position = $("#position").val();
-                            var action = $("select#action").val();
+                            var status = $("select#action").val();
                             var cover_after = $('#input-file-after')[0].files[0];
                             var description = CKEDITOR.instances['user_description'].getData();
                             var _token = $("input[name=_token]").val();
@@ -527,7 +527,7 @@ function users() {
                             formData.append('email', email);
                             formData.append('room_id', room_id);
                             formData.append('position', position);
-                            formData.append('action', action);
+                            formData.append('status', status);
                             formData.append('gender', gender);
                             formData.append('cover_after', cover_after);
                             formData.append('cover', cover);
@@ -597,10 +597,7 @@ function users() {
                         maxlength: 10,
 
                     },
-                    "note": {
-                        required: true,
 
-                    },
                     "keyword": {
                         required: true,
                         minlength: 2,
@@ -674,8 +671,7 @@ function users() {
                             var phone_number = $("#phone_number").val();
                             var email = $("#email").val();
                             var room_id = $("select#room_id_edit").val();
-                            var position = $("select#position_edit").val();
-                            var action = $("select#action_edit").val();
+                            var status = $("select#action_edit").val();
                             var cover = $("#input-file-edit")[0].files[0];
                             var cover_after = $('#input-file-after-edit')[0].files[0];
                             var description = CKEDITOR.instances['user_description_edit'].getData();
@@ -689,8 +685,7 @@ function users() {
                             formDataEdit.append('phone_number', phone_number);
                             formDataEdit.append('email', email);
                             formDataEdit.append('room_id', room_id);
-                            formDataEdit.append('position', position);
-                            formDataEdit.append('action', action);
+                            formDataEdit.append('status', status);
                             formDataEdit.append('gender', gender);
                             formDataEdit.append('cover_after', cover_after);
                             formDataEdit.append('cover', cover);

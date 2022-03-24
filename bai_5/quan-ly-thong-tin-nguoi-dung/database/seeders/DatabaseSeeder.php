@@ -14,15 +14,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            SedderPage::class,
-            SedderServices::class,
             SedderUser::class,
-            SedderProjects::class,
             SedderPermission::class,
             SeederRoom::class,
             SeederRole::class,
-            SeederPermissionRole::class,
-            SeederRoleUser::class,
         ]);
     }
 }

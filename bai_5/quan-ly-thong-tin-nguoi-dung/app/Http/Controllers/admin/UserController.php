@@ -107,7 +107,6 @@ class UserController extends Controller
             'max:20'=>":attribute dữ liệu tối đa 15 ký tự",
             'email.unique'=>":attribute đã tồn tại trong dữ liệu",
             'email'=>"Bạn phải nhập đúng định dạng email",
-            // 'name.regex'=>"Bạn phải nhập đúng định dạng của chữ",
             'phone.min'=>"Bạn phải nhập đủ 10 số",
             'phone.max'=>"Bạn phải nhập đủ 10 số",
             'phone.unique'=>"Số điện thoại đã tồn tại"
@@ -116,7 +115,6 @@ class UserController extends Controller
             'full_name'=>['required','min:3','max:40'],
             'email'=>['required','min:8','max:40','unique:users','email'],
             'phone_number'=>['required','min:10','max:10','unique:users'],
-            'position'=>['required']
         ],$message);
         if($validate->fails()){
             return response()->json([
@@ -136,21 +134,14 @@ class UserController extends Controller
             $user->phone_number=$request->phone_number;
             $user->email=$request->email;
             $user->room_id=$request->room_id;
-            $user->action=$request->action;
+            $user->status=$request->status;
             $user->description=$request->description;
             $user->permission_id=$request->position;
             if($request->description==null){
             $user->description="Chưa có dữ liệu";
             }
             $user->save();
-            //Thêm dữ liệu trong role_user
-            $roles=explode(',',$request->position);
-            foreach($roles as $index){
-                DB::table('role_user')->insert([
-                    'user_id'=>$user->id,
-                    'role_id'=>$index,
-                ]);
-            }
+            
             if($user){
                 return response()->json([
                     'status'=>1,
@@ -186,7 +177,7 @@ class UserController extends Controller
             $user->email=$request->email;
             $user->room_id=$request->room_id;
             $user->permission_id=$request->position;
-            $user->action=$request->action;
+            $user->status=$request->status;
             $user->description=$request->description;
             if($request->description==null){
             $user->description="Chưa có dữ liệu";
@@ -194,14 +185,7 @@ class UserController extends Controller
             $user->cover=$imageName;
             $user->cover_after=$imageNameAfter;
             $user->save();
-             //Thêm dữ liệu trong role_user
-             $roles=explode(',',$request->position);
-             foreach($roles as $index){
-                 DB::table('role_user')->insert([
-                     'user_id'=>$user->id,
-                     'role_id'=>$index,
-                 ]);
-             }
+          
             if($user){
                 return response()->json([
                     'status'=>1,
@@ -309,7 +293,7 @@ class UserController extends Controller
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
                 $user->permission_id=$request->position;
-                $user->action=$request->action;
+                $user->status=$request->status;
                 $user->description=$request->description;
                 if($request->description==null){
                 $user->description="Chưa có dữ liệu";
@@ -351,7 +335,7 @@ class UserController extends Controller
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
                 $user->permission_id=$request->position;
-                $user->action=$request->action;
+                $user->status=$request->status;
                 $user->description=$request->description;
                 if($request->description==null){
                 $user->description="Chưa có dữ liệu";

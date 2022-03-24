@@ -19,12 +19,7 @@ class AddColumnRoles extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
         });
-        Schema::create('role_user', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id');
-            $table->integer('role_id');
-            $table->timestamps();
-        });
+      
     }
 
     /**

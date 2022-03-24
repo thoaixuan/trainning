@@ -19,12 +19,6 @@ class CreateTablePermissions extends Migration
             $table->string('description');
             $table->timestamps();
         });
-        Schema::create('permission_role', function (Blueprint $table) {
-            $table->id();
-            $table->string('role_id');
-            $table->string('permission_id');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -35,6 +29,5 @@ class CreateTablePermissions extends Migration
     public function down()
     {
         Schema::dropIfExists('permissions');
-        Schema::dropIfExists('permission_role');
     }
 }
