@@ -152,7 +152,7 @@ function roles() {
                         });
                         $("#roleModalEdit").modal("toggle");
                         toastr.success(response.message);
-                        $('.permission_edit').multiselect('refresh');
+                        $("#permission_edit").multiselect("refresh");
 
                     } else {
                         toastr.error(response.message);
