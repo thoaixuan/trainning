@@ -129,7 +129,7 @@ function roles() {
         });
         // find by id service
         $(document).on('click', '#update', function() {
-            $("#roleFormEdit")[0].reset();
+            // $("#roleFormEdit")[0].reset();
             $.ajax({
                 url: datas.routes.updates,
                 type: "get",
@@ -143,7 +143,11 @@ function roles() {
                         $('input[name="id"]').val(response.data.id);
                         $('input[name="name"]').val(response.data.name);
                         CKEDITOR.instances['role_detail_edit'].setData(response.data.description);
-                        $("select#permission_edit_id").val(response.data.permission_id);
+                        var data = response.data.roles_module;
+                        $.each(data.split(","), function(i, e) {
+                            $("#permission_edit option[value='" + e + "']").prop("selected", true);
+                            console.log(e);
+                        });
                         $("#roleModalEdit").modal("toggle");
                         toastr.success(response.message);
                     } else {
@@ -182,6 +186,32 @@ function roles() {
                 });
             }
         });
+        $('#permission').multiselect({
+            nonSelectedText: 'Chọn Quyền',
+            filterPlaceholder: "Tìm kiếm",
+            allSelectedText: "Tất cả",
+            selectAllText: 'Chọn tất cả',
+            selectAllValue: 'multiselect-all',
+            enableClickableOptGroups: true,
+            enableCollapsibleOptGroups: true,
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            buttonWidth: '100%',
+            maxHeight: 350,
+        });
+        $('#permission_edit').multiselect({
+            nonSelectedText: 'Chọn Quyền',
+            filterPlaceholder: "Tìm kiếm",
+            allSelectedText: "Tất cả",
+            selectAllText: 'Chọn tất cả',
+            selectAllValue: 'multiselect-all',
+            enableClickableOptGroups: true,
+            enableCollapsibleOptGroups: true,
+            enableFiltering: true,
+            includeSelectAllOption: true,
+            buttonWidth: '100%',
+            maxHeight: 350,
+        });
 
 
     }
@@ -189,7 +219,7 @@ function roles() {
 
     this.validator = function(table) {
         console.log("validate");
-        $("#roomEditForm").validate({
+        $("#roleEditForm").validate({
                 rules: {
                     "name": {
                         required: true,
@@ -232,29 +262,32 @@ function roles() {
                 submitHandler: function() {
                     // update student
                     $(document).ready(function() {
-                        $('#roomEditForm').ready(function(e) {
+                        $('#roleEditForm').ready(function(e) {
                             var id = $('#id').val();
-                            var permission_id = $("select#permission_edit_id").val();
-                            var name = $('#name').val();
-                            var description = CKEDITOR.instances['room_detail_edit'].getData();
+                            var permission_id = document.querySelectorAll("input[type='checkbox']:checked");
+                            var permission = [];
+                            for (var i = 0; i < permission_id.length; i++) {
+                                permission.push($(permission_id[i]).val());
+                            }
+                            var name = $('#name_edit').val();
+                            var description = CKEDITOR.instances['role_detail_edit'].getData();
                             var _token = $("input[name=_token]").val();
 
                             $.ajax({
                                 url: datas.routes.updates_data,
-                                type: 'put',
+                                type: 'post',
                                 data: {
                                     id: id,
                                     name: name,
-                                    permission_id: permission_id,
+                                    permission_id: permission,
                                     description: description,
                                     _token: _token,
 
                                 },
                                 success: function(response) {
                                     console.log(response);
-                                    $("#roomEditForm")[0].reset();
-                                    $('#roomEditModal').modal('hide');
-                                    $('.modal-backdrop').remove();
+                                    $('#roleModalEdit').modal('hide');
+                                    // $('.modal-backdrop').remove();
                                     table.ajax.reload();
                                 }
                             });

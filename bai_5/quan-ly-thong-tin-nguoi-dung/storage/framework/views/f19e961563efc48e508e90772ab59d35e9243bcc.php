@@ -24,5 +24,5 @@
   <!-- <link rel="stylesheet" href="<?php echo e(asset('ckeditor/samples/css/samples.css')); ?>"> -->
   <link rel="stylesheet" href="<?php echo e(asset('select2-4.0.13/dist/css/select2.min.css')); ?>"> 
   <link rel="stylesheet" href="<?php echo e(asset('toastr/toastr.min.css')); ?>"> 
-
+  <link rel="stylesheet" href="<?php echo e(asset('bootstrap-multiselect/bootstrap-multiselect.css')); ?>">
 <?php /**PATH C:\laragon\www\trainning\bai_5\quan-ly-thong-tin-nguoi-dung\resources\views/admin/partials/stylesheet.blade.php ENDPATH**/ ?>

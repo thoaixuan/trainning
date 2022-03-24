@@ -24,4 +24,4 @@
   <!-- <link rel="stylesheet" href="{{asset('ckeditor/samples/css/samples.css')}}"> -->
   <link rel="stylesheet" href="{{asset('select2-4.0.13/dist/css/select2.min.css')}}"> 
   <link rel="stylesheet" href="{{asset('toastr/toastr.min.css')}}"> 
-
+  <link rel="stylesheet" href="{{asset('bootstrap-multiselect/bootstrap-multiselect.css')}}">

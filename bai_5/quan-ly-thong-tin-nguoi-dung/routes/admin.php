@@ -60,7 +60,7 @@ Route::prefix('admin')->middleware('checkLogin')->group(function () {
         Route::post('/insert-role',[RoleController::class,'add'])->name('admin.insert.role')->middleware('checkPermission:role-add');
         Route::get('/insert-role',[RoleController::class,'getInsert'])->name('admin.get_insert.role')->middleware('checkPermission:role-add');
         Route::get('/edit-role',[RoleController::class,'getUpdate'])->name('admin.update.role')->middleware('checkPermission:role-edit');
-        Route::put('/edit-role',[RoleController::class,'postUpdate'])->name('admin.update_data.role')->middleware('checkPermission:role-edit');
+        Route::post('/edit-role',[RoleController::class,'postUpdate'])->name('admin.update_data.role')->middleware('checkPermission:role-edit');
         Route::get('/delete-role',[RoleController::class,'delete'])->name('admin.delete.role')->middleware('checkPermission:role-delete');
         Route::get('/data-permission',[RoleController::class,'dataPermission'])->name('admin.permission.role');
         Route::get('/getdata', [RoleController::class,'getDate'])->name('admin.get_data.role');

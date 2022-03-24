@@ -160,4 +160,42 @@ class RoleController extends Controller
             ]);
         }
     }
+    public function postUpdate(Request $request){
+        $message=[
+            'required'=>":attribute không được để trống",
+        ];
+        $validate=Validator::make($request->all(),[
+            'name'=>['required'],
+            'permission_id'=>['required'],
+                
+        ],$message);
+        if($validate->fails()){
+            return response()->json([
+                'status'=>0,
+                'message'=>$validate->errors()->first(),
+                'code'=>200
+            ]);
+        }
+        $roles= Role::where('id','=',$request->id)->first();
+        $roles->name=$request->name;
+        $roles->description=$request->description;
+        $roles->roles_module=implode (",",$request->permission_id);   
+        $roles->save();
+     
+        if($roles){
+            return response()->json([
+                'status'=>1,
+                'message'=>"Data Inserted Successfully",
+                'code'=>200
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>0,
+                'message'=>"Internal Server Error",
+                'code'=>500
+            ]);
+        }
+    }
+    
 }

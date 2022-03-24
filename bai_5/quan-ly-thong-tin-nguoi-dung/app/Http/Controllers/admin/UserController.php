@@ -350,7 +350,7 @@ class UserController extends Controller
                 $user->phone_number=$request->phone_number;
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
-                $user->position=$request->position;
+                $user->permission_id=$request->position;
                 $user->action=$request->action;
                 $user->description=$request->description;
                 if($request->description==null){
