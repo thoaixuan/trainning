@@ -211,7 +211,7 @@ function users() {
                         $('input[name="phone_number"]').val(response.data.phone_number);
                         $('input[name="email"]').val(response.data.email);
                         $("select#room_id_edit").val(response.data.room_id);
-                        $("#position_edit").val(response.data.permission_id);
+                        $("select#position_edit").val(response.data.permission_id);
                         $("select#action_edit").val(response.data.action);
                         CKEDITOR.instances['user_description_edit'].setData(response.data.description);
                         $("#userEditModal").modal("toggle");
@@ -307,9 +307,9 @@ function users() {
         $('#gender_edit').select2({
             dropdownParent: $('#userEditModal')
         });
-        // $('#position_edit').select2({
-        //     dropdownParent: $('#userEditModal')
-        // });
+        $('#position_edit').select2({
+            dropdownParent: $('#userEditModal')
+        });
         $('#action_edit').select2({
             dropdownParent: $('#userEditModal')
         });
@@ -526,7 +526,7 @@ function users() {
                             formData.append('phone_number', phone_number);
                             formData.append('email', email);
                             formData.append('room_id', room_id);
-                            formData.append('position', position);
+                            formData.append('permission_id', position);
                             formData.append('status', status);
                             formData.append('gender', gender);
                             formData.append('cover_after', cover_after);
@@ -676,6 +676,7 @@ function users() {
                             var cover_after = $('#input-file-after-edit')[0].files[0];
                             var description = CKEDITOR.instances['user_description_edit'].getData();
                             var _token = $("input[name=_token]").val();
+                            var position = $("#position_edit").val();
                             var formDataEdit = new FormData($('form#userEditForm')[0]);
                             formDataEdit.append('id', id);
                             formDataEdit.append('full_name', full_name);
@@ -686,6 +687,7 @@ function users() {
                             formDataEdit.append('email', email);
                             formDataEdit.append('room_id', room_id);
                             formDataEdit.append('status', status);
+                            formDataEdit.append('permission_id', position);
                             formDataEdit.append('gender', gender);
                             formDataEdit.append('cover_after', cover_after);
                             formDataEdit.append('cover', cover);

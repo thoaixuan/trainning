@@ -136,7 +136,7 @@ class UserController extends Controller
             $user->room_id=$request->room_id;
             $user->status=$request->status;
             $user->description=$request->description;
-            $user->permission_id=$request->position;
+            $user->permission_id=$request->permission_id;
             if($request->description==null){
             $user->description="Chưa có dữ liệu";
             }
@@ -176,7 +176,7 @@ class UserController extends Controller
             $user->phone_number=$request->phone_number;
             $user->email=$request->email;
             $user->room_id=$request->room_id;
-            $user->permission_id=$request->position;
+            $user->permission_id=$request->permission_id;
             $user->status=$request->status;
             $user->description=$request->description;
             if($request->description==null){
@@ -292,7 +292,7 @@ class UserController extends Controller
                 $user->phone_number=$request->phone_number;
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
-                $user->permission_id=$request->position;
+                $user->permission_id=$request->permission_id;
                 $user->status=0;
                 $user->description=$request->description;
                 if($request->description==null){
@@ -334,7 +334,7 @@ class UserController extends Controller
                 $user->phone_number=$request->phone_number;
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
-                $user->permission_id=$request->position;
+                $user->permission_id=$request->permission_id;
                 $user->status=0;
                 $user->description=$request->description;
                 if($request->description==null){

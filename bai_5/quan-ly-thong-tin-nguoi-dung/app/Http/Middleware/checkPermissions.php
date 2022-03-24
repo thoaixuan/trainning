@@ -39,6 +39,7 @@ class checkPermissions
             }
         }
         else{
+            
             if($array->contains($permission)){
                 return $next($request);
             }
