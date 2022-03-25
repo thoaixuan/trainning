@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\RoleController;
 Route::get('/admin-login', [SigninController::class,'index'])->name('admin.index.login');
 Route::post('/admin-login', [SigninController::class,'login'])->name('admin.post.login');
 Route::get('/admin-logout',[SigninController::class, 'logout'])->name('admin.logout.login');
+Route::get('/back',[SigninController::class, 'back'])->name('admin.back.login');
 Route::get('/admin-info', [DashboardController::class,'index'])->middleware('checkLogin')->name('admin.index.dashboard');
 Route::prefix('admin')->middleware('checkLogin')->group(function () {
     Route::prefix('user')->group(function(){

@@ -34,7 +34,7 @@ class UserController extends Controller
         $columns[]='date_start';
         $columns[]='phone_number';
         $columns[]='room_id';
-        $columns[]='action';
+        $columns[]='status';
         $columns[]='cover';
         $columns[]='cover_after';
 

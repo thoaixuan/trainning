@@ -25,19 +25,19 @@
             </div>
             <div class="col-md-12">
               <select name="permission[]" multiple  id="permission" class="form-control" multiple='multiple'>
-                <optgroup class="user" label="Người Dùng">
+                <optgroup class="user" value="user" label="Người Dùng">
                   <option  value="user-list">-- Xem Người Dùng--</option>
                   <option  value="user-add">-- Thêm Người Dùng --</option>
                   <option  value="user-edit">-- Sửa Người Dùng --</option>
                   <option  value="user-delete">-- Xóa Người Dùng --</option>
                 </optgroup>
-                <optgroup class="room" label="Phòng Ban">
+                <optgroup class="room" value="room" label="Phòng Ban">
                   <option  value="room-list">-- Xem Phòng Ban --</option>
                   <option  value="room-add">-- Thêm Phòng Ban --</option>
                   <option  value="room-edit">-- Sửa Phòng Ban --</option>
                   <option  value="room-delete">-- Xóa Phòng Ban --</option>
                 </optgroup>
-                <optgroup class="role" label="Phân quyền">
+                <optgroup class="role" value="role" label="Phân quyền">
                   <option  value="role-list">-- Xem Phân Quyền --</option>
                   <option  value="role-add">-- Xóa Phản Hồi --</option>
                   <option  value="role-edit">-- Xóa Bài Viết --</option>

@@ -189,7 +189,6 @@ function rooms() {
                 "description": {
                     required: true,
                 },
-
             },
             messages: {
                 name: {

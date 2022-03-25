@@ -238,6 +238,7 @@ function users() {
                         $("#room_id").val(response.data.room_id);
                         $("#gender").val(response.data.gender);
                         $("#status").val(response.data.status);
+                        $("#permission_id").val(response.data.permission_id);
                         CKEDITOR.instances['description'].setData(response.data.description);
                         $("#userModal").modal("toggle");
                         toastr.success(response.message);

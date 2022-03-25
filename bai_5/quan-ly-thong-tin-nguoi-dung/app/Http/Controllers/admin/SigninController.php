@@ -37,4 +37,7 @@ class SigninController extends Controller
         Auth::logout();
         return redirect()->route('admin.index.login');
     }
+    public function back(){
+        return redirect()->back();
+    }
 }

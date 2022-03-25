@@ -144,7 +144,6 @@ function roles() {
                         var data = response.data.roles_module;
                         $.each(data.split(","), function (i, e) {
                             $("#permission option[value='" + e + "']").prop("selected", true);
-                            console.log(e);
                         });
                         $("#roleModal").modal("toggle");
                         toastr.success(response.message);
@@ -259,6 +258,7 @@ function roles() {
                         formData.append('description', CKEDITOR.instances['role_detail'].getData());
                         formData.append('roles_module', permission);
                         var url = $("#submit").attr('data-url');
+                        console.log(permission);
                         $.ajax({
                             url: url,
                             type: 'post',
