@@ -62,8 +62,6 @@
         }
       }
       roles.init();
-      CKEDITOR.replace('role_detail');
-      CKEDITOR.replace('role_detail_edit');
 
 </script>
 <?php $__env->stopSection(); ?>

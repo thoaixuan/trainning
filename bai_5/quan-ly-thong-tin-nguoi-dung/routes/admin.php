@@ -37,7 +37,7 @@ Route::prefix('admin')->middleware('checkLogin')->group(function () {
         Route::post('/insert-room',[RoomController::class,'add'])->name('admin.insert.room')->middleware('checkPermission:room-add');
         Route::get('/insert-room',[RoomController::class,'getInsert'])->name('admin.get_insert.room')->middleware('checkPermission:room-add');
         Route::get('/edit-room',[RoomController::class,'getUpdate'])->name('admin.update.room')->middleware('checkPermission:room-edit');
-        Route::put('/edit-room',[RoomController::class,'postUpdate'])->name('admin.update_data.room')->middleware('checkPermission:room-edit');
+        Route::post('/edit-room',[RoomController::class,'postUpdate'])->name('admin.update_data.room')->middleware('checkPermission:room-edit');
         Route::get('/delete-room',[RoomController::class,'delete'])->name('admin.delete.room')->middleware('checkPermission:room-delete');
         Route::get('/permision-room',[RoomController::class,'getPermision'])->name('admin.get_permision.room');
         Route::get('/getdata', [RoomController::class,'getDate'])->name('admin.get_data.room');

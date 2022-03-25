@@ -120,8 +120,10 @@ class RoomController extends Controller
     }
 
     public function postUpdate(Request $request){
-        $room=Room::find($request->id);
-        $room->update($request->all());
+        $room=Room::where("id","=",$request->id)->first();
+        $room->name=$request->name;
+        $room->description=$request->description;
+        $room->save();
         if($room){
             return response()->json([
                 'status'=>1,

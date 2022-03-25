@@ -293,7 +293,10 @@ class UserController extends Controller
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
                 $user->permission_id=$request->permission_id;
-                $user->status=0;
+                if($request->password){
+                    $user->password=$request->password;
+                }
+                $user->status=$request->status;
                 $user->description=$request->description;
                 if($request->description==null){
                 $user->description="Chưa có dữ liệu";
@@ -335,7 +338,10 @@ class UserController extends Controller
                 $user->email=$request->email;
                 $user->room_id=$request->room_id;
                 $user->permission_id=$request->permission_id;
-                $user->status=0;
+                if($request->password){
+                    $user->password=$request->password;
+                }
+                $user->status=$request->status;
                 $user->description=$request->description;
                 if($request->description==null){
                 $user->description="Chưa có dữ liệu";

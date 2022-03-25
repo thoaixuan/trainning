@@ -62,9 +62,6 @@
         }
       }
       rooms.init();
-      CKEDITOR.replace('room_detail');
-      CKEDITOR.replace('room_detail_edit');
-
 </script>
 <?php $__env->stopSection(); ?>
 

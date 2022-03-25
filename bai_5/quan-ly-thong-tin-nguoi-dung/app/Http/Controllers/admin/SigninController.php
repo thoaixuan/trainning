@@ -13,7 +13,7 @@ class SigninController extends Controller
     }
     public function login(Request $request){
         if(Auth::attempt($request->only('email','password'))){
-            if(Auth::user()->position==1 || Auth::user()->is_admin==1){
+            if( Auth::user()->is_admin==1){
                 return response()->json([
                     'status'=>1,
                     'message'=>"Đăng nhập thành công",

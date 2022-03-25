@@ -29,7 +29,7 @@ class RoleController extends Controller
         ];
         $validate=Validator::make($request->all(),[
             'name'=>['required','unique:roles'],
-            'permission_id'=>['required'],
+            'roles_module'=>['required'],
                 
         ],$message);
         if($validate->fails()){
@@ -42,7 +42,7 @@ class RoleController extends Controller
         $roles=new Role();
         $roles->name=$request->name;
         $roles->description=$request->description;
-        $roles->roles_module=implode (",",$request->permission_id);   
+        $roles->roles_module=$request->roles_module; 
         $roles->save();
      
         if($roles){
@@ -177,7 +177,7 @@ class RoleController extends Controller
         ];
         $validate=Validator::make($request->all(),[
             'name'=>['required'],
-            'permission_id'=>['required'],
+            'roles_module'=>['required'],
                 
         ],$message);
         if($validate->fails()){
@@ -190,7 +190,7 @@ class RoleController extends Controller
         $roles= Role::where('id','=',$request->id)->first();
         $roles->name=$request->name;
         $roles->description=$request->description;
-        $roles->roles_module=implode (",",$request->permission_id);   
+        $roles->roles_module=$request->roles_module;   
         $roles->save();
      
         if($roles){
