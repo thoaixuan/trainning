@@ -27,9 +27,6 @@ Route::prefix('admin')->middleware('checkLogin')->group(function () {
         Route::get('/anydata', [UserController::class,'anyData'])->name('admin.datatables.user');
         Route::post('/edit-user',[UserController::class,'postUpdate'])->name('admin.update_data.user');
         Route::post('/insert-user',[UserController::class,'add'])->name('admin.insert.user');
-
-
-
     });
 
     Route::prefix('room')->group(function(){

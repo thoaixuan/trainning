@@ -201,6 +201,9 @@ function users() {
                         $("#cover").val('');
                         $("#cover_after").val('');
                     }
+                    else{
+                        toastr.error(response.message);
+                    }
                 },
                 error: function () { }
             });
@@ -238,6 +241,9 @@ function users() {
                         $("#permission_id").val(response.data.permission_id);
                         CKEDITOR.instances['description'].setData(response.data.description);
                         $("#userModal").modal("toggle");
+                    }
+                    else{
+                        toastr.error(response.message);
                     } 
 
                 },

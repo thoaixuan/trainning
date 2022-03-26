@@ -103,10 +103,10 @@ function rooms() {
                 type: "get",
                 success: function (response) {
                     if (response.status) {
-                        document.getElementById("roomForm").reset();
                         $("#roomForm")[0].reset();
                         $("#modal-action").modal("show");
                         $("#submit").attr('data-url', datas.routes.insert);
+                        $("#submit").text("Thêm");
                         $("#ModalLabel").text("Thêm mới phòng ban");
                         $("#name").val('');
                         CKEDITOR.instances['description'].setData("");
@@ -123,6 +123,8 @@ function rooms() {
             var id = $(this).data("id");
             $("#modal-action").validate().resetForm();
             $("#ModalLabel").text("Chỉnh sửa phòng ban");
+            $("#submit").text("Cập nhật");
+
             $.ajax({
                 url: datas.routes.updates,
                 type: "get",

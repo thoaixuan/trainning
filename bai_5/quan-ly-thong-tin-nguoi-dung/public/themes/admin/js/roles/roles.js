@@ -141,12 +141,9 @@ function roles() {
                         $("#roleForm")[0].reset();
                         $("#name").val(response.data.name);
                         CKEDITOR.instances['role_detail'].setData(response.data.description);
-                        var data = response.data.roles_module;
-                        $.each(data.split(","), function (i, e) {
-                            $("#permission option[value='" + e + "']").prop("selected", true);
-                        });
+                        var data = response.data.roles_module.split(",");
+                        $('#permission').multiselect('select',data);
                         $("#roleModal").modal("toggle");
-                        toastr.success(response.message);
                         $("#permission").multiselect("refresh");
 
                     } else {
@@ -245,9 +242,6 @@ function roles() {
                 $(element).removeClass('is-invalid');
             },
             submitHandler: function () {
-                // update student
-                $(document).ready(function () {
-                    $('#roleEditForm').ready(function (e) {
                         var permission_id = document.querySelectorAll("input[type='checkbox']:checked");
                         var permission = [];
                         for (var i = 0; i < permission_id.length; i++) {
@@ -266,100 +260,15 @@ function roles() {
                             processData: false,
                             contentType: false,
                             success: function (response) {
-                                console.log(response);
+                                toastr.success(response.message);
                                 $('#roleModal').modal('hide');
                                 table.ajax.reload();
                             }
-                        });
-                    });
                 });
             },
         }
 
         );
-
-        // $("#roleForm").validate({
-
-        //     rules: {
-        //         "name": {
-        //             required: true,
-        //             maxlength: 20,
-        //             minlength: 3,
-        //             validateName: true,
-        //         },
-        //         "description": {
-        //             required: true,
-        //         },
-        //         "permission_id": {
-        //             required: true,
-        //         },
-        //     },
-        //     messages: {
-        //         name: {
-        //             required: "Bắt buộc nhập name",
-        //             maxlength: "Hãy nhập tối đa 15 ký tự",
-        //             minlength: "Hãy nhập ít nhất 3 ký tự"
-        //         },
-        //         description: {
-        //             required: "Bắt buộc nhập description",
-        //         },
-        //         permission_id: {
-        //             required: "Bắt buộc nhập dữ liệu",
-        //             minlength: "Hãy nhập ít nhất 1 ký tự",
-        //         }
-        //     },
-        //     errorElement: "span",
-        //     errorPlacement: function (error, element) {
-        //         error.addClass('invalid-feedback');
-        //         element.closest(".form-group").append(error);
-        //     },
-        //     highlight: function (element) {
-        //         $(element).addClass('is-invalid');
-        //     },
-        //     unhighlight: function (element) {
-        //         $(element).removeClass('is-invalid');
-        //     },
-        //     submitHandler: function () {
-        //         $('#roleForm').ready(function (e) {
-        //             // e.preventDefault();
-        //             var name = $("input[name=name]").val();
-        //             var description = CKEDITOR.instances['role_detail'].getData();
-        //             var permission_id = document.querySelectorAll("input[type='checkbox']:checked");
-        //             var permission = [];
-        //             for (var i = 0; i < permission_id.length; i++) {
-        //                 permission.push($(permission_id[i]).val());
-        //             }
-
-        //             var _token = $("input[name=_token]").val();
-        //             $('.modal-backdrop').remove();
-        //             $.ajax({
-        //                 url: datas.routes.insert,
-        //                 type: "POST",
-        //                 data: {
-        //                     name: name,
-        //                     description: description,
-        //                     permission_id: permission,
-        //                     _token: _token
-        //                 },
-        //                 success: function (response) {
-        //                     if (response.status === 0) {
-        //                         alert(response.message);
-        //                     }
-        //                     if (response.status === 1) {
-        //                         console.log(response);
-        //                         $('#roleForm')[0].reset();
-        //                         $('#roleModal').modal('hide');
-        //                         $('.modal-backdrop').remove();
-        //                         table.ajax.reload();
-        //                     }
-        //                 }
-        //             })
-
-        //         })
-        //     },
-        // }
-
-        // );
 
         $.validator.addMethod("validateName", function (value, elemt) {
             return this.optional(elemt) || /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(value);

@@ -8,7 +8,7 @@
 
         </div>
         <div class="modal-body">
-          <form id="roleForm" name="userForm"> 
+          <form id="roleForm" > 
           @csrf
           <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <div class="col-md-12">

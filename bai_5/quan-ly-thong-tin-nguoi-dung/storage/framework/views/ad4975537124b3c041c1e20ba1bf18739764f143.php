@@ -8,7 +8,7 @@
 
         </div>
         <div class="modal-body">
-          <form id="roleForm" name="userForm"> 
+          <form id="roleForm" > 
           <?php echo csrf_field(); ?>
           <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" />
             <div class="col-md-12">
