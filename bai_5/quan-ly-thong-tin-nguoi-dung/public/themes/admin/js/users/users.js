@@ -200,9 +200,6 @@ function users() {
                         $("#description").val('');
                         $("#cover").val('');
                         $("#cover_after").val('');
-                        toastr.success(response.message);
-                    } else {
-                        toastr.error(response.message);
                     }
                 },
                 error: function () { }
@@ -241,11 +238,7 @@ function users() {
                         $("#permission_id").val(response.data.permission_id);
                         CKEDITOR.instances['description'].setData(response.data.description);
                         $("#userModal").modal("toggle");
-                        toastr.success(response.message);
-                    } else {
-                        toastr.error(response.message);
-
-                    }
+                    } 
 
                 },
                 error: function (response) {
@@ -472,8 +465,8 @@ function users() {
                             data: formData,
                             success: function (response) {
                                 if (response.status === 0) {
-                                    $('#userModal').modal('hide');
-                                    alert(response.message);
+                                    // $('#userModal').modal('hide');
+                                    toastr.error(response.message);
                                 }
                                 if (response.status === 1) {
                                     console.log(response);

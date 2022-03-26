@@ -1,5 +1,4 @@
 
- 
  <!-- Modal Create -->
  <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl">
@@ -13,8 +12,7 @@
                   <div class="modal-body">
                     <form id="userForm" name="userForm"> 
                     <?php echo csrf_field(); ?>
-                    <input type="hidden" name="id" id='id'>
-                    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>" />
+           
                     <div class="row">
                         <div class="col-6">
                           <div class="row">
