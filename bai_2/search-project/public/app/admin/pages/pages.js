@@ -156,7 +156,7 @@ function pages() {
                     type: 'GET',
                     data: {
                         "id": id,
-                        _token: $("input[name=_token]").val()
+						
                     },
                     success: function (response) {
                         table.ajax.reload();
