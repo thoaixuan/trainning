@@ -7,7 +7,8 @@ function dashboard() {
         me.datatables();
     }
     this.datatables = function () {
-       $("#datatable").DataTable({
+        var me= this;
+        var table=$("#datatable").DataTable({
             language: {
                 processing: "Đang tải dữ liệu",
                 search: "Placeholder của input tìm kiếm",
@@ -47,6 +48,7 @@ function dashboard() {
                 data: function (d) {
                     return $.extend({}, d, {
                         search: $("#search").val(),
+                        tinh:$("#tinh").val()
                     });
 
                 }
@@ -58,7 +60,13 @@ function dashboard() {
                     name: "Title",
                     className: "",
                 },
-                 {
+                {
+                    title: "Diện tích",
+                    data: "Area",
+                    name: "Area",
+                    className: "",
+                }, 
+                {
                     title: "Giá tiền",
                     data: "Price",
                     name: "Price",
@@ -66,13 +74,13 @@ function dashboard() {
                 }, 
                 {
                     title: "Chi tiết",
-                    data: "id",
-                    name: "id",
+                    data: "_id",
+                    name: "_id",
                     className: "",
                     render: function (data, type, row, meta) {
                         return renderDetail([{
                             class: 'btn btn-outline-success',
-                            value: row.id,
+                            value: row._id,
                             data: data,
                             title: 'detail',
                             icon: 'fa fa-eye'
@@ -84,7 +92,129 @@ function dashboard() {
 
             ],
         });
+        me.action(table);
     }
-    this.action =function(){}
+    this.action =function(table){
+        var search =document.getElementById('btn_search');
+        search.onclick=function(){
+            table.ajax.reload();
+        }
+        document.getElementById("search").addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                table.ajax.reload();
+                return false;
+            }
+        });
+        //Loadding dữ liệu tỉnh
+        $.ajax({
+            type: "get",
+            url: datas.routes.get_province,
+            dataType: 'JSON',
+            success: function (response) {
+                    console.log(response);
+                    var data = response
+                    var list = document.getElementById("tinh");
+                    for (var i in data) {
+                        list.add(new Option(data[i], data[i]));
+                    }
+    
+            }
+        });
+         //Loadding dữ liệu huyện
+         $.ajax({
+            type: "get",
+            url: datas.routes.get_district,
+            dataType: 'JSON',
+            success: function (response) {
+                    console.log(response);
+                    var data = response
+                    var list = document.getElementById("huyen");
+                    for (var i in data) {
+                        list.add(new Option(data[i], data[i]));
+                    }
+    
+            }
+        });
+         //Loadding dữ liệu xã
+         $.ajax({
+            type: "get",
+            url: datas.routes.get_ward,
+            dataType: 'JSON',
+            success: function (response) {
+                    console.log(response);
+                    var data = response
+                    var list = document.getElementById("xa");
+                    for (var i in data) {
+                        list.add(new Option(data[i], data[i]));
+                    }
+    
+            }
+        });
+        //Loadding dữ liệu giá tiền
+        $.ajax({
+            type: "get",
+            url: datas.routes.get_price,
+            dataType: 'JSON',
+            success: function (response) {
+                    console.log(response);
+                    var data = response
+                    var list = document.getElementById("gia");
+                    for (var i in data) {
+                        list.add(new Option(data[i], data[i]));
+                    }
+
+            }
+        });
+         //Loadding dữ liệu giá diện tích
+         $.ajax({
+            type: "get",
+            url: datas.routes.get_area,
+            dataType: 'JSON',
+            success: function (response) {
+                    console.log(response);
+                    var data = response
+                    var list = document.getElementById("dientich");
+                    for (var i in data) {
+                        list.add(new Option(data[i], data[i]));
+                    }
+
+            }
+        }); 
+
+        // find by id user detail.
+        var myModal = new bootstrap.Modal(document.getElementById('DetailModal'), {
+            keyboard: true
+        });
+        $(document).on('click', '#detail', function () {
+            $.ajax({
+                url: datas.routes.get_data,
+                type: "get",
+                dataType: 'json',
+                data: {
+                    _token: $("input[name=_token]").val(),
+                    "id": $(this).data("id"),
+                },
+                success: function (response) {
+                    console.log(response[0].Location.Province.province_name);
+                    $('#_tieude').html(response[0].Title);
+                    $('#_noidung').html(response[0].Content);
+                    $('#_tinh').text(response[0].Location.Province.province_name);
+                    $('#_quan').text(response[0].Location.District.district_name);
+                    $('#_xa').text(response[0].Location.Ward.ward_name);
+                    $('#_dientich').text(response[0].Area);
+                    $('#_giatien').text(response[0].Price);
+                    $('#_thongtin').text(response[0].Ext);
+                    $('#_sdt').text(response[0].Phone);
+                    $('#_vitri').text(response[0].GoogleMap);
+                    $('#img_1').attr('src',response[0].Images[0]);
+                    $('#img_2').attr('src',response[0].Images[1]);
+                    $('#img_3').attr('src',response[0].Images[2]);
+                    $('#img_4').attr('src',response[0].Images[3]);
+              
+                    myModal.show();
+                    }
+                });
+            });
+    }
 
 }

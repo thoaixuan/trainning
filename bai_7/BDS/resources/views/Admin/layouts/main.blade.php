@@ -19,7 +19,6 @@
     <div class="page">
         <div class="page-main">
             @include('Admin.includes.header')
-            @include('Admin.includes.sidebar')
             @yield('main')
         </div>
     @include('Admin.includes.footer')
