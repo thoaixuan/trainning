@@ -27,8 +27,9 @@ class DashboardController extends Controller
         $tinh=$request->input('tinh');
         $huyen=$request->input('huyen');
         $xa=$request->input('xa');
-        $price=$request->input('price');
-        $area=$request->input('area');
+        $price=$request->input('gia');
+        $area=$request->input('dientich');
+
         $order=$columns[$request->input('order.0.column')];
         $dir=$request->input('order.0.dir');   
         
@@ -39,27 +40,89 @@ class DashboardController extends Controller
             $items=Item::offset($start)
             ->limit($limit)->orderByDesc($order,$dir)->get();
         }else{
-            if($search){
-                $items=Item::Where(function($query)use($search){
-                    $query->where('Title','like',"%{$search}%");
+            if($tinh && $huyen &&$xa &&$price&&$area){
+                $items=Item::Where(function($query)use($search,$tinh,$huyen,$xa,$price,$area){
+                    $query->where('Location.Province.province_name','like',"%$tinh%");
+                    $query->where('Location.District.district_name','=',$huyen);
+                    $query->where('Location.Ward.ward_name','=',$xa); 
+                    $query->where('Area','=',$area); 
+                    $query->where('Price','=',$price); 
                 })
+                ->whereNotNull("Title")
                 ->offset($start)
                 ->limit($limit)
                 ->orderByDesc($order,$dir)
                 ->get();
+            }else{
+                if($tinh && $huyen && $xa && $price){
+                    $items=Item::Where(function($query)use($search,$tinh,$huyen,$xa,$price){
+                        $query->where('Location.Province.province_name','like',"%$tinh%");
+                        $query->where('Location.District.district_name','=',$huyen);
+                        $query->where('Location.Ward.ward_name','=',$xa); 
+                        $query->where('Price','=',$price); 
+                    })
+                    ->whereNotNull("Title")
+                    ->offset($start)
+                    ->limit($limit)
+                    ->orderByDesc($order,$dir)
+                    ->get();
+                }
+                else{
+                    if($tinh && $huyen && $xa){
+                        $items=Item::Where(function($query)use($search,$tinh,$huyen,$xa){
+                            $query->where('Location.Province.province_name','like',"%$tinh%");
+                            $query->where('Location.District.district_name','=',$huyen);
+                            $query->where('Location.Ward.ward_name','=',$xa); 
+                        })
+                        ->whereNotNull("Title")
+                        ->offset($start)
+                        ->limit($limit)
+                        ->orderByDesc($order,$dir)
+                        ->get();
+                    }else{
+                        if($price && $area){
+                            $items=Item::Where(function($query)use($search,$price,$area){
+                                $query->where('Area','=',$area); 
+                                $query->where('Price','=',$price); 
+                            })
+                            ->whereNotNull("Title")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderByDesc($order,$dir)
+                            ->get();
+                        }if($price){
+                            $items=Item::Where(function($query)use($search,$price){
+                                $query->where('Price','=',$price); 
+                            })
+                            ->whereNotNull("Title")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderByDesc($order,$dir)
+                            ->get();
+                        }
+                        if($area){
+                            $items=Item::Where(function($query)use($search,$area){
+                                $query->where('Area','=',$area); 
+                            })
+                            ->whereNotNull("Title")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderByDesc($order,$dir)
+                            ->get();
+                        }
+                        else{
+                            $items=Item::Where(function($query)use($search){
+                                $query->where('Title','like',"%$search%");
+                            })
+                            ->whereNotNull("Title")
+                            ->offset($start)
+                            ->limit($limit)
+                            ->orderByDesc($order,$dir)
+                            ->get();
+                        }
+                    }
+                }
             }
-            $items=Item::Where(function($query)use($tinh,$huyen,$xa,$price,$area){
-                $query->where('Location.Province.province_name','like',"%{$tinh}%");
-                $query->Orwhere('Location.District.district_name','like',"%{$huyen}%");
-                $query->Orwhere('Location.Ward.ward_name','like',"%{$xa}%"); 
-                $query->Orwhere('Price','like',"%{$price}%"); 
-                $query->Orwhere('Area','like',"%{$area}%"); 
-            })
-            ->whereNotNull("Title")
-            ->offset($start)
-            ->limit($limit)
-            ->orderByDesc($order,$dir)
-            ->get();
         }
 
         $json_data=array(
@@ -73,24 +136,47 @@ class DashboardController extends Controller
         $item=Item::where('_id','=',$request->id)->get();
         return $item;
     }
+    //Loading dữ liệu tỉnh
     public function getProvince(){
-        $province =Item::limit(20)->select("Location.Province.province_name")->whereNotNull("Location.Province.province_name")->distinct()->get();
+        $province =Item::select("Location.Province.province_name")
+        ->whereNotNull("Location.Province.province_name")
+        ->distinct()
+        ->get();
         return $province;
     } 
-    public function getDistrict(){
-        $district =Item::limit(20)->select("Location.District.district_name")->whereNotNull("Location.District.district_name")->distinct()->get();
+    //Loading dữ liệu huyện
+    public function getDistrict(Request $request){
+        $district =Item::select("Location.District.district_name")
+        ->whereNotNull("Location.District.district_name")
+        ->distinct()
+        ->where("Location.Province.province_name",'=',$request->name)
+        ->get();
         return $district;
     } 
-    public function getWard(){
-        $ward =Item::limit(20)->select("Location.Ward.ward_name")->whereNotNull("Location.Ward.ward_name")->distinct()->get();
+    //Loading dữ liệu xã
+    public function getWard(Request $request){
+        $ward =Item::select("Location.Ward.ward_name")
+        ->whereNotNull("Location.Ward.ward_name")
+        ->distinct()
+        ->where("Location.District.district_name",'=',$request->name)
+        ->get();
         return $ward;
     } 
-    public function getPrice(){
-        $price =Item::limit(20)->select("Price")->whereNotNull("Price")->distinct()->get();
-        return $price;
-    } 
-    public function getArea(){
-        $area =Item::limit(20)->select("Area")->whereNotNull("Area")->distinct()->get();
+      //Loading dữ liệu diện tích
+      public function getArea(){
+        $area =Item::select("Area")
+        ->whereNotNull("Area")
+        ->distinct()
+        ->get();
         return $area;
     }   
+    //Loading dữ liệu giá tiền
+    public function getPrice(){
+        $price =Item::select("Price")
+        ->whereNotNull("Price")
+        ->distinct()
+        ->get();
+        return $price;
+    } 
+  
 }

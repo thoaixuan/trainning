@@ -27,41 +27,43 @@
                     <input type="text" class="form-control" id="search">
                 </div>
            
-                <div class="col-md-4 row">
+                <div class="col-md-8 row">
                     <div class="col-md-4">
                     <select class="form-select" aria-label="Default select example" id="tinh">
-                        <option selected >--Tỉnh--</option>
+                        <option value="" disabled>--Tỉnh--</option>
+                        <option value=0 selected >--Tất cả--</option>
                     </select>
                     </div>
                     <div class="col-md-4">
                     <select class="form-select" aria-label="Default select example" id="huyen">
-                        <option selected >--Huyện--</option>
+                        <option  value="" selected disabled>--Huyện--</option>
                     </select>
                     </div>
                     <div class="col-md-4">
                     <select class="form-select" aria-label="Default select example" id="xa">
-                        <option selected >--Xã--</option>
+                        <option value="" selected disabled>--Xã--</option>
                     </select>
                     </div>
               
                 </div>
-             
-                <div class="col-md-2">
-                <select class="form-select" aria-label="Default select example" id="gia">
-                    <option selected >--Giá tiền--</option>
-                </select>
-                </div>
+<!-- 
                 <div class="col-md-2">
                 <select class="form-select" aria-label="Default select example" id="dientich">
-                    <option selected >--Diện tích--</option>
+                    <option value=""  disabled>--Diện tích--</option>
+                    <option value="" selected >--Tất cả--</option>
                 </select>
                 </div>
+
+                <div class="col-md-2">
+                <select class="form-select" aria-label="Default select example" id="gia">
+                    <option value=""  disabled>--Giá tiền--</option>
+                    <option value="" selected >--Tất cả--</option>
+                </select>
+                </div>
+             -->
                 <div class="col-md-2">
                     <button class="btn btn-info btn-block" id="btn_search">Tra cứu</button>
                 </div>
-                <!-- <div class="col-md-2">
-                    <button class="btn btn-success btn-block" id="open" type="button" data-bs-toggle="modal" data-bs-target="#myModal">Tạo mới</button>
-                </div> -->
                 </div>
                 </div>
             </div>

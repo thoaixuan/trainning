@@ -48,7 +48,11 @@ function dashboard() {
                 data: function (d) {
                     return $.extend({}, d, {
                         search: $("#search").val(),
-                        tinh:$("#tinh").val()
+                        tinh:$("#tinh").val(),
+                        huyen:$("#huyen").val(),
+                        xa:$("#xa").val(),
+                        dientich:$("#dientich").val(),
+                        gia:$("#gia").val(),
                     });
 
                 }
@@ -112,6 +116,7 @@ function dashboard() {
             dataType: 'JSON',
             success: function (response) {
                     console.log(response);
+                    $('#tinh').select2();
                     var data = response
                     var list = document.getElementById("tinh");
                     for (var i in data) {
@@ -120,67 +125,85 @@ function dashboard() {
     
             }
         });
+        $('#tinh').on('change',function(){
+            if(this.value==0){
+                $("#huyen").empty();
+                $("#xa").empty();
+            }
+        })
          //Loadding dữ liệu huyện
-         $.ajax({
-            type: "get",
-            url: datas.routes.get_district,
-            dataType: 'JSON',
-            success: function (response) {
-                    console.log(response);
-                    var data = response
-                    var list = document.getElementById("huyen");
-                    for (var i in data) {
-                        list.add(new Option(data[i], data[i]));
-                    }
-    
-            }
-        });
+         $('#tinh').on('change', function() {
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_district,
+                data:{name:this.value},
+                dataType: 'JSON',
+                success: function (response) {
+                        console.log(response);
+                        $("#huyen").empty();
+                        $('#huyen').select2();
+                        var data = response
+                        var list = document.getElementById("huyen");
+                        for (var i in data) {
+                            list.add(new Option(data[i], data[i]));
+                        }
+        
+                }
+            });
+          });
+
+       
          //Loadding dữ liệu xã
-         $.ajax({
-            type: "get",
-            url: datas.routes.get_ward,
-            dataType: 'JSON',
-            success: function (response) {
-                    console.log(response);
-                    var data = response
-                    var list = document.getElementById("xa");
-                    for (var i in data) {
-                        list.add(new Option(data[i], data[i]));
-                    }
+         $("#huyen").on('change',function(){
+            $.ajax({
+                type: "get",
+                url: datas.routes.get_ward,
+                data:{name:this.value},
+                dataType: 'JSON',
+                success: function (response) {
+                        console.log(response);
+                        $("#xa").empty();
+                        $('#xa').select2();
+                        var data = response
+                        var list = document.getElementById("xa");
+                        for (var i in data) {
+                            list.add(new Option(data[i], data[i]));
+                        }
+                }
+            });
+         });
+        //Loadding dữ liệu giá diện tích
+            // $.ajax({
+            //     type: "get",
+            //     url: datas.routes.get_area,
+            //     dataType: 'JSON',
+            //     success: function (response) {
+            //              console.log(response);
+            //             $("#dientich").select2();
+            //             var data = response
+            //             var list = document.getElementById("dientich");
+            //             for (var i in data) {
+            //                 list.add(new Option(data[i], data[i]));
+            //             }
     
-            }
-        });
+            //     }
+            // }); 
         //Loadding dữ liệu giá tiền
-        $.ajax({
-            type: "get",
-            url: datas.routes.get_price,
-            dataType: 'JSON',
-            success: function (response) {
-                    console.log(response);
-                    var data = response
-                    var list = document.getElementById("gia");
-                    for (var i in data) {
-                        list.add(new Option(data[i], data[i]));
-                    }
-
-            }
-        });
-         //Loadding dữ liệu giá diện tích
-         $.ajax({
-            type: "get",
-            url: datas.routes.get_area,
-            dataType: 'JSON',
-            success: function (response) {
-                    console.log(response);
-                    var data = response
-                    var list = document.getElementById("dientich");
-                    for (var i in data) {
-                        list.add(new Option(data[i], data[i]));
-                    }
-
-            }
-        }); 
-
+            // $.ajax({
+            //     type: "get",
+            //     url: datas.routes.get_price,
+            //     dataType: 'JSON',
+            //     success: function (response) {
+            //             $("#gia").select2();
+            //             var data = response
+            //             var list = document.getElementById("gia");
+            //             for (var i in data) {
+            //                 list.add(new Option(data[i], data[i]));
+            //             }
+    
+            //     }
+            // });
+   
         // find by id user detail.
         var myModal = new bootstrap.Modal(document.getElementById('DetailModal'), {
             keyboard: true
@@ -195,7 +218,7 @@ function dashboard() {
                     "id": $(this).data("id"),
                 },
                 success: function (response) {
-                    console.log(response[0].Location.Province.province_name);
+                    // console.log(response[0].Location.Province.province_name);
                     $('#_tieude').html(response[0].Title);
                     $('#_noidung').html(response[0].Content);
                     $('#_tinh').text(response[0].Location.Province.province_name);

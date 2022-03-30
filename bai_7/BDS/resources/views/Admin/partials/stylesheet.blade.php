@@ -17,7 +17,7 @@
 <!-- <link rel="stylesheet" href="{{ asset('themes/admin/assets/plugins/toastr/toastr.min.css')}}"> -->
 
 {{-- Select2 --}}
-<!-- <link rel="stylesheet" href="{{asset('themes/admin/assets/plugins/select2-4.0.13/dist/css/select2.min.css')}}">  -->
+<link rel="stylesheet" href="{{asset('themes/admin/assets/plugins/select2-4.0.13/dist/css/select2.min.css')}}"> 
 
 
 
