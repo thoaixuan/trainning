@@ -8,8 +8,9 @@
         <div class="main-container container-fluid">
 
             <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Quản lý bất động sản </h1>
+            <div class="page-header position-relative">
+                <h1 class="page-title" >Thống kê thị trường bất động sản </h1>
+                <div class=" position-absolute top-50 start-50 translate-middle-y"><span id="time"></span></div>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Trang chủ</a></li>

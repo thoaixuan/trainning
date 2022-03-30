@@ -8,7 +8,7 @@
 <!-- <script src="{{ asset('themes/admin/assets/plugins/toastr/toastr.min.js')}}"></script> -->
 
 <!-- Select2 -->
-<script type="text/javascript" src="{{asset('themes/admin/assets/plugins/select2-4.0.13/dist/js/select2.full.js')}}"> </script>
+<!-- <script type="text/javascript" src="{{asset('themes/admin/assets/plugins/select2-4.0.13/dist/js/select2.full.js')}}"> </script> -->
 
 <!-- BOOTSTRAP JS -->
 <script src="{{asset('themes/admin/assets/plugins/bootstrap/js/popper.min.js')}}"></script>

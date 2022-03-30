@@ -125,6 +125,11 @@ function dashboard() {
     
             }
         });
+        $('#search').on('click',function(){
+            $("#tinh").val(0).trigger('change');
+            $("#huyen").empty();
+            $("#xa").empty();
+        })
         $('#tinh').on('change',function(){
             if(this.value==0){
                 $("#huyen").empty();
@@ -151,8 +156,6 @@ function dashboard() {
                 }
             });
           });
-
-       
          //Loadding dữ liệu xã
          $("#huyen").on('change',function(){
             $.ajax({
@@ -237,7 +240,17 @@ function dashboard() {
                     myModal.show();
                     }
                 });
-            });
+        });
+      
+        setInterval(()=>{
+            var day=new Date();
+            var date=day.getDate()+'-'+(day.getMonth()+1)+'-'+day.getFullYear()+
+            '||'+day.getHours()+':'+day.getMinutes()+':'+day.getSeconds();
+            document.getElementById("time").innerHTML=date;
+        },1000);     
+       
     }
+ 
+    
 
 }

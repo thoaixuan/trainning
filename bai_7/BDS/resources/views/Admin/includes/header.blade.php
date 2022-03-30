@@ -1,13 +1,15 @@
 <!-- app-Header -->
-<div class="app-header header sticky">
+<div class="app-header header sticky position-relative">
+    <div class="position-absolute top-50 start-0 translate-middle" style="margin-left:100px">
+        <img src="{{asset('themes/admin/assets/images/brand/logo-3.png')}}" class="header-brand-img light-logo3" alt="logo">
+    </div>
     <div class="container-fluid main-container">
+     
         <div class="d-flex">
+        <!-- <img src="{{asset('themes/admin/assets/images/brand/logo-3.png')}}" class="header-brand-img light-logo1" alt="logo"> -->
              <!-- <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a> -->
             <!-- sidebar-toggle-->
-            <!-- <a class="logo-horizontal " href="index.html">
-                <img src="{{asset('themes/admin/assets/images/brand/logo.png')}}" class="header-brand-img desktop-logo" alt="logo">
-                <img src="{{asset('themes/admin/assets/images/brand/logo-3.png')}}" class="header-brand-img light-logo1" alt="logo">
-            </a> -->
+      
             <!-- LOGO -->
 
             <div class="d-flex order-lg-2 ms-auto header-right-icons">
@@ -19,6 +21,7 @@
                                             <a class="nav-link icon theme-layout nav-link-bg layout-setting">
                                                  <span class="dark-layout"><i class="fe fe-moon"></i></span>
                                                 <span class="light-layout"><i class="fe fe-sun"></i></span>
+                                              
                                             </a>
                                         </div>
                                         <!-- Theme-Layout -->
