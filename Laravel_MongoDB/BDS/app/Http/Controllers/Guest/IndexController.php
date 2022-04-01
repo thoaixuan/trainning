@@ -34,96 +34,63 @@ class IndexController extends Controller
         $order=$columns[$request->input('order.0.column')];
         $dir=$request->input('order.0.dir');   
         
-        $totalData=Item::count();
+        $totalData=Item::whereNotNull("Title")->count();
         $totalFiltered=$totalData;
 
-        if(empty($search) && empty($tinh) && empty($huyen) && empty($xa) && empty($price) && empty($area)){
-            $items=Item::offset($start)
-            ->limit($limit)->orderByDesc($order,$dir)->get();
+        if(empty($search) && empty($tinh) && empty($huyen) && empty($xa) ){
+            $items=Item::skip($start)
+            ->take($limit)
+            ->orderByDesc($order,$dir)
+            ->whereNotNull("Title")
+            ->get();
         }else{
-            if($tinh && $huyen &&$xa &&$price&&$area){
-                $items=Item::Where(function($query)use($search,$tinh,$huyen,$xa,$price,$area){
+            if($tinh && $huyen && $xa){
+                $totalData=Item::Where(function($query)use($tinh,$huyen,$xa){
                     $query->where('Location.Province.province_name','like',"%$tinh%");
                     $query->where('Location.District.district_name','=',$huyen);
                     $query->where('Location.Ward.ward_name','=',$xa); 
-                    $query->where('Area','=',$area); 
-                    $query->where('Price','=',$price); 
+                })->count();
+                $totalFiltered=$totalData;
+
+                $items=Item::Where(function($query)use($tinh,$huyen,$xa){
+                    $query->where('Location.Province.province_name','like',"%$tinh%");
+                    $query->where('Location.District.district_name','=',$huyen);
+                    $query->where('Location.Ward.ward_name','=',$xa); 
+                })
+                ->whereNotNull("Title")
+                ->skip($start)
+                ->take($limit)
+                ->orderByDesc($order,$dir)
+                ->get();
+                $json_data=array(
+                    "recordsTotal"=>intval($totalData),
+                    "recordsFiltered"=>intval($totalFiltered),
+                    "data"=>$items,
+                );
+                return json_encode($json_data);
+            }else{
+                $totalData=Item::Where(function($query)use($search){
+                    $query->where('Title','like',"%$search%");
+                })->count();
+                $totalFiltered=$totalData;
+
+                $items=Item::Where(function($query)use($search){
+                    $query->where('Title','like',"%$search%");
                 })
                 ->whereNotNull("Title")
                 ->offset($start)
                 ->limit($limit)
                 ->orderByDesc($order,$dir)
                 ->get();
-            }else{
-                if($tinh && $huyen && $xa && $price){
-                    $items=Item::Where(function($query)use($search,$tinh,$huyen,$xa,$price){
-                        $query->where('Location.Province.province_name','like',"%$tinh%");
-                        $query->where('Location.District.district_name','=',$huyen);
-                        $query->where('Location.Ward.ward_name','=',$xa); 
-                        $query->where('Price','=',$price); 
-                    })
-                    ->whereNotNull("Title")
-                    ->offset($start)
-                    ->limit($limit)
-                    ->orderByDesc($order,$dir)
-                    ->get();
-                }
-                else{
-                    if($tinh && $huyen && $xa){
-                        $items=Item::Where(function($query)use($search,$tinh,$huyen,$xa){
-                            $query->where('Location.Province.province_name','like',"%$tinh%");
-                            $query->where('Location.District.district_name','=',$huyen);
-                            $query->where('Location.Ward.ward_name','=',$xa); 
-                        })
-                        ->whereNotNull("Title")
-                        ->offset($start)
-                        ->limit($limit)
-                        ->orderByDesc($order,$dir)
-                        ->get();
-                    }else{
-                        if($price && $area){
-                            $items=Item::Where(function($query)use($search,$price,$area){
-                                $query->where('Area','=',$area); 
-                                $query->where('Price','=',$price); 
-                            })
-                            ->whereNotNull("Title")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderByDesc($order,$dir)
-                            ->get();
-                        }if($price){
-                            $items=Item::Where(function($query)use($search,$price){
-                                $query->where('Price','=',$price); 
-                            })
-                            ->whereNotNull("Title")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderByDesc($order,$dir)
-                            ->get();
-                        }
-                        if($area){
-                            $items=Item::Where(function($query)use($search,$area){
-                                $query->where('Area','=',$area); 
-                            })
-                            ->whereNotNull("Title")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderByDesc($order,$dir)
-                            ->get();
-                        }
-                        else{
-                            $items=Item::Where(function($query)use($search){
-                                $query->where('Title','like',"%$search%");
-                            })
-                            ->whereNotNull("Title")
-                            ->offset($start)
-                            ->limit($limit)
-                            ->orderByDesc($order,$dir)
-                            ->get();
-                        }
-                    }
-                }
+                $json_data=array(
+                    "recordsTotal"=>intval($totalData),
+                    "recordsFiltered"=>intval($totalFiltered),
+                    "data"=>$items,
+                );
+                return json_encode($json_data);
             }
+         
+          
         }
 
         $json_data=array(
@@ -131,7 +98,7 @@ class IndexController extends Controller
             "recordsFiltered"=>intval($totalFiltered),
             "data"=>$items,
         );
-        echo json_encode($json_data);
+        return json_encode($json_data);
     }
     public function getData(Request $request){
         $item=Item::where('_id','=',$request->id)->get();

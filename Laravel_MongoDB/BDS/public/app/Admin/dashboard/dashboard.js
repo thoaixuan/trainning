@@ -7,8 +7,8 @@ function dashboard() {
         me.datatables();
     }
     this.datatables = function () {
-        var me= this;
-        var table=$("#datatable").DataTable({
+        var me = this;
+        var table = $("#datatable").DataTable({
             language: {
                 processing: "Đang tải dữ liệu",
                 search: "Placeholder của input tìm kiếm",
@@ -33,7 +33,7 @@ function dashboard() {
             serverSide: true,
             processing: true,
             paging: true,
-            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+            lengthMenu: [[10, 25, 50, 100]],
             pagingType: "full_numbers",
             lengthChange: false,
             searching: false,
@@ -48,11 +48,11 @@ function dashboard() {
                 data: function (d) {
                     return $.extend({}, d, {
                         search: $("#search").val(),
-                        tinh:$("#tinh").val(),
-                        huyen:$("#huyen").val(),
-                        xa:$("#xa").val(),
-                        dientich:$("#dientich").val(),
-                        gia:$("#gia").val(),
+                        tinh: $("#tinh").val(),
+                        huyen: $("#huyen").val(),
+                        xa: $("#xa").val(),
+                        dientich: $("#dientich").val(),
+                        gia: $("#gia").val(),
                     });
 
                 }
@@ -69,13 +69,13 @@ function dashboard() {
                     data: "Area",
                     name: "Area",
                     className: "",
-                }, 
+                },
                 {
                     title: "Giá tiền",
                     data: "Price",
                     name: "Price",
                     className: "",
-                }, 
+                },
                 {
                     title: "Chi tiết",
                     data: "_id",
@@ -90,17 +90,17 @@ function dashboard() {
                             icon: 'fa fa-eye'
                         }]);
                     }
-    
-                }, 
-             
+
+                },
+
 
             ],
         });
         me.action(table);
     }
-    this.action =function(table){
-        var search =document.getElementById('btn_search');
-        search.onclick=function(){
+    this.action = function (table) {
+        var search = document.getElementById('btn_search');
+        search.onclick = function () {
             table.ajax.reload();
         }
         document.getElementById("search").addEventListener("keyup", function (event) {
@@ -115,98 +115,70 @@ function dashboard() {
             url: datas.routes.get_province,
             dataType: 'JSON',
             success: function (response) {
-                    console.log(response);
-                    $('#tinh').select2();
-                    var data = response
-                    var list = document.getElementById("tinh");
-                    for (var i in data) {
-                        list.add(new Option(data[i], data[i]));
-                    }
-    
+                console.log(response);
+                $('#tinh').select2();
+                var data = response
+                var list = document.getElementById("tinh");
+                for (var i in data) {
+                    list.add(new Option(data[i], data[i]));
+                }
+
             }
         });
-        $('#search').on('click',function(){
+        $('#search').on('click', function () {
             $("#tinh").val(0).trigger('change');
             $("#huyen").empty();
             $("#xa").empty();
+            $('#search').val('');
         })
-        $('#tinh').on('change',function(){
-            if(this.value==0){
+        $('#tinh').on('change', function () {
+            if (this.value == 0) {
                 $("#huyen").empty();
                 $("#xa").empty();
             }
         })
-         //Loadding dữ liệu huyện
-         $('#tinh').on('change', function() {
+        //Loadding dữ liệu huyện
+        $('#tinh').on('change', function () {
             $.ajax({
                 type: "get",
                 url: datas.routes.get_district,
-                data:{name:this.value},
+                data: { name: this.value },
                 dataType: 'JSON',
                 success: function (response) {
-                        console.log(response);
-                        $("#huyen").empty();
-                        $('#huyen').select2();
-                        var data = response
-                        var list = document.getElementById("huyen");
-                        for (var i in data) {
-                            list.add(new Option(data[i], data[i]));
-                        }
-        
+                    console.log(response);
+                    $("#huyen").empty();
+                    $('#huyen').select2();
+
+                    var data = response
+                    var list = document.getElementById("huyen");
+                    for (var i in data) {
+                        list.add(new Option(data[i], data[i]));
+                    }
+
                 }
             });
-          });
-         //Loadding dữ liệu xã
-         $("#huyen").on('change',function(){
+        });
+        //Loadding dữ liệu xã
+        $("#huyen").on('change', function () {
             $.ajax({
                 type: "get",
                 url: datas.routes.get_ward,
-                data:{name:this.value},
+                data: { name: this.value },
                 dataType: 'JSON',
                 success: function (response) {
-                        console.log(response);
-                        $("#xa").empty();
-                        $('#xa').select2();
-                        var data = response
-                        var list = document.getElementById("xa");
-                        for (var i in data) {
-                            list.add(new Option(data[i], data[i]));
-                        }
+                    console.log(response);
+                    $("#xa").empty();
+                    $('#xa').select2();
+                    var data = response
+                    var list = document.getElementById("xa");
+                    for (var i in data) {
+                        list.add(new Option(data[i], data[i]));
+                    }
                 }
             });
-         });
-        //Loadding dữ liệu giá diện tích
-            // $.ajax({
-            //     type: "get",
-            //     url: datas.routes.get_area,
-            //     dataType: 'JSON',
-            //     success: function (response) {
-            //              console.log(response);
-            //             $("#dientich").select2();
-            //             var data = response
-            //             var list = document.getElementById("dientich");
-            //             for (var i in data) {
-            //                 list.add(new Option(data[i], data[i]));
-            //             }
-    
-            //     }
-            // }); 
-        //Loadding dữ liệu giá tiền
-            // $.ajax({
-            //     type: "get",
-            //     url: datas.routes.get_price,
-            //     dataType: 'JSON',
-            //     success: function (response) {
-            //             $("#gia").select2();
-            //             var data = response
-            //             var list = document.getElementById("gia");
-            //             for (var i in data) {
-            //                 list.add(new Option(data[i], data[i]));
-            //             }
-    
-            //     }
-            // });
-   
+        });
+
+
         // find by id user detail.
         var myModal = new bootstrap.Modal(document.getElementById('DetailModal'), {
             keyboard: true
@@ -232,25 +204,25 @@ function dashboard() {
                     $('#_thongtin').text(response[0].Ext);
                     $('#_sdt').text(response[0].Phone);
                     $('#_vitri').text(response[0].GoogleMap);
-                    $('#img_1').attr('src',response[0].Images[0]);
-                    $('#img_2').attr('src',response[0].Images[1]);
-                    $('#img_3').attr('src',response[0].Images[2]);
-                    $('#img_4').attr('src',response[0].Images[3]);
-              
+                    $('#img_1').attr('src', response[0].Images[0]);
+                    $('#img_2').attr('src', response[0].Images[1]);
+                    $('#img_3').attr('src', response[0].Images[2]);
+                    $('#img_4').attr('src', response[0].Images[3]);
+
                     myModal.show();
-                    }
-                });
+                }
+            });
         });
-      
-        setInterval(()=>{
-            var day=new Date();
-            var date=day.getDate()+'-'+(day.getMonth()+1)+'-'+day.getFullYear()+
-            '||'+day.getHours()+':'+day.getMinutes()+':'+day.getSeconds();
-            document.getElementById("time").innerHTML=date;
-        },1000);     
-       
+
+        setInterval(() => {
+            var day = new Date();
+            var date = day.getDate() + '-' + (day.getMonth() + 1) + '-' + day.getFullYear() +
+                '||' + day.getHours() + ':' + day.getMinutes() + ':' + day.getSeconds();
+            document.getElementById("time").innerHTML = date;
+        }, 1000);
+
     }
- 
-    
+
+
 
 }
