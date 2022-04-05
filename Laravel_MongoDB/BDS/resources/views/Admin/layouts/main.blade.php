@@ -9,7 +9,7 @@
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('themes/admin/assets/images/brand/favicon.ico')}}" />
     <!-- TITLE -->
-    <title>Bất động sản</title>
+    <title>Bất động sản </title>
     @include('Admin.partials.stylesheet')
 </head>
 

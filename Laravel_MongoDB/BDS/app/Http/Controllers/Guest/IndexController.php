@@ -89,8 +89,6 @@ class IndexController extends Controller
                 );
                 return json_encode($json_data);
             }
-         
-          
         }
 
         $json_data=array(
