@@ -9,7 +9,7 @@ class Contacts extends Model
 {
     use HasFactory;
     // use HasFactory;
-    const TABLE='contact';
+    const TABLE='contacts';
     protected $table = self::TABLE;
     protected $primaryKey = 'id';
     public $timestamps = true;

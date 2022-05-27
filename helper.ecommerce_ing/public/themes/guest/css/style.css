@@ -1,81 +1,18 @@
-body {}
+body {
+    font-family: 'Roboto', sans-serif;
+}
 
 .text-title {
-    position: relative;
-    bottom: 3px;
-    padding-top: 3px;
-    padding-left: 11px;
-    margin-left: 11px;
+    display: flex;
+    align-items: center;
     font-size: 17px;
     line-height: 20px;
     color: #05226e;
     border-left: 1px solid #3465e6;
 }
 
-.bg-main {
-    background-color: #3465e6;
-    color: white;
-    height: 200px;
-    width: 100%;
-}
-
 .cusor-point {
     cursor: pointer;
-}
-
-.bg-content {
-    background-color: white;
-}
-
-.bg-icon {
-    background-color: #3465e6;
-    width: 36px;
-    height: 36px;
-    line-height: 12px;
-    padding-left: 2px;
-
-}
-
-.text-content {
-    margin-left: 46px;
-}
-
-.app-sidebar__toggle {
-    display: none;
-}
-
-ul {
-    list-style: none;
-}
-
-.light-logo1 {
-    display: block;
-}
-
-
-.app-content {
-    margin: 0;
-}
-
-.logo-horizontal {
-    display: block;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.app-header {
-    padding-right: 0;
-    padding-left: 0;
-}
-
-.top-header {
-    z-index: 10 !important;
-}
-
-
-.bg-container {
-    width: 998px;
 }
 
 .header-top {
@@ -83,8 +20,39 @@ ul {
     height: 65px;
 }
 
+.bg-icon {
+    width: 36px;
+    height: 36px;
+}
 
+.icon {
+    bottom: 30% !important;
+}
 
+.header-content {
+    z-index: 20 !important;
+}
+
+.image-logo {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.header-logo {
+    padding: 10px 5px !important;
+}
+
+.icon-bg {
+    min-height: 100px;
+    display: flex
+}
+
+.text-content {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    margin-left: 55px;
+}
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 
@@ -106,16 +74,10 @@ ul {
         justify-content: start;
     }
 
-    .text-title {
-        margin-left: 100px;
-    }
-
-
-
 }
 
-@media only screen and (max-width: 600px) {
-    .text-menu ul {
-        display: none;
+@media only screen and (max-width: 478px) {
+    .content-text {
+        margin-top: 80px;
     }
 }

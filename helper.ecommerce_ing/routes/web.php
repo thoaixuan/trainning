@@ -15,9 +15,12 @@ use App\Http\Controllers\Guest\ContactController;
 |
 */
 
-Route::get('/',[HomeController::class,'index'])->name('guest.home.index');
-Route::group(['prefix'=>'/contact'],function(){
-    Route::get('/',[ContactController::class,'index'])->name('guest.contact.index');
-    Route::post('/send_contacts',[ContactController::class,'insert'])->name('guest.contact.send_contacts');
+Route::group(['namespace'=>'Guest'],function(){
+    Route::get('/',[HomeController::class,'index'])->name('guest.home.index');
+    Route::group(['prefix'=>'/contact'],function(){
+        Route::get('/',[ContactController::class,'index'])->name('guest.contact.index');
+        Route::post('/send_contacts',[ContactController::class,'insert'])->name('guest.contact.send_contacts');
+    });
 });
+
 // Route::get('/contact',[ContactController::class,'index'])->name('guest.contact.index');

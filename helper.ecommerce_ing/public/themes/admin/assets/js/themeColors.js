@@ -6,9 +6,48 @@ const handleThemeUpdate = (cssVars) => {
     });
 }
 
+function themeSwitch(switchProperty) {
+    switchProperty.forEach((item) => {
+        item.addEventListener('click', (e) => {
+            const primaryColor = e.target.getAttribute('data-bg-color')
+            const primaryHoverColor = e.target.getAttribute('data-bg-hover')
+            const primaryBorderColor = e.target.getAttribute('data-bg-border')
+            const primaryTransparent = e.target.getAttribute('data-bg-transparent')
+            const darkPrimary = e.target.getAttribute('data-primary')
+            const darkprimaryTransparent = e.target.getAttribute('data-bg-darktransparent')
+            const transparentPrimary = e.target.getAttribute('data-primary')
+            const transparentBgColor = e.target.getAttribute('data-body')
+            const transparentBgTheme = e.target.getAttribute('data-theme')
+            const transparentprimaryTransparent = e.target.getAttribute('data-transparentcolor')
+
+            handleThemeUpdate({
+                '--primary-bg-color': primaryColor,
+                '--primary-bg-hover': primaryHoverColor,
+                '--primary-bg-border': primaryBorderColor,
+                '--primary-transparentcolor': primaryTransparent,
+                '--dark-primary': darkPrimary,
+                '--darkprimary-transparentcolor': darkprimaryTransparent,
+                '--transparent-primary': transparentPrimary,
+                '--transparent-body': transparentBgColor,
+                '--transparent-mode': transparentBgTheme,
+                '--transparentprimary-transparentcolor': transparentprimaryTransparent,
+            });
+
+            $("input.input-color-picker[data-id='bg-color']").val(primaryColor)
+            $("input.input-color-picker[data-id1='bg-hover']").val(primaryColor)
+            $("input.input-color-picker[data-id2='bg-border']").val(primaryColor)
+            $("input.input-color-picker[data-id7='transparentcolor']").val(primaryColor)
+            $("input.input-color-picker[data-id3='primary']").val(darkPrimary)
+            $("input.input-color-picker[data-id8='transparentcolor']").val(darkPrimary)
+            $("input.input-color-picker[data-id4='primary']").val(transparentPrimary)
+            $("input.input-color-picker[data-id5='body']").val(transparentBgColor)
+            $("input.input-color-picker[data-id6='theme']").val(transparentBgTheme)
+            $("input.input-color-picker[data-id9='transparentcolor']").val(transparentPrimary)
+        });
+    });
+}
+
 function dynamicPrimaryColor(primaryColor) {
-    'use strict'
-    
     primaryColor.forEach((item) => {
         item.addEventListener('input', (e) => {
             const cssPropName = `--primary-${e.target.getAttribute('data-id')}`;
@@ -34,52 +73,40 @@ function dynamicPrimaryColor(primaryColor) {
                 [cssPropName8]: e.target.value + 20,
                 [cssPropName9]: e.target.value + 20,
             });
-            $("input.input-color-picker[data-id='bg-color']").val(cssPropName)
-            $("input.input-color-picker[data-id1='bg-hover']").val(cssPropName)
-            $("input.input-color-picker[data-id2='bg-border']").val(cssPropName)
-            $("input.input-color-picker[data-id7='transparentcolor']").val(cssPropName)
-            $("input.input-color-picker[data-id3='primary']").val(cssPropName8)
-            $("input.input-color-picker[data-id8='transparentcolor']").val(cssPropName8)
-            $("input.input-color-picker[data-id4='primary']").val(cssPropName4)
-            $("input.input-color-picker[data-id5='body']").val(cssPropName4)
-            $("input.input-color-picker[data-id6='theme']").val(cssPropName8)
-            $("input.input-color-picker[data-id9='transparentcolor']").val(cssPropName4)
         });
     });
 }
 
 (function() {
-    'use strict'
-
     // Light theme color picker
-    // const LightThemeSwitchers = document.querySelectorAll('.light-mode .switch_section span');
+    const LightThemeSwitchers = document.querySelectorAll('.light-mode .switch_section span');
     const dynamicPrimaryLight = document.querySelectorAll('input.color-primary-light');
 
-    // themeSwitch(LightThemeSwitchers);
+    themeSwitch(LightThemeSwitchers);
     dynamicPrimaryColor(dynamicPrimaryLight);
 
     // dark theme color picker
 
-    // const DarkThemeSwitchers = document.querySelectorAll('.dark-mode .switch_section span')
+    const DarkThemeSwitchers = document.querySelectorAll('.dark-mode .switch_section span')
     const DarkDynamicPrimaryLight = document.querySelectorAll('input.color-primary-dark');
 
-    // themeSwitch(DarkThemeSwitchers);
+    themeSwitch(DarkThemeSwitchers);
     dynamicPrimaryColor(DarkDynamicPrimaryLight);
 
     // tranparent theme color picker
 
-    // const transparentThemeSwitchers = document.querySelectorAll('.transparent-mode .switch_section span')
+    const transparentThemeSwitchers = document.querySelectorAll('.transparent-mode .switch_section span')
     const transparentDynamicPrimaryLight = document.querySelectorAll('input.color-primary-transparent');
 
-    // themeSwitch(transparentThemeSwitchers);
+    themeSwitch(transparentThemeSwitchers);
     dynamicPrimaryColor(transparentDynamicPrimaryLight);
 
     // tranparent theme bgcolor picker
 
-    // const transparentBgThemeSwitchers = document.querySelectorAll('.transparent-mode .switch_section span')
+    const transparentBgThemeSwitchers = document.querySelectorAll('.transparent-mode .switch_section span')
     const transparentDynamicPBgLight = document.querySelectorAll('input.color-bg-transparent');
 
-    // themeSwitch(transparentBgThemeSwitchers);
+    themeSwitch(transparentBgThemeSwitchers);
     dynamicPrimaryColor(transparentDynamicPBgLight);
 
     localStorageBackup();
@@ -92,12 +119,8 @@ function dynamicPrimaryColor(primaryColor) {
         document.querySelector('body')?.classList.remove('bg-img3');
         document.querySelector('body')?.classList.remove('bg-img4');
         
-        localStorage.removeItem('sashBgImage');
+        localStorage.removeItem('BgImage');
         $('#myonoffswitch1').prop('checked', true);
-
-        localStorage.setItem('sashlightMode', true);
-        localStorage.removeItem('sashdarkMode');
-        localStorage.removeItem('sashtransparentMode');
     })
     $('#myonoffswitch2').on('click', function(){
     document.querySelector('body')?.classList.remove('light-mode');
@@ -107,11 +130,7 @@ function dynamicPrimaryColor(primaryColor) {
     document.querySelector('body')?.classList.remove('bg-img3');
     document.querySelector('body')?.classList.remove('bg-img4');
     
-    localStorage.setItem('sashdarkMode', true);
-    localStorage.removeItem('sashlightMode');
-    localStorage.removeItem('sashtransparentMode');
-    
-    localStorage.removeItem('sashBgImage');
+    localStorage.removeItem('BgImage');
     $('#myonoffswitch2').prop('checked', true);
     })
     $('#myonoffswitchTransparent').on('click', function(){
@@ -122,73 +141,61 @@ function dynamicPrimaryColor(primaryColor) {
     document.querySelector('body')?.classList.remove('bg-img3');
     document.querySelector('body')?.classList.remove('bg-img4');
     
-    localStorage.removeItem('sashBgImage');
+    localStorage.removeItem('BgImage');
     $('#myonoffswitchTransparent').prop('checked', true);
-    
-    localStorage.setItem('sashtransparentMode', true);
-    localStorage.removeItem('sashlightMode');
-    localStorage.removeItem('sashdarkMode');
     })
         
 })();
 
 function localStorageBackup() {
-    'use strict'
-
     // if there is a value stored, update color picker and background color
     // Used to retrive the data from local storage
-    if (localStorage.sashprimaryColor) {
-        // document.getElementById('colorID').value = localStorage.sashprimaryColor;
-        document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.sashprimaryColor);
-        document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.sashprimaryHoverColor);
-        document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.sashprimaryBorderColor);
-        document.querySelector('html').style.setProperty('--primary-transparentcolor', localStorage.sashprimaryTransparent);
-		document.querySelector('body')?.classList.add('light-mode');
-		document.querySelector('body')?.classList.remove('dark-mode');
-		document.querySelector('body')?.classList.remove('transparent-mode');
+    if (localStorage.primaryColor) {
+        // document.getElementById('colorID').value = localStorage.primaryColor;
+        document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.primaryColor);
+        document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.primaryHoverColor);
+        document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.primaryBorderColor);
+        document.querySelector('html').style.setProperty('--primary-transparentcolor', localStorage.primaryTransparent);
+        document.querySelector('body').setAttribute('class', 'app sidebar-mini light-mode');
 
         $('#myonoffswitch3').prop('checked', true);
         $('#myonoffswitch6').prop('checked', true);
         $('#myonoffswitch1').prop('checked', true);
     }
 
-    if (localStorage.sashdarkPrimary) {
-        // document.getElementById('darkPrimaryColorID').value = localStorage.sashdarkPrimary;
-        document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.sashdarkPrimary);
-        document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.sashdarkPrimary);
-        document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.sashdarkPrimary);
-        document.querySelector('html').style.setProperty('--dark-primary', localStorage.sashdarkPrimary);
-        document.querySelector('html').style.setProperty('--darkprimary-transparentcolor', localStorage.sashdarkprimaryTransparent);
-		document.querySelector('body')?.classList.add('dark-mode');
-		document.querySelector('body')?.classList.remove('light-mode');
-		document.querySelector('body')?.classList.remove('transparent-mode');
+    if (localStorage.darkPrimary) {
+        // document.getElementById('darkPrimaryColorID').value = localStorage.darkPrimary;
+        document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.darkPrimary);
+        document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.darkPrimary);
+        document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.darkPrimary);
+        document.querySelector('html').style.setProperty('--dark-primary', localStorage.darkPrimary);
+        document.querySelector('html').style.setProperty('--darkprimary-transparentcolor', localStorage.darkprimaryTransparent);
+        document.querySelector('body').setAttribute('class', 'app sidebar-mini dark-mode');
 
         $('#myonoffswitch2').prop('checked', true);
 
     }
 
 
-    if (localStorage.sashtransparentPrimary) {
-        // document.getElementById('transparentPrimaryColorID').value = localStorage.sashtransparentPrimary;
-        document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.sashtransparentPrimary);
-        document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.sashtransparentPrimary);
-        document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.sashtransparentPrimary);
-        document.querySelector('html').style.setProperty('--transparent-primary', localStorage.sashtransparentPrimary);
-        document.querySelector('html').style.setProperty('--transparentprimary-transparentcolor', localStorage.sashtransparentprimaryTransparent);
-		document.querySelector('body')?.classList.add('transparent-mode');
-		document.querySelector('body')?.classList.remove('dark-mode');
-		document.querySelector('body')?.classList.remove('light-mode');
+    if (localStorage.transparentPrimary) {
+        // document.getElementById('transparentPrimaryColorID').value = localStorage.transparentPrimary;
+        document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.transparentPrimary);
+        document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.transparentPrimary);
+        document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.transparentPrimary);
+        document.querySelector('html').style.setProperty('--transparent-primary', localStorage.transparentPrimary);
+        document.querySelector('html').style.setProperty('--transparentprimary-transparentcolor', localStorage.transparentprimaryTransparent);
+        document.querySelector('body').setAttribute('class', 'app sidebar-mini transparent-mode');
 
         $('#myonoffswitchTransparent').prop('checked', true);
     }
 
-    if (localStorage.sashtransparentBgImgPrimary) {
-		// document.getElementById('transparentBgImgPrimaryColorID').value = localStorage.sashtransparentBgImgPrimary;
-		document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.sashtransparentBgImgPrimary);
-		document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.sashtransparentBgImgPrimary);
-		document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.sashtransparentBgImgPrimary);
-		document.querySelector('html').style.setProperty('--transparent-primary', localStorage.sashtransparentBgImgPrimary);
-		document.querySelector('html').style.setProperty('--transparentprimary-transparentcolor', localStorage.sashtransparentBgImgprimaryTransparent);
+    if (localStorage.transparentBgImgPrimary) {
+		// document.getElementById('transparentBgImgPrimaryColorID').value = localStorage.transparentBgImgPrimary;
+		document.querySelector('html').style.setProperty('--primary-bg-color', localStorage.transparentBgImgPrimary);
+		document.querySelector('html').style.setProperty('--primary-bg-hover', localStorage.transparentBgImgPrimary);
+		document.querySelector('html').style.setProperty('--primary-bg-border', localStorage.transparentBgImgPrimary);
+		document.querySelector('html').style.setProperty('--transparent-primary', localStorage.transparentBgImgPrimary);
+		document.querySelector('html').style.setProperty('--transparentprimary-transparentcolor', localStorage.transparentBgImgprimaryTransparent);
 		document.querySelector('body')?.classList.add('transparent-mode');
 		document.querySelector('body')?.classList.remove('dark-mode');
 		document.querySelector('body')?.classList.remove('light-mode');
@@ -196,11 +203,11 @@ function localStorageBackup() {
 		$('#myonoffswitchTransparent').prop('checked', true);
 	}
     
-    if (localStorage.sashtransparentBgColor) {
-        // document.getElementById('transparentBgColorID').value = localStorage.sashtransparentBgColor;
-        document.querySelector('html').style.setProperty('--transparent-body', localStorage.sashtransparentBgColor);
-        document.querySelector('html').style.setProperty('--transparent-mode', localStorage.sashtransparentThemeColor);
-        document.querySelector('html').style.setProperty('--transparentprimary-transparentcolor', localStorage.sashtransparentprimaryTransparent);
+    if (localStorage.transparentBgColor) {
+        // document.getElementById('transparentBgColorID').value = localStorage.transparentBgColor;
+        document.querySelector('html').style.setProperty('--transparent-body', localStorage.transparentBgColor);
+        document.querySelector('html').style.setProperty('--transparent-mode', localStorage.transparentThemeColor);
+        document.querySelector('html').style.setProperty('--transparentprimary-transparentcolor', localStorage.transparentprimaryTransparent);
         document.querySelector('body').classList.add('transparent-mode');
         document.querySelector('body').classList.remove('dark-mode');
         document.querySelector('body').classList.remove('light-mode');
@@ -208,111 +215,68 @@ function localStorageBackup() {
 
         $('#myonoffswitchTransparent').prop('checked', true);
     }
-	if (localStorage.sashBgImage) {
+	if (localStorage.BgImage) {
 		document.querySelector('body')?.classList.add('transparent-mode');
-        let bgImg = localStorage.sashBgImage.split(' ')[0];
+        let bgImg = localStorage.BgImage.split(' ')[0];
 		document.querySelector('body')?.classList.add(bgImg);
 		document.querySelector('body')?.classList.remove('dark-mode');
 		document.querySelector('body')?.classList.remove('light-mode');
 		
 		$('#myonoffswitchTransparent').prop('checked', true);
 	}
-
-    if(localStorage.sashlightMode){
-        document.querySelector('body')?.classList.add('light-mode');
-		document.querySelector('body')?.classList.remove('dark-mode');
-		document.querySelector('body')?.classList.remove('transparent-mode');
-        $('#myonoffswitch1').prop('checked', true);
-        $('#myonoffswitch3').prop('checked', true);
-        $('#myonoffswitch6').prop('checked', true);
-    }
-    if(localStorage.sashdarkMode){
-        document.querySelector('body')?.classList.remove('light-mode');
-		document.querySelector('body')?.classList.add('dark-mode');
-		document.querySelector('body')?.classList.remove('transparent-mode');
-        $('#myonoffswitch2').prop('checked', true);
-        $('#myonoffswitch5').prop('checked', true);
-        $('#myonoffswitch8').prop('checked', true);
-    }
-    if(localStorage.sashtransparentMode){
-        document.querySelector('body')?.classList.remove('light-mode');
-		document.querySelector('body')?.classList.remove('dark-mode');
-		document.querySelector('body')?.classList.add('transparent-mode');
-        $('#myonoffswitchTransparent').prop('checked', true);
-        $('#myonoffswitch3').prop('checked', false);
-        $('#myonoffswitch6').prop('checked', false);
-        $('#myonoffswitch5').prop('checked', false);
-        $('#myonoffswitch8').prop('checked', false);
-    }
-    if(localStorage.sashhorizontal){
-        document.querySelector('body').classList.add('horizontal')
-    }
-    if(localStorage.sashhorizontalHover){
-        document.querySelector('body').classList.add('horizontal-hover')
-    }
-    if(localStorage.sashrtl){
-        document.querySelector('body').classList.add('rtl')
-    }
 }
 
 // triggers on changing the color picker
 function changePrimaryColor() {
-    'use strict'
-
     $('#myonoffswitch3').prop('checked', true);
     $('#myonoffswitch6').prop('checked', true);
     checkOptions();
 
     var userColor = document.getElementById('colorID').value;
-    localStorage.setItem('sashprimaryColor', userColor);
+    localStorage.setItem('primaryColor', userColor);
     // to store value as opacity 0.95 we use 95
-    localStorage.setItem('sashprimaryHoverColor', userColor + 95);
-    localStorage.setItem('sashprimaryBorderColor', userColor);
-    localStorage.setItem('sashprimaryTransparent', userColor + 20);
+    localStorage.setItem('primaryHoverColor', userColor + 95);
+    localStorage.setItem('primaryBorderColor', userColor);
+    localStorage.setItem('primaryTransparent', userColor + 20);
 
     // removing dark theme properties
-    localStorage.removeItem('sashdarkPrimary')
-    localStorage.removeItem('sashtransparentBgColor');
-    localStorage.removeItem('sashtransparentThemeColor');
-    localStorage.removeItem('sashtransparentPrimary');
-    localStorage.removeItem('sashtransparentBgImgPrimary');
-	localStorage.removeItem('sashtransparentBgImgprimaryTransparent');
-    localStorage.removeItem('sashdarkprimaryTransparent');
+    localStorage.removeItem('darkPrimary')
+    localStorage.removeItem('transparentBgColor');
+    localStorage.removeItem('transparentThemeColor');
+    localStorage.removeItem('transparentPrimary');
+    localStorage.removeItem('transparentBgImgPrimary');
+	localStorage.removeItem('transparentBgImgprimaryTransparent');
+    localStorage.removeItem('darkprimaryTransparent');
     document.querySelector('body').classList.add('light-mode');
     document.querySelector('body').classList.remove('transparent-mode');
     document.querySelector('body').classList.remove('dark-mode');
-	localStorage.removeItem('sashBgImage');
+	localStorage.removeItem('BgImage');
 
     $('#myonoffswitch1').prop('checked', true);
     names()
-    
-    localStorage.setItem('sashlightMode', true);
-    localStorage.removeItem('sashdarkMode');
-    localStorage.removeItem('sashtransparentMode');
 }
 
 function darkPrimaryColor() {
-    'use strict'
 
     var userColor = document.getElementById('darkPrimaryColorID').value;
-    localStorage.setItem('sashdarkPrimary', userColor);
-    localStorage.setItem('sashdarkprimaryTransparent', userColor + 20);
+    localStorage.setItem('darkPrimary', userColor);
+    localStorage.setItem('darkprimaryTransparent', userColor + 20);
     $('#myonoffswitch5').prop('checked', true);
     $('#myonoffswitch8').prop('checked', true);
     checkOptions();
 
     // removing light theme data 
-    localStorage.removeItem('sashprimaryColor')
-    localStorage.removeItem('sashprimaryHoverColor')
-    localStorage.removeItem('sashprimaryBorderColor')
-    localStorage.removeItem('sashprimaryTransparent');
-    localStorage.removeItem('sashtransparentBgImgPrimary');
-	localStorage.removeItem('sashtransparentBgImgprimaryTransparent');
+    localStorage.removeItem('primaryColor')
+    localStorage.removeItem('primaryHoverColor')
+    localStorage.removeItem('primaryBorderColor')
+    localStorage.removeItem('primaryTransparent');
+    localStorage.removeItem('transparentBgImgPrimary');
+	localStorage.removeItem('transparentBgImgprimaryTransparent');
 
-    localStorage.removeItem('sashtransparentBgColor');
-    localStorage.removeItem('sashtransparentThemeColor');
-    localStorage.removeItem('sashtransparentPrimary');
-	localStorage.removeItem('sashBgImage');
+    localStorage.removeItem('transparentBgColor');
+    localStorage.removeItem('transparentThemeColor');
+    localStorage.removeItem('transparentPrimary');
+	localStorage.removeItem('BgImage');
 
     document.querySelector('body').classList.add('dark-mode');
     document.querySelector('body').classList.remove('light-mode');
@@ -320,14 +284,9 @@ function darkPrimaryColor() {
 
     $('#myonoffswitch2').prop('checked', true);
     names()
-
-    localStorage.setItem('sashdarkMode', true);
-    localStorage.removeItem('sashlightMode');
-    localStorage.removeItem('sashtransparentMode');
 }
 
 function transparentPrimaryColor() {
-    'use strict'
     
     $('#myonoffswitch3').prop('checked', false);
     $('#myonoffswitch6').prop('checked', false);
@@ -335,44 +294,34 @@ function transparentPrimaryColor() {
     $('#myonoffswitch8').prop('checked', false);
 
     var userColor = document.getElementById('transparentPrimaryColorID').value;
-    localStorage.setItem('sashtransparentPrimary', userColor);
-    localStorage.setItem('sashtransparentprimaryTransparent', userColor + 20);
+    localStorage.setItem('transparentPrimary', userColor);
+    localStorage.setItem('transparentprimaryTransparent', userColor + 20);
 
     // removing light theme data 
-    localStorage.removeItem('sashdarkPrimary');
-    localStorage.removeItem('sashprimaryColor')
-    localStorage.removeItem('sashprimaryHoverColor')
-    localStorage.removeItem('sashprimaryBorderColor')
-    localStorage.removeItem('sashprimaryTransparent');
-    localStorage.removeItem('sashtransparentBgImgPrimary');
-	localStorage.removeItem('sashtransparentBgImgprimaryTransparent');
+    localStorage.removeItem('darkPrimary');
+    localStorage.removeItem('primaryColor')
+    localStorage.removeItem('primaryHoverColor')
+    localStorage.removeItem('primaryBorderColor')
+    localStorage.removeItem('primaryTransparent');
+    localStorage.removeItem('transparentBgImgPrimary');
+	localStorage.removeItem('transparentBgImgprimaryTransparent');
     document.querySelector('body').classList.add('transparent-mode');
     document.querySelector('body').classList.remove('light-mode');
     document.querySelector('body').classList.remove('dark-mode');
-	document.querySelector('body')?.classList.remove('bg-img1');
-	document.querySelector('body')?.classList.remove('bg-img2');
-	document.querySelector('body')?.classList.remove('bg-img3');
-	document.querySelector('body')?.classList.remove('bg-img4');
 
     $('#myonoffswitchTransparent').prop('checked', true);
     checkOptions();
     names()
-
-    localStorage.setItem('sashtransparentMode', true);
-    localStorage.removeItem('sashlightMode');
-    localStorage.removeItem('sashdarkMode');
 }
 
 function transparentBgImgPrimaryColor() {
-    'use strict'
-
     $('#myonoffswitch3').prop('checked', false);
     $('#myonoffswitch6').prop('checked', false);
     $('#myonoffswitch5').prop('checked', false);
     $('#myonoffswitch8').prop('checked', false);
 	var userColor = document.getElementById('transparentBgImgPrimaryColorID').value;
-	localStorage.setItem('sashtransparentBgImgPrimary', userColor);
-	localStorage.setItem('sashtransparentBgImgprimaryTransparent', userColor+20);
+	localStorage.setItem('transparentBgImgPrimary', userColor);
+	localStorage.setItem('transparentBgImgprimaryTransparent', userColor+20);
 	if(
 		document.querySelector('body')?.classList.contains('bg-img1') == false &&
 		document.querySelector('body')?.classList.contains('bg-img2') == false &&
@@ -380,17 +329,17 @@ function transparentBgImgPrimaryColor() {
 		document.querySelector('body')?.classList.contains('bg-img4') == false
 		){
 		document.querySelector('body')?.classList.add('bg-img1');
-        localStorage.setItem('sashBgImage', 'bg-img1')
+        localStorage.setItem('BgImage', 'bg-img1')
 	}
     // removing light theme data 
-	localStorage.removeItem('sashdarkPrimary');
-	localStorage.removeItem('sashprimaryColor')
-	localStorage.removeItem('sashprimaryHoverColor')
-	localStorage.removeItem('sashprimaryBorderColor')
-	localStorage.removeItem('sashprimaryTransparent');
-	localStorage.removeItem('sashdarkprimaryTransparent');
-	localStorage.removeItem('sashtransparentPrimary')
-	localStorage.removeItem('sashtransparentprimaryTransparent');
+	localStorage.removeItem('darkPrimary');
+	localStorage.removeItem('primaryColor')
+	localStorage.removeItem('primaryHoverColor')
+	localStorage.removeItem('primaryBorderColor')
+	localStorage.removeItem('primaryTransparent');
+	localStorage.removeItem('darkprimaryTransparent');
+	localStorage.removeItem('transparentPrimary')
+	localStorage.removeItem('transparentprimaryTransparent');
 	document.querySelector('body').classList.add('transparent-mode');
 	document.querySelector('body')?.classList.remove('light-mode');
 	document.querySelector('body')?.classList.remove('dark-mode');
@@ -398,34 +347,28 @@ function transparentBgImgPrimaryColor() {
 	$('#myonoffswitchTransparent').prop('checked', true);
     checkOptions();
 	names();
-    
-    localStorage.setItem('sashtransparentMode', true);
-    localStorage.removeItem('sashlightMode');
-    localStorage.removeItem('sashdarkMode');
 }
 
 
 function transparentBgColor() {
-    'use strict'
-
     $('#myonoffswitch3').prop('checked', false);
     $('#myonoffswitch6').prop('checked', false);
     $('#myonoffswitch5').prop('checked', false);
     $('#myonoffswitch8').prop('checked', false);
     var userColor = document.getElementById('transparentBgColorID').value;
-    localStorage.setItem('sashtransparentBgColor', userColor);
-    localStorage.setItem('sashtransparentThemeColor', userColor + 95);
-    localStorage.setItem('sashtransparentprimaryTransparent', userColor + 20);
-    localStorage.removeItem('sashtransparentBgImgPrimary');
-	localStorage.removeItem('sashtransparentBgImgprimaryTransparent');
+    localStorage.setItem('transparentBgColor', userColor);
+    localStorage.setItem('transparentThemeColor', userColor + 95);
+    localStorage.setItem('transparentprimaryTransparent', userColor + 20);
+    localStorage.removeItem('transparentBgImgPrimary');
+	localStorage.removeItem('transparentBgImgprimaryTransparent');
 
     // removing light theme data 
-    localStorage.removeItem('sashdarkPrimary');
-    localStorage.removeItem('sashprimaryColor')
-    localStorage.removeItem('sashprimaryHoverColor')
-    localStorage.removeItem('sashprimaryBorderColor')
-    localStorage.removeItem('sashprimaryTransparent');
-	localStorage.removeItem('sashBgImage');
+    localStorage.removeItem('darkPrimary');
+    localStorage.removeItem('primaryColor')
+    localStorage.removeItem('primaryHoverColor')
+    localStorage.removeItem('primaryBorderColor')
+    localStorage.removeItem('primaryTransparent');
+	localStorage.removeItem('BgImage');
     document.querySelector('body').classList.add('transparent-mode');
     document.querySelector('body').classList.remove('light-mode');
     document.querySelector('body').classList.remove('dark-mode');
@@ -436,39 +379,30 @@ function transparentBgColor() {
 
     $('#myonoffswitchTransparent').prop('checked', true);
     checkOptions();
-    
-    localStorage.setItem('sashtransparentMode', true);
-    localStorage.removeItem('sashlightMode');
-    localStorage.removeItem('sashdarkMode');
 }
 
 
 function bgImage(e) {
-    'use strict'
 
     $('#myonoffswitch3').prop('checked', false);
     $('#myonoffswitch6').prop('checked', false);
     $('#myonoffswitch5').prop('checked', false);
     $('#myonoffswitch8').prop('checked', false);
 	let imgID = e.getAttribute('class');
-	localStorage.setItem('sashBgImage', imgID);
+	localStorage.setItem('BgImage', imgID);
     
     // removing light theme data 
-	localStorage.removeItem('sashdarkPrimary');
-	localStorage.removeItem('sashprimaryColor')
-	localStorage.removeItem('sashtransparentBgColor');
-	localStorage.removeItem('sashtransparentThemeColor');
-	localStorage.removeItem('sashtransparentprimaryTransparent');
+	localStorage.removeItem('darkPrimary');
+	localStorage.removeItem('primaryColor')
+	localStorage.removeItem('transparentBgColor');
+	localStorage.removeItem('transparentThemeColor');
+	localStorage.removeItem('transparentprimaryTransparent');
 	document.querySelector('body').classList.add('transparent-mode');
 	document.querySelector('body')?.classList.remove('light-mode');
 	document.querySelector('body')?.classList.remove('dark-mode');
 
 	$('#myonoffswitchTransparent').prop('checked', true);
     checkOptions();
-    
-    localStorage.setItem('sashtransparentMode', true);
-    localStorage.removeItem('sashlightMode');
-    localStorage.removeItem('sashdarkMode');
 }
 
 // to check the value is hexa or not
@@ -487,8 +421,6 @@ const getAlphafloat = (a, alpha) => {
     }
     // convertion of hex code to rgba code 
 function hexToRgba(hexValue, alpha) {
-    'use strict'
-
     if (!isValidHex(hexValue)) { return null }
     const chunkSize = Math.floor((hexValue.length - 1) / 3)
     const hexArr = getChunksFromString(hexValue.slice(1), chunkSize)
@@ -500,15 +432,12 @@ function hexToRgba(hexValue, alpha) {
 let myVarVal, myVarVal1, myVarVal2, myVarVal3
 
 function names() {
-    'use strict'
-
-    let primaryColorVal = getComputedStyle(document.documentElement).getPropertyValue('--primary-bg-color').trim();
 
     //get variable
-    myVarVal = localStorage.getItem("sashprimaryColor") || localStorage.getItem("sashdarkPrimary") || localStorage.getItem("sashtransparentPrimary") || localStorage.getItem("sashtransparentBgImgPrimary")  || primaryColorVal;
-    myVarVal1 = localStorage.getItem("sashprimaryColor") || localStorage.getItem("sashdarkPrimary") || localStorage.getItem("sashtransparentPrimary") || localStorage.getItem("sashtransparentBgImgPrimary")  || "#05c3fb";
-    myVarVal2 = localStorage.getItem("sashprimaryColor") || localStorage.getItem("sashdarkPrimary") || localStorage.getItem("sashtransparentPrimary") || localStorage.getItem("sashtransparentBgImgPrimary")  || null;
-    myVarVal3 = localStorage.getItem("sashprimaryColor") || localStorage.getItem("sashdarkPrimary") || localStorage.getItem("sashtransparentPrimary") || localStorage.getItem("sashtransparentBgImgPrimary") || null;
+    myVarVal = localStorage.getItem("primaryColor") || localStorage.getItem("darkPrimary") || localStorage.getItem("transparentPrimary") || localStorage.getItem("transparentBgImgPrimary")  || "#6c5ffc";
+    myVarVal1 = localStorage.getItem("primaryColor") || localStorage.getItem("darkPrimary") || localStorage.getItem("transparentPrimary") || localStorage.getItem("transparentBgImgPrimary")  || "#05c3fb";
+    myVarVal2 = localStorage.getItem("primaryColor") || localStorage.getItem("darkPrimary") || localStorage.getItem("transparentPrimary") || localStorage.getItem("transparentBgImgPrimary")  || null;
+    myVarVal3 = localStorage.getItem("primaryColor") || localStorage.getItem("darkPrimary") || localStorage.getItem("transparentPrimary") || localStorage.getItem("transparentBgImgPrimary") || null;
 
     if(document.querySelector('#transactions') !== null){
         index();
@@ -528,9 +457,6 @@ function names() {
 
     let colorData4 = hexToRgba(myVarVal || "#6c5ffc", 0.9)
     document.querySelector('html').style.setProperty('--primary09', colorData4);
-
-    let colorData5 = hexToRgba(myVarVal || "#6c5ffc", 0.05)
-    document.querySelector('html').style.setProperty('--primary005', colorData5);
 
 }
 names()

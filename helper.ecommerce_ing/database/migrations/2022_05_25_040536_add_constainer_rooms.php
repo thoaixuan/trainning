@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddConstainerKey extends Migration
+class AddConstainerRooms extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddConstainerKey extends Migration
      */
     public function up()
     {
-        Schema::table('contact', function (Blueprint $table) {
-            $table->integer('rooms_id')->nullable();
+        Schema::table('contacts', function (Blueprint $table) {
+            // $table->foreignId("rooms_id")->constraint("rooms")->onDelete("cascade");
         });
     }
 
@@ -25,7 +25,7 @@ class AddConstainerKey extends Migration
      */
     public function down()
     {
-        Schema::table('contact', function (Blueprint $table) {
+        Schema::table('contacts', function (Blueprint $table) {
             //
         });
     }

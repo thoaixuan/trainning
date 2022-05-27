@@ -33,6 +33,7 @@
         </div>
         @include('admin.includes.footer')
         @include('admin.includes.backtotop')
+        @include('admin.components.delete')
         @include('admin.partials.scripts')
         <script src="{{asset('app/Admin/main.js')}}"></script>
          @yield('jsAdmin')

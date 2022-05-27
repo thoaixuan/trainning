@@ -46,5 +46,6 @@
 <!-- CUSTOM JS -->
 <script src="{{asset('themes/admin/assets/js/custom.js')}}"></script>
 
-<script src="{{asset('themes/admin/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
-<script src="{{asset('themes/admin/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+<script src="{{asset('themes/admin/assets/plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+<script src="{{asset('themes/admin/assets/plugins/jquery-validation/additional-methods.min.js')}}"></script>
+<script src="{{ asset('themes/admin/assets/plugins/toastr/toastr.min.js')}}"></script>

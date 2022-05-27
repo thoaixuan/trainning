@@ -1,8 +1,8 @@
 @extends('guest.layouts.main')
 @section('main')
 <div class="bg-landing pt-3 pb-3">
-    <div class="container">
-        <div class="row mt-3 mb-3">
+    <div class="container ">
+        <div class="row mt-10 mb-3">
             <div class="card-body bg-white text-dark shadow-lg p-3 mb-5 bg-body ">
                 <div class="statistics-info p-4">
                     <div class="row">
@@ -19,12 +19,12 @@
                                         <input type="text" name="email" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="phone">Số điện thoại</label>
+                                        <label for="phone">Số điện thoại (không bắt buộc nhập)</label>
                                         <input type="text" name="phone" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
                                     <label for="phone">Phòng ban</label>
-                                        <select class="form-select" aria-label="Default select example" name="rooms_id">
+                                        <select class="form-select" aria-label="Default select example" name="rooms_id" id="rooms_id">
                                                 <option value="1">Phòng kinh doanh</option>
                                                 <option value="2">Phòng kỹ thuật</option>
                                                 <option value="3">Phòng kế toán</option>

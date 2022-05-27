@@ -13,6 +13,7 @@ function contact() {
         $("#contact_form").validate({
             rules: {
                 "email": {
+                    required: true,
                     validateEmail: true,
                 },
                 "name": {
@@ -20,12 +21,14 @@ function contact() {
                     validateScript: true,
 
                 },
+                "rooms_id": {
+                    required: true,
+                },
                 "content": {
                     required: true,
                     validateScript: true,
                 },
                 "phone": {
-                    required: true,
                     validateScript: true,
                 }
             },

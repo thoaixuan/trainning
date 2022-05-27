@@ -28,23 +28,20 @@
                                 Login Admin
                             </span>
                             <div class="panel panel-primary">
-
                                 <div class="panel-body tabs-menu-body p-0 pt-5">
                                     <div class="tab-content">
-                                            <div class="wrap-input100 validate-input input-group" data-bs-validate="Valid email is required: ex@abc.xyz">
-                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
-                                                    <i class="zmdi zmdi-email text-muted" aria-hidden="true"></i>
-                                                </a>
-                                                <input id="email" name="email" class="input100 border-start-0 form-control ms-0" type="email" placeholder="Email">
+                                            <div class="form-group" id="Password-toggle">
+                                                <input type="number" id="password" name="password" class="input100 form-control ms-0"  placeholder="Mã pin" pattern="[0-9]*" inputmode="numeric">
                                             </div>
-                                            <div class="wrap-input100 validate-input input-group" id="Password-toggle">
-                                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
-                                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
-                                                </a>
-                                                <input type="password" id="password" name="password" class="input100 border-start-0 form-control ms-0"  placeholder="Password">
+                                            <div class="form-group">
+                                                {!! NoCaptcha::renderJs() !!}
+                                                {!! NoCaptcha::display() !!}
+                                            </div>
+                                            <div class="d-flex justify-content-end ">
+                                              <a id="forget-password" href="{{route('admin.login.send_password')}}">Quên mật khẩu ?</a>
                                             </div>
                                             <div class="container-login100-form-btn">
-                                                <span id="submit" class="login100-form-btn btn-primary">Login</span>
+                                                <span id="submit" class="login100-form-btn btn-primary cusor-point">Đăng nhập</span>
                                             </div>
                                     </div>
                                 </div>
@@ -62,5 +59,15 @@
     <!-- BACKGROUND-IMAGE CLOSED -->
 @endsection
 @section('jsAdmin')
-
+<script src="{{asset('app/admin/login/login.js')}}"></script>
+<script>
+var login = new login(); 
+	    login.datas={
+	        routes:{
+	            password:"{{route('admin.login.forget_password')}}",
+	            login:"{{route('admin.login.login')}}"
+	        }
+	    }   
+login.init();
+</script>
 @endsection

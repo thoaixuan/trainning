@@ -20,25 +20,18 @@
    
 </head>
 
-<body class="app sidebar-mini ltr light-mode">
+<body >
 
     <!-- /GLOBAL-LOADER -->
     @include('guest.includes.preload')
 
-    <!-- PAGE -->
-    <div class="page">
-        <div class="page-main">
-            @include('guest.includes.header')
-            @yield('main')
-        </div>
-        @include('guest.includes.footer')
-        @include('guest.includes.backtotop')
-        @include('guest.partials.scripts')
-        <script src="{{asset('app/Guest/main.js')}}"></script>
-         @yield('jsGuest')
-
-    </div>
-
+    @include('guest.includes.header')
+    @yield('main')
+    @include('guest.includes.footer')
+    @include('guest.includes.backtotop') 
+    @include('guest.partials.scripts')
+    <script src="{{asset('app/Guest/main.js')}}"></script>
+    @yield('jsGuest')
 </body>
 
 </html>

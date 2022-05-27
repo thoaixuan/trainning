@@ -12,3 +12,4 @@
 
 <!-- COLOR SKIN CSS -->
 <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{asset('themes/admin/assets/colors/color1.css')}}" />
+<link href="{{asset('themes/admin/assets/plugins/toastr/toastr.min.css')}}" rel="stylesheet" />
