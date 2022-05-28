@@ -28,7 +28,6 @@
     @include('guest.includes.header')
     @yield('main')
     @include('guest.includes.footer')
-    @include('guest.includes.backtotop') 
     @include('guest.partials.scripts')
     <script src="{{asset('app/Guest/main.js')}}"></script>
     @yield('jsGuest')

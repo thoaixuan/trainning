@@ -22,7 +22,7 @@
                       <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                            <i class="fa fa-shop" data-bs-toggle="tooltip" title="" aria-label="fa fa-ambulance"></i>
+                            <i class="side-menu__icon fe fe-home"></i>
                               </span>
                           </div>
                           <div class="text-content"> 
@@ -34,7 +34,7 @@
                       <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                                    <i class="fa fas-home">icon</i>
+                            <i class="side-menu__icon fe fe-grid"></i>
                               </span>
                           </div>
                           <div class="text-content"> 
@@ -46,7 +46,7 @@
                       <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                                    <i class="fa fas-home">icon</i>
+                            <i class="side-menu__icon fe fe-shopping-cart"></i>
                               </span>
                           </div>
                           <div class="text-content"> 
@@ -58,7 +58,7 @@
                       <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                                    <i class="fa fas-home">icon</i>
+                                 <i class="fe fe-gitlab text-warning"></i>
                               </span>
                           </div>
                           <div class="text-content"> 
@@ -70,7 +70,7 @@
                       <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                                    <i class="fa fas-home">icon</i>
+                                 <i class="fe fe-credit-card text-warning"></i>
                               </span>
                           </div>
                           <div class="text-content"> 
@@ -82,7 +82,7 @@
                       <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                                    <i class="fa fas-home">icon</i>
+                            <i class="fe fe-check-circle text-info"></i>
                               </span>
                           </div>
                           <div class="text-content"> 
@@ -94,7 +94,7 @@
                       <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                                    <i class="fa fas-home">icon</i>
+                            <i class="side-menu__icon fe fe-users"></i>
                               </span>
                           </div>
                           <div class="text-content"> 
