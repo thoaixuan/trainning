@@ -19,10 +19,7 @@ class checkPermission
         if($request->ajax()){
             if(Auth::check()){
                 if(Auth::user()->type=="AdminSystem"){
-                    return response()->json([
-                        'status'=>0,
-                        'message'=>'Mã pin bị sai'
-                    ]); 
+                    return $next($request);
                 }
                 else{
                     return response()->json([
