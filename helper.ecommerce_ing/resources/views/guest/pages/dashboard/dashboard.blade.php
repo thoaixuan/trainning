@@ -1,5 +1,5 @@
-@extends('guest.layouts.main') 
-@section('main')  
+@extends('guest.layouts.main')
+@section('main')
 
 <section name="main" >
     <div class="bg-primary h-300 d-flex justify-content-center align-items-center text-white">
@@ -8,7 +8,7 @@
                     Xin chào, eGate có thể giúp gì cho bạn?
                 </h1>
                 <div class="d-flex justify-content-center align-items-center">
-                 <button type="button" class="btn btn-light btn-lg rounded-pill px-5">Liên hệ</button>
+                 <a href="" class="btn btn-light btn-lg rounded-pill px-5">Liên hệ</a>
                 </div>
             </div>
         </div>
@@ -18,85 +18,85 @@
             <h2>Danh mục</h2>
             <div class="row">
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                             <i class="side-menu__icon fe fe-home"></i>
                               </span>
                           </div>
-                          <div class="text-content"> 
+                          <div class="text-content">
                               <span>Mua Sắm Cùng eGate </span>
                           </div>
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                             <i class="side-menu__icon fe fe-grid"></i>
                               </span>
                           </div>
-                          <div class="text-content"> 
+                          <div class="text-content">
                               <span>Thanh Toán </span>
                           </div>
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                             <i class="side-menu__icon fe fe-shopping-cart"></i>
                               </span>
                           </div>
-                          <div class="text-content"> 
+                          <div class="text-content">
                               <span>Trả hàng & Hoàn Tiền </span>
                           </div>
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                                  <i class="fe fe-gitlab text-warning"></i>
                               </span>
                           </div>
-                          <div class="text-content"> 
+                          <div class="text-content">
                               <span>Thông Tin Chung </span>
                           </div>
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                                  <i class="fe fe-credit-card text-warning"></i>
                               </span>
                           </div>
-                          <div class="text-content"> 
+                          <div class="text-content">
                               <span>Khuyến Mãi & Ưu Đãi </span>
                           </div>
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                             <i class="fe fe-check-circle text-info"></i>
                               </span>
                           </div>
-                          <div class="text-content"> 
+                          <div class="text-content">
                               <span>Đơn Hàng & Vận Chuyển </span>
                           </div>
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg"> 
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                             <i class="side-menu__icon fe fe-users"></i>
                               </span>
                           </div>
-                          <div class="text-content"> 
+                          <div class="text-content">
                               <span>Người Bán & Đối Tác</span>
                           </div>
                       </div>
@@ -153,36 +153,36 @@
         </div>
     </div>
     <div class="container d-flex justify-content-center flex-wrap">
-    <h2>Bạn có muốn tìm thêm thông tin gì không?</h2>
+        <h2>Bạn có muốn tìm thêm thông tin gì không?</h2>
 
         <div class="row">
             <div class="col-md-6 bg-white">
-                <div class="d-flex bg-white shadow-sm p-3 bg-body position-relative p-5"> 
+                <div class="d-flex bg-white shadow-sm p-3 bg-body position-relative p-5">
                     <div class="position-absolute icon">
                     <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                             <i class="fa fas-home">icon</i>
                         </span>
                     </div>
-                    <div class="text-content d-inline row col-12"> 
+                    <div class="text-content d-inline row col-12">
                         <h4 class="text-weight">Email</h4>
                         <span >Lorem ipsum dolor sit amet. </span>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-            <div class="d-flex bg-white shadow-sm p-3 bg-body position-relative p-5"> 
+            <div class="d-flex bg-white shadow-sm p-3 bg-body position-relative p-5">
                           <div class="position-absolute icon">
-                            <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
+                                <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                                     <i class="fa fas-home">icon</i>
-                              </span>
+                                </span>
                           </div>
-                          <div class="text-content d-inline row col-12"> 
+                          <div class="text-content d-inline row col-12">
                               <h4 class="text-weight">Số điện thoại</h4>
                               <span >Lorem ipsum dolor sit amet. </span>
                           </div>
-                      </div>
-                </div>
+                    </div>
             </div>
+        </div>
         </div>
     </div>
 
