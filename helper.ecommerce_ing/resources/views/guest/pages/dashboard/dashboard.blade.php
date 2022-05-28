@@ -2,7 +2,6 @@
 @section('main')  
 
 <section name="main" >
-    <div class="bg-primary h-300">
     <div class="bg-primary h-300 d-flex justify-content-center align-items-center text-white">
             <div class="content-text ">
                 <h1>
@@ -14,8 +13,8 @@
             </div>
         </div>
     </div>
-    <div class="container px-3 py-5">
-        <div>
+    <div class="container">
+        <div class="py-5">
             <h2>Danh mục</h2>
             <div class="row">
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
@@ -105,8 +104,8 @@
             </div>
         </div>
     </div>
-    <div class="container px-3 py-5">
-        <div>
+    <div class="container">
+        <div class="py-5">
             <h2>
                 Câu hỏi thường gặp
             </h2>
@@ -157,30 +156,28 @@
     <h2>Bạn có muốn tìm thêm thông tin gì không?</h2>
 
         <div class="row">
-            <div class="col-md-6">
-                <div class="bg-white ">
-                <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5"> 
-                          <div class="position-absolute icon">
-                            <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
-                                    <i class="fa fas-home">icon</i>
-                              </span>
-                          </div>
-                          <div class="text-content d-inline row col-12"> 
-                              <h4 for="" class="text-weight">Email</h4>
-                              <span >Lorem ipsum dolor sit amet. </span>
-                          </div>
-                      </div>
+            <div class="col-md-6 bg-white">
+                <div class="d-flex bg-white shadow-sm p-3 bg-body position-relative p-5"> 
+                    <div class="position-absolute icon">
+                    <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
+                            <i class="fa fas-home">icon</i>
+                        </span>
+                    </div>
+                    <div class="text-content d-inline row col-12"> 
+                        <h4 class="text-weight">Email</h4>
+                        <span >Lorem ipsum dolor sit amet. </span>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
-            <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5"> 
+            <div class="d-flex bg-white shadow-sm p-3 bg-body position-relative p-5"> 
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                                     <i class="fa fas-home">icon</i>
                               </span>
                           </div>
                           <div class="text-content d-inline row col-12"> 
-                              <h4 for="" class="text-weight">Số điện thoại</h4>
+                              <h4 class="text-weight">Số điện thoại</h4>
                               <span >Lorem ipsum dolor sit amet. </span>
                           </div>
                       </div>
