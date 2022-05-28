@@ -5,10 +5,10 @@
                 <a class="navbar-brand m-0 header-logo" href="{{route('guest.home.index')}}">
                     <img src="{{asset('/uploads/logo.png')}}" alt="..." height="36">
                 </a>
-                <a class="navbar-brand m-0 position-relative header-logo" href="#">
+                <a class="navbar-brand m-0 position-relative header-logo" href="{{url('')}}">
                     <div class="text-title m-0" >
                         <a href="{{route('guest.home.index')}}">
-                            Trung tâm Hỗ trợ eGate
+                            Trung tâm Hỗ trợ e-Gate
                         </a>
                     </div>
                 </a>

@@ -9,7 +9,7 @@
                     Xin chào, eGate có thể giúp gì cho bạn?
                 </h1>
                 <div class="d-flex justify-content-center align-items-center">
-                 <button type="button" class="btn btn-light btn-lg rounded-pill px-5">Liên hệ</button>
+                 <a href="" class="btn btn-light btn-lg rounded-pill px-5">Liên hệ</a>
                 </div>
             </div>
         </div>
@@ -154,7 +154,7 @@
         </div>
     </div>
     <div class="container d-flex justify-content-center flex-wrap">
-    <h2>Bạn có muốn tìm thêm thông tin gì không?</h2>
+        <h2>Bạn có muốn tìm thêm thông tin gì không?</h2>
 
         <div class="row">
             <div class="col-md-6">
@@ -173,19 +173,19 @@
                 </div>
             </div>
             <div class="col-md-6">
-            <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5"> 
+                    <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5"> 
                           <div class="position-absolute icon">
-                            <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
+                                <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                                     <i class="fa fas-home">icon</i>
-                              </span>
+                                </span>
                           </div>
                           <div class="text-content d-inline row col-12"> 
                               <h4 for="" class="text-weight">Số điện thoại</h4>
                               <span >Lorem ipsum dolor sit amet. </span>
                           </div>
-                      </div>
-                </div>
+                    </div>
             </div>
+        </div>
         </div>
     </div>
 
