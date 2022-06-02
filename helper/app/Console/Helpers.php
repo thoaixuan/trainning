@@ -1,4 +1,8 @@
 <?php
+function setting()
+{
+    return \App\Models\Settings::find(1);
+}
 function getConfigMail()
 {
     return \App\Models\Settings::find(1);

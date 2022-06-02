@@ -25,6 +25,16 @@
                     <li class="nav-item mx-2">
                     <a class="nav-link active" aria-current="page" href="{{route('guest.support.index')}}">Hỗ trợ</a>
                     </li>
+                    <li class="nav-item mx-2">
+                        <span>
+                            <div class="translate" id="google_translate_element"></div>
+    
+                                <script type="text/javascript">
+                                    function googleTranslateElementInit() {  new google.translate.TranslateElement({pageLanguage: 'vi'}, 'google_translate_element');}
+                                </script>
+                                <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                        </span>
+                    </li>
                 </ul>
                 
                 </div>

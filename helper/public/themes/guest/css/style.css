@@ -84,3 +84,15 @@ body {
         margin-top: 80px;
     }
 }
+.navbar .navbar-nav>li>a {
+    font-size: 14px;
+}
+.ql-align-justify {
+    text-align: justify;
+}
+.ql-align-right {
+    text-align: right;
+}
+.ql-align-center {
+    text-align: center;
+}

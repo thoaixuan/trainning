@@ -3,7 +3,12 @@
         display: block !important;
     }
 }
-
+.ql-snow.ql-toolbar button svg, .ql-snow .ql-toolbar button svg {
+    height: 65%;
+}
+.ql-editor {
+    min-height: 130px;
+}
 .cusor-point {
     cursor: pointer;
 }

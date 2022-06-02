@@ -2,6 +2,21 @@ $(document).ready(function () {
     $.ajaxSetup({ headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") } });
 });
 function renderAction(data) {
+    var htmlButton = `<div class="btn-group align-top">`;
+    $.each(data, function (index, item) {
+
+        htmlButton += '<button button="dropdown-item" data-id="' +
+            item.value + '" class="' +
+            item.class + '" id="' +
+            item.title + '">' +
+            '<i class="' +
+            item.icon + '"></i>' +
+            "</button>";
+    });
+    htmlButton += "</div>";
+    return htmlButton;
+}
+function renderAction2(data) {
     var htmlBtn = '';
     $.each(data, function (index, item) {
         htmlBtn += '<button type="button" class="mr-2 btn btn-' +
@@ -18,6 +33,25 @@ function renderAction(data) {
             '"></i></button>';
     });
     return htmlBtn;
+}
+function tableAjaxDelete(table, dataOject, url) {
+	$.ajax({
+		url: url,
+		type: "GET",
+		data: dataOject,
+		success: function (data) {
+            if(data.status){
+                table.ajax.reload();
+                toastr.success(data.message);
+            }else {
+                toastr.error(data.message);
+            }
+		},
+		error: function (error) {
+			toastr.error("Lỗi")
+			console.log(error);
+		},
+	});
 }
 function AjaxDelete(dataOject, url) {
     var checkBool = false;

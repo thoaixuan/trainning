@@ -15,11 +15,11 @@
                                         <input type="text" name="name" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email (không bắt buộc nhập)</label>
                                         <input type="text" name="email" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="phone">Số điện thoại (không bắt buộc nhập)</label>
+                                        <label for="phone">Số điện thoại</label>
                                         <input type="text" name="phone" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
@@ -38,7 +38,7 @@
                                         {!! NoCaptcha::renderJs() !!}
                                         {!! NoCaptcha::display() !!}
                                     </div>
-                                    <button type="submit" class="btn btn-primary col-2">Gửi ngay</button>
+                                    <button type="submit" class="btn btn-primary col-lg-1 col-md-2 col-sm-2">Gửi ngay</button>
                                 </form>
                                 
                             </div>

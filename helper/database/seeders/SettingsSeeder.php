@@ -64,6 +64,8 @@ class SettingsSeeder extends Seeder
                 'website_name' => 'Trung tâm Hỗ trợ e-Gate',
                 'website_logo' => json_encode($website_logo, JSON_UNESCAPED_UNICODE),
                 'root_color' => '#6c5ffc',
+                'route_admin' => 'admin',
+                'route_login' => 'admin-login',
                 'config_google' => json_encode($config_google, JSON_UNESCAPED_UNICODE),
                 'home_banner' => json_encode($home_banner, JSON_UNESCAPED_UNICODE),
                 'home_category' => json_encode($home_category, JSON_UNESCAPED_UNICODE),

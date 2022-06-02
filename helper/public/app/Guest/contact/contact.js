@@ -13,7 +13,6 @@ function contact() {
         $("#contact_form").validate({
             rules: {
                 email: {
-                    required: true,
                     validateEmail: true,
                 },
                 name: {
@@ -26,6 +25,7 @@ function contact() {
                     validateScript: true,
                 },
                 phone: {
+                    required: true,
                     validateScript: true,
                 }
             },
@@ -36,6 +36,9 @@ function contact() {
                 content: {
                     required: "Bắt buộc nhập nội dung",
                 },
+                phone: {
+                    required: "Bắt buộc nhập số điện thoại"
+                }
 
             },
             errorElement: "span",

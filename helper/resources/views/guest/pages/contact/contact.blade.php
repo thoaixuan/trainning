@@ -1,13 +1,15 @@
 @extends('guest.layouts.main')
 @section('main')
-<div class="bg-landing pt-3 pb-3">
+<div class="bg-landing bg-white pt-3 pb-3">
     <div class="container ">
         <div class="row mt-9 mb-3">
-            <div class="card-body bg-white text-dark shadow-lg p-3 mb-5 bg-body ">
+            <div class="col-md-6 col-sm-12 d-flex align-items-center">
+                <img src="/uploads/contact.png" width="100%"/>
+            </div>
+            <div class="col-md-6 col-sm-12 text-dark bg-body shadow-lg">
+            <div class="card-body p-3">
                 <div class="statistics-info p-4">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                            <div class="">
+                    
                                 <form  id="contact_form" class="row">
                                     <h2 class="fw-bold">Thông tin liên hệ</h2>
                                     <div class="form-group col-md-6">
@@ -15,11 +17,11 @@
                                         <input type="text" name="name" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
+                                        <label for="email">Email (không bắt buộc nhập)</label>
                                         <input type="text" name="email" class="form-control">
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="phone">Số điện thoại (không bắt buộc nhập)</label>
+                                    <div class="form-group col-md-12">
+                                        <label for="phone">Số điện thoại</label>
                                         <input type="text" name="phone" class="form-control">
                                     </div>
                                     <div class="form-group">
@@ -30,17 +32,23 @@
                                         {!! NoCaptcha::renderJs() !!}
                                         {!! NoCaptcha::display() !!}
                                     </div>
-                                    <button type="submit" class="btn btn-primary col-2">Gửi ngay</button>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary">Gửi ngay</button>
+                                    </div>
                                 </form>
                                 
-                            </div>
                         </div>
+                        
                     </div>
                 </div>
-            </div>
+            
+           
         </div>
     </div>
 </div>
+<style>
+
+</style>
 @endsection
 @section('jsGuest')
 <script src="{{asset('app/Guest/contact/contact.js')}}"></script>

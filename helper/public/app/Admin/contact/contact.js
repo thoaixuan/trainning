@@ -61,7 +61,7 @@ function contact() {
                     className: "text-center",
                     bSortable: false,
                     render: function (data, type, row, meta) {
-                        return renderAction([
+                        return renderAction2([
                             {
                                 class: 'btn-delete',
                                 value: row.id,

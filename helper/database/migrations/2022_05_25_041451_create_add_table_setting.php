@@ -21,6 +21,9 @@ class CreateAddTableSetting extends Migration
                 $table->string('website_name')->nullable();
                 $table->text('website_logo')->nullable();
                 $table->string('root_color')->nullable();
+                $table->string('route_login')->nullable();
+                $table->string('route_admin')->nullable();
+
                 //Banner
                 $table->text('home_banner')->nullable();
                 //Project

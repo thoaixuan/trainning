@@ -13,7 +13,6 @@ function support() {
         $("#support_form").validate({
             rules: {
                 "email": {
-                    required: true,
                     validateEmail: true,
                 },
                 "name": {
@@ -29,6 +28,7 @@ function support() {
                     validateScript: true,
                 },
                 "phone": {
+                    required: true,
                     validateScript: true,
                 }
             },
@@ -39,8 +39,8 @@ function support() {
                 content: {
                     required: "Bắt buộc nhập nội dung",
                 },
-                email: {
-                    required: "Bắt buộc nhập email",
+                phone: {
+                    required: "Bắt buộc nhập số điện thoại",
                 },
 
             },

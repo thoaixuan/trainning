@@ -33,6 +33,11 @@
                                 <h3>General</h3>
                             </li>
                             <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="{{route('admin.page.index')}}"><i
+                                    class="side-menu__icon fe fe-file-text"></i><span
+                                    class="side-menu__label">Trang</span></a>
+                            </li>
+                            <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="{{route('admin.contact.index')}}"><i
                                         class="side-menu__icon fe fe-map-pin"></i><span
                                         class="side-menu__label">Liên hệ</span></a>
