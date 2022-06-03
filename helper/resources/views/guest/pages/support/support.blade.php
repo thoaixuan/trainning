@@ -1,13 +1,14 @@
 @extends('guest.layouts.main')
 @section('main')
-<div class="bg-landing pt-3 pb-3">
+<div class="bg-landing bg-white pt-3 pb-3">
     <div class="container ">
         <div class="row mt-9 mb-3">
-            <div class="card-body bg-white text-dark shadow-lg p-3 mb-5 bg-body ">
+            <div class="col-md-5 col-sm-12 d-flex align-items-center">
+                <img src="/uploads/support.webp" width="100%"/>
+            </div>
+            <div class="col-md-7 col-sm-12 text-dark bg-body shadow-lg">
+            <div class="card-body p-3">
                 <div class="statistics-info p-4">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                            <div class="">
                                 <form  id="support_form" class="row">
                                     <h2 class="fw-bold">Thông tin hỗ trợ</h2>
                                     <div class="form-group col-md-6">
@@ -38,17 +39,17 @@
                                         {!! NoCaptcha::renderJs() !!}
                                         {!! NoCaptcha::display() !!}
                                     </div>
-                                    <button type="submit" class="btn btn-primary col-lg-1 col-md-2 col-sm-2">Gửi ngay</button>
+                                    <div class="form-group">
+                                    <button type="submit" class="btn btn-primary col-lg-2 col-md-2 col-sm-2">Gửi ngay</button>
+                                    </div>
                                 </form>
                                 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 @endsection
 @section('jsGuest')
 <script src="{{asset('app/Guest/support/support.js')}}"></script>

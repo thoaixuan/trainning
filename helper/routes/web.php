@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\ContactController;
 use App\Http\Controllers\Guest\SupportController;
+use App\Http\Controllers\Guest\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,9 @@ Route::group(['namespace'=>'Guest'],function(){
     Route::group(['prefix'=>'/support'],function(){
         Route::get('/',[SupportController::class,'index'])->name('guest.support.index');
         Route::post('/send-support',[SupportController::class,'insert'])->name('guest.support.send_support');
+    });
+    Route::group(['prefix'=>'/page'],function(){
+        Route::get('{slug?}',[PageController::class,'indexPage'])->name('guest.page.index');
     });
 });
 

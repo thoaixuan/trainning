@@ -13,7 +13,7 @@ class ContactController extends Controller
 {
     public function index(){
 
-        return view('guest.pages.contact.contact');
+        return view('guest.pages.contact.contact',['title' => "Gửi liên hệ"]);
     }
 
     public function insert(Request $request){

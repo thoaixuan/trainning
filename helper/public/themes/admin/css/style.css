@@ -9,6 +9,15 @@
 .ql-editor {
     min-height: 130px;
 }
+.ql-align-justify {
+    text-align: justify;
+}
+.ql-align-right {
+    text-align: right;
+}
+.ql-align-center {
+    text-align: center;
+}
 .cusor-point {
     cursor: pointer;
 }

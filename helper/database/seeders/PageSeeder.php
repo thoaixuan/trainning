@@ -16,6 +16,11 @@ class PageSeeder extends Seeder
     {
         DB::table('pages')->insert([
             [
+                'name' => 'Giới thiệu',
+                'slug' => 'gioi-thieu',
+                'content' => '<p>Chưa có nội dung</p></p>',
+            ], 
+            [
                 'name' => 'Trung tâm trợ giúp',
                 'slug' => 'trung-tam-tro-giup',
                 'content' => '<p>Chưa có nội dung</p></p>',

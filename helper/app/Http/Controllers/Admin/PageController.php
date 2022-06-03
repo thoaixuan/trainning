@@ -112,8 +112,11 @@ class PageController extends Controller
         $Pages =  Pages::find($request->id);
         $Pages->name = $request->name;
         $Pages->content = $request->content;
-        $slug =SlugService::createSlug(Pages::class, 'slug', $request->name);
-        $Pages->slug =  $slug;
+        if($Pages->slug == change_to_slug($request->name)){
+            $Pages->slug == change_to_slug($request->name);
+        }else {
+            $Pages->slug = SlugService::createSlug(Pages::class, 'slug', $request->name);
+        }
         if($Pages->save()){
             return response()->json([
                 'name' => 'Thành công',

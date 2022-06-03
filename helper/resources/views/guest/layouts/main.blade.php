@@ -12,9 +12,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('themes/admin/assets/images/brand/favicon.ico')}}" />
-
     <!-- TITLE -->
-    <title>{!! getConfigMail()->website_name !!}</title>
+    <title>{{$title}}</title>
     @include('Guest.partials.stylesheet')
 
    

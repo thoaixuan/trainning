@@ -65,6 +65,14 @@ function page() {
                     className: "text-center",
                     bSortable: false,
                     render: function (data, type, row, meta) {
+                        if(data == 1){
+                            return renderAction([{
+                                class: 'btn btn-sm btn-primary badge',
+                                value: row.id,
+                                title: 'update',
+                                icon: 'fa fa-edit',
+                            }]);
+                        }
                         return renderAction([{
                             class: 'btn btn-sm btn-primary badge',
                             value: row.id,
@@ -133,7 +141,7 @@ function page() {
         });
         // fetch data in modal update
         $(document).delegate("#update", "click", function () {
-            var id = $("#update").attr('data-id')
+            var id = $(this).attr('data-id')
             $("#submit").attr('data-url', datas.routes.update);
             $("#modal-title").text("Cập nhật dữ liệu");
             $("#submit").attr('data-action', 'update');
@@ -148,8 +156,7 @@ function page() {
                 success: function (data) {
                     $("#submit").attr('data-url', datas.routes.update);
                     $("#submit").attr('data-id', data.data.id);
-                    $('#name').val(data.data.name)
-                    // CKEDITOR.instances['content'].setData(data.data.name);
+                    document.getElementById("name").value = data.data.name;
                     content.root.innerHTML = data.data.content;
 
                 },
@@ -198,6 +205,7 @@ function page() {
             unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             },
+            onfocusout: function(element){ return false; },
             submitHandler: function (e) {
                 // var getDescription = CKEDITOR.instances['content'].getData();
                 var getDescription = document.getElementById('content').value = content.root.innerHTML;

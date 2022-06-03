@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class HelperController extends Controller
 {
     public function index(){
-        view('guest.pages.dashboard.dashboard');
+        view('guest.pages.dashboard.dashboard',['title' => setting()->website_name]);
     }
 }

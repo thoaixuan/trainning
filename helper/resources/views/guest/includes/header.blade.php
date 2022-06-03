@@ -18,7 +18,7 @@
                 <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="d-flex navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item mx-2">
                     <a class="nav-link active" aria-current="page" href="{{route('guest.contact.index')}}">Liên hệ</a>
                     </li>
@@ -26,6 +26,13 @@
                     <a class="nav-link active" aria-current="page" href="{{route('guest.support.index')}}">Hỗ trợ</a>
                     </li>
                     <li class="nav-item mx-2">
+                    <a class="nav-link active" aria-current="page" href="{{ url('/page/gioi-thieu') }}">Giới thiệu</a>
+                    </li>
+                    
+                    
+                </ul>
+                <ul class="d-flex justify-content-end">
+                    <li>
                         <span>
                             <div class="translate" id="google_translate_element"></div>
     
@@ -35,8 +42,8 @@
                                 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
                         </span>
                     </li>
-                </ul>
-                
+                    
+            </ul>
                 </div>
             </div>
         </nav>

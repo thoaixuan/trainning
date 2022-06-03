@@ -11,7 +11,7 @@ class SupportController extends Controller
 {
     public function index(){
 
-        return view('guest.pages.support.support');
+        return view('guest.pages.support.support',['title' => 'Gửi hỗ trợ']);
     }
 
     public function insert(Request $request){
