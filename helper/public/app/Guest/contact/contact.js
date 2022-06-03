@@ -25,6 +25,7 @@ function contact() {
                     validateScript: true,
                 },
                 phone: {
+                    validatePhone: true,
                     required: true,
                     validateScript: true,
                 }
@@ -86,7 +87,7 @@ function contact() {
         }, 'Vui lòng hãy nhập đúng định dạng tên');
 
         $.validator.addMethod("validatePhone", function (value, elemt) {
-            return this.optional(elemt) || /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(value);
+            return this.optional(elemt) || /^((09|03|07|08|05)+([0-9]{8}))$/im.test(value);
         }, 'Vui lòng hãy nhập đúng định dạng số điện thoại');
 
         jQuery.validator.addMethod("validateScript", function (value, element) {

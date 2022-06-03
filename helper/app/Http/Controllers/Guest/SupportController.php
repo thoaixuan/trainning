@@ -14,7 +14,7 @@ class SupportController extends Controller
         return view('guest.pages.support.support',['title' => 'Gửi hỗ trợ']);
     }
 
-    public function insert(Request $request){
+    public function insert(request $request){
         $message = [
             'g-recaptcha-response.required'=>"Hãy xác nhận nếu bạn không phải là robot",
             'g-recaptcha-response.captcha'=>"Captcha bị lỗi! Hãy thử lại",
@@ -25,7 +25,7 @@ class SupportController extends Controller
         ];
         $validate = Validator::make($request->all(),[
             'name'=>['required','min:3','max:40'],
-            'email'=>['required','min:8','max:40'],
+            'email'=>['max:40'],
             'phone'=>['required','min:10','max:10'],
             'g-recaptcha-response' => 'required|captcha',
         ],$message);
@@ -48,6 +48,9 @@ class SupportController extends Controller
             $mail_from_name = $list_mail->mail_from_name;
 
             $mail_receive = $list_mail->mail_receive;
+            $mail_room_kinhdoanh = $list_mail->room_kinhdoanh;
+            $mail_room_kythuat = $list_mail->room_kythuat;
+            $mail_room_ketoan = $list_mail->room_ketoan;
         }
          // Config mail
          config([
@@ -76,14 +79,24 @@ class SupportController extends Controller
             'support_phone' => $request->phone,
             'support_email' => $request->email,
             'support_content' => $request->content,
+            "email_to_room_kinhdoanh" => $mail_room_kinhdoanh,
+            "email_to_room_kythuat" => $mail_room_kythuat,
+            "email_to_room_ketoan" => $mail_room_ketoan,
             'room_name' => $room_name,
-            "email_to" => $mail_receive,
             "email_from" => $mail_from_address
         );
         Mail::send('guest.pages.mails.support',
-                ['data' => $data], function ($message) use ($title_mail, $data)
+                ['data' => $data], function ($message) use ($title_mail, $data, $request)
                 {
-                    $message->to($data['email_to'])->subject($title_mail);
+                    if($request->rooms_id == 1){
+                        $message->to($data['email_to_room_kinhdoanh'])->subject($title_mail);
+                    }
+                    elseif($request->rooms_id == 2){
+                        $message->to($data['email_to_room_kythuat'])->subject($title_mail);
+                    }elseif($request->rooms_id == 3){
+                        $message->to($data['email_to_room_ketoan'])->subject($title_mail);
+                    }
+                    
                 });
         $supports=new Supports();
         $supports->support_name=$request->name;

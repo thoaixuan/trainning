@@ -3,6 +3,16 @@ function setting()
 {
     return \App\Models\Settings::find(1);
 }
+function route_admin() {
+    $data_route_admin = \App\Models\Settings::find(1);
+    $route_admin = $data_route_admin->route_admin;
+    return $route_admin;
+}
+function route_login() {
+    $data_route_login = \App\Models\Settings::find(1);
+    $route_login = $data_route_login->route_login;
+    return $route_login;
+}
 function getConfigMail()
 {
     return \App\Models\Settings::find(1);

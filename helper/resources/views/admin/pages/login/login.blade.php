@@ -66,7 +66,7 @@ var login = new login();
 	        routes:{
 	            password:"{{route('admin.login.forget_password')}}",
 	            login:"{{route('admin.login.login')}}",
-                redirect_admin: "{{ setting()->route_admin }}",
+                redirect_admin: "{{ route_admin()==null?'admin':route_admin() }}",
 	        }
 	    }   
 login.init();

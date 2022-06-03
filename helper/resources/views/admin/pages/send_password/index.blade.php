@@ -25,7 +25,9 @@
                 <form action="{{route('admin.login.change_password')}}" method="post" class="login100-form validate-form" id="login_form">
                     @csrf
                     <span class="login100-form-title pb-5">
-                        Đã gửi mã xác thực về email {{getConfigMail()->mail_receive}}
+                        @foreach(json_decode(getConfigMail()->config_mail) as $data)
+                        Đã gửi mã xác thực về email {{$data->mail_receive}}
+                        @endforeach
                     </span>
                 </form>
             </div>

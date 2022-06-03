@@ -151,6 +151,8 @@ class SettingController extends Controller
             $Settings->website_logo = $jsonWebsiteLogo;
             $Settings->website_name = $Request->website_name;
             $Settings->root_color = $Request->root_color;
+            $Settings->route_admin = $Request->route_admin;
+            $Settings->route_login = $Request->route_login;
             $Settings->save();
             return success($Settings);
         } catch (\Exception $ex) {

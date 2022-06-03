@@ -7,7 +7,7 @@
     <title>Thông tin hỗ trợ</title>
 </head>
 <body>
-    <p><b>Phòng ban: </b> {{ $data['room_name'] }}</p>
+    <p><b>Phòng ban tiếp nhận hỗ trợ: </b> {{ $data['room_name'] }}</p>
     <p><b>Tên người gửi:</b> {{ $data['support_name'] }} </p>
     <p><b>Số điện thoại:</b> {{ $data['support_phone'] }} </p>
     <p><b>Email:</b> {{ $data['support_email'] }} </p>

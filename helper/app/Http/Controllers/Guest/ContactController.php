@@ -27,7 +27,7 @@ class ContactController extends Controller
         ];
         $validate = Validator::make($request->all(),[
             'name'=>['required','min:3','max:40'],
-            'email'=>['required','min:8','max:40'],
+            'email'=>['max:40'],
             'phone'=>['required','min:10','max:10'],
             'g-recaptcha-response' => 'required|captcha',
         ],$message);

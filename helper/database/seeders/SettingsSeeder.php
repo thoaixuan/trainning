@@ -21,7 +21,11 @@ class SettingsSeeder extends Seeder
             'mail_encryption' => 'tls',
             'mail_username' => 's1357299@gmail.com',
             'mail_password' => 'untstjclvahltaqr',
-            'mail_receive' => 'nguyenngocsang.dev@gmail.com'
+            'mail_receive' => 'nguyenngocsang.dev@gmail.com',
+            'room_kinhdoanh' => 'nguyenngocsang.dev@gmail.com',
+            'room_kythuat' => 'nguyenngocsang.dev@gmail.com',
+            'room_ketoan' => 'nguyenngocsang.dev@gmail.com',
+
         ]);
         $website_logo = array([
             'logo_guest' => '1653626324_logo.png',

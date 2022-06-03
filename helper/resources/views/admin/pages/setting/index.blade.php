@@ -282,16 +282,16 @@
                                              <label>Mail from name</label>
                                              <input type="text" name="mail_from_name" class="form-control form-control-sm" value="{{ $list_mail->mail_from_name }}"/>
                                            </div>
+                                           <div class="form-group">
+                                            <label>Mail encryption</label>
+                                            <input type="text" name="mail_encryption" class="form-control form-control-sm" value="{{ $list_mail->mail_encryption }}"/>
+                                          </div>
                                          </div>
                                          <div class="col-md-6">
-                                           <div class="form-group">
-                                             <label>Mail encryption</label>
-                                             <input type="text" name="mail_encryption" class="form-control form-control-sm" value="{{ $list_mail->mail_encryption }}"/>
-                                           </div>
-                                           <div class="form-group">
-                                             <label>Mail username</label>
-                                             <input type="text" id="mail_username" name="mail_username" class="form-control form-control-sm" value="{{ $list_mail->mail_username }}"/>
-                                           </div>
+                                          <div class="form-group">
+                                            <label>Mail username</label>
+                                            <input type="text" id="mail_username" name="mail_username" class="form-control form-control-sm" value="{{ $list_mail->mail_username }}"/>
+                                          </div>
                                            <div class="form-group">
                                              <label>Mail password</label>
                                              <input type="text" id="mail_password" name="mail_password" class="form-control form-control-sm" value="{{ $list_mail->mail_password }}"/>
@@ -300,6 +300,18 @@
                                              <label>Mail người nhận</label>
                                              <input type="text" name="mail_receive" class="form-control form-control-sm" value="{{ $list_mail->mail_receive }}"/>
                                            </div>
+                                           <div class="form-group">
+                                            <label>Mail phòng kinh doanh</label>
+                                            <input type="text" name="room_kinhdoanh" class="form-control form-control-sm" value="{{ $list_mail->room_kinhdoanh }}"/>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Mail phòng kỹ thuật</label>
+                                            <input type="text" name="room_kythuat" class="form-control form-control-sm" value="{{ $list_mail->room_kythuat }}"/>
+                                          </div>
+                                          <div class="form-group">
+                                            <label>Mail phòng kế toán</label>
+                                            <input type="text" name="room_ketoan" class="form-control form-control-sm" value="{{ $list_mail->room_ketoan }}"/>
+                                          </div>
                                          </div>
                                        <div class="col-md-1">
                                          <button type="submit" class="btn btn-primary btn-block">Lưu</button>

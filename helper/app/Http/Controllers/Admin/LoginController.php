@@ -18,15 +18,27 @@ class LoginController extends Controller
         return view('admin.pages.forget_password.index');
     }
     public function handleSendPassword(){
+        foreach(json_decode(getConfigMail()->config_mail) as $data){
+            $data_mail_driver=$data->mail_driver;
+            $data_mail_host=$data->mail_host;
+            $data_mail_port=$data->mail_port;
+            $data_mail_encryption=$data->mail_encryption;
+            $data_mail_username=$data->mail_username;
+            $data_mail_password=$data->mail_password;
+            $data_mail_from_address=$data->mail_from_address;
+            $data_mail_from_name=$data->mail_from_name;
+            $data_mail_receive=$data->mail_receive;
+            $data_mail_from_address=$data->mail_from_address;
+        }
         config([
-            'mail.default' => getConfigMail()->mail_driver,
-            'mail.mailers.smtp.host' => getConfigMail()->mail_host,
-            'mail.mailers.smtp.port' => getConfigMail()->mail_port,
-            'mail.mailers.smtp.encryption' => getConfigMail()->mail_encryption,
-            'mail.mailers.smtp.username' => getConfigMail()->mail_username,
-            'mail.mailers.smtp.password' => getConfigMail()->mail_password,
-            'mail.from.address' => getConfigMail()->mail_from_address,
-            'mail.from.name' => getConfigMail()->mail_from_name
+            'mail.default' => $data_mail_driver,
+            'mail.mailers.smtp.host' => $data_mail_host,
+            'mail.mailers.smtp.port' => $data_mail_port,
+            'mail.mailers.smtp.encryption' =>$data_mail_encryption,
+            'mail.mailers.smtp.username' => $data_mail_username,
+            'mail.mailers.smtp.password' =>$data_mail_password ,
+            'mail.from.address' =>$data_mail_from_address,
+            'mail.from.name' => $data_mail_from_name
         ]);
         $code_random = Str::random();
         $user = User::find(1);
@@ -34,19 +46,18 @@ class LoginController extends Controller
         $user->save();
 
         $title_mail = "Thay đổi mã pin";
-        $link_reset_pass = url(settings()->route_admin)."/forget-password?code='.$code_random.'";
+        $link_reset_pass = url('')."/".route_admin()==null?'admin':route_admin()."/forget-password?code=$code_random";
 
         $data = array(
             "name" => $title_mail,
             "body" => $link_reset_pass,
             "code"=>$code_random,
-            "email"=> getConfigMail()->mail_receive
+            "email"=> $data_mail_receive
         );
         Mail::send('admin.pages.mail.index',
         ['data' => $data], function ($message) use ($title_mail, $data)
         {
             $message->to($data['email'])->subject($title_mail);
-            $message->from($data['email'],$title_mail);
         });
         return view('admin.pages.send_password.index');
     }

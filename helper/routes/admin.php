@@ -6,13 +6,14 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PageController;
 
-$route_admin = setting()->route_admin;//admin / setting()->route_admin
+$route_admin = route_admin()==null?'admin':route_admin();//admin / setting()->route_admin
 Route::get('/install', function () {
+    \Artisan::call('migrate');
     \Artisan::call('migrate:fresh --seed');
     return redirect()->route('guest.home.index');
 });
 Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
-    $route_login = setting()->route_login;//admin-login / setting()->route_login
+    $route_login = route_login()==null?'admin-login':route_login();//admin-login / setting()->route_login
     Route::get('/logout',[LoginController::class,'logout'])->name('admin.login.logout');
     Route::get($route_login, [LoginController::class,'login'])->name('admin.login.index');
     Route::post('/login', [LoginController::class,'index'])->name('admin.login.login');
