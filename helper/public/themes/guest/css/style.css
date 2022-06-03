@@ -1,7 +1,7 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
-
+.border-fix{border-radius: 15px;} .border-fix:hover{cursor: pointer;}
 .text-title {
     display: flex;
     align-items: center;

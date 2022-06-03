@@ -19,7 +19,7 @@
             <div class="row">
                 @foreach(json_decode(getConfigMail()->home_category) as $list_category)
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg border-fix">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-primary">
                             <i class="side-menu__icon fe fe-home text-light"></i>
@@ -31,7 +31,7 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg border-fix">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-teal">
                             <i class="side-menu__icon fe fe-grid text-light"></i>
@@ -43,7 +43,7 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg border-fix">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-azure">
                             <i class="side-menu__icon fe fe-shopping-cart text-light"></i>
@@ -55,7 +55,7 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg border-fix">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-yellow">
                                  <i class="fe fe-gitlab text-light"></i>
@@ -67,7 +67,7 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg border-fix">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-red">
                                  <i class="fe fe-credit-card text-light"></i>
@@ -79,7 +79,7 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg border-fix">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-orange">
                             <i class="fe fe-check-circle text-info text-light"></i>
@@ -91,7 +91,7 @@
                       </div>
                   </div>
                   <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg">
+                      <div class="d-flex bg-content bg-white shadow-sm p-3 bg-body position-relative p-5 icon-bg border-fix">
                           <div class="position-absolute icon">
                             <span class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-green">
                             <i class="side-menu__icon fe fe-users text-light"></i>
@@ -150,7 +150,7 @@
         <div class="row d-flex justify-content-center">
             @foreach(json_decode(getConfigMail()->home_info) as $list_info)
             <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                <div class="d-flex justify-content-start bg-content bg-white shadow-sm p-5 icon-info-bg">
+                <div class="d-flex justify-content-start bg-content bg-white shadow-sm p-5 icon-info-bg border-fix">
                     <div class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-info">
                       <i class="side-menu__icon fe fe-mail text-light"></i>
                     </div>
@@ -162,7 +162,7 @@
             </div>
 
             <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-                <div class="d-flex justify-content-start bg-content bg-white shadow-sm p-5 icon-info-bg">
+                <div class="d-flex justify-content-start bg-content bg-white shadow-sm p-5 icon-info-bg border-fix">
                     <div class="bg-icon d-flex justify-content-center align-items-center rounded-circle bg-info">
                       <i class="side-menu__icon fe fe-phone text-light"></i>
                     </div>

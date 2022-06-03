@@ -10,7 +10,7 @@
                 <a class="navbar-brand m-0 position-relative header-logo" href="{{url('')}}">
                     <div class="text-title m-0" >
                         <a href="{{route('guest.home.index')}}">
-                            Trung tâm Hỗ trợ e-Gate
+                            TRUNG TÂM HỖ TRỢ E-GATE
                         </a>
                     </div>
                 </a>
