@@ -27,8 +27,7 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab1">
                                     <h4>Cài đặt trang chủ</h4>
-                                    <form id="setting_home" autocomplete="off" enctype="multipart/form-data">
-                                        @csrf
+                                    
                                     <div class="accordion mb-3" id="accordionExample">
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="headingOne">
@@ -38,6 +37,8 @@
                                             </h2>
                                             <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
                                                 <div class="accordion-body">
+                                                  <form id="setting_home" autocomplete="off" enctype="multipart/form-data">
+                                                    @csrf
                                                    <div class="row">
                                                     @foreach(json_decode(getConfigMail()->home_banner) as $list_banner)
                                                     <div class="col-md-6">
@@ -59,6 +60,7 @@
                                                   </div>
                                                   @endforeach
                                                    </div>
+                                                  </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -71,38 +73,14 @@
                                             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <div class="row">
-                                                      @foreach(json_decode(getConfigMail()->home_category) as $list_category)
-                                                      <div class="col-md-6">
-                                                        <div class="form-group">
-                                                          <input type="text" name="category1" class="form-control" value="{{$list_category->category1}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <input type="text" name="category2" class="form-control" value="{{$list_category->category2}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <input type="text" name="category3" class="form-control" value="{{$list_category->category3}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <input type="text" name="category4" class="form-control" value="{{$list_category->category4}}">
-                                                        </div>
-                                                      </div>
-                                                      <div class="col-md-6">
-                                                        <div class="form-group">
-                                                          <input type="text" name="category5" class="form-control" value="{{$list_category->category5}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <input type="text" name="category6" class="form-control" value="{{$list_category->category6}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <input type="text" name="category7" class="form-control" value="{{$list_category->category7}}">
-                                                        </div>
-                                                      </div>
                                                       <div class="col-md-12">
-                                                        <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                                        <button class="btn btn-success" id="openCategory" type="button">Tạo mới</button>
+                                                        <a href="{{route('admin.homeCategory.indexIcon')}}" class="btn btn-info" target="_blank">Danh sách icon</a>
+                                                        <div class="table-responsive">
+                                                          <table class="table table-bordered text-nowrap border-bottom" id="home-category-table">
+                                                          </table>
+                                                        </div>
                                                       </div>
-                                                    </div>
-                                                      @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -116,33 +94,13 @@
                                             <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                                 <div class="accordion-body">
                                                     <div class="row">
-                                                      @foreach(json_decode(getConfigMail()->home_question) as $list_question)
-                                                      <div class="col-md-6">
-                                                        <div class="form-group">
-                                                          <label>Câu hỏi 1</label>
-                                                          <input type="text" name="question_title1" class="form-control" value="{{$list_question->question_title1}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label>Trả lời 1</label>
-                                                          <input type="text" name="question_des1" class="form-control" value="{{$list_question->question_des1}}">
-                                                        </div>
-                                                      </div>
-                                                      <div class="col-md-6">
-                                                        <div class="form-group">
-                                                          <label>Câu hỏi 2</label>
-                                                          <input type="text" name="question_title2" class="form-control" value="{{$list_question->question_title2}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                          <label>Trả lời 2</label>
-                                                          <input type="text" name="question_des2" class="form-control" value="{{$list_question->question_des2}}">
-                                                        </div>
-                                                      </div>
                                                       <div class="col-md-12">
-                                                        <div class="form-group">
-                                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                                        <button class="btn btn-success" id="openQuestion" type="button">Tạo mới</button>
+                                                        <div class="table-responsive">
+                                                          <table class="table table-bordered text-nowrap border-bottom" id="home-question-table">
+                                                          </table>
+                                                        </div>
                                                       </div>
-                                                    </div>
-                                                      @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,6 +113,8 @@
                                           </h2>
                                           <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
                                               <div class="accordion-body">
+                                                <form id="setting_home" autocomplete="off" enctype="multipart/form-data">
+                                                  @csrf
                                                 <div class="row">
                                                   @foreach(json_decode(getConfigMail()->home_info) as $list_info)
                                                   <div class="col-md-6">
@@ -184,11 +144,11 @@
                                                 </div>
                                                   @endforeach
                                                 </div>
+                                                </form>
                                               </div>
                                           </div>
                                       </div>
                                     </div>
-                                    </form>
                                     <form autocomplete="off"  enctype="multipart/form-data" id="websiteForm">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ getConfigMail()->id }}">
@@ -352,66 +312,6 @@
                     
                 </div>
             </div>
-       
-            {{-- <!-- Row -->
-            <div class="card card-solid mt-4">
-                <div class="card-body">
-                    <form  method="post" id="mailForm">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12 mb-3">
-                        <h4>Cài đặt cấu hình gửi mail</h4>
-                        </div>
-                            <input type="hidden" name="id" value="{{ getConfigMail()->id }}">
-                        <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Mail driver</label>
-                            <input type="text" name="mail_driver" class="form-control form-control-sm" value="{{ getConfigMail()->mail_driver }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mail host</label>
-                            <input type="text" name="mail_host" class="form-control form-control-sm" value="{{ getConfigMail()->mail_host }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mail port</label>
-                            <input type="text" name="mail_port" class="form-control form-control-sm" value="{{ getConfigMail()->mail_port }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mail from address</label>
-                            <input type="text" name="mail_from_address" class="form-control form-control-sm" value="{{ getConfigMail()->mail_from_address }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mail from name</label>
-                            <input type="text" name="mail_from_name" class="form-control form-control-sm" value="{{ getConfigMail()->mail_from_name }}"/>
-                        </div>
-                        </div>
-                        <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Mail encryption</label>
-                            <input type="text" name="mail_encryption" class="form-control form-control-sm" value="{{ getConfigMail()->mail_encryption }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mail username</label>
-                            <input type="text" name="mail_username" class="form-control form-control-sm" value="{{ getConfigMail()->mail_username }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mail password</label>
-                            <input type="text" name="mail_password" class="form-control form-control-sm" value="{{ getConfigMail()->mail_password }}"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Mail người nhận</label>
-                            <input type="text" name="mail_receive" class="form-control form-control-sm" value="{{ getConfigMail()->mail_receive }}"/>
-                        </div>
-                        </div>
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary btn-block">Lưu</button>
-                    </div>
-                    </div>
-                </form>
-                </div>
-            <!-- /.card-footer -->
-            </div>
-            <!-- End Row --> --}}
 
         </div>
         <!-- CONTAINER CLOSED -->
@@ -419,9 +319,12 @@
     </div>
 </div>
 <!--app-content closed-->
+@include('admin.pages.home.modal')
 @endsection
 @section('jsAdmin')
-<script src="{{asset('app/admin/setting/setting.js')}}"></script>
+<script src="{{asset('app/Admin/setting/setting.js')}}"></script>
+<script src="{{asset('app/Admin/home/category.js')}}"></script>
+<script src="{{asset('app/Admin/home/question.js')}}"></script>
 <script>
 var setting = new setting(); 
 	    setting.datas={
@@ -433,5 +336,29 @@ var setting = new setting();
 	        }
 	    }   
 setting.init();
+
+var category=new category();
+      category.datas={
+        routes:{
+          datatable:"{{route('admin.homeCategory.datatable')}}",
+          insert:"{{route('admin.homeCategory.insert')}}",
+          update:"{{route('admin.homeCategory.update')}}",
+          get_update:"{{route('admin.homeCategory.getUpdate')}}",
+          delete:"{{route('admin.homeCategory.delete')}}",
+        }
+      }
+category.init();
+
+var question=new question();
+question.datas={
+        routes:{
+          datatable:"{{route('admin.homeQuestion.datatable')}}",
+          insert:"{{route('admin.homeQuestion.insert')}}",
+          update:"{{route('admin.homeQuestion.update')}}",
+          get_update:"{{route('admin.homeQuestion.getUpdate')}}",
+          delete:"{{route('admin.homeQuestion.delete')}}",
+        }
+      }
+      question.init();
 </script>
 @endsection

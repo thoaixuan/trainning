@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\HomeCategoryController;
+use App\Http\Controllers\Admin\HomeQuestionController;
 
 $route_admin = route_admin()==null?'admin':route_admin();//admin / setting()->route_admin
 Route::get('/install', function () {
@@ -39,6 +41,23 @@ Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
             Route::get('/',[SupportController::class,'index'])->name('admin.support.index');
             Route::get('/fecth-datatable',[SupportController::class,'fetchData'])->name('admin.support.datatable');
             Route::get('/delete',[SupportController::class,'delete'])->name('admin.support.delete');
+        });
+        Route::group(['prefix' => 'home-category'],function(){
+            Route::get('/',[HomeCategoryController::class,'index'])->name('admin.homeCategory.index');
+            Route::get('/icon', [HomeCategoryController::class,'indexIcon'])->name('admin.homeCategory.indexIcon');
+            Route::get('/datatable',[HomeCategoryController::class,'getDatatable'])->name('admin.homeCategory.datatable');
+            Route::post('/insert',[HomeCategoryController::class,'postInsert'])->name('admin.homeCategory.insert');
+            Route::get('/update-data-home-category',[HomeCategoryController::class,'updateData'])->name('admin.homeCategory.getUpdate');
+            Route::post('/update-home-category',[HomeCategoryController::class,'update'])->name('admin.homeCategory.update');
+            Route::get('/delete',[HomeCategoryController::class,'delete'])->name('admin.homeCategory.delete');
+        });
+        Route::group(['prefix' => 'home-question'],function(){
+            Route::get('/',[HomeQuestionController::class,'index'])->name('admin.homeQuestion.index');
+            Route::get('/datatable',[HomeQuestionController::class,'getDatatable'])->name('admin.homeQuestion.datatable');
+            Route::post('/insert',[HomeQuestionController::class,'postInsert'])->name('admin.homeQuestion.insert');
+            Route::get('/update-data-home-question',[HomeQuestionController::class,'updateData'])->name('admin.homeQuestion.getUpdate');
+            Route::post('/update-home-question',[HomeQuestionController::class,'update'])->name('admin.homeQuestion.update');
+            Route::get('/delete',[HomeQuestionController::class,'delete'])->name('admin.homeQuestion.delete');
         });
         Route::group(['prefix' => 'setting'], function () {
             Route::get('/',[SettingController::class,'index'])->name('admin.setting.index');

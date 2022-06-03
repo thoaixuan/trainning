@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             SettingsSeeder::class,
             UserSeeder::class,
             PageSeeder::class,
+            HomeCategorySeeder::class,
+            HomeQuestionSeeder::class
         ]);
     }
 }
