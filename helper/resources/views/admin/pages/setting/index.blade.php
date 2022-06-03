@@ -211,6 +211,14 @@
                                                   <label>Root color</label>
                                                   <input type="text" name="root_color" class="form-control" value="{{ getConfigMail()->root_color }}"/>
                                                 </div>
+                                            <div class="form-group">
+                                                  <label>Link login admin</label>
+                                                  <input type="text" name="route_login" class="form-control" value="{{ getConfigMail()->route_login }}"/>
+                                                </div>
+                                            <div class="form-group">
+                                                  <label>Folder Admin</label>
+                                                  <input type="text" name="route_admin" class="form-control" value="{{ getConfigMail()->route_admin }}"/>
+                                                </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">

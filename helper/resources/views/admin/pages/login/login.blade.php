@@ -65,7 +65,8 @@ var login = new login();
 	    login.datas={
 	        routes:{
 	            password:"{{route('admin.login.forget_password')}}",
-	            login:"{{route('admin.login.login')}}"
+	            login:"{{route('admin.login.login')}}",
+                redirect_admin: "{{ setting()->route_admin }}",
 	        }
 	    }   
 login.init();

@@ -36,7 +36,9 @@ function page() {
                     data: "name",
                     name: "name",
                     className: "",
-
+                    render: function (data, type, row, meta) {
+                        return '<a target="_blank" href="/page/'+row.slug+'">'+data+'</a>';
+                    }
                 },
                 {
                     title: "Đường dẫn",

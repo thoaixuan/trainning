@@ -34,7 +34,7 @@ class LoginController extends Controller
         $user->save();
 
         $title_mail = "Thay đổi mã pin";
-        $link_reset_pass = url('/admin/forget-password?code='.$code_random.'');
+        $link_reset_pass = url(settings()->route_admin)."/forget-password?code='.$code_random.'";
 
         $data = array(
             "name" => $title_mail,
@@ -52,7 +52,7 @@ class LoginController extends Controller
     }
     public function logout(){
         Auth::logout();
-        return redirect()->intended('/admin/login');
+        return redirect()->route('admin.login.index');
     }
     public function index(Request $request)
     {
@@ -101,7 +101,7 @@ class LoginController extends Controller
             if($request->code == $code){
                 $user->password=bcrypt($request->newPassword);
                 $user->save();
-                return redirect()->intended('/admin/login'); 
+                return redirect()->route('admin.login.index'); 
             } 
         } catch (\Exception $ex) {
             return error($ex->getMessage());

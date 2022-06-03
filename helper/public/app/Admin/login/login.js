@@ -37,7 +37,7 @@ function login() {
                 success: function (response) {
                     if (response.status == 1) {
                         toastr.success(response.msg);
-                        window.location.replace("/admin");
+                        window.location.replace("/"+datas.routes.redirect_admin);
                     }
                     else {
                         toastr.error(response.msg)
