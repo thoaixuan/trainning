@@ -22,11 +22,11 @@
                 </div>
                 <div class="form-group">
                     <label>Màu</label>
-                    <input id="category_color" type="text" name="icon" class="form-control" />
+                    <input id="category_color" type="text" name="color" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label>Icon</label>
-                    <input id="category_icon" type="text" name="color" class="form-control" />
+                    <input id="category_icon" type="text" name="icon" class="form-control" />
                 </div>
                 </div>
               </div>
