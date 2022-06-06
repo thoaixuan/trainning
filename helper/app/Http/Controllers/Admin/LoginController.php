@@ -14,10 +14,13 @@ class LoginController extends Controller
     public function login(){
         return view('admin.pages.login.login');
     }
+    public function index404(){
+        return view('admin.pages.error.404');
+    }
     public function forgetPassword(){
         return view('admin.pages.forget_password.index');
     }
-    public function handleSendPassword(){
+    public function handleSendPassword(request $request){
         foreach(json_decode(getConfigMail()->config_mail) as $data){
             $data_mail_driver=$data->mail_driver;
             $data_mail_host=$data->mail_host;
@@ -46,7 +49,7 @@ class LoginController extends Controller
         $user->save();
 
         $title_mail = "Thay đổi mã pin";
-        $link_reset_pass = url('')."/".route_admin()==null?'admin':route_admin()."/forget-password?code=$code_random";
+        $link_reset_pass = url('/forget-password?code='.$code_random);
 
         $data = array(
             "name" => $title_mail,
