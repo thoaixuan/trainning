@@ -287,6 +287,22 @@
                                           @foreach(json_decode(getConfigMail()->config_google) as $list_google)
                                          <div class="col-md-12">
                                              <h4>Captcha Google</h4>
+                                         </div>
+                                         <div class="col-md-2">
+                                            <div class="form-group">
+                                              <div class="custom-controls-stacked d-flex justify-content-start align-items-center">
+                                                <label class="custom-control custom-radio w-50">
+                                                        <input type="radio" class="custom-control-input" name="active" value="0" {{$list_google->active==0?'checked':''}}>
+                                                        <span class="custom-control-label">Ẩn</span>
+                                                    </label>
+                                                <label class="custom-control custom-radio w-50">
+                                                        <input type="radio" class="custom-control-input" name="active" value="1" {{$list_google->active==1?'checked':''}}>
+                                                        <span class="custom-control-label">Kích hoạt</span>
+                                                    </label>
+                                            </div>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-12">
                                            <div class="form-group">
                                              <label>Nocaptcha Secret</label>
                                              <input type="text" name="nocaptcha_secret" class="form-control form-control-sm" value="{{ $list_google->nocaptcha_secret }}"/>

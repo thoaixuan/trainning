@@ -70,17 +70,29 @@ class LoginController extends Controller
     }
     public function index(Request $request)
     {
-        $message=[
-            'password.integer'=>"Mã pin phải là số",
-            'password.required'=>"Mã pin bắt buộc phải nhập",
-            // 'password.max'=>"Mã pin tối đa 6 ký tự",
-            'g-recaptcha-response.required'=>"Hãy xác nhận nếu bạn không phải là robot",
-            'g-recaptcha-response.captcha'=>"Captcha bị lỗi! Hãy thử lại",
-        ];
-        $validate=Validator::make($request->all(),[
-            'password'=>['integer','required'],
-            'g-recaptcha-response' => 'required|captcha',
-        ],$message);
+        foreach(json_decode(setting()->config_google) as $list_google) {
+            if($list_google->active == 1) {
+                $message=[
+                    'password.required'=>"Mã pin bắt buộc phải nhập",
+                    // 'password.max'=>"Mã pin tối đa 6 ký tự",
+                    'g-recaptcha-response.required'=>"Hãy xác nhận nếu bạn không phải là robot",
+                    'g-recaptcha-response.captcha'=>"Captcha bị lỗi! Hãy thử lại",
+                ];
+                $validate=Validator::make($request->all(),[
+                    'password'=>['required'],
+                    'g-recaptcha-response' => 'required|captcha',
+                ],$message);
+            }else {
+                $message=[
+                    'password.integer'=>"Mã pin phải là số",
+                    'password.required'=>"Mã pin bắt buộc phải nhập",
+                ];
+                $validate=Validator::make($request->all(),[
+                    'password'=>['required'],
+                ],$message);
+            }
+        }
+        
         if($validate->fails()){
             return response()->json([
                 'status'=>0,

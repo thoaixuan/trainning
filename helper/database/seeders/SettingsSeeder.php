@@ -36,6 +36,7 @@ class SettingsSeeder extends Seeder
         $config_google = array([
             'nocaptcha_secret' => '6Lc1M_YfAAAAAKylO5O8Il_eqKXEsXBvAH7u7FFD',
             'nocaptcha_sitekey' => '6Lc1M_YfAAAAALnd4Ewog02tPlDPM6CVIx5Wx-vl',
+            'active' => 1
         ]);
         $home_banner = array([
             'banner_title' => 'Xin chào, eGate có thể giúp gì cho bạn?',
