@@ -325,6 +325,8 @@
 <script src="{{asset('app/Admin/setting/setting.js')}}"></script>
 <script src="{{asset('app/Admin/home/category.js')}}"></script>
 <script src="{{asset('app/Admin/home/question.js')}}"></script>
+<!--  Quill Editor -->
+<script src="{{asset('themes/admin/assets/plugins/quill/quill.min.js')}}"></script>
 <script>
 var setting = new setting(); 
 	    setting.datas={

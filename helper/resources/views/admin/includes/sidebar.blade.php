@@ -40,10 +40,16 @@
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="{{route('admin.contact.index')}}"><i
                                         class="side-menu__icon fe fe-map-pin"></i><span
-                                        class="side-menu__label">Liên hệ</span></a>
+                                        class="side-menu__label">Liên hệ</span>
+                                        <span class="badge badge-sidebar bg-info side-badge">{{countContact()}}</span>
+                                    </a>
                                 <a class="side-menu__item" data-bs-toggle="slide" href="{{route('admin.support.index')}}"><i
                                         class="side-menu__icon fa fa-question-circle-o"></i><span
-                                        class="side-menu__label">Hỗ trợ</span></a>
+                                        class="side-menu__label">Hỗ trợ</span>
+                                    
+                                        <span class="badge badge-sidebar bg-info side-badge">{{countSupport()}}</span>
+                                    
+                                    </a>
                                 <a class="side-menu__item" data-bs-toggle="slide" href="{{route('admin.setting.index')}}"><i
                                 class="side-menu__icon fe fe fe-grid"></i><span
                                 class="side-menu__label">Cài đặt</span></a>

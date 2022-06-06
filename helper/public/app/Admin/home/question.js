@@ -22,7 +22,7 @@ function question() {
             ordering: true,
             order: [0, "desc"],
             info: true,
-            responsive: true,
+            responsive: false,
             autoWidth: false,
             ajax: {
                 url: datas.routes.datatable,
@@ -84,11 +84,28 @@ function question() {
         var myModal = new bootstrap.Modal(document.getElementById('modalHomeQuestion'), {
             keyboard: true
         });
-
+        var toolbarOptions = [
+            [{ 'font': [] }, { 'size': [] }],
+          [ 'bold', 'italic', 'underline', 'strike' ],
+          [{ 'script': 'super' }, { 'script': 'sub' }],
+          [{ 'header': '1' }, { 'header': '2' }, 'blockquote', 'code-block' ],
+          [{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
+          [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
+          [ 'link', 'image', 'video', 'formula' ],
+          [ 'clean' ]
+        ];
+        var quillDescription = new Quill('#quillEditor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow',
+            placeholder: 'Nhập mô tả',
+        });
         //Mở modal thêm dữ liệu
         $(document).on('click', '#openQuestion', function () {
             title.textContent = "Thêm dữ liệu mới";
             submit.textContent = "Thêm dữ liệu";
+            quillDescription.root.innerHTML = '';
                         submit.setAttribute('data-url', datas.routes.insert);
                         myModal.show();
         });
@@ -109,7 +126,8 @@ function question() {
                         submit.setAttribute('data-url', datas.routes.update);
                         submit.setAttribute('data-id', response.data.id);
                         document.getElementById("question_title").value = response.data.title;
-                        document.getElementById("question_des").value = response.data.des;
+                        quillDescription.root.innerHTML = response.data.des;
+
                         myModal.show();
                     } else {
                         toastr.error(response.message);
@@ -167,9 +185,12 @@ function question() {
 			},
             onfocusout: function(element){ return false; },
             submitHandler: function(e) {
+                var getDescription = document.getElementById("question_des").value = quillDescription.root.innerHTML;
 				var url = $('#submitHomeQuestion').attr('data-url');
 				var formData = new FormData($("#homeQuestionForm")[0]);
 				formData.append('id', $("#submitHomeQuestion").attr('data-id'));
+                formData.append('des', getDescription);
+
                 $.ajax({
                     		url: url,
                     		data: formData,

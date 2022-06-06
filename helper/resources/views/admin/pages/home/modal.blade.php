@@ -59,7 +59,11 @@
                 </div>
                 <div class="form-group">
                     <label>Mô tả</label>
-                    <textarea id="question_des" name="des" class="form-control"></textarea>
+                    <input type="hidden" name="des" id="question_des">
+                    <div class="ql-wrapper ql-wrapper-demo bg-light">
+                      <div id="quillEditor">
+                      </div>
+                    </div>
                 </div>
                 </div>
               </div>
@@ -72,7 +76,7 @@
     </div>
   </div>
 
-  <!-- Modal Delete Cam ket -->
+  <!-- Modal Delete Q -->
 <div class="modal fade" id="modal-delete-question" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

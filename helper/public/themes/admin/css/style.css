@@ -24,3 +24,9 @@
 .max-width-100 {
     max-width: 100px;
 }
+.badge-sidebar {
+    top:unset;
+}
+.li-sidebar {
+    padding: 5px;
+}

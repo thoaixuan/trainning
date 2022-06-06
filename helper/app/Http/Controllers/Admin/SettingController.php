@@ -83,7 +83,10 @@ class SettingController extends Controller
                 'mail_encryption' => $Request->mail_encryption,
                 'mail_username' => $Request->mail_username,
                 'mail_password' => $Request->mail_password,
-                'mail_receive' => $Request->mail_receive
+                'mail_receive' => $Request->mail_receive,
+                'room_kinhdoanh' => $Request->room_kinhdoanh,
+                'room_kythuat' => $Request->room_kythuat,
+                'room_ketoan' => $Request->room_ketoan,
             ]);
             $myJSON = json_encode($myArr, JSON_UNESCAPED_UNICODE);
             $Settings->config_mail = $myJSON;

@@ -13,6 +13,12 @@ function route_login() {
     $route_login = $data_route_login->route_login;
     return $route_login;
 }
+function countContact() {
+    return \App\Models\Contacts::count();
+}
+function countSupport() {
+    return \App\Models\Supports::count();
+}
 function getConfigMail()
 {
     return \App\Models\Settings::find(1);
