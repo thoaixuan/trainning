@@ -14,7 +14,7 @@
 
     <!-- TITLE -->
     <title>Resource and Asset Management</title>
-    @include('Admin.partials.stylesheet')
+    @include('admin.partials.stylesheet')
 
    
 </head>

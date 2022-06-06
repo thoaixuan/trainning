@@ -1,4 +1,4 @@
-@extends('Admin.layouts.login') 
+@extends('admin.layouts.login') 
 @section('main')
     <!-- BACKGROUND-IMAGE -->
     <div class="login-img">
@@ -59,7 +59,7 @@
     <!-- BACKGROUND-IMAGE CLOSED -->
 @endsection
 @section('jsAdmin')
-<script src="{{asset('app/admin/login/login.js')}}"></script>
+<script src="{{asset('app/Admin/login/login.js')}}"></script>
 <script>
 var login = new login(); 
 	    login.datas={

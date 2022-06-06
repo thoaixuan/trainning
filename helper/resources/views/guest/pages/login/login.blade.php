@@ -1,4 +1,4 @@
-@extends('Guest.layouts.login') 
+@extends('guest.layouts.login') 
 @section('main')
     <!-- BACKGROUND-IMAGE -->
     <div class="login-img">

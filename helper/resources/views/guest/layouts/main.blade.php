@@ -14,7 +14,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('themes/admin/assets/images/brand/favicon.ico')}}" />
     <!-- TITLE -->
     <title>{{$title}}</title>
-    @include('Guest.partials.stylesheet')
+    @include('guest.partials.stylesheet')
 
    
 </head>

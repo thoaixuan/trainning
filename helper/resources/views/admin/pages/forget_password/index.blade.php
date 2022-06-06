@@ -1,4 +1,4 @@
-@extends('Admin.layouts.login') 
+@extends('admin.layouts.login') 
 @section('main')  
   <!-- BACKGROUND-IMAGE -->
   <div class="login-img">
@@ -56,7 +56,7 @@
 <!-- BACKGROUND-IMAGE CLOSED -->
 @endsection
 @section('jsAdmin')
-<script src="{{asset('app/admin/contact/contact.js')}}"></script>
+<script src="{{asset('app/Admin/contact/contact.js')}}"></script>
 <script>
 var contact = new contact(); 
 	    contact.datas={
