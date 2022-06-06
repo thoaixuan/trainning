@@ -9,12 +9,7 @@ use App\Http\Controllers\Admin\HomeCategoryController;
 use App\Http\Controllers\Admin\HomeQuestionController;
 
 $route_admin = route_admin()==null?'admin':route_admin();//admin / setting()->route_admin
-Route::get('/install', function () {
-    \Artisan::call('migrate');
-    \Artisan::call('migrate:fresh --seed');
-    return redirect()->route('guest.home.index');
-});
-Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
+Route::group(['namespace'=>'Admin'],function(){
     $route_login = route_login()==null?'admin-login':route_login();//admin-login / setting()->route_login
     Route::get('/logout',[LoginController::class,'logout'])->name('admin.login.logout');
     Route::get($route_login, [LoginController::class,'login'])->name('admin.login.index');
@@ -22,6 +17,13 @@ Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
     Route::get('/send-password',[LoginController::class,'handleSendPassword'])->name('admin.login.send_password');
     Route::get('/forget-password', [LoginController::class,'forgetPassword'])->name('admin.login.forget_password');
     Route::post('/change-password', [LoginController::class,'changePassword'])->name('admin.login.change_password');
+}); 
+Route::get('/install', function () {
+    \Artisan::call('migrate');
+    \Artisan::call('migrate:fresh --seed');
+    return redirect()->route('guest.home.index');
+});
+Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
     Route::group(['middleware'=>['checkPermission']],function(){
         Route::get('/', [DashboardController::class,'index'])->name('admin.index.dashboard');
         Route::group(['prefix' => 'pages'],function(){
