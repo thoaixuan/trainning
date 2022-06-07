@@ -17,6 +17,7 @@ Route::group(['namespace'=>'Admin'],function(){
     Route::get('/send-password',[LoginController::class,'handleSendPassword'])->name('admin.login.send_password');
     Route::get('/forget-password', [LoginController::class,'forgetPassword'])->name('admin.login.forget_password');
     Route::post('/change-password', [LoginController::class,'changePassword'])->name('admin.login.change_password');
+    Route::get('/404', [LoginController::class,'index404'])->name('admin.error.404');
 }); 
 /*
 -- Chỉ mở ra khi đang code, dùng cho lúc dev!

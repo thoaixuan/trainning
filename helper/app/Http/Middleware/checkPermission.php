@@ -40,10 +40,10 @@ class checkPermission
                   return $next($request);
             }
             else{
-                return redirect()->route('admin.login.index');
+                return redirect()->route('admin.error.404');
             }
         }else{
-            return redirect()->route('admin.login.index');
+            return redirect()->route('admin.error.404');
         }
     }
     }

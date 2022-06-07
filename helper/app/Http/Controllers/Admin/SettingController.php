@@ -171,6 +171,7 @@ class SettingController extends Controller
             array_push($myArr, [
                 'nocaptcha_secret' => $Request->nocaptcha_secret,
                 'nocaptcha_sitekey' => $Request->nocaptcha_sitekey,
+                'active' => $Request->active
             ]);
             $myJSON = json_encode($myArr, JSON_UNESCAPED_UNICODE);
             $Settings->config_google = $myJSON;
