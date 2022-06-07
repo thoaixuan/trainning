@@ -18,11 +18,14 @@ Route::group(['namespace'=>'Admin'],function(){
     Route::get('/forget-password', [LoginController::class,'forgetPassword'])->name('admin.login.forget_password');
     Route::post('/change-password', [LoginController::class,'changePassword'])->name('admin.login.change_password');
 }); 
+/*
+-- Chỉ mở ra khi đang code, dùng cho lúc dev!
 Route::get('/install', function () {
     \Artisan::call('migrate');
     \Artisan::call('migrate:fresh --seed');
     return redirect()->route('guest.home.index');
 });
+*/
 Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
     Route::group(['middleware'=>['checkPermission']],function(){
         Route::get('/', [DashboardController::class,'index'])->name('admin.index.dashboard');
