@@ -34,7 +34,7 @@
                                         <input type="text" id="code" name="code" class="input100 form-control ms-0"  placeholder="Mã xác thực">
                                     </div>
                                     <div class="wrap-input100 validate-input input-group" id="Password-toggle">
-                                        <input type="text" id="newPassword" name="newPassword" class="input100 form-control ms-0"  placeholder="Mã pin">
+                                        <input type="password" id="newPassword" name="newPassword" class="input100 form-control ms-0"  placeholder="Mã pin">
                                     </div>
                                     <div class="container-login100-form-btn">
                                         <button id="submit" type="submit" class="login100-form-btn btn-primary">Gửi</button>
