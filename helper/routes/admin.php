@@ -8,7 +8,15 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\HomeCategoryController;
 use App\Http\Controllers\Admin\HomeQuestionController;
 use App\Http\Controllers\Admin\DepartmentController;
-
+/*
+-- Chỉ mở ra khi đang code, dùng cho lúc dev!
+Route::get('/install', function () {
+    \Artisan::call('migrate');
+    \Artisan::call('migrate:fresh --seed');
+    return redirect()->route('guest.home.index');
+});
+*/
+// $route_admin = 'admin';
 $route_admin = route_admin()==null?'admin':route_admin();//admin / setting()->route_admin
 Route::group(['namespace'=>'Admin'],function(){
     $route_login = route_login()==null?'admin-login':route_login();//admin-login / setting()->route_login
@@ -20,14 +28,6 @@ Route::group(['namespace'=>'Admin'],function(){
     Route::post('/change-password', [LoginController::class,'changePassword'])->name('admin.login.change_password');
     Route::get('/404', [LoginController::class,'index404'])->name('admin.error.404');
 }); 
-/*
--- Chỉ mở ra khi đang code, dùng cho lúc dev!
-Route::get('/install', function () {
-    \Artisan::call('migrate');
-    \Artisan::call('migrate:fresh --seed');
-    return redirect()->route('guest.home.index');
-});
-*/
 Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
     Route::group(['middleware'=>['checkPermission']],function(){
         Route::get('/', [DashboardController::class,'index'])->name('admin.index.dashboard');

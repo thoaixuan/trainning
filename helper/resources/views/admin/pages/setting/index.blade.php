@@ -19,7 +19,7 @@
                                 <ul class="nav panel-tabs">
                                     <li><a href="#tab1" class="active" data-bs-toggle="tab">Cài đặt website</a></li>
                                     <li><a href="#tab2" data-bs-toggle="tab">Cấu hình mail</a></li>
-                                    <li><a href="#tab3" data-bs-toggle="tab">Cấu hình google</a></li>
+                                    <li><a href="#tab3" data-bs-toggle="tab">Cấu hình captcha</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -303,7 +303,7 @@
                                          <div class="col-md-12">
                                              <h4>Captcha Google</h4>
                                          </div>
-                                         <div class="col-md-2">
+                                         <div class="col-md-6">
                                             <div class="form-group">
                                               <div class="custom-controls-stacked d-flex justify-content-start align-items-center">
                                                 <label class="custom-control custom-radio w-50">

@@ -55,10 +55,9 @@
                                         </div>
                                         <!-- COUNTRY -->
                                         <div class="d-flex country">
-                                            <a class="nav-link icon text-center" data-bs-target="#country-selector"
-                                                data-bs-toggle="modal">
+                                            <a class="nav-link icon text-center" href="{{ route('guest.home.index') }}" target="_blank">
                                                 <i class="fe fe-globe"></i><span
-                                                    class="fs-16 ms-2 d-none d-xl-block">English</span>
+                                                    class="fs-16 ms-2 d-none d-xl-block">Truy cập website</span>
                                             </a>
                                         </div>
                                         <!-- SEARCH -->
