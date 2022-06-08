@@ -39,7 +39,6 @@ function setting() {
                 success: function (data) {
                     if (data.statusBoolean) {
                         toastr.success(data.msg);
-                        table.ajax.reload();
                     }
                     else {
                         toastr.error(data.msg);
@@ -82,7 +81,6 @@ function setting() {
                     success: function (data) {
                         if (data.statusBoolean) {
                             toastr.success(data.msg);
-                            table.ajax.reload();
                         }
                         else {
                             toastr.error(data.msg);
@@ -122,7 +120,6 @@ function setting() {
                     success: function (data) {
                         if (data.statusBoolean) {
                             toastr.success(data.msg);
-                            table.ajax.reload();
                         }
                         else {
                             toastr.error(data.msg);
@@ -161,7 +158,6 @@ function setting() {
                     success: function (data) {
                         if (data.statusBoolean) {
                             toastr.success(data.msg);
-                            table.ajax.reload();
                         }
                         else {
                             toastr.error(data.msg);

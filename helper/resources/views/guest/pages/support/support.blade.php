@@ -26,9 +26,9 @@
                                     <div class="form-group col-md-6">
                                     <label for="phone">Phòng ban</label>
                                         <select class="form-select" aria-label="Default select example" name="rooms_id" id="rooms_id">
-                                                <option value="1">Phòng kinh doanh</option>
-                                                <option value="2">Phòng kỹ thuật</option>
-                                                <option value="3">Phòng kế toán</option>
+                                                @foreach(fetchDepartment() as $list_department)
+                                                <option value="{{$list_department->id}}">{{$list_department->title}}</option>
+                                                @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">

@@ -11,7 +11,9 @@
     <meta name="googlebot" content="noindex">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('themes/admin/assets/images/brand/favicon.ico')}}" />
+    @foreach(json_decode(setting()->website_logo) as $w_logo)
+    <link rel="shortcut icon" type="image/x-icon" href="{{$w_logo->favicon==null?asset('themes/admin/assets/images/brand/favicon.ico'):url('/uploads')."/".$w_logo->favicon}}" />
+    @endforeach
     <!-- TITLE -->
     <title>{{$title}}</title>
     @include('guest.partials.stylesheet')

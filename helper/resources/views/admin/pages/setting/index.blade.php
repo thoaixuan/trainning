@@ -214,13 +214,17 @@
                                         </form>
                                 </div>
                                 <div class="tab-pane" id="tab2">
-                                    <form id="mailForm" method="post">
-                                        @csrf
-                                        <div class="row">
+                                    
+                                        
+                                          
                                           @foreach(json_decode(getConfigMail()->config_mail) as $list_mail)
                                         <div class="col-md-12 mb-3">
                                            <h4>Cài đặt cấu hình gửi mail</h4>
                                          </div>
+                                         
+                                         <form id="mailForm" method="post">
+                                          @csrf
+                                          <div class="row">
                                          <div class="col-md-6">
                                            <div class="form-group">
                                              <label>Mail driver</label>
@@ -273,12 +277,23 @@
                                             <input type="text" name="room_ketoan" class="form-control form-control-sm" value="{{ $list_mail->room_ketoan }}"/>
                                           </div>
                                          </div>
-                                       <div class="col-md-1">
-                                         <button type="submit" class="btn btn-primary btn-block">Lưu</button>
-                                       </div>
+                                         <div class="col-md-1">
+                                          <button type="submit" class="btn btn-primary btn-block">Lưu</button>
+                                        </div>
+                                      </div>  
+                                      </form>
+                                      <div class="row">
+                                         <div class="col-md-12">
+                                           <h4 class="mt-2">Quản lý phòng ban</h4>
+                                          <div class="table-responsive">
+                                            <table class="table table-bordered text-nowrap border-bottom" id="home-department-table">
+                                            </table>
+                                          </div>
+                                         </div>
+                                      </div>
                                        @endforeach
-                                        </div>            
-                                       </form>
+                                                  
+                                       
                                 </div>
                                 <div class="tab-pane" id="tab3">
                                     <form id="setting_google">
@@ -341,6 +356,7 @@
 <script src="{{asset('app/Admin/setting/setting.js')}}"></script>
 <script src="{{asset('app/Admin/home/category.js')}}"></script>
 <script src="{{asset('app/Admin/home/question.js')}}"></script>
+<script src="{{asset('app/Admin/department/department.js')}}"></script>
 <!--  Quill Editor -->
 <script src="{{asset('themes/admin/assets/plugins/quill/quill.min.js')}}"></script>
 <script>
@@ -354,6 +370,18 @@ var setting = new setting();
 	        }
 	    }   
 setting.init();
+
+var department=new department();
+department.datas={
+        routes:{
+          datatable:"{{route('admin.department.datatable')}}",
+          insert:"{{route('admin.department.insert')}}",
+          update:"{{route('admin.department.update')}}",
+          get_update:"{{route('admin.department.getUpdate')}}",
+          delete:"{{route('admin.department.delete')}}",
+        }
+      }
+      department.init();
 
 var category=new category();
       category.datas={

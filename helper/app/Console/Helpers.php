@@ -31,6 +31,10 @@ function fetchQuestion()
 {
     return \App\Models\HomeQuestion::get();
 }
+function fetchDepartment()
+{
+    return \App\Models\Departments::get();
+}
 function change_to_slug($str) {
     $str = trim(mb_strtolower($str));
     $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);

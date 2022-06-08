@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SupportController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\HomeCategoryController;
 use App\Http\Controllers\Admin\HomeQuestionController;
+use App\Http\Controllers\Admin\DepartmentController;
 
 $route_admin = route_admin()==null?'admin':route_admin();//admin / setting()->route_admin
 Route::group(['namespace'=>'Admin'],function(){
@@ -64,6 +65,14 @@ Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
             Route::get('/update-data-home-question',[HomeQuestionController::class,'updateData'])->name('admin.homeQuestion.getUpdate');
             Route::post('/update-home-question',[HomeQuestionController::class,'update'])->name('admin.homeQuestion.update');
             Route::get('/delete',[HomeQuestionController::class,'delete'])->name('admin.homeQuestion.delete');
+        });
+        Route::group(['prefix' => 'department'],function(){
+            Route::get('/',[DepartmentController::class,'index'])->name('admin.department.index');
+            Route::get('/datatable',[DepartmentController::class,'getDatatable'])->name('admin.department.datatable');
+            Route::post('/insert-department',[DepartmentController::class,'postInsert'])->name('admin.department.insert');
+            Route::get('/update-data-department',[DepartmentController::class,'updateData'])->name('admin.department.getUpdate');
+            Route::post('/update-department',[DepartmentController::class,'update'])->name('admin.department.update');
+            Route::get('/delete',[DepartmentController::class,'delete'])->name('admin.department.delete');
         });
         Route::group(['prefix' => 'setting'], function () {
             Route::get('/',[SettingController::class,'index'])->name('admin.setting.index');

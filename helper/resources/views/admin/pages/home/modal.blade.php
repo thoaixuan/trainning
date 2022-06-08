@@ -1,3 +1,35 @@
+<!-- Modal Department -->
+<div class="modal fade" id="modalDepartment" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalLabelDepartment">Dữ liệu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form id="homeDepartmentForm" autocomplete="off"> 
+            @csrf 
+            <div class="row">
+              <div class="col-md-12">
+              <div class="form-group">
+                  <label>Tiêu đề</label>
+                  <input id="department_title" type="text" name="title" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Mô tả</label>
+                <textarea id="department_des" name="des" class="form-control"></textarea>
+            </div>
+              </div>
+            </div>
+            <button id="submitDepartment" class="btn btn-success" data-bs-dismiss="">Lưu</button>
+          </form>         
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</div>
 <!-- Modal Home Category -->
 <div class="modal fade" id="modalHomeCategory" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -96,3 +128,24 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Delete Q -->
+<div class="modal fade" id="modal-delete-department" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Thông báo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-text-delete-department"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" id="onDeleteDepartment">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
