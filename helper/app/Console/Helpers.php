@@ -4,13 +4,21 @@ function setting()
     return \App\Models\Settings::find(1);
 }
 function route_admin() {
-    $data_route_admin = \App\Models\Settings::find(1);
-    $route_admin = $data_route_admin->route_admin;
+    if(Schema::hasTable('settings')){
+        $data_route_admin = \App\Models\Settings::find(1);
+        $route_admin = $data_route_admin->route_admin;
+    }else{
+        $route_admin = null;
+    }
     return $route_admin;
 }
 function route_login() {
-    $data_route_login = \App\Models\Settings::find(1);
-    $route_login = $data_route_login->route_login;
+    if(Schema::hasTable('settings')){
+        $data_route_login = \App\Models\Settings::find(1);
+        $route_login = $data_route_login->route_login;
+    }else {
+        $route_login = null;
+    }
     return $route_login;
 }
 function countContact() {
