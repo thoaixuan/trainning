@@ -17,7 +17,7 @@
                                         <input type="text" name="name" class="form-control">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="email">Email (không bắt buộc nhập)</label>
+                                        <label for="email">Email <span class="span-required">(không bắt buộc nhập)</span></label>
                                         <input type="text" name="email" class="form-control">
                                     </div>
                                     <div class="form-group col-md-12">

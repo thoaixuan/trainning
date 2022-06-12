@@ -66,12 +66,12 @@ class SupportController extends Controller
 
         $title_mail = "Thông tin hỗ trợ";
         if($request->rooms_id == 1){
-            $room_name = "Phòng kinh doanh";
+            $room_name = "Phòng kỹ thuật";
         }
         elseif($request->rooms_id == 2){
-            $room_name = "Phòng kỹ thuật";
-        }elseif($request->rooms_id == 3){
             $room_name = "Phòng kế toán";
+        }elseif($request->rooms_id == 3){
+            $room_name = "Phòng kinh doanh";
         }
         $data = array(
             "subject" => $title_mail,
@@ -89,12 +89,12 @@ class SupportController extends Controller
                 ['data' => $data], function ($message) use ($title_mail, $data, $request)
                 {
                     if($request->rooms_id == 1){
-                        $message->to($data['email_to_room_kinhdoanh'])->subject($title_mail);
+                        $message->to($data['email_to_room_kythuat'])->subject($title_mail);
                     }
                     elseif($request->rooms_id == 2){
-                        $message->to($data['email_to_room_kythuat'])->subject($title_mail);
-                    }elseif($request->rooms_id == 3){
                         $message->to($data['email_to_room_ketoan'])->subject($title_mail);
+                    }elseif($request->rooms_id == 3){
+                        $message->to($data['email_to_room_kinhdoanh'])->subject($title_mail);
                     }
                     
                 });

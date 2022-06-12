@@ -96,3 +96,8 @@ body {
 .ql-align-center {
     text-align: center;
 }
+.span-required {
+    color: gray;
+    font-size: 13px;
+    font-style: italic;
+}
