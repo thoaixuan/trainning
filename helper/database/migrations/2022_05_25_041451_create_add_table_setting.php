@@ -26,10 +26,6 @@ class CreateAddTableSetting extends Migration
 
                 //Banner
                 $table->text('home_banner')->nullable();
-                //Project
-                $table->text('home_category')->nullable();
-                // Question
-                $table->text('home_question')->nullable();
                 // Info
                 $table->text('home_info')->nullable();
                 //Config google

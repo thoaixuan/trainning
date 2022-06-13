@@ -113,7 +113,7 @@
                                           </h2>
                                           <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
                                               <div class="accordion-body">
-                                                <form id="setting_home" autocomplete="off" enctype="multipart/form-data">
+                                                <form id="setting_home_info" autocomplete="off" enctype="multipart/form-data">
                                                   @csrf
                                                 <div class="row">
                                                   @foreach(json_decode(getConfigMail()->home_info) as $list_info)
@@ -364,8 +364,9 @@ var setting = new setting();
 	    setting.datas={
 	        routes:{
                 update_home: "{{ route('admin.setting.update_home') }}",
-			    update_website:"{{route('admin.setting.update_website')}}",
-			    update_mail:"{{route('admin.setting.update_mail')}}",
+                update_home_info: "{{ route('admin.setting.update_homeInfo') }}",
+                update_website:"{{route('admin.setting.update_website')}}",
+                update_mail:"{{route('admin.setting.update_mail')}}",
                 update_google: "{{route('admin.setting.update_google')}}"
 	        }
 	    }   

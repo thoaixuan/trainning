@@ -77,6 +77,7 @@ Route::group(['prefix' => $route_admin,'namespace'=>'Admin'],function(){
         Route::group(['prefix' => 'setting'], function () {
             Route::get('/',[SettingController::class,'index'])->name('admin.setting.index');
             Route::post('/update-home',[SettingController::class,'updateHome'])->name('admin.setting.update_home');
+            Route::post('/update-home-info',[SettingController::class,'updateHomeInfo'])->name('admin.setting.update_homeInfo');
             Route::post('/update-website',[SettingController::class,'updateWebsite'])->name('admin.setting.update_website');
             Route::post('/update-mail',[SettingController::class,'updateMail'])->name('admin.setting.update_mail');
             Route::post('/update-google',[SettingController::class,'updateGoogle'])->name('admin.setting.update_google');

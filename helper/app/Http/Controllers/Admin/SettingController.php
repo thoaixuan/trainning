@@ -30,29 +30,16 @@ class SettingController extends Controller
             $jsonBanner = json_encode($arrBanner, JSON_UNESCAPED_UNICODE);
             $Settings->home_banner = $jsonBanner;
 
-            $arrCategory = array();
-            array_push($arrCategory, [
-                'category1' => $request->category1,
-                'category2' => $request->category2,
-                'category3' => $request->category3,
-                'category4' => $request->category4,
-                'category5' => $request->category5,
-                'category6' => $request->category6,
-                'category7' => $request->category7,
-            ]);
-            $jsonCategory = json_encode($arrCategory, JSON_UNESCAPED_UNICODE);
-            $Settings->home_category = $jsonCategory;
-
-            $arrQuestion = array();
-            array_push($arrQuestion, [
-                'question_title1' => $request->question_title1,
-                'question_des1' => $request->question_des1,
-                'question_title2' => $request->question_title2,
-                'question_des2' => $request->question_des2,
-            ]);
-            $jsonQuestion = json_encode($arrQuestion, JSON_UNESCAPED_UNICODE);
-            $Settings->home_question = $jsonQuestion;
-
+            $Settings->save();
+            return success($Settings);
+            } catch (\Exception $ex) {
+                return error($ex->getMessage());
+            }
+    }
+    public function updateHomeInfo(request $request)
+    {
+        try {
+            $Settings =  Settings::find(1);
             $arrInfo = array();
             array_push($arrInfo, [
                 'info_title1' => $request->info_title1,

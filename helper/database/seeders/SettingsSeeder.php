@@ -42,21 +42,7 @@ class SettingsSeeder extends Seeder
             'banner_title' => 'Xin chào, eGate có thể giúp gì cho bạn?',
             'banner_cta' => 'Liên hệ với chúng tôi'
         ]);
-        $home_category = array([
-            'category1' => 'Mua Sắm Cùng eGate',
-            'category2' => 'Thanh Toán',
-            'category3' => 'Trả hàng & Hoàn Tiền',
-            'category4' => 'Thông Tin Chung',
-            'category5' => 'Khuyến Mãi & Ưu Đãi',
-            'category6' => 'Đơn Hàng & Vận Chuyển',
-            'category7' => 'Người Bán & Đối Tác',
-        ]);
-        $home_question = array([
-            'question_title1' => 'Mua sắm an toàn cùng e-Gate',
-            'question_des1' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque fugiat, sunt quaerat eos ab quos assumenda quidem, numquam obcaecati, ad sint.',
-            'question_title2' => 'Voucher/Mã giảm giá',
-            'question_des2' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque fugiat, sunt quaerat eos ab quos assumenda quidem, numquam obcaecati, ad sint.',
-        ]);
+
         $home_info = array([
             'info_title1' => 'Email',
             'info_des1' => 'info@ing.vn',
@@ -73,8 +59,6 @@ class SettingsSeeder extends Seeder
                 'route_login' => 'admin-login',
                 'config_google' => json_encode($config_google, JSON_UNESCAPED_UNICODE),
                 'home_banner' => json_encode($home_banner, JSON_UNESCAPED_UNICODE),
-                'home_category' => json_encode($home_category, JSON_UNESCAPED_UNICODE),
-                'home_question' => json_encode($home_question, JSON_UNESCAPED_UNICODE),
                 'home_info' => json_encode($home_info, JSON_UNESCAPED_UNICODE),
             ], 
         ]);
