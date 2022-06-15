@@ -33,7 +33,7 @@
                                 <div class="panel-body tabs-menu-body p-0 pt-5">
                                     <div class="tab-content">
                                             <div class="form-group" id="Password-toggle">
-                                                <input type="password" id="password" name="password" class="input-100 w-100 form-control ms-0"  placeholder="Mã pin" pattern="[0-9]*" inputmode="numeric">
+                                                <input type="password" id="password" name="password" class="input-100 w-100 form-control ms-0"  placeholder="Mã pin">
                                             </div>
                                             <div class="form-group">
                                                 @foreach(json_decode(setting()->config_google) as $list_google)

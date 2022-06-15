@@ -119,10 +119,10 @@ class LoginController extends Controller
             ]);
         }
     }
-    public function changePassword(Request $request){
+    public function changePassword(request $request){
 
         try {
-            $code = Request()->code;
+            $code = request()->code;
             $user = User::where('code','=',$code)->first();
             if($request->code == $code){
                 $user->password=bcrypt($request->newPassword);
