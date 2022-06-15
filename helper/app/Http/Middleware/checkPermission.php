@@ -24,27 +24,26 @@ class checkPermission
                 else{
                     return response()->json([
                         'status'=>0,
-                        'message'=>'Mã pin bị sai'
+                        'message'=>'Bạn không có quyền vào hệ thống'
                     ]); 
                 }
             }else{
-                return response()->json([
-                    'status'=>0,
-                    'message'=>'Mã pin bị sai'
-                ]);
-            }
-        }
-        else{
-        if(Auth::check()){
-            if(Auth::user()->type=="AdminSystem"){
-                  return $next($request);
-            }
-            else{
                 return redirect()->route('admin.error.404');
             }
-        }else{
-            return redirect()->route('admin.error.404');
+        } else {
+            if(Auth::check()){
+                if(Auth::user()->type=="AdminSystem"){
+                    return $next($request);
+                }
+                else{
+                    return response()->json([
+                        'status'=>0,
+                        'message'=>'Bạn không có quyền vào hệ thống'
+                    ]); 
+                }
+            }else{
+                return redirect()->route('admin.error.404');
+            }
         }
-    }
     }
 }
