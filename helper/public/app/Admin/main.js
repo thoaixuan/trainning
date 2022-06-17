@@ -103,3 +103,19 @@ function changeDate(data) {
         return moment(data, "YYYY-MM-DD").format('DD/MM/YYYY')
     }
 }
+
+// Sidebar menu active
+var pathname = window.location.href;
+    var elmParent = $('.slide > a[href="' + pathname + '"]');
+    elmParent.addClass("active");
+    console.log(elmParent);
+    var elmParent = $('.slide-menu > li > a[href="' + pathname + '"]');
+    elmParent.addClass("active");
+    elmParent.parents(".slide").addClass("is-expanded");
+    elmParent
+        .parent()
+        .parent()
+        .attr("style", "display: block;")
+        .parent()
+        .addClass("active");
+    elmParent.addClass("active ");
