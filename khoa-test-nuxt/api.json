@@ -1,6 +1,6 @@
 {
-    "baseURL": "https://api-dev.e-gate.vn",
     "article": {
-        "getAll": "api/mobile/news/getAll"
+        "getAll": "api/news/getAllIndex?page=1",
+        "getByID": "api/mobile/news/getByID/"
     }
 }

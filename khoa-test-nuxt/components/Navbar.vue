@@ -2,6 +2,12 @@
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-right">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <Collapse/>
+                </div>
                 <img src="https://s1.vnecdn.net/vnexpress/restruct/i/v654/v2_2019/pc/graphics/logo.svg"
                 alt="VnExpress - Bao tieng Viet nhieu nguoi xem nhat">
                 <div class="line-vertical"></div>
@@ -30,44 +36,8 @@
         </div>
         
        <div class="line-horizontal"></div>
-
-       <div class="menu">
-            <div class="btnHome">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-            </div>  
-
-            <div class="dropdown">
-                <button class="btnMenu" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Thời sự
-                </button>
-                <ul class="dropdown-menu menu-item" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btnMenu" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Thời sự
-                </button>
-                <ul class="dropdown-menu menu-item" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-            <div class="dropdown">
-                <button class="btnMenu" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Thời sự
-                </button>
-                <ul class="dropdown-menu menu-item" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-
-       </div>
+        <Dropdown/>
+       
        <div class="line-horizontal"></div>
     </nav>
     
@@ -75,14 +45,21 @@
 </template>
 
 <script>
+import Dropdown from './Dropdown.vue';
+import Collapse from './Collapse.vue';
 export default {
-    name: 'Navbar'
+    name: "Navbar",
+    components: { Dropdown, Collapse }
 }
 </script>
 
 
 <style>
     .navbar{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         background-color: white;
     }
     .navbar-container{
@@ -99,6 +76,7 @@ export default {
         align-items: center;
     }
     .navbar-right img{
+        margin-left: 10px;
         margin-right: 20px;
         width: 128px;
     }
@@ -160,30 +138,18 @@ export default {
         width: 100%;
         border: 0.5px solid #e5e5e5;
     }
-
-    .menu{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50px;
-        max-width: 1400px;
-        width: 80%;
-        margin: auto;
-
+    @media screen and (max-width: 800px) {
+        .author-wrapper{display: none;}
+        .category-wrapper{display: none;}
     }
-    .btnHome{
-        background-color: #e5e5e5;
-        border-radius: 50%;
-        padding: 5px;
+    @media screen and (max-width: 1000px) {
+        .menu{display: none;}
+        .news-wrapper .header span{display: none;}
     }
-
-    .dropdown{
-        margin-left: 10px !important
+    @media screen and (max-width: 1150px) {
+        .timenow{display: none;}
+        .line-vertical{display: none;}
+        .navbar-left .btnWrapper{display: none;}
     }
-    .dropdown:hover{
-        color: #b52759;
-    }
-    .menu-item{
-        margin-top: 10px !important
-    }
+    
 </style>
