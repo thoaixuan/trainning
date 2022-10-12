@@ -1,6 +1,6 @@
 {
     "article": {
-        "getAll": "api/news/getAllIndex?page=1",
+        "getAll": "api/news/getAllIndex?page=",
         "getByID": "api/mobile/news/getByID/"
     }
 }

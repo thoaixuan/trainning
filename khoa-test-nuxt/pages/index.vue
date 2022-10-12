@@ -28,7 +28,7 @@
 
         </div>
       </div>
-      <Article :news="news"/>
+      <Article/>
       <div class="col-lg-3">
         <Category />
       </div>
@@ -47,25 +47,12 @@ import Article from '../components/Article.vue';
 
 export default {
   components: { Category, Article },
-  data(){
-    return {
-      news: []
-    }
-  },
+  
   methods: {
-    async asyncData() {
-      try {
-        const res = await axios.get(`${process.env.BASEWEB}/${article.getAll}`)
-
-        const news = res.data.data;
-        this.news = news;
-      } catch (error) {
-        return { error }
-      }
-  },
+    
 },
 mounted(){
-  this.asyncData();
+  
 },
 
 }

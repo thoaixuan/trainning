@@ -16,11 +16,16 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: '/css/boostrap.min.css' }
+      { rel: 'stylesheet', href: '/css/boostrap.min.css' },
+      { rel: 'stylesheet', href: '/css/element-ui.css' }
     ],
     script:[
       {
         src:'/js/boostrap.bundle.min.js',
+        type: 'text/javascript'
+      },
+      {
+        src:'/js/element-ui.bundle.js',
         type: 'text/javascript'
       }
     ]
@@ -46,7 +51,12 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', 'nuxt-element-ui'],
+
+  elementUI: {
+    components: ['Pagination', 'Button'],
+    locale: 'fr',
+  },
 
   axios: {
     proxy: true
