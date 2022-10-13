@@ -11,7 +11,16 @@ export class NewsService {
         private readonly newsRepository: Repository<News>
     ){}
     
-    async findAll(take: number = 10, skip: number = 0){
+    async findAll(page: number=1){
+        let skip;
+        if(page===1 || page===0){
+            skip = 0
+        }
+        else{
+            skip = (page-1)*10;
+        }
+        const take = 10;
+        
         const [data, total] = await this.newsRepository.findAndCount({take, skip});
         return {data, total};
     }
@@ -56,11 +65,30 @@ export class NewsService {
         return this.newsRepository.remove(newsIndex)
     }
 
-    async search(title: string, desc: string){
+    async search(title: string, desc: string, page: number = 1){
+        let skip;
+        if(page===1 || page===0){
+            skip = 0
+        }
+        else{
+            skip = (page-1)*10;
+        }
+        const take = 10;
         const news = await this.newsRepository.createQueryBuilder("news")
         .where("news.title like :title", {title: `%${title}%`})
         .orWhere("news.desc like :desc", {desc: `%${desc}%`})
-        .getMany();
-        return news;
+        .take(take)
+        .skip(skip)
+        .getMany()
+
+
+        const total = await this.newsRepository.createQueryBuilder("news")
+        .where("news.title like :title", {title: `%${title}%`})
+        .orWhere("news.desc like :desc", {desc: `%${desc}%`})
+        .take(take)
+        .skip(skip)
+        .getCount()
+        
+        return {data:news, total};
     }
 }

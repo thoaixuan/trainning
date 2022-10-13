@@ -51,7 +51,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', 'nuxt-element-ui'],
+  modules: ['@nuxtjs/axios', 'nuxt-element-ui', '@nuxtjs/auth-next'],
 
   elementUI: {
     components: ['Pagination', 'Button'],

@@ -8,9 +8,13 @@ export class NewsController {
 
     constructor(private readonly newsService: NewsService){}
 
-    @Get('page')
-    findAll(@Query() {take, skip}){
-        return this.newsService.findAll(take, skip);
+    @Get('')
+    findAll(@Query() {page}){
+        return this.newsService.findAll(page);
+    }
+    @Get('search')
+    search(@Query() {title,desc,page}){
+        return this.newsService.search(title,desc,page);
     }
     @Get(':id')
     findOne(@Param('id') id: number){
@@ -28,8 +32,5 @@ export class NewsController {
     remove(@Param('id') id:number){
         return this.newsService.remove(id);
     }
-    @Get('search/search')
-    search(@Query('title') title: string, @Query('desc') desc: string){
-        return this.newsService.search(title,desc);
-    }
+    
 }

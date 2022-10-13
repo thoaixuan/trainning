@@ -42,7 +42,7 @@
   
   <script>
   import axios from 'axios'
-  import { article } from '../../../api.json'
+  import { news } from '../../../api.json'
   export default {
     data(){
       return {
@@ -53,11 +53,12 @@
       async asyncData() {
         const id = this.$route.params.id;
         try {
-          const res = await axios.get(`${process.env.BASEWEB}/${article.getByID}${id}`)
+          const res = await axios.get(`${process.env.BASENEST}/${news.getByID}${id}`)
 
-          const new_detail = res.data.result;
-          this.new_detail = new_detail;
-          console.log(new_detail)
+          this.new_detail = res.data
+          // const new_detail = res.data.result;
+          // this.new_detail = new_detail;
+          // console.log(new_detail)
         } catch (error) {
           return { error }
         }

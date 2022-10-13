@@ -25,13 +25,18 @@
                 </button>
                 <div class="line-vertical"></div>
                 <div class="searchWrapper">
-                    <input placeholder="Tìm kiếm"/>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input placeholder="Tìm kiếm" v-model="txtSearch"/>
+                    <svg @click="fetchNewsBySearch(txtSearch)" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
-                <div class="btnWrapper login">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                    <p> Đăng nhập</p>
-                </div>
+                
+                    <a v-if="this.user===''" class="btnWrapper login" :href="`/signin`">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <p> Đăng nhập</p>
+                    </a>
+                    <a v-if="this.user!==''" class="btnWrapper login" :href="`/signin`">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <p> {{this.user}}</p>
+                    </a>
             </div>
         </div>
         
@@ -45,11 +50,34 @@
 </template>
 
 <script>
+import EventBus from '../EventBus'
 import Dropdown from './Dropdown.vue';
 import Collapse from './Collapse.vue';
+import axios from 'axios';
+import { news } from '../api.json'
 export default {
     name: "Navbar",
-    components: { Dropdown, Collapse }
+    components: { Dropdown, Collapse },
+    data(){
+        return{
+            user : '',
+            txtSearch: "",
+            page: 1
+        }
+    },
+    
+    methods: {
+        async fetchNewsBySearch(txtSearch){
+            EventBus.$emit('txtSearch', txtSearch);
+        },
+        getUser(){
+         this.user = localStorage.getItem("user");
+         console.log(this.user)
+       } 
+    }, 
+    mounted(){
+        this.getUser()
+    },
 }
 </script>
 

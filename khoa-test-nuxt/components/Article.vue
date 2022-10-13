@@ -1,11 +1,11 @@
 <template>
     <div class="col-lg-7 col-md-9 col-sm-auto">
         <div class="article" v-for="(item, x) in model" :key="x">
-            <a :href="`/news/${item._id}`">
+            <a :href="`/news/${item.id}`">
                 <div class="article-top">
             <div class="content">
               <p class="h3 fw-bold">{{item.title}}</p>
-              <p class="lh-base">{{item.summary}}</p>
+              <p class="lh-base">{{item.desc}}</p>
             </div>
             <img class="rounded-circle" :src="item.image" />
           </div>
@@ -45,7 +45,8 @@
 
 <script>
 import axios from 'axios';
-import { article } from '../api.json'
+import { news } from '../api.json'
+import EventBus from '../EventBus';
 
 export default {
     data:function(){
@@ -56,31 +57,34 @@ export default {
         pages:0,
         indexPages:1,
         checkIndex: true,
+        txtSearch: ''
       }
     },
+    created(){
+      EventBus.$on("txtSearch", this.getTextSearch)
+    },
+    destroyed(){
+      EventBus.$off('newSearch',this.getTextSearch)
+    },
     computed:{
-      // numberOfPages() {
-      //   if (
-      //       Number.isNaN(parseInt(this.total)) ||
-      //       Number.isNaN(parseInt(this.currentPage)) ||
-      //       this.currentPage <= 0
-      //     ) {
-      //       return 0;
-      //     }
-      //     const result = Math.ceil(this.total / this.currentPage)
-      //     return (result < 1) ? 1 : result
-      //   }
     },
     methods:{
+      getTextSearch(e){
+        this.txtSearch = e
+        console.log(this.txtSearch)
+        this.fetchData(1)
+      }, 
       async fetchData(page){
           var vm = this;
-         let res = await axios.get(`${process.env.BASEWEB}/${article.getAll}${page}`);
-         vm.total = res.data.total.rows;
+          let res = await axios.get(`${process.env.BASENEST}/${news.search.title}${vm.txtSearch}&${news.search.desc}${vm.txtSearch}&${news.search.page}${page}`);
+
+         vm.total = res.data.total;
          vm.pages = Math.ceil(parseInt(vm.total) / vm.currentPage);
-         vm.model = res.data.data;
-          // vm.model=res.data.data;
-          // vm.total=res.data.total.rows;
-          // vm.pages = Math.ceil(parseInt(vm.total) / vm.currentPage)
+         vm.model = res.data.data
+          
+        //  vm.total = res.data.total.rows;
+        //  vm.pages = Math.ceil(parseInt(vm.total) / vm.currentPage);
+        //  vm.model = res.data.data;
 
       },
       decreased() {
@@ -90,7 +94,6 @@ export default {
           this.checkIndex=false;
         }
           this.fetchData(this.indexPages);
-          console.log(this.indexPages);
       },
       advanced() {
         this.indexPages++;
@@ -106,7 +109,7 @@ export default {
       },
     },
     mounted(){
-      var vm =this;
+      var vm = this;
       vm.setPage(1);
     },
 }
