@@ -20,6 +20,9 @@ export default {
 </script>
 
 <style>
+.el-main{
+  margin-top: 60px
+}
 .line{
   width: 100%;
   border-bottom: 1px solid #e6e6e6;

@@ -1,5 +1,5 @@
 <template>
-    <el-menu :default-active="activeIndex" class="el-menu-demo d-flex justify-content-center" mode="horizontal" @select="handleSelect">
+    <el-menu class="el-menu-demo d-flex justify-content-center" mode="horizontal">
         <el-menu-item>
             <i class="el-icon-s-home"></i>
         </el-menu-item>
