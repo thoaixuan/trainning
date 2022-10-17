@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Res, Req, UnauthorizedException, Param } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 import { Response,Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
@@ -14,21 +14,13 @@ export class UsersController {
 
     @Get('')
     async findAll(@Req() request: Request){
-        const cookie = request.cookies['jwt'];
-        const data = await this.jwtService.verifyAsync(cookie);
-        if(!data){
-            throw new UnauthorizedException();
-        }
+        await this.checkJWT(request);
         return this.userService.findAll();
     }
 
     @Get(':account')
     async findOne(@Param('account') account: string, @Req() request: Request){
-        const cookie = request.cookies['jwt'];
-        const data = await this.jwtService.verifyAsync(cookie);
-        if(!data){
-            throw new UnauthorizedException();
-        }
+        await this.checkJWT(request);
         return this.userService.findOne(account);
     }
 
@@ -39,17 +31,7 @@ export class UsersController {
 
     @Post('/signin')
     async signin(@Body() body, @Res({passthrough: true}) response: Response){
-        const user = await this.userService.findOne(body.account)
-        if(!user){
-            return {message:'the account is not correct',status:404};
-        }
-        if(!await bcrypt.compare(body.password, user.password)){
-            return {message:'the password is not correct',status:404};
-        }
-        const jwt = await this.jwtService.signAsync({id: user.id})
-
-        response.cookie('jwt', jwt, {httpOnly: true});
-        return  {message:'success'}
+        return this.userService.signin(body,response)
     }
 
     @Post('logout')
@@ -58,4 +40,12 @@ export class UsersController {
         return {message: 'success'}
     }
 
+    async checkJWT(request){
+        const cookie = request.cookies['jwt'];
+        const data = await this.jwtService.verifyAsync(cookie);
+        if(!data){
+            throw new UnauthorizedException();
+        }
+        return;
+    }
 }

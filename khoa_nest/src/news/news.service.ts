@@ -1,88 +1,43 @@
 import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MysqlHelper } from 'src/common/MysqlHelper';
 import { Repository } from 'typeorm';
-import { CreateNewsDto } from './dto/create-news.dto';
+import { CreateNewsDto } from './dto/news.dto';
 import { News } from './entities/news.entity';
 
 @Injectable()
 export class NewsService {
     constructor(
         @InjectRepository(News)
-        private readonly newsRepository: Repository<News>
+        private newsRepository: Repository<News>
     ){}
     
-    async findAll(title: string, desc: string, page: number=1){
-        let skip;
-        if(page===1 || page===0){
-            skip = 0
-        }
-        else{
-            skip = (page-1)*10;
-        }
-        const take = 10;
-
-        if(title){
-            const news = await this.newsRepository.createQueryBuilder("news")
-            .where("news.title like :title", {title: `%${title}%`})
-            .orWhere("news.desc like :desc", {desc: `%${desc}%`})
-            .take(take)
-            .skip(skip)
-            .getMany()
-
-            const total = await this.newsRepository.createQueryBuilder("news")
-            .where("news.title like :title", {title: `%${title}%`})
-            .orWhere("news.desc like :desc", {desc: `%${desc}%`})
-            .take(take)
-            .skip(skip)
-            .getCount()
-
-            return {data:news, total};
-        }
-        const [data, total] = await this.newsRepository.findAndCount({take, skip});
-        return {data, total};
-    }
-
     async findOne(id:number){
-        const news = await this.newsRepository.findOne({
-            where:{
-                id: id
-            }
-        });
-        if(!news){
-            throw new HttpException(`news #${id} not found`, HttpStatus.NOT_FOUND);
+        var model = await new MysqlHelper(this.newsRepository).byID(id)
+        if(!model){
+            return {message: `news #${id} not found`, status: 404}
         }
-        return news;
+        return model;
     }
 
-    create(createNewsDto: CreateNewsDto){
-        const news = this.newsRepository.create(createNewsDto);
-        return this.newsRepository.save(news);
+    async create(createDto: CreateNewsDto){
+        var model = await new MysqlHelper(this.newsRepository).create(createDto)
+        return {data: model, message: 'Create success', status: 200};
     }
 
-    async update(id: number, updateNewsDto: any){
-        // const news = await this.newsRepository.preload({
-        //     id: id,
-        //     ...updateNewsDto,
-        // });
-        const news = await this.newsRepository.findOne({
-            where:{id}
-        })
-        if(!news){
-            throw new NotFoundException(`News #${id} not found`);
-        }
-        return this.newsRepository.save({...news, ...updateNewsDto});
+    async update(id:number, updateNewsDto: any){
+        var model = await this.findOne(id);
+        var updateDto = await new MysqlHelper(this.newsRepository).update(model,updateNewsDto);
+        return {data: updateDto, message: 'Update success', status: 200};
     }
-
+    
     async remove(id:number){
-        const newsIndex = await this.newsRepository.findOne({
-            where:{
-                id: id
-            }
-        });
-        return this.newsRepository.remove(newsIndex)
+        const newIndex = await this.findOne(id);
+        const removeNews = await new MysqlHelper(this.newsRepository).remove(newIndex);
+        return {data: removeNews, message: 'Delete success', status: 200};
     }
 
-    async search(title: string, desc: string, page: number = 1){
+    async findAll(page: number, txtSearch: string){
         let skip;
         if(page===1 || page===0){
             skip = 0
@@ -91,21 +46,10 @@ export class NewsService {
             skip = (page-1)*10;
         }
         const take = 10;
-        const news = await this.newsRepository.createQueryBuilder("news")
-        .where("news.title like :title", {title: `%${title}%`})
-        .orWhere("news.desc like :desc", {desc: `%${desc}%`})
-        .take(take)
-        .skip(skip)
-        .getMany()
-
-
-        const total = await this.newsRepository.createQueryBuilder("news")
-        .where("news.title like :title", {title: `%${title}%`})
-        .orWhere("news.desc like :desc", {desc: `%${desc}%`})
-        .take(take)
-        .skip(skip)
-        .getCount()
-        
-        return {data:news, total};
+        let [data, total] = await new MysqlHelper(this.newsRepository).paging(take, skip);
+        if(txtSearch){
+            [data, total] = await new MysqlHelper(this.newsRepository).searchNews(txtSearch,take,skip);
+        }
+        return {data, total};
     }
 }

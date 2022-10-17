@@ -1,43 +1,39 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto/user.dto';
 import { Users } from './entities/users.entity';
 import * as bcrypt from 'bcrypt';
+import { MysqlHelper } from 'src/common/MysqlHelper';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(Users)
-        private readonly userRepository: Repository<Users>
+        private readonly userRepository: Repository<Users>,
+        private jwtService: JwtService
     ){}
 
-    findAll(){
-        return this.userRepository.find();
+    async findAll(){
+        return await new MysqlHelper(this.userRepository).all();
     }
 
     async findOne(account:string){
-        const user = await this.userRepository.findOne({
-            where:{
-                account
-            }
-        });
-        if(!user){
-            throw new HttpException(`user #${account} not found`, HttpStatus.NOT_FOUND);
+        var model = await new MysqlHelper(this.userRepository).byAccount(account)
+        if(!model){
+            return {message: `user #${account} not found`, status: 404}
         }
-        return user;
+        return {data:model,status:200};
     }
 
     async signup(createUserDto: CreateUserDto){
-        const user = await this.userRepository.findOne({
-            where:{
-                account: createUserDto.account
-            }
-        });
-        if(!user){
+        const user = await this.findOne(createUserDto.account)
+        console.log(user)
+        if(user.status!==200){
             const hash = await bcrypt.hash(createUserDto.password, 10);
             createUserDto.password = hash
-            this.userRepository.save(createUserDto)
+            await new MysqlHelper(this.userRepository).create(createUserDto)
             return {message:'success', status: 200}
         }
         
@@ -46,8 +42,16 @@ export class UsersService {
     }
 
     async signin(body, response){
-        
-        return;
-        //return {message:'wrong account or password',status:404};
+        const user = await this.findOne(body.account)
+        if(user.status!==200){
+            return {message:'the account is not correct',status:404};
+        }
+        if(!await bcrypt.compare(body.password, user.data.password)){
+            return {message:'the password is not correct',status:404};
+        }
+        const jwt = await this.jwtService.signAsync({id: user.data.id})
+
+        response.cookie('jwt', jwt, {httpOnly: true});
+        return  {message:'success'}
     }
 }
