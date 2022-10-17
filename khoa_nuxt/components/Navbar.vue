@@ -24,11 +24,11 @@
                         <el-button size="mini" icon="el-icon-time" round>Mới nhất</el-button>
                         <el-button size="mini" icon="el-icon-warning-outline" round>International</el-button>
 
-                        <el-input size="mini" placeholder="Type something" prefix-icon="el-icon-search">
+                        <el-input @keyup.enter.native="fetchNewsBySearch(txtSearch)" v-model="txtSearch" size="mini" placeholder="Type something" prefix-icon="el-icon-search">
                         </el-input>
 
-                        <el-button @click="toSignIn()" size="mini" icon="el-icon-user" round>Đăng nhập</el-button>
-
+                        <el-button v-if="this.user===''" @click="toSignIn()" size="mini" icon="el-icon-user" round>Đăng nhập</el-button>
+                        <el-button v-if="this.user!==''" size="mini" icon="el-icon-user" round>{{this.user}}</el-button>
                     </el-row>
                 </el-col>
             </el-row>
@@ -37,11 +37,29 @@
 </template>
 
 <script>
+import EventBus from '../EvenBus'
 export default {
+    data(){
+        return{
+            user : '',
+            txtSearch: ''
+        }
+    },
     methods: {
+        async fetchNewsBySearch(txtSearch){
+            console.log(txtSearch)
+            EventBus.$emit('txtSearch', txtSearch);
+        },
         toSignIn(){
             this.$router.push('/login')
-        }
+        },
+        getUser(){
+         this.user = localStorage.getItem("user");
+         console.log(this.user)
+       } 
+    },
+    mounted(){
+        this.getUser()
     },
 }
 </script>

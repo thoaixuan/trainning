@@ -38,7 +38,7 @@ export class NewsService {
     }
 
     async findAll(page: number, txtSearch: string){
-        let skip;
+        let skip = 0;
         if(page===1 || page===0){
             skip = 0
         }

@@ -17,7 +17,7 @@
                 <el-col><p>Thứ sáu, 14/10/2022, 00:00 (GMT+7)</p></el-col>
             </el-row>
             
-            <h1>{{modelDetail.result}}</h1>
+            <h1>{{modelDetail.title}}</h1>
             
             <el-row type="flex">
                 <el-col class="d-flex align-items-center">
@@ -31,7 +31,7 @@
                     <el-button icon="el-icon-plus">Theo dõi</el-button>
                 </el-col>
             </el-row>
-            <div class="lh-base" v-html="modelDetail">
+            <div class="lh-base" v-html="modelDetail.content">
 
             </div>
         </el-col>

@@ -1,11 +1,11 @@
 <template>
     <div>
         <el-card class="mb-3" shadow="hover" v-for="m in model" :key="m._id" >
-            <a class="text-muted" :href="`/news/${m._id}`">
+            <a class="text-muted" :href="`/news/${m.id}`">
                 <el-row type="flex" justify="space-between">
                     <el-col :span="16" :offset="1">
                         <h4>{{m.title}}</h4>
-                        <p>{{m.summary}}</p>
+                        <p>{{m.desc}}</p>
                     </el-col>
                     <el-col :span="5" :offset="1">
                         <img class="rounded-circle" :src="m.image"/>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import EventBus from '../EvenBus'
 export default {
     //props:["model"],
     data:function(){
@@ -60,6 +61,12 @@ export default {
             return this.$store.state.news.model;
         }
     },
+    created(){
+      EventBus.$on("txtSearch", this.getTextSearch)
+    },
+    destroyed(){
+      EventBus.$off('newSearch',this.getTextSearch)
+    },
     methods:{
       getTextSearch(e){
         this.txtSearch = e
@@ -68,9 +75,11 @@ export default {
       }, 
       async fetchData(page){
           var vm = this;
-          let res = await this.$store.dispatch("news/getNews",page)
-            console.log("res",res.data.total.rows)
-         vm.total = res.data.total.rows;
+          var txtSearch = this.txtSearch;
+          let data = {page,txtSearch}
+          let res = await this.$store.dispatch("news/getNews",data)
+            console.log("res",res.data)
+         vm.total = res.data.total;
          vm.pages = Math.ceil(parseInt(vm.total) / vm.currentPage);
          vm.model = res.data.data
           

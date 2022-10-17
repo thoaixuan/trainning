@@ -52,6 +52,6 @@ export class UsersService {
         const jwt = await this.jwtService.signAsync({id: user.data.id})
 
         response.cookie('jwt', jwt, {httpOnly: true});
-        return  {message:'success'}
+        return  {message:'success', data: user.data, status: 200}
     }
 }

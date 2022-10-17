@@ -14,12 +14,12 @@ export const mutations = {
 export const actions = {
     async signIn({commit}, data){
         console.log(data)
-        let res = await axios.post(`http://localhost:8000/users/signin`,data);
+        let res = await axios.post(`${process.env.BASEWEB}/users/signin`,data);
         return res;
     },
     async signUp({commit}, data){
         console.log(data)
-        let res = await axios.post(`http://localhost:8000/users/signup`,data);
+        let res = await axios.post(`${process.env.BASEWEB}/users/signup`,data);
         return res;
     },
 }

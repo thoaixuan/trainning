@@ -30,6 +30,7 @@
                         <el-form-item label="Tên">
                             <el-input v-model="lastname"></el-input>
                         </el-form-item>
+                        <el-form-item v-if="this.message!==''">{{this.message}}</el-form-item>
                         <el-form-item class="text-center">
                             <el-button  @click="signup()" type="primary">Đăng ký</el-button>
                         </el-form-item>
@@ -62,13 +63,13 @@ export default {
             let password = this.password;
             let data = {account, password}
             let res = await this.$store.dispatch("user/signIn", data)
-            console.log(res)
-            if(res.statusCode===404){
-                this.message = res.message;
-                this.$router.push('/')
+
+            if(res.data.status===404){
+                this.message = res.data.message;
                 return;
             }
             if(res.data.message==='success'){
+                localStorage.setItem("user", res.data.data.account)
                 this.$router.push('/')
             }
         },
@@ -80,8 +81,13 @@ export default {
             let data = {account, password,firstname,lastname}
             let res = await this.$store.dispatch("user/signUp", data)
             console.log(res);
+            if(!res.data){
+                this.message = res.data.message;
+                return;
+            }
             if(res.data.status==200){
-                this.$router.push('/')
+                this.message = 'Đăng ký thành công';
+                this.$router.push('/login')
             }
         }
     },

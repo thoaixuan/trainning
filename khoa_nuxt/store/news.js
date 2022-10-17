@@ -18,13 +18,14 @@ export const mutations = {
 
 //actions
 export const actions = {
-    async getNews({commit}, page){
-        let res = await axios.get('https://api-dev.e-gate.vn/api/news/getAllIndex?page='+page);
+    async getNews({commit}, data){
+        let res = await axios.get(`${process.env.BASEWEB}/news?page=`+data.page+`&txtSearch=`+data.txtSearch);
         commit('getNews', res.data);
+        console.log(res)
         return res;
     },
     async getNewsDetail({commit}, id){
-        let res = await axios.get('https://api-dev.e-gate.vn/api/mobile/news/getByID/' + id);
+        let res = await axios.get(`${process.env.BASEWEB}/news/` + id);
         commit('getNewsDetail', res.data);
         return res;
     }
