@@ -18,8 +18,8 @@ export const mutations = {
 
 //actions
 export const actions = {
-    async getNews({commit}){
-        let res = await axios.get('https://api-dev.e-gate.vn/api/news/getAllIndex?page=1');
+    async getNews({commit}, page){
+        let res = await axios.get('https://api-dev.e-gate.vn/api/news/getAllIndex?page='+page);
         commit('getNews', res.data);
         return res;
     },

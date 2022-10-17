@@ -27,7 +27,7 @@
                         <el-input size="mini" placeholder="Type something" prefix-icon="el-icon-search">
                         </el-input>
 
-                        <el-button size="mini" icon="el-icon-user" round>Đăng nhập</el-button>
+                        <el-button @click="toSignIn()" size="mini" icon="el-icon-user" round>Đăng nhập</el-button>
 
                     </el-row>
                 </el-col>
@@ -38,7 +38,11 @@
 
 <script>
 export default {
-
+    methods: {
+        toSignIn(){
+            this.$router.push('/login')
+        }
+    },
 }
 </script>
 

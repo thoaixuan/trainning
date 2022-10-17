@@ -3,7 +3,7 @@
     <h1 class="text-center mb-4">Góc nhìn</h1>
   <el-row type="flex" justify="center">
     <el-col :span="12">
-      <Article :model="news.data"/>
+      <Article/>
     </el-col>
     <el-col :span="6" :offset="1">
       <el-card shadow="never">
@@ -28,12 +28,12 @@ export default {
     components: { Article, Topic, TopComment },
     computed:{
       news(){
-        console.log(this.$store.state.news.model)
+        //console.log(this.$store.state.news.model)
         return this.$store.state.news.model;
       }
     },
     mounted(){
-      this.$store.dispatch("news/getNews")
+      //this.$store.dispatch("news/getNews")
     }
 
 }

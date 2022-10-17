@@ -1,36 +1,37 @@
 <template>
     <div class="d-flex justify-content-center mt-5">
         <el-card>
-            <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tabs v-model="activeName">
                 <el-tab-pane label="Đăng nhập" name="login">
                     <el-form ref="form">
                         <el-form-item label="Tài khoản">
-                            <el-input></el-input>
+                            <el-input v-model="account"></el-input>
                         </el-form-item>
                         <el-form-item label="Mật khẩu">
-                            <el-input></el-input>
+                            <el-input v-model="password"></el-input>
                         </el-form-item>
+                        <el-form-item v-if="this.message!==''">{{this.message}}</el-form-item>
                         <el-form-item class="text-center">
-                            <el-button type="primary">Đăng nhập</el-button>
+                            <el-button @click="login()" type="primary">Đăng nhập</el-button>
                         </el-form-item>
                     </el-form>
                 </el-tab-pane>
                 <el-tab-pane label="Đăng ký" name="signup">
                     <el-form ref="form">
                         <el-form-item label="Tài khoản">
-                            <el-input></el-input>
+                            <el-input v-model="account"></el-input>
                         </el-form-item>
                         <el-form-item label="Mật khẩu">
-                            <el-input></el-input>
+                            <el-input v-model="password"></el-input>
                         </el-form-item>
                         <el-form-item label="Họ">
-                            <el-input></el-input>
+                            <el-input v-model="firstname"></el-input>
                         </el-form-item>
                         <el-form-item label="Tên">
-                            <el-input></el-input>
+                            <el-input v-model="lastname"></el-input>
                         </el-form-item>
                         <el-form-item class="text-center">
-                            <el-button type="primary">Đăng ký</el-button>
+                            <el-button  @click="signup()" type="primary">Đăng ký</el-button>
                         </el-form-item>
                     </el-form>
                 </el-tab-pane>
@@ -47,8 +48,42 @@ export default {
     layout: "empty",
     data() {
       return {
-        activeName: 'login'
+        activeName: 'login',
+        account: "",
+        password: "",
+        firstname: "",
+        lastname: "",
+        message: "",
       };
+    },
+    methods: {
+        async login(){
+            let account = this.account;
+            let password = this.password;
+            let data = {account, password}
+            let res = await this.$store.dispatch("user/signIn", data)
+            console.log(res)
+            if(res.statusCode===404){
+                this.message = res.message;
+                this.$router.push('/')
+                return;
+            }
+            if(res.data.message==='success'){
+                this.$router.push('/')
+            }
+        },
+        async signup(){
+            let account = this.account;
+            let password = this.password;
+            let firstname = this.firstname;
+            let lastname = this.lastname;
+            let data = {account, password,firstname,lastname}
+            let res = await this.$store.dispatch("user/signUp", data)
+            console.log(res);
+            if(res.data.status==200){
+                this.$router.push('/')
+            }
+        }
     },
 }
 </script>
