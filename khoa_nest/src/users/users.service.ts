@@ -29,7 +29,6 @@ export class UsersService {
 
     async signup(createUserDto: CreateUserDto){
         const user = await this.findOne(createUserDto.account)
-        console.log(user)
         if(user.status!==200){
             const hash = await bcrypt.hash(createUserDto.password, 10);
             createUserDto.password = hash
@@ -49,9 +48,20 @@ export class UsersService {
         if(!await bcrypt.compare(body.password, user.data.password)){
             return {message:'the password is not correct',status:404};
         }
-        const jwt = await this.jwtService.signAsync({id: user.data.id})
+        // const jwt = await this.jwtService.signAsync({id: user.data.id})
 
-        response.cookie('jwt', jwt, {httpOnly: true});
-        return  {message:'success', data: user.data, status: 200}
+        // response.cookie('jwt', jwt, {httpOnly: true});
+        const accessToken = await this.generateAccessToken(user.data.id,response);
+        const requestToken = await this.generateRequestToken(user.data.id,response);
+        return  {message:'success', data: user.data, status: 200, accessToken: accessToken}
+    }
+    async generateAccessToken(id, response){
+        const accessToken = await this.jwtService.signAsync({id: id},{expiresIn:'60s'})
+        response.cookie('accessToken', accessToken, {httpOnly: true});
+        return accessToken;
+    }
+    async generateRequestToken(id, response){
+        const requestToken = await this.jwtService.signAsync({id: id},{expiresIn:'365d'})
+        response.cookie('requestToken', requestToken, {httpOnly: true});
     }
 }

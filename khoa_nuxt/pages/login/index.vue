@@ -7,9 +7,11 @@
                         <el-form-item label="Tài khoản">
                             <el-input v-model="account"></el-input>
                         </el-form-item>
+                        <span v-if="msg.account">{{msg.account}}</span>
                         <el-form-item label="Mật khẩu">
                             <el-input v-model="password"></el-input>
                         </el-form-item>
+                        <span v-if="msg.password">{{msg.password}}</span>
                         <el-form-item v-if="this.message!==''">{{this.message}}</el-form-item>
                         <el-form-item class="text-center">
                             <el-button @click="login()" type="primary">Đăng nhập</el-button>
@@ -21,9 +23,11 @@
                         <el-form-item label="Tài khoản">
                             <el-input v-model="account"></el-input>
                         </el-form-item>
+                        <span v-if="msg.account">{{msg.account}}</span>
                         <el-form-item label="Mật khẩu">
                             <el-input v-model="password"></el-input>
                         </el-form-item>
+                        <span v-if="msg.password">{{msg.password}}</span>
                         <el-form-item label="Họ">
                             <el-input v-model="firstname"></el-input>
                         </el-form-item>
@@ -55,12 +59,44 @@ export default {
         firstname: "",
         lastname: "",
         message: "",
+        msg: []
       };
     },
+    watch:{
+        account(value){
+            this.account=value;
+            this.validateAccount(value)
+        },
+        password(value){
+            this.password=value;
+            this.validatePassword(value)
+        }
+    },
     methods: {
+        validateAccount(value){
+            var regAccount = new RegExp("^(?=.*?[a-z]).{6,}$")
+            if(regAccount.test(value)){
+                this.msg['account'] = '';
+            }else{
+                this.msg['account'] = 'ít nhất 6 kí tự, viết thường';
+                return false;
+            }
+        },
+        validatePassword(value){
+            var regPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
+            if(regPass.test(value)){
+                this.msg['password'] = '';
+            }else{
+                this.msg['password'] = 'ít nhất 6 kí tự, 1 kí tự viết hoa, 1 ký tự số';
+                return false;
+            }
+        },
         async login(){
             let account = this.account;
             let password = this.password;
+            if(this.validateAccount(account)===false || this.validatePassword(password)===false){
+                return;
+            }
             let data = {account, password}
             let res = await this.$store.dispatch("user/signIn", data)
 
@@ -78,10 +114,14 @@ export default {
             let password = this.password;
             let firstname = this.firstname;
             let lastname = this.lastname;
+            if(this.validateAccount(account)===false || this.validatePassword(password)===false){
+                return;
+            }
             let data = {account, password,firstname,lastname}
             let res = await this.$store.dispatch("user/signUp", data)
-            console.log(res);
-            if(!res.data){
+            console.log(res.data)
+            if(res.data.status==404){
+                
                 this.message = res.data.message;
                 return;
             }

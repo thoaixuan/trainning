@@ -1,0 +1,11 @@
+{
+    "news":{
+        "page": "/news?page=",
+        "txtSearch": "&txtSearch=",
+        "getByID": "/news/"
+    },
+    "user":{
+        "signin":"/users/signin",
+        "signup":"/users/signup"
+    }
+}
