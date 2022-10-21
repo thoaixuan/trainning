@@ -28,6 +28,14 @@ export class UsersService {
     }
 
     async signup(createUserDto: CreateUserDto){
+        var regAccount = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){6,}$')
+        var regPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
+        if(regAccount.test(createUserDto.account)){
+            return {message:'the account is not correct',status:404};
+        }
+        if(regPass.test(createUserDto.password)){
+            return {message:'the password is not correct',status:404};
+        }
         const user = await this.findOne(createUserDto.account)
         if(user.status!==200){
             const hash = await bcrypt.hash(createUserDto.password, 10);
@@ -41,6 +49,14 @@ export class UsersService {
     }
 
     async signin(body, response){
+        var regAccount = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){6,}$')
+        var regPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
+        if(regAccount.test(body.account)){
+            return {message:'the account is not correct',status:404};
+        }
+        if(regPass.test(body.password)){
+            return {message:'the password is not correct',status:404};
+        }
         const user = await this.findOne(body.account)
         if(user.status!==200){
             return {message:'the account is not correct',status:404};
@@ -56,7 +72,7 @@ export class UsersService {
         return  {message:'success', data: user.data, status: 200, accessToken: accessToken}
     }
     async generateAccessToken(id, response){
-        const accessToken = await this.jwtService.signAsync({id: id},{expiresIn:'60s'})
+        const accessToken = await this.jwtService.signAsync({id: id},{expiresIn:'15s'})
         response.cookie('accessToken', accessToken, {httpOnly: true});
         return accessToken;
     }

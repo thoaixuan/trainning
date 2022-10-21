@@ -1,5 +1,7 @@
 import { Length } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Role } from "../role/Role.enum";
+
 
 @Entity()
 export class Users{
@@ -11,8 +13,8 @@ export class Users{
     @Column()
     @Length(6)
     password: string;
-    @Column({default:'user'})
-    role: string
+    @Column({default:Role.User})
+    roles: Role;
     @Column({default:''})
     @Length(6)
     firstname: string;
@@ -24,3 +26,4 @@ export class Users{
     @Column({default:''})
     date: string;
 }
+

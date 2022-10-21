@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RoleGuard } from './users/role/role.guard';
 
 @Module({
   imports: [NewsModule, 
@@ -20,6 +22,10 @@ import { UsersModule } from './users/users.module';
       synchronize: true,
   }), UsersModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard
+    }],
 })
 export class AppModule {}

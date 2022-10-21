@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post, Res, Req, UnauthorizedException, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, Req, UnauthorizedException, Param, SetMetadata } from '@nestjs/common';
 import { CreateUserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 import { Response,Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import {Role} from './role/Role.enum';
+import { Roles } from './role/role.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -13,6 +15,7 @@ export class UsersController {
     ){}
 
     @Get('')
+    //@Roles(Role.Admin)
     async findAll(@Req() request: Request){
         await this.checkAccessToken(request);
         return this.userService.findAll();

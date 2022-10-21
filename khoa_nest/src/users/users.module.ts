@@ -4,6 +4,8 @@ import { Users } from './entities/users.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { RoleGuard } from './role/role.guard';
 
 @Module({
     imports:[TypeOrmModule.forFeature([Users]),

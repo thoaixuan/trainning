@@ -74,11 +74,11 @@ export default {
     },
     methods: {
         validateAccount(value){
-            var regAccount = new RegExp("^(?=.*?[a-z]).{6,}$")
+            var regAccount = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){6,}$')
             if(regAccount.test(value)){
                 this.msg['account'] = '';
             }else{
-                this.msg['account'] = 'ít nhất 6 kí tự, viết thường';
+                this.msg['account'] = 'ít nhất 6 kí tự, không ký tự đặc biệt';
                 return false;
             }
         },
