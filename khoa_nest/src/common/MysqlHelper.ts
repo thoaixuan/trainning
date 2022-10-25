@@ -7,6 +7,7 @@ export class MysqlHelper{
 
     async all(){
         var data = await this.Document.find();
+        //this.Document.createQueryBuilder('user').leftJoin('user.permission');
         return data;
     }
     async byID(id){

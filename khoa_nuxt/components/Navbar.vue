@@ -1,37 +1,39 @@
 <template>
-
-    <nav class="navbar">
+    <nav class="navbar navbar-expand-lg justify-content-center">
         <div class="container-fluid">
-            <el-row type="flex" justify="center" class="w-100 align-items-center">
-                <el-button size="small" icon="el-icon-s-fold" class="navbar-toggler" data-bs-toggle="navbarNavDropdown" data-bs-target="#navbarNavDropdown"></el-button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-
-                </div>
-                <el-col :span="12">
-                    <el-row type="flex" justify="space-between" class="align-items-center">
-                        <el-col :span="8">
-                            <img class="img-thumbnail border-0"
+            <el-button size="small" icon="el-icon-s-fold" class="navbar-toggler" data-bs-toggle="navbarNavDropdown" data-bs-target="#navbarNavDropdown"></el-button>
+            <a class="navbar-brand" href="#">
+                <img class="img-thumbnail border-0"
                                 src="https://s1.vnecdn.net/vnexpress/restruct/i/v654/v2_2019/pc/graphics/logo.svg"
                                 alt="VnExpress - Bao tieng Viet nhieu nguoi xem nhat">
-                        </el-col>
-                        <el-col :span="16">
-                            <span>Thứ tư, 5/10/2022</span>
-                        </el-col>
-                    </el-row>
-                </el-col>
-                <el-col :span="12">
-                    <el-row type="flex" justify="center">
+            </a>
+            <div></div>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <span>Thứ tư, 5/10/2022</span>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item me-2">
                         <el-button size="mini" icon="el-icon-time" round>Mới nhất</el-button>
+                    </li>
+                    <li class="nav-item me-2">
                         <el-button size="mini" icon="el-icon-warning-outline" round>International</el-button>
-
+                    </li>
+                    <li class="nav-item me-2">
                         <el-input @keyup.enter.native="fetchNewsBySearch(txtSearch)" v-model="txtSearch" size="mini" placeholder="Type something" prefix-icon="el-icon-search">
                         </el-input>
-
-                        <el-button v-if="this.user===''" @click="toSignIn()" size="mini" icon="el-icon-user" round>Đăng nhập</el-button>
-                        <el-button v-if="this.user!==''" size="mini" icon="el-icon-user" round>{{this.user}}</el-button>
-                    </el-row>
-                </el-col>
-            </el-row>
+                    </li>
+                    <li class="nav-item me-2">
+                        <el-button v-if="!this.user" @click="toSignIn()" size="mini" icon="el-icon-user" round>Đăng nhập</el-button>
+                    </li>
+                    <li class="nav-item me-2">
+                        <el-button v-if="this.user" size="mini" icon="el-icon-user" round>{{this.user}}</el-button>
+                    </li>
+                </ul>
+            </div>
+                
         </div>
     </nav>
 </template>
@@ -63,9 +65,3 @@ export default {
     },
 }
 </script>
-
-<style>
-.el-button {
-    margin: 0 10px 0 10px;
-}
-</style>

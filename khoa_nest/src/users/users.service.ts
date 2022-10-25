@@ -6,21 +6,33 @@ import { Users } from './entities/users.entity';
 import * as bcrypt from 'bcrypt';
 import { MysqlHelper } from 'src/common/MysqlHelper';
 import { JwtService } from '@nestjs/jwt';
+import { PermissionsService } from 'src/permissions/permissions.service';
 
 @Injectable()
 export class UsersService {
     constructor(
         @InjectRepository(Users)
         private readonly userRepository: Repository<Users>,
+        private readonly permissionsService: PermissionsService,
         private jwtService: JwtService
     ){}
 
     async findAll(){
-        return await new MysqlHelper(this.userRepository).all();
+        return await this.userRepository
+        .createQueryBuilder('user')
+        .leftJoinAndSelect('user.permission', "permissions")
+        .getMany()
+        //return this.userRepository.find()
+        //return await new MysqlHelper(this.userRepository).all();
     }
 
     async findOne(account:string){
-        var model = await new MysqlHelper(this.userRepository).byAccount(account)
+        const model = await this.userRepository
+        .createQueryBuilder('user')
+        .where({account})
+        .leftJoinAndSelect('user.permission', "permissions")
+        .getOne()
+        // var model = await new MysqlHelper(this.userRepository).byAccount(account)
         if(!model){
             return {message: `user #${account} not found`, status: 404}
         }
@@ -28,19 +40,13 @@ export class UsersService {
     }
 
     async signup(createUserDto: CreateUserDto){
-        var regAccount = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){6,}$')
-        var regPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
-        if(regAccount.test(createUserDto.account)){
-            return {message:'the account is not correct',status:404};
-        }
-        if(regPass.test(createUserDto.password)){
-            return {message:'the password is not correct',status:404};
-        }
         const user = await this.findOne(createUserDto.account)
         if(user.status!==200){
             const hash = await bcrypt.hash(createUserDto.password, 10);
             createUserDto.password = hash
+            createUserDto.permission = await this.permissionsService.findOne(2);
             await new MysqlHelper(this.userRepository).create(createUserDto)
+            
             return {message:'success', status: 200}
         }
         
@@ -49,14 +55,6 @@ export class UsersService {
     }
 
     async signin(body, response){
-        var regAccount = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){6,}$')
-        var regPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
-        if(regAccount.test(body.account)){
-            return {message:'the account is not correct',status:404};
-        }
-        if(regPass.test(body.password)){
-            return {message:'the password is not correct',status:404};
-        }
         const user = await this.findOne(body.account)
         if(user.status!==200){
             return {message:'the account is not correct',status:404};
@@ -64,11 +62,12 @@ export class UsersService {
         if(!await bcrypt.compare(body.password, user.data.password)){
             return {message:'the password is not correct',status:404};
         }
-        // const jwt = await this.jwtService.signAsync({id: user.data.id})
 
-        // response.cookie('jwt', jwt, {httpOnly: true});
+        response.cookie('user', user.data.account, {httpOnly: true});
+
         const accessToken = await this.generateAccessToken(user.data.id,response);
-        const requestToken = await this.generateRequestToken(user.data.id,response);
+        const refreshToken = await this.generateRefreshToken(user.data.id,response);
+        //request.user = user.data
         return  {message:'success', data: user.data, status: 200, accessToken: accessToken}
     }
     async generateAccessToken(id, response){
@@ -76,8 +75,8 @@ export class UsersService {
         response.cookie('accessToken', accessToken, {httpOnly: true});
         return accessToken;
     }
-    async generateRequestToken(id, response){
-        const requestToken = await this.jwtService.signAsync({id: id},{expiresIn:'365d'})
-        response.cookie('requestToken', requestToken, {httpOnly: true});
+    async generateRefreshToken(id, response){
+        const refreshToken = await this.jwtService.signAsync({id: id},{expiresIn:'365d'})
+        response.cookie('refreshToken', refreshToken, {httpOnly: true});
     }
 }

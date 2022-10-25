@@ -99,6 +99,7 @@ export default {
         });
         return;
       }
+      // gửi sự kiện muốn vào room lên server, phía server sẽ thực hiện đưa client vào room
       this.socket.emit('joinRoom',this.inputRoom);
       this.disableRoom = true;
     },

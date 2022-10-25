@@ -75,21 +75,19 @@ export default {
     methods: {
         validateAccount(value){
             var regAccount = new RegExp('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+){6,}$')
+            this.msg['account'] = 'ít nhất 6 kí tự, không ký tự đặc biệt';
             if(regAccount.test(value)){
-                this.msg['account'] = '';
-            }else{
-                this.msg['account'] = 'ít nhất 6 kí tự, không ký tự đặc biệt';
-                return false;
+                return true;
             }
+            return false;
         },
         validatePassword(value){
             var regPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$')
+            this.msg['password'] = 'ít nhất 6 kí tự, 1 kí tự viết hoa, 1 ký tự số';
             if(regPass.test(value)){
-                this.msg['password'] = '';
-            }else{
-                this.msg['password'] = 'ít nhất 6 kí tự, 1 kí tự viết hoa, 1 ký tự số';
-                return false;
+                return true;
             }
+            return false;
         },
         async login(){
             let account = this.account;
@@ -133,13 +131,3 @@ export default {
     },
 }
 </script>
-
-<style>
-.el-tabs__nav-wrap{
-    display: flex;
-    justify-content: center;
-}
-.el-form-item{
-    margin-bottom: 10px;
-}
-</style>

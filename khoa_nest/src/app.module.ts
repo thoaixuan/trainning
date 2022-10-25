@@ -7,10 +7,16 @@ import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
-import { RoleGuard } from './users/role/role.guard';
+import { RolesGuard } from './users/role/roles.guard';
+import { PermissionsModule } from './permissions/permissions.module';
+import { Users } from './users/entities/users.entity';
+import { Permissions } from './permissions/entities/permissions.entity';
+import { PermissionsService } from './permissions/permissions.service';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [NewsModule, 
+    TypeOrmModule.forFeature([Users,Permissions]),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -20,12 +26,16 @@ import { RoleGuard } from './users/role/role.guard';
       database: 'my_sql_nest',
       autoLoadEntities: true,
       synchronize: true,
-  }), UsersModule],
+  }), JwtModule.register({
+    secret: 'secret_key',
+    signOptions: {expiresIn: '1d'}
+  }),
+  UsersModule, PermissionsModule],
   controllers: [AppController],
-  providers: [AppService,
+  providers: [AppService, UsersService, PermissionsService,
     {
       provide: APP_GUARD,
-      useClass: RoleGuard
+      useClass: RolesGuard
     }],
 })
 export class AppModule {}

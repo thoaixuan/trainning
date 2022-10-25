@@ -1,4 +1,5 @@
 import { IsOptional, IsString, Length } from "class-validator";
+import { Permissions } from "src/permissions/entities/permissions.entity";
 
 export class CreateUserDto{
     @IsString()
@@ -10,7 +11,7 @@ export class CreateUserDto{
     @Length(6)
     password: string;
     @IsOptional()
-    role: string
+    permission: Permissions
     @IsOptional()
     firstname: string;
     @IsOptional()

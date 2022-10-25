@@ -2,10 +2,10 @@
   <el-container>
     <el-header>
         <Navbar/>
-        <div class="line"></div>
+        <div class="w-100 border-bottom"></div>
         <MenuItem/>
     </el-header>
-    <el-main>
+    <el-main class="mt-5">
         <Nuxt/>
     </el-main>
   </el-container>
@@ -20,11 +20,5 @@ export default {
 </script>
 
 <style>
-.el-main{
-  margin-top: 60px
-}
-.line{
-  width: 100%;
-  border-bottom: 1px solid #e6e6e6;
-}
+
 </style>

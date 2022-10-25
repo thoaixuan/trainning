@@ -1,21 +1,21 @@
 <template>
   <div>
     <h1 class="text-center mb-4">Góc nhìn</h1>
-  <el-row type="flex" justify="center">
-    <el-col :span="12">
-      <Article/>
-    </el-col>
-    <el-col :span="6" :offset="1">
-      <el-card shadow="never">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-6 col-md-12">
+        <Article/>
+      </div>
+      <div class="col-12 col-lg-4 col-md-12">
+        <el-card shadow="never">
         <Topic/>
-      </el-card>
-      <h4 class="text-danger mt-4">Đọc nhiều</h4>
-      <TopComment/>
-      <TopComment/>
-      <TopComment/>
-      <TopComment/>
-    </el-col>
-  </el-row>
+        </el-card>
+        <h4 class="text-danger mt-4">Đọc nhiều</h4>
+        <TopComment/>
+        <TopComment/>
+        <TopComment/>
+        <TopComment/>
+      </div>
+    </div>
 </div>
 </template>
 

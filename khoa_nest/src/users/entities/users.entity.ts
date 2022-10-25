@@ -1,6 +1,8 @@
 import { Length } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { Role } from "../role/Role.enum";
+import { type } from "os";
+import { Permissions } from "src/permissions/entities/permissions.entity";
+
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
@@ -13,8 +15,13 @@ export class Users{
     @Column()
     @Length(6)
     password: string;
-    @Column({default:Role.User})
-    roles: Role;
+    @ManyToOne(
+        type => Permissions, 
+        permission => permission.users)
+    @JoinColumn({
+        name: 'permission_id'
+    })
+    permission: Permissions;
     @Column({default:''})
     @Length(6)
     firstname: string;

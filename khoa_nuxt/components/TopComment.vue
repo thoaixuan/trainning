@@ -11,11 +11,11 @@
                 <el-col :span="12">
                     <el-button size="mini" type="text" icon="el-icon-chat-square">17</el-button>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="12" class="text-end">
                     <span class="text-nowrap">Nguyễn Kiều Hưng</span>
                 </el-col>
             </el-row>
-            <div class="line"></div>
+            <div class="w-100 border-bottom"></div>
         </a>
     </div>
 </template>
