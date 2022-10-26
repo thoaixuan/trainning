@@ -63,8 +63,14 @@ export class UsersController {
         const accessToken = request.cookies['accessToken'];
         const data = await this.jwtService.verifyAsync(accessToken);
         if(!data){
+            await this.checkRefreshToken(request);
             throw new UnauthorizedException();
         }
         return;
+    }
+    async checkRefreshToken(request){
+        const refreshToken = request.cookies['refreshToken'];
+        const data = await this.jwtService.verifyAsync(refreshToken)
+        console.log(data)
     }
 }

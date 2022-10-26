@@ -5,7 +5,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 export class Permissions{
     @PrimaryGeneratedColumn()
     id: number;
-    @Column({unique: true})
+    @Column()
     name: string;
     @Column()
     description: string;
