@@ -21,10 +21,12 @@ $(function(){
   })
 })
 
-fetch("./header.html")
-  .then(response => {
-    return response.text()
-  })
-  .then(data => {
-    document.querySelector("header").innerHTML = data;
-  })
+$('#iconSearch').hover(function(){
+  $('#divSearch').removeClass('d-none')
+  $('#divSearch').width(200)
+  $('#divSearch').css('left','-50px')
+  },
+  function(){
+    $('#divSearch').addClass('d-none')
+  }
+)
