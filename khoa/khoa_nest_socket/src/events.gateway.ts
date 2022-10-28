@@ -4,6 +4,8 @@ import { Server, Socket } from "socket.io";
 
 @WebSocketGateway({cors: true})
 export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect{
+    constructor(private message: object) {}
+
     @WebSocketServer()
     server: Server;
 
@@ -18,7 +20,7 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect{
     // lắng nghe sự kiện events
     @SubscribeMessage('events')
     handleEvent(@MessageBody() data: {room: string, name: string, mess: string}) {
-        console.log(data)
+        this.message = data
         // gửi dữ liệu cho client trong phòng với key là events, dữ liệu là data
         this.server.to(data.room).emit("events", data)
     }
@@ -28,6 +30,9 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect{
         console.log(room);
         // đưa socket client vào room
         client.join(room);
+    }
+    getMessage(){
+        return this.message
     }
 }
 
