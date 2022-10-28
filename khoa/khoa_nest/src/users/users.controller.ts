@@ -5,10 +5,16 @@ import { Response,Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Roles } from './role/roles.decorator';
+import { AuthGuard } from '@nestjs/passport';
+import { request } from 'http';
+import { AuthService } from 'src/auth/auth.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { REQUEST } from '@nestjs/core';
 
 @Controller('users')
 export class UsersController {
     constructor(
+        private authService: AuthService,
         private readonly userService: UsersService,
         private jwtService: JwtService
     ){}
@@ -20,10 +26,11 @@ export class UsersController {
         return this.userService.findAll();
     }
 
+    @UseGuards(AuthGuard('jwt'))
     @Get(':account')
-    @Roles('user-view')
+    //@Roles('user-view')
     async findOne(@Param('account') account: string, @Req() request: Request){
-        await this.checkAccessToken(request);
+        //await this.checkAccessToken(request);
         return this.userService.findOne(account);
     }
 
@@ -32,10 +39,15 @@ export class UsersController {
         return this.userService.signup(createUsersDto);
     }
 
+    @UseGuards(AuthGuard('local'))
     @Post('/signin')
-    async signin(@Body() body, @Res({passthrough: true}) response: Response){
-        return this.userService.signin(body,response)
+    async login(@Body() body){
+        return this.authService.login(body)
     }
+    // async signin(@Body() body, @Res({passthrough: true}) response: Response){
+    //     //return this.userService.signin(body,response)
+    //     return this.authService.login(body)
+    // }
 
     @Post('logout')
     async logout(@Res({passthrough: true}) response: Response){

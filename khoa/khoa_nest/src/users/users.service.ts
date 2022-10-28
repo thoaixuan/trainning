@@ -44,7 +44,8 @@ export class UsersService {
         if(user.status!==200){
             const hash = await bcrypt.hash(createUserDto.password, 10);
             createUserDto.password = hash
-            createUserDto.permission = await this.permissionsService.findOne(2);
+            createUserDto.permission = await this.permissionsService.findOne(1);
+            console.log(createUserDto.permission)
             await new MysqlHelper(this.userRepository).create(createUserDto)
             
             return {message:'success', status: 200}

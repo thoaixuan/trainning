@@ -13,6 +13,7 @@ import { Users } from './users/entities/users.entity';
 import { Permissions } from './permissions/entities/permissions.entity';
 import { PermissionsService } from './permissions/permissions.service';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [NewsModule, 
@@ -22,7 +23,7 @@ import { JwtModule } from '@nestjs/jwt';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'khoa2703',
+      password: '',
       database: 'my_sql_nest',
       autoLoadEntities: true,
       synchronize: true,
@@ -30,7 +31,7 @@ import { JwtModule } from '@nestjs/jwt';
     secret: 'secret_key',
     signOptions: {expiresIn: '1d'}
   }),
-  UsersModule, PermissionsModule],
+  UsersModule, PermissionsModule, AuthModule],
   controllers: [AppController],
   providers: [AppService, UsersService, PermissionsService,
     {

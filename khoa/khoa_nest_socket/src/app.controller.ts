@@ -13,7 +13,6 @@ interface MessageEvent{
 @Controller()
 export class AppController {
   constructor(
-    private event: EventGateway,
     private readonly appService: AppService) {}
 
   @Get()
