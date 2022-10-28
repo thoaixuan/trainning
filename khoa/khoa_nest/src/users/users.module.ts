@@ -9,6 +9,7 @@ import { RolesGuard } from './role/roles.guard';
 import { PermissionsModule } from 'src/permissions/permissions.module';
 import { Permissions } from 'src/permissions/entities/permissions.entity';
 import { PermissionsService } from 'src/permissions/permissions.service';
+import { AuthService } from 'src/auth/auth.service';
 
 @Module({
     imports:[TypeOrmModule.forFeature([Users,Permissions]),
@@ -18,5 +19,5 @@ import { PermissionsService } from 'src/permissions/permissions.service';
         signOptions: {expiresIn: '1d'}
       }), PermissionsModule],
     controllers:[UsersController], 
-    providers:[UsersService, PermissionsService]})
+    providers:[UsersService, PermissionsService, AuthService]})
 export class UsersModule {}

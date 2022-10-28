@@ -5,18 +5,22 @@ import { Response,Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Roles } from './role/roles.decorator';
+import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('users')
 export class UsersController {
     constructor(
+        private authService: AuthService,
         private readonly userService: UsersService,
         private jwtService: JwtService
     ){}
 
+    @UseGuards(AuthGuard('jwt'))
     @Get('')
-    @Roles('user-view')
+    //@Roles('user-view')
     async findAll(@Req() request: Request){
-        await this.checkAccessToken(request);
+        //await this.checkAccessToken(request);
         return this.userService.findAll();
     }
 
@@ -34,7 +38,8 @@ export class UsersController {
 
     @Post('/signin')
     async signin(@Body() body, @Res({passthrough: true}) response: Response){
-        return this.userService.signin(body,response)
+        //return this.userService.signin(body,response)
+        return this.authService.login(body)
     }
 
     @Post('logout')
