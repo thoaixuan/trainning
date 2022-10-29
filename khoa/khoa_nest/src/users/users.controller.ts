@@ -6,10 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { Roles } from './role/roles.decorator';
 import { AuthGuard } from '@nestjs/passport';
-import { request } from 'http';
 import { AuthService } from 'src/auth/auth.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { REQUEST } from '@nestjs/core';
 
 @Controller('users')
 export class UsersController {
@@ -19,10 +16,11 @@ export class UsersController {
         private jwtService: JwtService
     ){}
 
+    @UseGuards(AuthGuard('jwt'))
     @Get('')
-    @Roles('user-view')
+    //@Roles('user-view')
     async findAll(@Req() request: Request){
-        await this.checkAccessToken(request);
+        //await this.checkAccessToken(request);
         return this.userService.findAll();
     }
 
@@ -41,7 +39,8 @@ export class UsersController {
 
     @UseGuards(AuthGuard('local'))
     @Post('/signin')
-    async login(@Body() body){
+    async signin(@Body() body, @Res({passthrough: true}) response: Response){
+        //return this.userService.signin(body,response)
         return this.authService.login(body)
     }
     // async signin(@Body() body, @Res({passthrough: true}) response: Response){

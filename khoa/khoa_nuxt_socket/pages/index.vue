@@ -17,9 +17,12 @@
       <div class="col-12 col-md-6 col-sm-12">
         <div class="w-100 border overflow-auto p-3" style="height:300px">
 
-            <div class="mb-2 d-flex" v-for="m in messages" :key="m">
-              <div class="col-2">{{m.name}}</div>
-              <div class="bg-info rounded-1 col-10">{{m.mess}}</div>
+            <div class="mb-2 d-flex" v-for="m,index in messages" :key="index">
+              <div class="col-3">
+                <p>{{m.name}}</p>
+                <p>{{m.time}}</p>
+              </div>
+              <div class="bg-info rounded-1 col-9">{{m.mess}}</div>
             </div>
         </div>
         <div class="d-flex justify-content-between">
@@ -37,6 +40,7 @@
 export default {
   data() {
     return {
+      time: '',
       inputName: '',
       disableName: false,
       inputMess: '',
@@ -46,9 +50,17 @@ export default {
     }
   },
   mounted() {
+    var today = new Date()
+
     const eventSource = new EventSource(`${process.env.BASEAPI}event`);
     eventSource.onmessage = ({data})=>{
-      console.log('New message', data)
+      console.log('New message', JSON.parse(data))
+      if(JSON.parse(data).room==this.inputRoom){
+        this.$message({
+            message: 'Có 1 tin nhắn mới',
+            type: 'success'
+        });
+      }
     }
   
     // khởi tạo socket
@@ -104,8 +116,12 @@ export default {
         this.WarningRoom();
         return;
       }
+      
+      var today = new Date()
+      this.time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
       // gửi message gồm tên, tin nhắn, phòng lên server với key là events 
-      this.socket.emit('events',  {name: this.inputName,mess: this.inputMess, room: this.inputRoom})
+      this.socket.emit('events',  {name: this.inputName,mess: this.inputMess, room: this.inputRoom, time: this.time})
     },
 
     // gửi sự kiện phòng lên server và disabled input room

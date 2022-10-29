@@ -19,7 +19,5 @@ import { AuthService } from 'src/auth/auth.service';
         signOptions: {expiresIn: '1d'}
       }), PermissionsModule],
     controllers:[UsersController], 
-    providers:[UsersService, PermissionsService, AuthService],
-    exports: [UsersService]
-    })
+    providers:[UsersService, PermissionsService, AuthService]})
 export class UsersModule {}
