@@ -37,11 +37,15 @@ export class UsersController {
         return this.userService.signup(createUsersDto);
     }
 
-    @UseGuards(AuthGuard('local'))
+
     @Post('/signin')
     async signin(@Body() body, @Res({passthrough: true}) response: Response){
         //return this.userService.signin(body,response)
-        return this.authService.login(body)
+        var user = await this.authService.validateUser(body.account,body.password);
+        if(user.status==200){
+            return this.authService.login(body, response)
+        }
+        return user;
     }
     // async signin(@Body() body, @Res({passthrough: true}) response: Response){
     //     //return this.userService.signin(body,response)
