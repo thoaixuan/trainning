@@ -46,7 +46,9 @@ export default {
       inputMess: '',
       messages: [],
       inputRoom:'',
-      disableRoom: false
+      disableRoom: false,
+      id: 0,
+      idmess: 0
     }
   },
   mounted() {
@@ -54,15 +56,27 @@ export default {
 
     const eventSource = new EventSource(`${process.env.BASEAPI}event`);
     eventSource.onmessage = ({data})=>{
-      console.log('New message', JSON.parse(data))
+      //console.log(data);
+      //console.log(JSON.parse(data));
       if(JSON.parse(data).room==this.inputRoom){
+        
+        // if(this.id===this.idmess){
+        //   console.log(this.id);
+        //   this.$message({
+        //       message: 'Có 1 tin nhắn mới',
+        //       type: 'success'
+        //   });
+          
+        // }
+        // this.idmess = this.idmess + 1
+        // console.log('idmess',this.idmess);
         this.$message({
-            message: 'Có 1 tin nhắn mới',
-            type: 'success'
-        });
+              message: 'Có 1 tin nhắn mới',
+              type: 'success'
+          });
       }
     }
-  
+
     // khởi tạo socket
     this.socket = this.$nuxtSocket({
       name: 'main',
@@ -119,9 +133,10 @@ export default {
       
       var today = new Date()
       this.time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
+      this.id = this.id + 1
+      this.idmess = this.id
       // gửi message gồm tên, tin nhắn, phòng lên server với key là events 
-      this.socket.emit('events',  {name: this.inputName,mess: this.inputMess, room: this.inputRoom, time: this.time})
+      this.socket.emit('events',  {id: this.id, name: this.inputName,mess: this.inputMess, room: this.inputRoom, time: this.time})
     },
 
     // gửi sự kiện phòng lên server và disabled input room

@@ -6,6 +6,8 @@ import { Server, Socket } from "socket.io";
 export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect{
     
     public message: object
+    public countmess: number
+    public c: number
 
     @WebSocketServer()
     server: Server;
@@ -20,8 +22,10 @@ export class EventGateway implements OnGatewayConnection, OnGatewayDisconnect{
     }
     // lắng nghe sự kiện events
     @SubscribeMessage('events')
-    handleEvent(@MessageBody() data: {room: string, name: string, mess: string, time: string}) {
+    handleEvent(@MessageBody() data: {id:number, room: string, name: string, mess: string, time: string}) {
         this.message = data;
+        this.countmess = 0;
+        this.c = 0
         // gửi dữ liệu cho client trong phòng với key là events, dữ liệu là data
         this.server.to(data.room).emit("events", data)
     }

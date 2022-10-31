@@ -1,5 +1,5 @@
 import { Controller, Get, Sse } from '@nestjs/common';
-import { interval, map, Observable, of, switchMap } from 'rxjs';
+import { interval, map, Observable, of, switchMap, take } from 'rxjs';
 import { AppService } from './app.service';
 import { EventGateway } from './events.gateway';
 
@@ -12,6 +12,7 @@ interface MessageEvent{
 
 @Controller()
 export class AppController {
+
   constructor(
     private event: EventGateway,
     private readonly appService: AppService) {}
@@ -24,11 +25,21 @@ export class AppController {
   @Sse('event')
   sse(): Observable<MessageEvent>{
     var data = this.event.message;
-    
     if(data){
-      this.event.message = undefined
-      return of({data: data})
+      if(this.event.c===this.event.countmess){
+        this.event.countmess = this.event.countmess+1
+        //return interval(1000).pipe(map(()=>({data:{data:data}})))
+        return of({data: data})
+      }
+      this.event.countmess = this.event.countmess+1
     }
+    
+    // if(data){
+    //   this.event.message = undefined
+    //   return of({data: data})
+    // }
+    // return of({data: {message:'no change'}})
+
     return of({data: {message:'no change'}})
   }
 }
