@@ -18,7 +18,7 @@ export class UsersController {
 
     @UseGuards(AuthGuard('jwt'))
     @Get('')
-    //@Roles('user-view')
+    @Roles('users-view')
     async findAll(@Req() request: Request){
         //await this.checkAccessToken(request);
         return this.userService.findAll();
@@ -26,7 +26,7 @@ export class UsersController {
 
     @UseGuards(AuthGuard('jwt'))
     @Get(':account')
-    //@Roles('user-view')
+    @Roles('users-view')
     async findOne(@Param('account') account: string, @Req() request: Request){
         //await this.checkAccessToken(request);
         return this.userService.findOne(account);

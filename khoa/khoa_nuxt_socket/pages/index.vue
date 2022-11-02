@@ -17,7 +17,7 @@
       <div class="col-12 col-md-6 col-sm-12">
         <div class="w-100 border overflow-auto p-3" style="height:300px">
 
-            <div class="mb-2 d-flex" v-for="m,index in messages" :key="index">
+            <div class="mb-2 d-flex" v-for="m,index in list" :key="index">
               <div class="col-3">
                 <p>{{m.name}}</p>
                 <p>{{m.time}}</p>
@@ -32,6 +32,11 @@
 
       </div>
     </div>
+    <div class="container">
+      <ul v-for="item,index in list" :key="index">
+        <li>{{item}}</li>
+      </ul>
+    </div>
   </div>
 
 </template>
@@ -45,6 +50,7 @@ export default {
       disableName: false,
       inputMess: '',
       messages: [],
+      list:[],
       inputRoom:'',
       disableRoom: false,
       id: 0,
@@ -56,25 +62,28 @@ export default {
 
     const eventSource = new EventSource(`${process.env.BASEAPI}event`);
     eventSource.onmessage = ({data})=>{
-      //console.log(data);
+
+
       //console.log(JSON.parse(data));
-      if(JSON.parse(data).room==this.inputRoom){
-        
-        // if(this.id===this.idmess){
-        //   console.log(this.id);
+      if(JSON.parse(data).data.room==this.inputRoom){
+        if(JSON.parse(data).data.id===this.idmess){
+          console.log(this.idmess);
         //   this.$message({
         //       message: 'Có 1 tin nhắn mới',
         //       type: 'success'
         //   });
-          
+        // //this.messages.push(JSON.parse(data).data)
+        //   this.idmess = this.idmess+1
+        //   console.log(this.idmess);
         // }
-        // this.idmess = this.idmess + 1
-        // console.log('idmess',this.idmess);
-        this.$message({
-              message: 'Có 1 tin nhắn mới',
-              type: 'success'
-          });
+          this.list.push(JSON.parse(data).data)
+          this.idmess = this.idmess+1
+        }
+
+        
+        console.log(this.list);
       }
+      
     }
 
     // khởi tạo socket
