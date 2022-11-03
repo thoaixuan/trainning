@@ -79,8 +79,10 @@ export default {
           this.list.push(JSON.parse(data).data)
           this.idmess = this.idmess+1
         }
-
-        
+        var index = this.list.findIndex(x=>x.time==JSON.parse(data).data.time)
+        if(index===-1){
+          this.list.push(JSON.parse(data).data)
+        }
         console.log(this.list);
       }
       
