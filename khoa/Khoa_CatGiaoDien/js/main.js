@@ -2,15 +2,15 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
 
+  $('#sidebarContent').offset({left:'-400'})
 $('#btnCollapse').click(()=>{
   $('#sidebarContent').css('z-index',9999)
-  $('#sidebarContent').width(300)
-  $('#sidebarContent').height('100%')
   $('#sidebarContent').css('top',0)
   $('#sidebarContent').css('overflowY','auto')
+  $('#sidebarContent').offset({left:'0'})
 })
 $('#btn-close-sidebar').click(()=>{
-  $('#sidebarContent').removeClass('show')
+  $('#sidebarContent').offset({left:'-400'})
 })
 $(function(){
   $('.menu-sidebar').hover(function(){
