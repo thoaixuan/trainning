@@ -24,9 +24,17 @@ $(function(){
 $('#iconSearch').hover(function(){
   $('#divSearch').removeClass('d-none')
   $('#divSearch').width(200)
+  $('#divSearch').offset({top:'100'})
   $('#divSearch').css('left','-50px')
   },
   function(){
     $('#divSearch').addClass('d-none')
   }
 )
+
+$('.rounded-circle').width(30);
+$('.rounded-circle').height(30)
+
+$('.font').css({fontSize:14})
+
+$('.backgroundOpacity').css('background-color','#0000007d')
