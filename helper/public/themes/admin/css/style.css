@@ -1,0 +1,32 @@
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .d-lg-block {
+        display: block !important;
+    }
+}
+.ql-snow.ql-toolbar button svg, .ql-snow .ql-toolbar button svg {
+    height: 65%;
+}
+.ql-editor {
+    min-height: 130px;
+}
+.ql-align-justify {
+    text-align: justify;
+}
+.ql-align-right {
+    text-align: right;
+}
+.ql-align-center {
+    text-align: center;
+}
+.cusor-point {
+    cursor: pointer;
+}
+.max-width-100 {
+    max-width: 100px;
+}
+.badge-sidebar {
+    top:unset;
+}
+.li-sidebar {
+    padding: 5px;
+}
