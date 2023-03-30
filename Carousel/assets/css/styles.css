@@ -20,10 +20,7 @@
     background-color: #777;
 }
 
-.slider__next{
-    font-size: 20px;
-}
-
+.slider__next,
 .slider__prev{
     font-size: 20px;
 }
