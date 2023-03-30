@@ -42,29 +42,44 @@
     <!-- End header -->
 
     <!-- Slider -->
-    <div class="slider position-relative w-100">
-        <div class="slider__indicators position-absolute">
-            
-            <div class="slider__indicator"></div>
-        
-            <div class="slider__indicator bg-light"></div>
-        
-            <div class="slider__indicator"></div>
-            
+    <div id="carouselExampleCaptions" data-bs-ride="carousel" class="slider position-relative w-100 carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="slider__item container position-relative h-100">
-            <div class="slider__item__caption text-left position-absolute ">
-                <h1>One more for good measure.</h1>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
-              </div>
-
-              <div class="slider__next position-absolute top-50 end-0">
-                <a><i class="fa fa-arrow-right text-light" aria-hidden="true"></i></a>
+        
+        <div class="slider__item container position-relative h-100 carousel-inner">
+            <div class="carousel-item active position-absolute slider__item__caption" data-bs-interval="2000">
+                <div class="carousel-caption  text-start">
+                    <h1>One more for good measure.</h1>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                </div>
             </div>
-            <div class="slider__prev position-absolute top-50 ">
-                <a><i class="fa fa-arrow-left text-light" aria-hidden="true"></i></a>
+            <div class="carousel-item position-absolute slider__item__caption" data-bs-interval="2000">
+                <div class="carousel-caption  text-end">
+                    <h1>One more for good measure.</h1>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                </div>
             </div>
+            <div class="carousel-item position-absolute slider__item__caption">
+                <div class="carousel-caption text-center">
+                    <h1>One more for good measure.</h1>
+                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                </div>
+            </div>
+           
+            
+        
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <i class="fa fa-arrow-left text-light" aria-hidden="true"></i>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <i class="fa fa-arrow-right text-light" aria-hidden="true"></i>
+            </button>
         </div>
         
        
