@@ -1,0 +1,47 @@
+.slider{
+    height: 30rem;
+    background-color: #777;
+}
+
+.slider__item__caption{
+    right: 15%;
+    left: 15%;
+    color: #fff;
+    bottom: 15%;
+}
+
+.Card__img{
+    width: 140px;
+    height: 140px;
+    background-color: #777;
+}
+
+.details__img > img{
+    width: 500px;
+    height: 500px;
+    background-color: #777;
+}
+
+.slider__next{
+    font-size: 20px;
+}
+
+.slider__prev{
+    font-size: 20px;
+}
+
+.slider__indicators {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 5%;
+    list-style-type: none;
+    width: 90px;
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.slider__indicator{
+    width: 25px;
+    height: 3px;
+    background-color: #c8bebe;
+}
