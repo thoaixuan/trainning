@@ -15,7 +15,7 @@
 
 
 body{
-    background: url('../img/bg-login.png') repeat center;
+    background: url('../img/bg-login.png') center;
 }
 
 h1{
@@ -58,7 +58,6 @@ ul > li > i{
 }
 
 .note{
-    width: 21rem !important;
     border-radius: 1rem !important;
 }
 
@@ -77,10 +76,6 @@ ul > li > i{
 }
 
 @media only screen and (max-width: 992px) {
- 
-    .card{
-        width: 16rem !important;
-    }
 
     .sidebar{
         position: absolute;
@@ -89,18 +84,10 @@ ul > li > i{
 }
 
 @media only screen and (max-width: 820px) {
-    .card{
-        width: 17rem !important;
-    }
 
 }
 
 @media only screen and (max-width: 576px) {
- 
-
-    .card{
-        width: 13rem !important;
-    }
     .mode{
         width: 25%;
     }
