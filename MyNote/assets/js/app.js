@@ -32,6 +32,6 @@ function Login(){
     }
        
     else
-        btnLogin.href = '/home.html'
+        btnLogin.href = './home.html'
 }
 
