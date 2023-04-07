@@ -5,11 +5,11 @@ spinner.setAttribute('aria-hidden', 'true')
 
 let btnLogin = document.getElementById('btnLogin')
 
-btnLogin.addEventListener('click',function(){
-    btnLogin.innerHTML = ' '
-    btnLogin.appendChild(spinner)
-    Login()
-})
+// btnLogin.addEventListener('click',function(){
+//     btnLogin.innerHTML = ' '
+//     btnLogin.appendChild(spinner)
+//     Login()
+// })
 
 let username = document.getElementById('exampleInputEmail1')
 let password = document.getElementById('exampleInputPassword1')

@@ -50,10 +50,10 @@ ul > li > i{
   
 
 .dashboard{
-    background-color: hsla(244, 16%, 92%, .6);
-    border: 2px solid hsla(244, 16%, 92%, .75);
-    backdrop-filter: blur(10px);
-    border-radius: 1rem;
+    background-color: hsla(244, 16%, 92%, .6) !important;
+    border: 2px solid hsla(244, 16%, 92%, .75) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 1rem !important;
 }
 
 .sidebar--night{
