@@ -43,12 +43,14 @@ $.ajax({
 });
 
 let myId = -1;
+let myPer = -1;
 $.ajax({
     url: 'users/id',
     method: 'GET',
     dataType: 'json',
     success: function(response){
         myId = response.id;
+        myPer = response.per_id;
     }
 })
 
@@ -71,7 +73,6 @@ $('#new').on('click',function(){
 })
 
 $('#update').on('click', function(event) {
-    
     getNote($(this).data('id'));
 });
   
@@ -126,6 +127,11 @@ function updateNote(){
 
     if(title == "" || description == "" ){
         toastr.error('Vui lòng nhập đầy đủ thông tin');
+        return;
+    }
+
+    if(myPer !== 1 && myId !== owner){
+        toastr.error('Bạn không được phép sửa note này');
         return;
     }
     

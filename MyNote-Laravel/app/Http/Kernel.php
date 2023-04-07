@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'auth' => \App\Http\Middleware\Authenticate::class,
         'userLoggedIn' => \App\Http\Middleware\CheckUserLoggedIn::class,
         'checkUserRole' => \App\Http\Middleware\CheckUserRole::class,
+        'checkNoteOwnership' => \App\Http\Middleware\CheckNoteOwnership::class,
     ];
 }

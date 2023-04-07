@@ -20,7 +20,8 @@ class UserController extends Controller
     }
 
     public function getId(){
-        return response()->json(['id' => auth()->id()]);
+        return response()->json(['id' => auth()->id(),
+                                'per_id' => auth()->user()->per_id]);
     }
 
     public function index()
