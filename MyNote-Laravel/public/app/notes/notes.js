@@ -74,9 +74,8 @@ $('#new').on('click',function(){
 
 $('#update').on('click', function(event) {
     getNote($(this).data('id'));
+   
 });
-  
-  
 
 $('#formUser1').on('submit', function(e) {
     e.preventDefault();
@@ -123,18 +122,20 @@ function updateNote(){
     var id = $('#id1').val();
     var title = $('#title').val();
     var description = CKEDITOR.instances.description.getData();
-    var owner = $('#owner').val();
 
     if(title == "" || description == "" ){
         toastr.error('Vui lòng nhập đầy đủ thông tin');
         return;
     }
 
-    if(myPer !== 1 && myId !== owner){
-        toastr.error('Bạn không được phép sửa note này');
-        return;
+    if(myPer !== 1){
+        if(myId !== owner){
+            toastr.error('Bạn không được phép sửa note này');
+            return;
+        }
     }
-    
+
+
     $.ajax({
     url: 'notes/update',
     method: 'POST',
@@ -154,7 +155,7 @@ function updateNote(){
     }
     });
 }
-
+var owner = -1;
 function getNote(id){
     isInsert = 0;
     $.ajax({
@@ -165,11 +166,19 @@ function getNote(id){
            CKEDITOR.instances.description.setData(response.note.description);
            $('#title').val(response.note.title);
            $('#owner').val(response.note.owner);
+           owner = response.note.owner;
        }
    });
 }
 
 function deleteNote(id){
+    if(myPer !== 1){
+        if(myId !== owner){
+            toastr.error('Bạn không được phép xóa note này');
+            return;
+        }
+    }
+
     $.ajax({
         url: 'notes/delete/' + id,
         method: 'GET',
@@ -185,6 +194,7 @@ function deleteNote(id){
 var id = -1;
 function getId(id){
     this.id = id;
+    getNote(id);
 };
 
 let del = document.getElementById('delete-btn1')

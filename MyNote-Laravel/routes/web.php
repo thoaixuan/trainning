@@ -24,7 +24,7 @@ Route::get('/logout','App\Http\Controllers\LoginController@logout')->name('logou
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('userLoggedIn');
 
 Route::get('/users', 'App\Http\Controllers\UserController@index')->name('users')->middleware('userLoggedIn','checkUserRole');
-Route::get('/users/id', 'App\Http\Controllers\UserController@getId')->name('users/id')->middleware('userLoggedIn','checkUserRole');
+Route::get('/users/id', 'App\Http\Controllers\UserController@getId')->name('users/id')->middleware('userLoggedIn');
 Route::get('/users/getusers', 'App\Http\Controllers\UserController@users')->name('getusers')->middleware('userLoggedIn','checkUserRole');
 Route::get('users/getuser/{id}', 'App\Http\Controllers\UserController@getuser')->name('users.getuser')->middleware('userLoggedIn','checkUserRole');
 Route::post('users/create', 'App\Http\Controllers\UserController@create')->name('users.create')->middleware('userLoggedIn','checkUserRole');
