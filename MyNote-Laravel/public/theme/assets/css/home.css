@@ -79,7 +79,7 @@ ul > li > i{
 
     .sidebar{
         position: absolute;
-        top: -250px;
+        top: -300px;
     }
 }
 
@@ -90,11 +90,20 @@ ul > li > i{
 
     .row>*{
         padding-left: 0 !important;
-        margin-top: 10px !important;
+       
+    }
+    .row{
+        margin-left: 0 !important;
     }
 }
 
 @media only screen and (max-width: 576px) {
-    
+    .dashboard{
+        margin-left: 1.5rem;
+    }
+
+    .row{
+        margin-left: 0 !important;
+    }
 }
 

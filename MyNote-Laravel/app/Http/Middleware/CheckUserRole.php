@@ -9,8 +9,8 @@ class CheckUserRole
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->per_id !== 1) { // kiểm tra xem người dùng có quyền admin hay ko
-            return redirect()->route('showLogin'); // nếu không có quyền, trả về mã lỗi HTTP 403 – Forbidden
+        if (auth()->user()->per_id !== 1) {
+            return redirect()->route('showLogin'); 
         }
         
         return $next($request);

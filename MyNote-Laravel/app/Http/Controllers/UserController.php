@@ -13,24 +13,55 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function users()
+    public function users(Request $Request)
     {
-        $users = User::all();
-        return response()->json(['users' => $users]);
+        $columns [] ='id';
+        $columns [] ='name';
+        $columns [] ='email';
+        $columns [] ='per_id';
+        $columns [] ='created_at';
+        $columns [] ='updated_at';
+
+     
+        $limit = $Request->input('length');
+        $start = $Request->input('start');
+        $order = $columns[$Request->input('order.0.column')];
+        $dir = $Request->input('order.0.dir');
+        $search = $Request->input('search');
+        $totalData =  User::count();
+        if(empty($search)){
+        $users = User::offset($start)
+        ->limit($limit)
+        ->orderBy($order,$dir)
+        ->get();
+        } else {
+            $users = User::Where(function($query)use($search){
+	            $query->where('name', 'LIKE',"%{$search}%")
+	            ->orWhere('email', 'LIKE',"%{$search}%");
+	        })
+	        ->offset($start)
+	        ->limit($limit)
+	        ->orderBy($order,$dir)
+	        ->get();
+	        $totalFiltered =$users->count();
+        }
+        $json_data = array(
+            "draw"            => intval($Request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalData), 
+            "data"            => $users   
+        );
+        echo json_encode($json_data); 
     }
 
-    public function getId(){
-        return response()->json(['id' => auth()->id(),
-                                'per_id' => auth()->user()->per_id]);
-    }
 
     public function index()
     {
         return view('pages.users.users');
     }
 
-    public function getUser($id){
-        $user = User::find($id); // Retrieve user with ID 1
+    public function getUser(Request $Request){
+        $user = User::find($Request->id); 
         return response()->json(['user' => $user]);
     }
 
@@ -49,10 +80,12 @@ class UserController extends Controller
 
         if($user->save()){
 	        return response()->json(['status' => 1,
-                                'data' => $user]);
+                                'data' => $user,
+                                'message' => 'Thêm thành công',]);
 	    }else{
             return response()->json(['status' => 0,
-            'data' => 'Thêm thất bại']);
+            'data' => null,
+            'message' => 'Thêm thất bại']);
         }
 
     }
@@ -75,13 +108,13 @@ class UserController extends Controller
 
         if($user->save()){
             return response()->json([
-                'name' => 'Sửa Thành công',
+                'message' => 'Sửa thành công',
                 'status' => 1,
                 'data' => $user
             ]);
         }else{
             return response()->json([
-                'name' => 'Thất bại',
+                'message' => 'Sửa thất bại',
                 'status' => 0,
                 'data' => $user
             ]);
@@ -94,9 +127,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $Request)
     {
-        $result = User::where('id','=',$id)->delete();
+        $result = User::where('id','=',$Request->id)->delete();
         return response()->json([
             'status'=>1,
             'message'=>"Xóa thành công",

@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\notes;
+use Illuminate\Support\Carbon;
 
 
 class HomeController extends Controller
 {
     function index(){
-        return view('pages/home');
-    }
-   
-    function notes(){
-        return view('pages/notes/notes');
+        $notes = notes::whereDate('created_at', Carbon::today())->get();
+        return view('pages/home/home', (['notes'=> $notes]));
     }
 }

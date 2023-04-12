@@ -20,11 +20,7 @@
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" id="password">
                     </div>
-                    <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="check">
-                    <label class="form-check-label" for="check">Remember me</label>
-                    </div>
-                    <div class="w-100 d-flex ">
+                    <div class="w-100 d-flex mt-4">
                         <span id="btnLogin" type="submit"  class="btn btn-primary w-50 ">Login</span>
                     </div>
                 </form>

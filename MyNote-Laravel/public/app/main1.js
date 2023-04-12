@@ -9,7 +9,7 @@ function renderAction(data) {
     $.each(data, function(index, item) {
 
         if(item.title == 'update'){
-            htmlButton += '<button onclick="getNote('+ item.value+ ')" data-bs-toggle="modal" data-bs-target="#exampleModal2" button="dropdown-item" data-id="' +
+            htmlButton += '<button data-bs-toggle="modal" data-bs-target="#exampleModal2" button="dropdown-item" data-id="' +
             item.value + '" class="' +
             item.class + '" id="' +
             item.title + '">' +
@@ -17,7 +17,7 @@ function renderAction(data) {
             item.icon + '"></i>' +
             "</button>";
         }else{
-            htmlButton += '<button onclick="getId('+ item.value+ ')" data-bs-toggle="modal" data-bs-target="#exampleModal3" button="dropdown-item" data-id="' +
+            htmlButton += '<button button="dropdown-item" data-id="' +
             item.value + '" class="' +
             item.class + '" id="' +
             item.title + '">' +

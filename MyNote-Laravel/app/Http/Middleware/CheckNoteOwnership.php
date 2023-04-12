@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\notes;
 
 class CheckNoteOwnership
 {
@@ -14,11 +15,11 @@ class CheckNoteOwnership
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        $note = Note::findOrFail( $request->id);
+        $note = notes::findOrFail($request->id);
 
-        if ($note->owner !== auth()->id() && auth() -> id() !== 1) {
+        if ($note->owner !== auth()->id() && auth() -> user()->per_id !== 1) {
             return abort(403, 'Bạn không được phép sửa hoặc xóa note này.');
         }
 

@@ -2,11 +2,17 @@
 @section('main')
 <h4>Users list</h4>
 
-<form class="search mb-3 " role="search">
-  <div class="row me-1 ms-0">
-      <button id="new" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary mb-2 col-xl-2 col-lg-2 col-md-2 col-sm-2" type="submit">New</button>
+<div class="row row-sm mb-3">
+  <div class="col-md-4 mb-2">
+      <input type="text" class="form-control" id="search">
   </div>
-</form>
+  <div class="col-md-2 mb-2">
+      <button class="btn btn-primary w-100" id="formSearch">Search</button>
+  </div>
+  <div class="col-md-2 mb-2">
+    <button id="new" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary w-100" type="submit">New</button>
+ </div >
+</div>
 
 <div class="table-responsive">
     <table class="table table-bordered border-5 border-secondary ">

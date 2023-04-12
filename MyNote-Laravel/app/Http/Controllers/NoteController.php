@@ -9,10 +9,43 @@ use Illuminate\Support\Facades\Hash;
 
 class NoteController extends Controller
 {
-    public function notes()
+    public function notes(Request $Request)
     {
-        $notes = notes::all();
-        return response()->json(['notes' => $notes]);
+        $columns [] ='id';
+        $columns [] ='title';
+        $columns [] ='description';
+        $columns [] ='owner';
+
+     
+        $limit = $Request->input('length');
+        $start = $Request->input('start');
+        $order = $columns[$Request->input('order.0.column')];
+        $dir = $Request->input('order.0.dir');
+        $search = $Request->input('search');
+        $totalData =  notes::count();
+        if(empty($search)){
+        $notes = notes::offset($start)
+        ->limit($limit)
+        ->orderBy($order,$dir)
+        ->get();
+        } else {
+            $notes = notes::Where(function($query)use($search){
+	            $query->where('title', 'LIKE',"%{$search}%")
+	            ->orWhere('description', 'LIKE',"%{$search}%");
+	        })
+	        ->offset($start)
+	        ->limit($limit)
+	        ->orderBy($order,$dir)
+	        ->get();
+	        $totalFiltered =$notes->count();
+        }
+        $json_data = array(
+            "draw"            => intval($Request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalData), 
+            "data"            => $notes   
+        );
+        echo json_encode($json_data); 
     }
 
     public function index()
@@ -20,8 +53,8 @@ class NoteController extends Controller
         return view('pages.notes.notes');
     }
 
-    public function getnote($id){
-        $note = notes::find($id); // Retrieve notes with ID 1
+    public function getnote(Request $Request){
+        $note = notes::find($Request->id); 
         return response()->json(['note' => $note]);
     }
 
@@ -35,15 +68,17 @@ class NoteController extends Controller
         $notes = new notes;
         $notes->title = $request->title;
         $notes->description = $request->description;
-        $notes->owner = $request->owner;
+        $notes->owner = auth()->user()->id;
        
 
         if($notes->save()){
 	        return response()->json(['status' => 1,
-                                'data' => $notes]);
+                                'data' => $notes,
+                                'message' => 'Thêm thành công']);
 	    }else{
             return response()->json(['status' => 0,
-            'data' => 'Thêm thất bại']);
+            'data' => null,
+            'message' => 'Thêm thất bại']);
         }
 
     }
@@ -63,13 +98,13 @@ class NoteController extends Controller
 
         if($notes->save()){
             return response()->json([
-                'name' => 'Sửa Thành công',
+                'message' => 'Sửa thành công',
                 'status' => 1,
                 'data' => $notes
             ]);
         }else{
             return response()->json([
-                'name' => 'Thất bại',
+                'message' => 'Sửa thất bại',
                 'status' => 0,
                 'data' => $notes
             ]);
@@ -82,9 +117,9 @@ class NoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $Request)
     {
-        $result = notes::where('id','=',$id)->delete();
+        $result = notes::where('id','=',$Request->id)->delete();
         return response()->json([
             'status'=>1,
             'message'=>"Xóa thành công",

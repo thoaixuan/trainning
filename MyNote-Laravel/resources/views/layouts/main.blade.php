@@ -21,9 +21,8 @@
         </div>
     </div>
         @include('pages.users.modal')
-        @include('pages.users.modaldel')
         @include('pages.notes.modal')
-        @include('pages.notes.modaldel')
+        @include('pages.home.modal')
         @include('partials.script')
         <script src="{{asset('theme/assets/js/home.js')}}"></script>
         @yield('js')

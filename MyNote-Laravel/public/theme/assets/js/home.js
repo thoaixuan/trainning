@@ -51,8 +51,6 @@ function setDarkTheme(){
     });
     modal.classList.add("dashboard--night")
     modal.classList.add("text-light") 
-    modal1.classList.add("dashboard--night")
-    modal1.classList.add("text-light")
     modal2.classList.add("dashboard--night")
     modal2.classList.add("text-light")
     modal3.classList.add("dashboard--night")
@@ -73,8 +71,6 @@ function setLightTheme(){
     });
     modal.classList.remove("dashboard--night")
     modal.classList.remove("text-light")  
-    modal1.classList.remove("dashboard--night")
-    modal1.classList.remove("text-light")
     modal2.classList.remove("dashboard--night")
     modal2.classList.remove("text-light")
     modal3.classList.remove("dashboard--night")
@@ -94,13 +90,13 @@ window.addEventListener("touchmove",function(event) {
     
   endY = event.touches[0].clientY;
   
-  if (endY > startY  && endY <=200) {
+  if (endY > startY  && endY <=300) {
    
      sidebar.classList.add('show')
      event.preventDefault()
   }
 
-  if (endY < startY && endY <= 200) {
+  if (endY < startY && endY <= 300) {
    
     sidebar.classList.remove('show')
     event.preventDefault()
@@ -122,3 +118,5 @@ if(url.indexOf("notes") !== -1)
     sbitem[1].classList.add('btn-primary')
 if(url.indexOf("users") !== -1)
     sbitem[2].classList.add('btn-primary')
+if(url.indexOf("contact") !== -1)
+    sbitem[3].classList.add('btn-primary')

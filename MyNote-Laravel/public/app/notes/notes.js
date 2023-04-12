@@ -1,58 +1,87 @@
-$.ajax({
-    url: '/notes/getnotes',
-    type: 'GET',
-    dataType: 'json',
+let table2 = $('.table').DataTable({
+    serverSide: true,
+    processing: true,
+    paging: true,
+    lengthChange: true,
+    searching: false,
+    ordering: true,
+    info: true,
+    responsive: true,
+    autoWidth: false,
     order: [0, "desc"],
-    success: function(response) {
-        $('.table').DataTable({
-            columns: [
-                { title: "ID" ,data : "id"},
-                { title: "Title" ,data : "title"},
-                { title: "Description", data : "description",
-                render: function (data, type, row) {
-                    return limitStringLength(data, 50); // Giới hạn kí tự là 50
-                }},
-                { title: "Owner", data : "owner"},
-                { title: "Created at", data : "created_at"},
-                { title: "Updated at", data : "updated_at"},
-                {
-                    title: "Operation",
-                    className: "text-center",
-                    bSortable: false,
-                    render: function (data, type, row, meta) {
-                        return renderAction([ {
-                            class: 'btn btn-sm btn-primary badge text-light',
-                            value: row.id,
-                            title: 'update',
-                            icon: 'fa fa-edit',
-                        },
-                        {
-                            class: 'btn btn-sm btn-primary badge text-light',
-                            value: row.id,
-                            title: 'delete',
-                            icon: 'fa fa-trash',
-                        }]);
-                    }
-                },
-            ]
-        }).rows.add(response.notes).draw();
+    ajax: {
+        url: "notes/getnotes",
+        type: "GET",
+        data: function (d) {
+            return $.extend({}, d, {
+                search: $("#search").val(),
+            });
+        }
     },
-    error: function() {
-        console.log('Lỗi khi gửi yêu cầu');
-    }
+    columns: [
+        { 
+            title: "ID" ,
+            data : "id"
+        },
+        { 
+            title: "Title" ,
+            data : "title"
+        },
+        { 
+            title: "Description", 
+            data : "description",
+            render: function (data, type, row) {
+                return limitStringLength(data, 30); // Giới hạn kí tự là 50
+            }
+        },
+        { 
+            title: "Owner", 
+            data : "owner"
+        },
+        { 
+            title: "Created at", 
+            data : "created_at",
+            render: function (data, type, row, meta) {
+                return changeDate(data);
+            }
+        },
+        { 
+            title: "Updated at", 
+            data : "updated_at",
+            render: function (data, type, row, meta) {
+                return changeDate(data);
+            }
+        },
+        {
+            title: "Operation",
+            className: "text-center",
+            bSortable: false,
+            render: function (data, type, row, meta) {
+                return renderAction([ {
+                    class: 'btn btn-sm btn-primary badge text-light',
+                    value: row.id,
+                    title: 'update',
+                    icon: 'fa fa-edit',
+                },
+                {
+                    class: 'btn btn-sm btn-primary badge text-light',
+                    value: row.id,
+                    title: 'delete',
+                    icon: 'fa fa-trash',
+                }]);
+            }
+        },
+    ]
 });
 
-let myId = -1;
-let myPer = -1;
-$.ajax({
-    url: 'users/id',
-    method: 'GET',
-    dataType: 'json',
-    success: function(response){
-        myId = response.id;
-        myPer = response.per_id;
-    }
-})
+$("#search").on('keyup', function (e) {
+    table2.ajax.reload();
+});
+$("#formSearch").on('submit', function (e) {
+    e.preventDefault();
+    table2.ajax.reload();
+});
+
 
 function limitStringLength(data, maxLength) {
     return data.length < maxLength ?
@@ -61,166 +90,94 @@ function limitStringLength(data, maxLength) {
 }
 
 
-let isInsert = 1;
-
-
-$('#new').on('click',function(){
-    isInsert = 1;
-    $('#id1').val("")
-    $('#title').val("")
+$('#new').on('click',function(e){
+    $('#id1').val("");
+    $('#title').val("");
     CKEDITOR.instances.description.setData("");
-    $('#owner').val(myId)
+    $('#submit').attr('data-url',"notes/create")
 })
 
-$('#update').on('click', function(event) {
+$(document).delegate('#update','click', function(e) {
     getNote($(this).data('id'));
-   
+    $('#submit').attr('data-url',"notes/update");
+    $('#submit').attr('data-id',$(this).data('id'));
 });
 
-$('#formUser1').on('submit', function(e) {
+$('#formNote').on('submit', function(e){
     e.preventDefault();
-
-    if(isInsert == 1){
-        insertNote();
-    }else{
-        updateNote();
+    
+    if($('#title').val() == "" || CKEDITOR.instances.description.getData("") == ""){
+        toastr.error('Vui lòng nhập đầy đủ thông tin');
+        return;
     }
    
-});
-
-function insertNote(){
-    var title = $('#title').val();
-    var description = CKEDITOR.instances.description.getData();
-    var owner = $('#owner').val();
-
-    if(title == "" || description == "" ){
-        toastr.error('Vui lòng nhập đầy đủ thông tin');
-        return;
-    }
-
+    var url = $('#submit').attr('data-url');
+    var formData = new FormData($("#formNote")[0]);
+    formData.append('id', $("#submit").attr('data-id'));
+    formData.append('title', $("#title").val());
+    formData.append('description', CKEDITOR.instances['description'].getData());
     $.ajax({
-    url: 'notes/create',
-    method: 'POST',
-    data: {title: title, description: description, owner: owner},
-    success: function(response) {
-        if(response.status){
-            $('#exampleModal2').modal('hide');
-            $('.table').DataTable().rows.add([response.data]).draw();
-            toastr.success('Thêm thành công');
-        }else{
-            toastr.error('Thêm thất bại');
-        }
-       
-    },
-    error: function(error) {
-        toastr.error('Có lỗi xảy ra');
-    }
-    });
-}
+                url: url,
+                data: formData,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if(response.status){
+                        $('#exampleModal2').modal('hide');
+                        toastr.success(response.message)
+                        table2.ajax.reload();
+                    }else{  
+                        toastr.error(response.message)
+                    }
 
-function updateNote(){
-    var id = $('#id1').val();
-    var title = $('#title').val();
-    var description = CKEDITOR.instances.description.getData();
+                },
+                error: function (error) {
+                    console.log(error.responseJSON)
+                    toastr.error("Error")
+                }
+            });
+})
 
-    if(title == "" || description == "" ){
-        toastr.error('Vui lòng nhập đầy đủ thông tin');
-        return;
-    }
-
-    if(myPer !== 1){
-        if(myId !== owner){
-            toastr.error('Bạn không được phép sửa note này');
-            return;
-        }
-    }
-
-
-    $.ajax({
-    url: 'notes/update',
-    method: 'POST',
-    data: {id: id, title: title, description: description, owner: owner},
-    success: function(response) {
-        if(response.status){
-            $('#exampleModal2').modal('hide');
-            toastr.success('Sửa thành công');
-            reload();
-        }else{
-            toastr.error('Sửa thất bại');
-        }
-       
-    },
-    error: function(error) {
-        toastr.error('Có lỗi xảy ra');
-    }
-    });
-}
-var owner = -1;
 function getNote(id){
-    isInsert = 0;
     $.ajax({
-       url: 'notes/getnote/' + id,
+       url: 'notes/getnote',
        method: 'GET',
+       data:{id: id},
        success: function(response) {
            $('#id1').val(id);
            CKEDITOR.instances.description.setData(response.note.description);
            $('#title').val(response.note.title);
            $('#owner').val(response.note.owner);
-           owner = response.note.owner;
        }
    });
 }
 
-function deleteNote(id){
-    if(myPer !== 1){
-        if(myId !== owner){
-            toastr.error('Bạn không được phép xóa note này');
-            return;
-        }
-    }
+$(document).on('click', '#delete', function () {
+    if (confirm("Bạn có chắc muốn xóa?")) {
+        var id = $(this).data("id");
+        $.ajax({
+            url: "notes/delete",
+            type: 'GET',
+            data: {
+                "id": id
+            },
+            success: function (response) {
+                if (response.status) {
+                    toastr.success(response.message);
+                    table2.ajax.reload();
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function () { toastr.error("Không thể xóa!") }
 
-    $.ajax({
-        url: 'notes/delete/' + id,
-        method: 'GET',
-        success: function(response){
-            toastr.success('Xóa thành công');
-            reload();
-        },error: function(){
-            toastr.error('Xóa thất bại');
-        }
-    });
-}
-
-var id = -1;
-function getId(id){
-    this.id = id;
-    getNote(id);
-};
-
-let del = document.getElementById('delete-btn1')
-del.addEventListener('click',function(){
-    deleteNote(id);
-})
-
-
-function reload(){
-    $.ajax({
-        url: 'notes/getnotes',
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            $('.table').DataTable().clear().draw();
-            $('.table').DataTable().rows.add(response.notes).draw();
-        },
-        error: function(error) {
-            
-        }
         });
-        $('#id1').val("")
-        $('#title').val("")
-        CKEDITOR.instances.description.setData("");
-        $('#owner').val("")
-}
+    }
+});
+
+
 
 
 

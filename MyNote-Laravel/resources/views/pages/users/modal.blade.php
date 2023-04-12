@@ -9,19 +9,15 @@
             @csrf
           <div class="modal-body">
             <div class="mb-3">
-              <label for="exampleInputName1" class="form-label">ID</label>
-              <input type="text" name="id" class="form-control" id="id" disabled>
-            </div>
-            <div class="mb-3">
-              <label for="exampleInputName1" class="form-label">Name</label>
+              <label class="form-label">Name</label>
               <input type="text" name="name" class="form-control" id="name" >
             </div>
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <label class="form-label">Email address</label>
               <input type="email" name ="email" class="form-control" id="email">
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1"  class="form-label">Password</label>
+              <label class="form-label">Password</label>
               <input type="password" name = "password" class="form-control" id="password">
             </div>
             <div class="mb-3">
@@ -35,7 +31,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button id="submit" type="submit" class="btn btn-primary" data-id="" data-url ="">Save</button>
           </div>
         </form>
       </div>
