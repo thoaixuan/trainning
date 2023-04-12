@@ -20,6 +20,7 @@
                 <label for="detail">Detail</label>
                 <textarea id="detail" name="detail" type="text"></textarea>
             </div>
+            <div id="captcha" class="mt-3 g-recaptcha {{ env('CAPTCHA_STATUS') == true ? '' : 'd-none' }}" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
             <div class="mb-3 text-center">
                 <input id="submit" type="submit" class="form-control btn btn-primary w-50">
             </div>
