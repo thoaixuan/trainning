@@ -20,6 +20,10 @@ let table2 = $('.table').DataTable({
     },
     columns: [
         { 
+            title: "STT" ,
+            data : null
+        },
+        { 
             title: "ID" ,
             data : "id"
         },
@@ -71,7 +75,11 @@ let table2 = $('.table').DataTable({
                 }]);
             }
         },
-    ]
+    ],
+    rowCallback: function(row, data, index) {
+        // Set the row number as empty string for the first column, which is the STT column.
+        $('td:eq(0)', row).html(index + 1);
+      }
 });
 
 $("#search").on('keyup', function (e) {
@@ -94,13 +102,13 @@ $('#new').on('click',function(e){
     $('#id1').val("");
     $('#title').val("");
     CKEDITOR.instances.description.setData("");
-    $('#submit').attr('data-url',"notes/create")
+    $('#formNote').find("button[type = 'submit']").attr('data-url',"notes/create")
 })
 
 $(document).delegate('#update','click', function(e) {
     getNote($(this).data('id'));
-    $('#submit').attr('data-url',"notes/update");
-    $('#submit').attr('data-id',$(this).data('id'));
+    $('#formNote').find("button[type = 'submit']").attr('data-url',"notes/update");
+    $('#formNote').find("button[type = 'submit']").attr('data-id',$(this).data('id'));
 });
 
 $('#formNote').on('submit', function(e){
@@ -111,9 +119,9 @@ $('#formNote').on('submit', function(e){
         return;
     }
    
-    var url = $('#submit').attr('data-url');
+    var url = $('#formNote').find("button[type = 'submit']").attr('data-url');
     var formData = new FormData($("#formNote")[0]);
-    formData.append('id', $("#submit").attr('data-id'));
+    formData.append('id', $('#formNote').find("button[type = 'submit']").attr('data-id'));
     formData.append('title', $("#title").val());
     formData.append('description', CKEDITOR.instances['description'].getData());
     $.ajax({

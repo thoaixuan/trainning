@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Rules\Captcha;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
+use App\Models\notes;
 
 class ContactController extends Controller
 {
@@ -11,37 +14,75 @@ class ContactController extends Controller
         return view('pages.contact.contact');
     }
 
-    function sendContact(){
-        if(env('CAPTCHA_STATUS')){
-
-            $message=[
-
-                'g-recaptcha-response.required'=>"Please confirm you are not a robot",
-
-                'g-recaptcha-response.captcha'=>"Captcha error! try again",
-
-            ];
-
-           
-
-            $validate_captcha=Validator::make($request->all(),[
-
-                'g-recaptcha-response' => new Captcha()
-
-            ],$message);
-
-            if($validate_captcha->fails()){
-
-                return response()->json([
-
-                    'status_captcha'=>0,
-
-                    'message_captcha'=>$validate_captcha->errors()->first(),
-
-                ]);
-
-            }
-
-        }
+    function list(){
+        return view('pages.contact.list');
     }
+
+    
+    function verify_recaptcha($request)
+    {
+        $client = new Client();
+        $response = $client->post('https://www.google.com/recaptcha/api/siteverify', [
+            'form_params' => [
+                'secret' => env('RECAPTCHA_SECRET_KEY'),
+                'response' => $request->input('g-recaptcha-response')
+            ]
+        ]);
+        $result = json_decode((string)$response->getBody());
+
+        return $result->success;
+    }   
+
+    function sendContact(Request $request){
+        if (!$this->verify_recaptcha($request)) {
+            return response()->json(['success' => false]);
+        }
+
+        $file_path = public_path('/contact.json');
+        $file_data = file_get_contents($file_path);
+        $json_data = json_decode($file_data, true);
+
+        $new_object = array('name' => $request->input('name'),
+                            'email' => $request->input('email'),
+                            'phone' => $request->input('phone'),
+                            'message' => $request->input('detail'));
+
+        $json_data[] = $new_object;
+
+        $new_file_data = json_encode($json_data);
+        file_put_contents($file_path, $new_file_data);
+        
+        return response()->json(['success' => true]);
+    }
+
+    function getContact(Request $Request){
+        $file_path = public_path('/contact.json');
+        $file_data = file_get_contents($file_path);
+
+        $contacts = json_decode($file_data);
+        $totalData = count($contacts);
+
+        $json_data = array(
+            "draw"            => intval($Request->input('draw')),  
+            "recordsTotal"    => intval($totalData),  
+            "recordsFiltered" => intval($totalData), 
+            "data"            => $contacts   
+        );
+
+        echo json_encode($json_data);
+    }
+
+    function deleteContact(Request $request){
+        $file_path = public_path('/contact.json');
+        $file_data = file_get_contents($file_path);
+
+        $contacts = json_decode($file_data);
+
+        array_splice($contacts, intval($request->id) - 1, 1);
+        $json_data = json_encode($contacts);
+        file_put_contents($file_path, $json_data);
+
+        return response()->json($contacts);
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\notes;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 
 class NoteController extends Controller
@@ -24,10 +25,10 @@ class NoteController extends Controller
         $search = $Request->input('search');
         $totalData =  notes::count();
         if(empty($search)){
-        $notes = notes::offset($start)
-        ->limit($limit)
-        ->orderBy($order,$dir)
-        ->get();
+            $notes = notes::offset($start)
+            ->limit($limit)
+            ->orderBy($order,$dir)
+            ->get();
         } else {
             $notes = notes::Where(function($query)use($search){
 	            $query->where('title', 'LIKE',"%{$search}%")

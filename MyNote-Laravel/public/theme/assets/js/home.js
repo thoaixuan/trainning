@@ -39,7 +39,7 @@ night.addEventListener('click', function(){
 function setDarkTheme(){
     sidebar.classList.add('sidebar--night')
     dashboard.classList.add('dashboard--night')
-    document.body.style.background = "url('theme/assets/img/bgdark.jpg') center"
+    document.body.style.background = "url('/theme/assets/img/bgdark.jpg') center"
     test.classList.add('text-light')
     if(table != null){
       table.classList.add('text-light','border-light')
@@ -60,7 +60,7 @@ function setDarkTheme(){
 function setLightTheme(){
     sidebar.classList.remove('sidebar--night')
     dashboard.classList.remove('dashboard--night')
-    document.body.style.background = "url('theme/assets/img/bg-login.png') center"
+    document.body.style.background = "url('/theme/assets/img/bg-login.png') center"
     test.classList.remove('text-light')
     if(table != null){
       table.classList.remove('text-light','border-light')

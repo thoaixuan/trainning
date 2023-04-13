@@ -20,6 +20,10 @@ let table2 = $('.table').DataTable({
     },
     columns: [
         { 
+            title: "STT" ,
+            data : null
+        },
+        { 
             title: "ID" ,
             data : "id"
         },
@@ -68,7 +72,11 @@ let table2 = $('.table').DataTable({
                 }]);
             }
         },
-    ]
+    ],
+    rowCallback: function(row, data, index) {
+        // Set the row number as empty string for the first column, which is the STT column.
+        $('td:eq(0)', row).html(index + 1);
+      }
 });
 
 $("#search").on('keyup', function (e) {
@@ -79,18 +87,18 @@ $("#formSearch").on('submit', function (e) {
     table2.ajax.reload();
 });
 
-
 $('#new').on('click',function(e){
     $('#name').val("");
     $('#email').val("");
     $('#password').val("");
-    $('#submit').attr('data-url',"users/create")
+    $('#formUser').find("button[type = 'submit']").attr('data-url',"users/create");
+    $('#formUser').find("button[type = 'submit']").attr('data-id','');
 })
 
 $(document).delegate('#update','click', function(e) {
     getUser($(this).data('id'));
-    $('#submit').attr('data-url',"users/update");
-    $('#submit').attr('data-id',$(this).data('id'));
+    $('#formUser').find("button[type = 'submit']").attr('data-url',"users/update");
+    $('#formUser').find("button[type = 'submit']").attr('data-id',$(this).data('id'));
 });
 
 $('#formUser').on('submit', function(e){
@@ -101,16 +109,23 @@ $('#formUser').on('submit', function(e){
         return;
     }
 
-    if($('#submit').data('id') == ""){
+    if($('#password').val() !== ""){
+        if(!checkPassword($('#password').val())){
+            toastr.error('Mật khẩu phải từ 7 đến 25 kí tự, có ít nhất một số và một chữ cái viết hoa');
+            return;
+        }
+    }
+
+    if($('#formUser').find("button[type = 'submit']").data('id') == ""){
         if($('#password').val() == ""){
             toastr.error('Vui lòng nhập đầy đủ thông tin');
             return;
         }
     }
    
-    var url = $('#submit').attr('data-url');
+    var url = $('#formUser').find("button[type = 'submit']").attr('data-url');
     var formData = new FormData($("#formUser")[0]);
-    formData.append('id', $("#submit").attr('data-id'));
+    formData.append('id', $('#formUser').find("button[type = 'submit']").attr('data-id'));
     formData.append('name', $("#name").val());
     formData.append('email', $("#email").val());
     formData.append('password', $("#password").val());
@@ -174,6 +189,11 @@ $(document).on('click', '#delete', function () {
         });
     }
 });
+
+function checkPassword (input){
+    const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{7,25}$/
+    return regex.test(input)
+}
 
 
 
