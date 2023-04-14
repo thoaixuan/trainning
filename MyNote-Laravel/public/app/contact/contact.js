@@ -1,37 +1,65 @@
-$('#contactForm').on('submit', function(e){
-    e.preventDefault();
-
-    const phoneNumberRegex = /^\d{10}$/;
-    if($('#contactForm input[type = "number"]').val() == '' || 
-    $('#contactForm input[type = "email"]').val() == '' || 
-    $('#contactForm input[type = "text"]').val() == '' ||
-    CKEDITOR.instances.detail.getData() == ''){
-        toastr.error('Vui lòng nhập đầy đủ thông tin')
-        return;
+$('#contactForm').validate({
+    rules:{
+        name:{
+            required:true
+        },
+        email:{
+            required:true,
+            email: true
+        },
+        detail:{
+            required:true
+        },
+   },
+     messages: {
+        name:{
+            required:'Tên không được để trống'
+        },
+        email:{
+            required:'Email không được để trống',
+            email: 'Email không hợp lệ'
+        },
+        detail:{
+            required:'Tin nhắn không được để trống'
+        },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+       
+    },
+    highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(e){
+        var form = $(this);
+        var formData = form.serialize();
+        var detail = CKEDITOR.instances.detail.getData();
+        formData += '&detail=' + encodeURIComponent(detail);
+    
+    
+        $.ajax({
+          url: "contact/sendcontact",
+          type: "POST",
+          data: formData,
+          dataType: "json",
+          success: function(response) {
+            if (response.success) {
+                toastr.success('Gửi liên hệ thành công');
+                CKEDITOR.instances.detail.setData('');
+                $('#contactForm input[type = "text"], #contactForm input[type = "email"],#contactForm input[type = "number"]').val('');
+                grecaptcha.reset();
+            } else {
+              toastr.error("Bạn là robot");
+            }
+          }
+        });
+   
     }
-
-    var form = $(this);
-    var formData = form.serialize();
-    var detail = CKEDITOR.instances.detail.getData();
-    formData += '&detail=' + encodeURIComponent(detail);
-
-
-    $.ajax({
-      url: "contact/sendcontact",
-      type: "POST",
-      data: formData,
-      dataType: "json",
-      success: function(response) {
-        if (response.success) {
-            toastr.success('Gửi liên hệ thành công');
-            CKEDITOR.instances.detail.setData('');
-            $('#contactForm input[type = "text"], #contactForm input[type = "email"],#contactForm input[type = "number"]').val('');
-            grecaptcha.reset();
-        } else {
-          toastr.error("Bạn là robot");
-        }
-      }
-    });
 })
 
 

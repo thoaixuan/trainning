@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\notes;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 
 class NoteController extends Controller
@@ -66,8 +67,26 @@ class NoteController extends Controller
      */
     public function create(Request $request)
     {
+        $message = [
+            'required' => 'Không được để trống'
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+        ],$message);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>0,
+                'data' => null,
+                'message'=>$validator->errors()->first()    
+            ]);
+        }
+
         $notes = new notes;
         $notes->title = $request->title;
+        if($request -> description == '')
+            $request -> description = 'Người dùng chưa viết gì';
         $notes->description = $request->description;
         $notes->owner = auth()->user()->id;
        
@@ -93,8 +112,18 @@ class NoteController extends Controller
      */
     public function update(Request $Request)
     {
+        $message = [
+            'required' => 'Không được để trống'
+        ];
+
+        $validator = Validator::make($Request->all(), [
+            'title' => 'required',
+        ],$message);
+
         $notes =  notes::find($Request->id);
         $notes->title = $Request->title;
+        if($Request -> description == '')
+            $Request -> description = 'Người dùng chưa viết gì';
         $notes->description = $Request->description;
 
         if($notes->save()){

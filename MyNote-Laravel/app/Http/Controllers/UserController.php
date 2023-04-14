@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -73,11 +74,29 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:"users"',
+            'per_id' => 'required|in:1,2'
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>0,
+                'data' => null,
+                'message'=>$validator->errors()->first()    
+            ]);
+        }
+
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->per_id = $request->per_id;
-        $user->password = bcrypt($request->input('password'));
+        if($request -> password == "")
+            $request->password = "123456Ac";
+        $user->password = bcrypt($request->password);
 
         if($user->save()){
 	        return response()->json(['status' => 1,
@@ -100,6 +119,21 @@ class UserController extends Controller
      */
     public function update(Request $Request)
     {
+        $validator = Validator::make($Request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'per_id' =>  'required|in:1,2'
+            
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'=>0,
+                'data' => null,
+                'message'=>$validator->errors()->first()    
+            ]);
+        }
+
         $user =  User::find($Request->id);
         $user->name = $Request->name;
         $user->email = $Request->email;

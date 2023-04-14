@@ -34,6 +34,19 @@ class ContactController extends Controller
     }   
 
     function sendContact(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'detail' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success'=>false  
+            ]);
+        }
+
+
         if (!$this->verify_recaptcha($request)) {
             return response()->json(['success' => false]);
         }

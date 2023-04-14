@@ -111,41 +111,58 @@ $(document).delegate('#update','click', function(e) {
     $('#formNote').find("button[type = 'submit']").attr('data-id',$(this).data('id'));
 });
 
-$('#formNote').on('submit', function(e){
-    e.preventDefault();
-    
-    if($('#title').val() == "" || CKEDITOR.instances.description.getData("") == ""){
-        toastr.error('Vui lòng nhập đầy đủ thông tin');
-        return;
-    }
-   
-    var url = $('#formNote').find("button[type = 'submit']").attr('data-url');
-    var formData = new FormData($("#formNote")[0]);
-    formData.append('id', $('#formNote').find("button[type = 'submit']").attr('data-id'));
-    formData.append('title', $("#title").val());
-    formData.append('description', CKEDITOR.instances['description'].getData());
-    $.ajax({
-                url: url,
-                data: formData,
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if(response.status){
-                        $('#exampleModal2').modal('hide');
-                        toastr.success(response.message)
-                        table2.ajax.reload();
-                    }else{  
-                        toastr.error(response.message)
-                    }
+$('#formNote').validate({
+    rules:{
+        title:{
+            required:true
+        },
+   },
+   messages: {
+        title:{
+            required:"Tiêu đề không được để trống"
+        },
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+       
+    },
+    highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(e){
+        var url = $('#formNote').find("button[type = 'submit']").attr('data-url');
+        var formData = new FormData($("#formNote")[0]);
+        formData.append('id', $('#formNote').find("button[type = 'submit']").attr('data-id'));
+        formData.append('title', $("#title").val());
+        formData.append('description', CKEDITOR.instances['description'].getData());
+        $.ajax({
+                    url: url,
+                    data: formData,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if(response.status){
+                            $('#exampleModal2').modal('hide');
+                            toastr.success(response.message)
+                            table2.ajax.reload();
+                        }else{  
+                            toastr.error(response.message)
+                        }
 
-                },
-                error: function (error) {
-                    console.log(error.responseJSON)
-                    toastr.error("Error")
-                }
-            });
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON)
+                        toastr.error("Error")
+                    }
+                });
+        }
 })
 
 function getNote(id){
@@ -184,6 +201,10 @@ $(document).on('click', '#delete', function () {
         });
     }
 });
+
+$('#exampleModal2').on('show.bs.modal', function () {
+    $('#formNote').validate().resetForm();
+})
 
 
 

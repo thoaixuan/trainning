@@ -7,10 +7,10 @@
             <div class="note card m-1 mb-3 h-100" >
                 <div class="card-body h-100  d-flex flex-column">
                     <h5 class="card-title">{{ $note->title }}</h5>
-                    @if(strlen(strip_tags($note->description)) > 50)
-                        <p>{!! substr(strip_tags($note->description), 0, 50) . '...' !!}</p>
+                    @if(strlen(strip_tags($note->description)) > 80)
+                        <p>{!! substr(strip_tags($note->description), 0, 80) . '...' !!}</p>
                     @else
-                        <p>{{ strip_tags($note->description) }}</p>
+                        <p>{!! strip_tags($note->description) !!}</p>
                     @endif
                     <a id="view" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal3" onclick="getNote({{ $note->id }})" class="btn btn-primary w-50">View Note</a>
                 </div>

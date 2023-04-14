@@ -101,58 +101,79 @@ $(document).delegate('#update','click', function(e) {
     $('#formUser').find("button[type = 'submit']").attr('data-id',$(this).data('id'));
 });
 
-$('#formUser').on('submit', function(e){
-    e.preventDefault();
-    
-    if($('#name').val() == "" || $('#email').val() == ""){
-        toastr.error('Vui lòng nhập đầy đủ thông tin');
-        return;
-    }
-
-    if($('#password').val() !== ""){
-        if(!checkPassword($('#password').val())){
-            toastr.error('Mật khẩu phải từ 7 đến 25 kí tự, có ít nhất một số và một chữ cái viết hoa');
-            return;
+$('#formUser').validate({
+   rules:{
+        name:{
+            required:true
+        },
+        email:{
+            required:true,
+            email:true
+        },
+        password:{
+            minlength: 7,
+            maxlength: 25,
+            pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
         }
-    }
-
-    if($('#formUser').find("button[type = 'submit']").data('id') == ""){
-        if($('#password').val() == ""){
-            toastr.error('Vui lòng nhập đầy đủ thông tin');
-            return;
-        }
-    }
-   
-    var url = $('#formUser').find("button[type = 'submit']").attr('data-url');
-    var formData = new FormData($("#formUser")[0]);
-    formData.append('id', $('#formUser').find("button[type = 'submit']").attr('data-id'));
-    formData.append('name', $("#name").val());
-    formData.append('email', $("#email").val());
-    formData.append('password', $("#password").val());
-    formData.append('per_id', $("#per_id").val());
-    $.ajax({
-                url: url,
-                data: formData,
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    if(response.status){
-                        $('#exampleModal').modal('hide');
-                        toastr.success(response.message)
-                        table2.ajax.reload();
-                    }else{  
-                        toastr.error(response.message)
-                    }
-
-                },
-                error: function (error) {
-                    console.log(error.responseJSON)
-                    toastr.error("Error")
+   },
+   messages: {
+        name:{
+            required:"Tên không được để trống"
+        },
+        email:{
+            required:"Email không được để trống",
+            email:"Email không hợp lệ"
+        },
+        password: {
+            minlength: "Mật khẩu phải có ít nhất 7 kí tự",
+            maxlength: "Mật khẩu tối đa 25 kí tự",
+            pattern: "Mật khẩu phải chứa ít nhất một số,một chữ và một chữ hoa"
+        }   
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+       
+    },
+    highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(e){
+        var url = $('#formUser').find("button[type = 'submit']").attr('data-url');
+        var formData = new FormData($("#formUser")[0]);
+        formData.append('id', $('#formUser').find("button[type = 'submit']").attr('data-id'));
+        formData.append('name', $("#name").val());
+        formData.append('email', $("#email").val());
+        formData.append('password', $("#password").val());
+        formData.append('per_id', $("#per_id").val());
+        $.ajax({
+            url: url,
+            data: formData,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if(response.status){
+                    $('#exampleModal').modal('hide');
+                    toastr.success(response.message)
+                    table2.ajax.reload();
+                }else{  
+                    toastr.error(response.message)
                 }
-            });
-})
+
+            },
+            error: function (error) {
+                console.log(error.responseJSON)
+                toastr.error("Error")
+            }
+        });
+    }
+});
 
 function getUser(id){
     $.ajax({
@@ -162,6 +183,7 @@ function getUser(id){
        success: function(response) {
            $('#name').val(response.user.name);
            $('#email').val(response.user.email);
+           $('#password').val(response.user.password);
            $('#per_id').val(response.user.per_id);
        }
    });
@@ -190,10 +212,10 @@ $(document).on('click', '#delete', function () {
     }
 });
 
-function checkPassword (input){
-    const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{7,25}$/
-    return regex.test(input)
-}
+$('#exampleModal').on('show.bs.modal', function () {
+    $('#formUser').validate().resetForm();
+})
+
 
 
 
