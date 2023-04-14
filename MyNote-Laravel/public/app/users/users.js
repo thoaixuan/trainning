@@ -154,7 +154,6 @@ $('#formUser').validate({
             url: url,
             data: formData,
             type: 'POST',
-            data: formData,
             processData: false,
             contentType: false,
             success: function (response) {

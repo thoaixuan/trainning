@@ -1,44 +1,7 @@
-$('#contactForm').validate({
-    rules:{
-        name:{
-            required:true
-        },
-        email:{
-            required:true,
-            email: true
-        },
-        detail:{
-            required:true
-        },
-   },
-     messages: {
-        name:{
-            required:'Tên không được để trống'
-        },
-        email:{
-            required:'Email không được để trống',
-            email: 'Email không hợp lệ'
-        },
-        detail:{
-            required:'Tin nhắn không được để trống'
-        },
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.form-group').append(error);
-       
-    },
-    highlight: function (element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-    },
-    submitHandler: function(e){
+$('#contactForm').on('submit', function(){
         var form = $(this);
         var formData = form.serialize();
-        var detail = CKEDITOR.instances.detail.getData();
+        var detail = CKEDITOR.instances.message.getData();
         formData += '&detail=' + encodeURIComponent(detail);
     
     
@@ -50,8 +13,8 @@ $('#contactForm').validate({
           success: function(response) {
             if (response.success) {
                 toastr.success('Gửi liên hệ thành công');
-                CKEDITOR.instances.detail.setData('');
-                $('#contactForm input[type = "text"], #contactForm input[type = "email"],#contactForm input[type = "number"]').val('');
+                CKEDITOR.instances.message.setData('');
+                $('#name, #email,#phone').val('');
                 grecaptcha.reset();
             } else {
               toastr.error("Bạn là robot");
@@ -59,7 +22,6 @@ $('#contactForm').validate({
           }
         });
    
-    }
 })
 
 
@@ -75,7 +37,7 @@ let table3 = $('.table').DataTable({
     autoWidth: false,
     order: [0, "desc"],
     ajax: {
-        url: "getcontact",
+        url: "getcontacts",
         type: 'GET',
         data: function (d) {
             return $.extend({}, d, {
@@ -109,15 +71,16 @@ let table3 = $('.table').DataTable({
             className: "text-center",
             bSortable: false,
             render: function (data, type, row, meta) {
+                var index = meta.row
                 return renderAction([ {
                     class: 'btn btn-sm btn-primary badge text-light',
-                    value: row.index,
+                    value: index,
                     title: 'update',
                     icon: 'fa fa-edit',
                 },
                 {
                     class: 'btn btn-sm btn-primary badge text-light',
-                    value: row.index,
+                    value: index,
                     title: 'delete',
                     icon: 'fa fa-trash',
                 }]);
@@ -129,6 +92,57 @@ let table3 = $('.table').DataTable({
         $('td:eq(0)', row).html(index + 1);
     }
 });
+
+$(document).delegate('#update', 'click', function(){
+    var id = $(this).data("id");
+    getContact(id);
+    $('#contactFormModal').find("button[type = 'submit']").attr('data-id',$(this).data('id'));
+})
+
+$('#contactFormModal').on('submit', function(e){
+    e.preventDefault();
+    var form = new FormData();
+    form.append('id',$('#contactFormModal').find("button[type = 'submit']").attr('data-id'));
+    form.append('name',$('#name').val());
+    form.append('email',$('#email').val());
+    form.append('phone',$('#phone').val());
+    form.append('message',CKEDITOR.instances['message'].getData());
+   
+
+
+    $.ajax({
+      url: "updatecontact",
+      type: "POST",
+      data: form,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+        $('#exampleModal').modal('hide');
+        toastr.success('Sửa thành công');
+        table3.ajax.reload();
+      },
+      error: function(){
+        toastr.error('Sửa thất bại');
+      }
+    });
+
+})
+
+function getContact(id){
+    $.ajax({
+        url: 'getcontact',
+        type: 'GET',
+        data: {
+            'id': id
+        },
+        success: function(response){
+            $('#name').val(response.name);
+            $('#email').val(response.email);
+            $('#phone').val(response.phone);
+            CKEDITOR.instances['message'].setData(response.message);
+        }
+    })
+}
 
 $(document).on('click', '#delete', function () {
     if (confirm("Bạn có chắc muốn xóa?")) {

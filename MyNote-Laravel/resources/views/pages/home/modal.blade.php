@@ -1,6 +1,6 @@
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content dashboard modal-content-3">
+    <div class="modal-content dashboard">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Note</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

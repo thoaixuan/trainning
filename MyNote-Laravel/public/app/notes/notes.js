@@ -117,7 +117,7 @@ $('#formNote').validate({
             required:true
         },
    },
-   messages: {
+     messages: {
         title:{
             required:"Tiêu đề không được để trống"
         },
@@ -144,12 +144,11 @@ $('#formNote').validate({
                     url: url,
                     data: formData,
                     type: 'POST',
-                    data: formData,
                     processData: false,
                     contentType: false,
                     success: function (response) {
                         if(response.status){
-                            $('#exampleModal2').modal('hide');
+                            $('#exampleModal').modal('hide');
                             toastr.success(response.message)
                             table2.ajax.reload();
                         }else{  

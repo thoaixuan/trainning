@@ -18,7 +18,11 @@
     <table class="table table-bordered border-5 border-secondary ">
         
       </table>
+      
 </div>
+@endsection
+@section('modal')
+    @include('pages.users.modal')
 @endsection
 @section('js')
     <script src="{{ asset('/app/users/users.js') }}"></script>

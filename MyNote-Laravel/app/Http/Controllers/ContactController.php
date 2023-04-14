@@ -34,19 +34,6 @@ class ContactController extends Controller
     }   
 
     function sendContact(Request $request){
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'detail' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success'=>false  
-            ]);
-        }
-
-
         if (!$this->verify_recaptcha($request)) {
             return response()->json(['success' => false]);
         }
@@ -58,7 +45,7 @@ class ContactController extends Controller
         $new_object = array('name' => $request->input('name'),
                             'email' => $request->input('email'),
                             'phone' => $request->input('phone'),
-                            'message' => $request->input('detail'));
+                            'message' => $request->input('message'));
 
         $json_data[] = $new_object;
 
@@ -68,7 +55,7 @@ class ContactController extends Controller
         return response()->json(['success' => true]);
     }
 
-    function getContact(Request $Request){
+    function getContacts(Request $Request){
         $file_path = public_path('/contact.json');
         $file_data = file_get_contents($file_path);
 
@@ -85,17 +72,49 @@ class ContactController extends Controller
         echo json_encode($json_data);
     }
 
+    function getContact(Request $Request){
+        $file_path = public_path('/contact.json');
+        $file_data = file_get_contents($file_path);
+
+        $contacts = json_decode($file_data);
+        
+        $index = intval($Request -> id);
+        $contact = $contacts[$index];
+
+        return response()->json($contact);
+    }
+
+    function updateContact(Request $Request){
+        $file_path = public_path('/contact.json');
+        $file_data = file_get_contents($file_path);
+
+        $contacts = json_decode($file_data);
+        
+        $index = intval($Request -> id);
+        $contacts[$index]->name = $Request->name;
+        $contacts[$index]->email = $Request->email;
+        $contacts[$index]->phone = $Request->phone;
+        $contacts[$index]->message = $Request->message;
+
+        $updated_data = json_encode($contacts);
+        file_put_contents($file_path, $updated_data);
+
+        return response()->json(['message' => 'Sửa thành công']);
+    }
+
     function deleteContact(Request $request){
         $file_path = public_path('/contact.json');
         $file_data = file_get_contents($file_path);
 
         $contacts = json_decode($file_data);
 
-        array_splice($contacts, intval($request->id) - 1, 1);
+        array_splice($contacts, intval($request->id), 1);
         $json_data = json_encode($contacts);
         file_put_contents($file_path, $json_data);
 
-        return response()->json($contacts);
+        return response()->json(['message' => 'Xóa thành công']);
     }
 
 }
+
+

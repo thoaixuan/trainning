@@ -10,7 +10,7 @@
           <button class="btn btn-primary w-100" id="formSearch">Search</button>
       </div>
       <div class="col-md-2 mb-2">
-        <button id="new" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-primary w-100" type="submit">New</button>
+        <button id="new" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary w-100" type="submit">New</button>
      </div >
   </div>
 
@@ -19,9 +19,12 @@
       </table>
     </div>
 @endsection
+@section('modal')
+  @include('pages.notes.modal')
+@endsection
 @section('js')
   <script src="{{asset('/app/notes/notes.js') }}"></script>
-  <script src="{{asset('app/main1.js')}}"></script>
+  <script src="{{asset('app/main.js')}}"></script>
   <script>
       CKEDITOR.replace('description');
   </script>

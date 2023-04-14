@@ -7,9 +7,6 @@ let theme = localStorage.getItem('theme')
 let table = document.querySelector('.table')
 let sbitem = document.querySelectorAll('.sidebar__item')
 let modal = document.querySelector('.modal-content')
-let modal1 = document.querySelector('.modal-content-1')
-let modal2 = document.querySelector('.modal-content-2')
-let modal3 = document.querySelector('.modal-content-3')
 
 if(theme === 'light'){
   setLightTheme()
@@ -49,12 +46,10 @@ function setDarkTheme(){
     sbitem.forEach(element => {
       element.classList.add('text_light')
     });
+    if(modal == null)
+      return
     modal.classList.add("dashboard--night")
     modal.classList.add("text-light") 
-    modal2.classList.add("dashboard--night")
-    modal2.classList.add("text-light")
-    modal3.classList.add("dashboard--night")
-    modal3.classList.add("text-light")
 }
 
 function setLightTheme(){
@@ -69,12 +64,10 @@ function setLightTheme(){
     sbitem.forEach(element => {
       element.classList.remove('text_light')
     });
+    if(modal == null)
+      return
     modal.classList.remove("dashboard--night")
     modal.classList.remove("text-light")  
-    modal2.classList.remove("dashboard--night")
-    modal2.classList.remove("text-light")
-    modal3.classList.remove("dashboard--night")
-    modal3.classList.remove("text-light")
 }
 
 

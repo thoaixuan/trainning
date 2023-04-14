@@ -19,6 +19,9 @@
         @endforeach
     </div>
 @endsection
+@section('modal')
+    @include('pages.home.modal')
+@endsection
 @section('js')
     <script>
         CKEDITOR.replace('descriptionView');

@@ -20,9 +20,7 @@
             </div>
         </div>
     </div>
-        @include('pages.users.modal')
-        @include('pages.notes.modal')
-        @include('pages.home.modal')
+        @yield('modal')
         @include('partials.script')
         <script src="{{asset('theme/assets/js/home.js')}}"></script>
         @yield('js')

@@ -44,7 +44,9 @@ Route::controller(ContactController::class)->group(function (){
     Route::get('/contact', 'index')->name('contact');
     Route::post('/contact/sendcontact', 'sendContact')->name('sendcontact');
     Route::get('/contact/list', 'list')->name('list')->middleware('userLoggedIn','checkUserRole');
-    Route::get('/contact/getcontact','getContact')->name('listcontact')->middleware('userLoggedIn','checkUserRole');
+    Route::get('/contact/getcontacts','getContacts')->name('listcontact')->middleware('userLoggedIn','checkUserRole');
+    Route::get('/contact/getcontact','getContact')->name('getcontact')->middleware('userLoggedIn','checkUserRole');
+    Route::post('/contact/updatecontact','updateContact')->name('updatecontact')->middleware('userLoggedIn','checkUserRole');
     Route::get('/contact/deletecontact','deleteContact')->name('deletecontact')->middleware('userLoggedIn','checkUserRole');
 });
 

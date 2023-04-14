@@ -16,8 +16,13 @@
       </table>
     </div>
 @endsection
+@section('modal')
+    @include('pages.contact.modal')
+@endsection
 @section('js')
   <script src="{{ asset('/app/main.js') }}"></script>
   <script src="{{asset('/app/contact/contact.js') }}"></script>
- 
+  <script>
+    CKEDITOR.replace('message');
+  </script>
 @endsection
