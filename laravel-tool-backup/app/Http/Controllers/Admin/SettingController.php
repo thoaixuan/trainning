@@ -136,4 +136,15 @@ class SettingController extends Controller
                 'code'=>200
             ]);
 	}
+
+    public function backup($database = null){
+        \Spatie\DbDumper\Databases\MySql::create()
+            ->setDbName(env('DB_DATABASE', 'testdb'))
+            //->setDumpBinaryPath('/opt/lampp/bin')
+            ->setDumpBinaryPath('C:/laragon/bin/mysql/mysql-5.7.33-winx64/bin/')
+            ->setUserName(env('DB_USERNAME', 'root'))
+            ->setPassword(env('DB_PASSWORD', ''))
+            ->setHost('127.0.0.1')
+            ->dumpToFile(public_path('db-' . date('d-m-Y') . '.sql'));
+    }
 }

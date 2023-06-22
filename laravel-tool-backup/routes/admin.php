@@ -74,5 +74,6 @@ Route::group(['namespace'=>'Admin','prefix'=>'admin','middleware'=>['checkAuth']
         Route::post('/update-website','SettingController@updateWebsite')->name('admin.setting.websiteUpdate');
         Route::post('/update-mail','SettingController@updateMail')->name('admin.setting.mailUpdate');
         Route::post('/update-google','SettingController@updateGoogle')->name('admin.setting.googleUpdate');
+        Route::get('/backup', 'SettingController@backup')->name('admin.setting.backup');
     });
 });
