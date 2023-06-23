@@ -1,4 +1,8 @@
 <?php
+use Spatie\Backup\Tasks\Backup\BackupJob;
+use Spatie\Backup\BackupDestination\BackupDestinationFactory;
+use Spatie\Backup\BackupDestination\BackupDestination;
+use Spatie\Backup\Tasks\Backup\BackupJobFactory;
 
 use Illuminate\Support\Facades\Route;
 
@@ -9,6 +13,20 @@ Route::get('/install', function () {
     return redirect()->route('guest.index');
 });
 */
+Route::get('/backup-db', function () {
+    //Run lệnh backup database.
+    // Create a new backup job for the database only
+    $backupJob = BackupJobFactory::createFromArray(config('backup.backup'));
+
+    // Run the backup job
+    $backupJob->run();
+
+    // Get the backup destination
+    $backupDestination = BackupDestinationFactory::createFromArray(config('backup.backup.destination'));
+
+});
+
+
 $route_admin = route_admin()==null?'admin':route_admin();//admin / setting()->route_admin
 
 Route::group(['namespace'=>'Auth'],function(){

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Settings;
 use Storage;
 use File;
+use Artisan;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 class SettingController extends Controller
 {
     public function index(){
@@ -137,14 +140,61 @@ class SettingController extends Controller
             ]);
 	}
 
-    public function backup($database = null){
-        \Spatie\DbDumper\Databases\MySql::create()
-            ->setDbName(env('DB_DATABASE', 'testdb'))
-            //->setDumpBinaryPath('/opt/lampp/bin')
-            ->setDumpBinaryPath('C:/laragon/bin/mysql/mysql-5.7.33-winx64/bin/')
-            ->setUserName(env('DB_USERNAME', 'root'))
-            ->setPassword(env('DB_PASSWORD', ''))
-            ->setHost('127.0.0.1')
-            ->dumpToFile(public_path('db-' . date('d-m-Y') . '.sql'));
+    public function backup(){
+
+        try {
+            // Create a new Process instance for the Artisan command
+            $process = new Process(['php', 'artisan', 'backup:run', '--only-db']);
+
+            // Run the process
+            $process->run();
+
+            // Check if the process was successful
+            if ($process->isSuccessful()) {
+                $output = $process->getOutput();
+                // Code to be executed after the command is finished
+                // You can place your desired code here
+                // For example, send a notification or perform additional operations
+                // using the $output or any other data
+
+                // Return a response or perform any other actions
+                return 'Backup command executed.';
+            } else {
+                throw new ProcessFailedException($process);
+            }
+        } catch (ProcessFailedException $exception) {
+            // Handle the exception if the process failed
+            return $exception->getMessage();
+        }
+
+        //Run lệnh backup database
+        \Artisan::call('backup:run', [
+            '--only-db' => true,
+        ], function ($output) {
+            // \Log::info($output);
+            // Retrieve the file names in the storage directory
+            $files = Storage::disk('backup')->files();
+
+            // Sort the files by their last modified timestamp
+            usort($files, function ($a, $b) {
+                return Storage::disk('backup')->lastModified($b) - Storage::disk('backup')->lastModified($a);
+            });
+            // Get the name of the last saved file
+            $lastSavedFile = $files[0];
+            
+            // Output the name of the last saved file
+            $path_file = Storage::disk('backup')->path($lastSavedFile);
+            // Upload to google drive
+            $fileName = "backup-".date('d-m-Y').".zip";
+            $fileData = File::get($path_file);
+            Storage::cloud()->put($fileName,$fileData);
+            return "Đã upload google drive";
+        }
+        );
+
+        return "Đã upload google drive 2";
+        // Return download file with new name
+        // return Storage::disk('backup')->download($lastSavedFile, $fileName);
+
     }
 }
