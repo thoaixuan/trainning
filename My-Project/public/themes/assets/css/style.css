@@ -576,11 +576,14 @@ video {
 .share-item:last-child {
     background-color: #1877f2;
 }
+<<<<<<< HEAD
 label.error{
     display: block;
     font-weight: 600;
     color: #790000;
 }
+=======
+>>>>>>> 8f04c8ffc56c54ecf6114122df7aa83f02b2a0e4
 /* Footer */
 .footer-main{
     background-color: #192041;
