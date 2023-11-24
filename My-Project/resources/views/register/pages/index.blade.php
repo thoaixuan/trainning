@@ -1,6 +1,6 @@
 @extends('register.layouts.main')
 @section('main')
-<main class="body-main" id="content">
+    <main class="body-main" id="content">
         <div class="container">
             <article class="register-content">
                 <div class="register-content-top">
@@ -15,7 +15,8 @@
                     </p>
                 </div>
                 <div class="register-content-form">
-                    <form action="/dang-ky-truc-tuyen" method="post" class="form-fpt-register" id="register-form">
+                    <form role="form" action="{{route('pages.postInfo')}}" method="POST" class="form-fpt-register" id="register-form">
+                        @csrf
                         <ul class="register-list">
                             <li class="register-item">
                                 <label for="fullName" class="register-name">Họ và tên <span>*</span></label>
@@ -117,10 +118,10 @@
             </article>
         </div>
     </main>
-<style>
+    <style>
 
-</style>
+    </style>
 @endsection
 @section('registerJs')
-<script src="{{asset('app/registerform.js')}}"></script>
+    <script src="{{ asset('app/registerform.js') }}"></script>
 @endsection

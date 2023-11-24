@@ -18,7 +18,7 @@ $.validator.addMethod(
     function (value, elemt) {
         return (
             this.optional(elemt) ||
-            /^((09|03|07|08|05)+([0-9]{8}))$/im.test(value)
+            /^((84|0[3|5|7|8|9])+([0-9]{8}))$/im.test(value)
         );
     },
     "Nhập đúng định dạng số điện thoại"
@@ -31,16 +31,18 @@ $("#register-form").validate({
     rules: {
         fullName: {
             required: true,
+            maxlength: 255,
             // validateName: true
         },
         phoneNumber: {
             required: true,
+            maxlength: 11,
             validatePhone: true,
-            maxlength: 10,
         },
         email: {
             required: true,
             email: true,
+            maxlength:255
         },
         selectMajor: {
             ForSelect: true,
@@ -50,16 +52,17 @@ $("#register-form").validate({
         },
     },
     messages: {
-        fullName: "Nhập đầy đủ họ và tên",
+        fullName: "Họ và tên không được để trống",
         phoneNumber: {
-            required: "Nhập đầy đủ số điện thoại",
-            maxlength: "Số điện thoại không vượt quá 12 ký tự",
+            required: "Số điện thoại không được để trống",
+            maxlength: "Số điện thoại không vượt quá 11 ký tự",
         },
-        email: "Nhập đúng định dạng Email",
+        email:{
+            required: "Email không được để trống",
+            email: "Nhập đúng định dạng Email",
+        }
     },
-    submitHandler: function (e) {
-        let path = window.location.pathname;
-        window.location.href = path + "/thanh-cong";
-        $("#register-form")[0].reset();
+    submitHandler: function (form) {
+        form.submit();
     },
 });

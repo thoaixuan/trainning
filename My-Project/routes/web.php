@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 Route::group(['prefix'=>'/dang-ky-tuyen-sinh'],function(){
     Route::get('/',[RegisterEnrollmentController::class,'index'])->name('pages.index');
+    Route::post('/them-thong-tin',[RegisterEnrollmentController::class,'postInfo'])->name('pages.postInfo');
     Route::get('/thanh-cong',[RegisterEnrollmentController::class,'success'])->name('pages.success');
 });
 
