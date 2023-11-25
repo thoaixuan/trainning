@@ -9,13 +9,14 @@
 </head>
 
 <body>
-    <h2>Xin chào{{ $data['data']['fullname'] }}</h2>
+    <h2>Xin chào {{ $data['data']['fullName'] }}</h2>
     <div style="font-weight:600">
         <p>CHúng tôi vừa nhận được mẫu đăng ký tư vấn tuyển sinh của bạn.</p>
         <p>Bạn vui lòng xác nhận lại những thông tin sau:</p>
-        <p>Số điện thoại: {{ $data['data']['phone'] }}</p>
-        <p>Ngành học đăng ký: {{ $data['data']['major'] }}</p>
-        <p>Địa chỉ đăng ký: {{ $data['data']['address'] }}</p>
+        <p>Số điện thoại: {{ $data['data']['phoneNumber'] }}</p>
+        <p>Ngành học đăng ký: {{ $data['data']['selectMajor'] }}</p>
+        <p>Địa chỉ đăng ký: {{ $data['data']['selectAddress'] }}</p>
+        <p>Link facebook: {{ $data['data']['linkFb'] }}</p>
     </div>
 
 </body>

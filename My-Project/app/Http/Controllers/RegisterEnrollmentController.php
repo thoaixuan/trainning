@@ -36,14 +36,7 @@ class RegisterEnrollmentController extends Controller
 
         } else{
                 $emails = $request->email;
-                $dataInfo = array(
-                    "fullname" => $request->fullName,
-                    'phone' => $request->phoneNumber,
-                    'major' => $request->selectMajor,
-                    "address" => $request->selectAddress,
-                );
-                // Gửi mail
-                \Mail::to($emails)->send (new \App\Mail\SendMail(['data' => $dataInfo]));
+                \Mail::to($emails)->send (new \App\Mail\SendMail(['data' => $request]));
                 return redirect()->route('pages.success');
         }
 

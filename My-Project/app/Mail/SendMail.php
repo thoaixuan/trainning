@@ -30,7 +30,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->subject)->replyTo('taehuntaengoo93@gmail.com', 'Vũ My')->view('register.emails.send_mail', [
+        return $this->subject($this->subject)->replyTo($this->data['data']['email'], $this->data['data']['fullName'])->view('register.emails.send_mail', [
             'data' =>$this->data
         ]);
     }

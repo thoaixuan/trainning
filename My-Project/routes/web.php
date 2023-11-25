@@ -13,10 +13,7 @@ use App\Http\Controllers\RegisterEnrollmentController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::group(['prefix'=>'/dang-ky-tuyen-sinh'],function(){
+Route::group(['prefix'=>'/'],function(){
     Route::get('/',[RegisterEnrollmentController::class,'index'])->name('pages.index');
     Route::post('/them-thong-tin',[RegisterEnrollmentController::class,'postInfo'])->name('pages.postInfo');
     Route::get('/thanh-cong',[RegisterEnrollmentController::class,'success'])->name('pages.success');
