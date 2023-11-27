@@ -1,6 +1,14 @@
 @extends('register.layouts.main')
 @section('main')
     <main class="body-main" id="content">
+        <div class="banner-hero">
+                <ul class="banner_list" id="banner-slider">
+                    <li class="banner-item"><img src="{{asset('themes/assets/images/banner-1.webp')}}" alt="" class="banner-img"></li>
+                    <li class="banner-item"><img src="{{asset('themes/assets/images/banner-2.webp')}}" alt="" class="banner-img"></li>
+                    <li class="banner-item"><img src="{{asset('themes/assets/images/banner-3.webp')}}" alt="" class="banner-img"></li>
+                    <li class="banner-item"><img src="{{asset('themes/assets/images/banner-4.webp')}}" alt="" class="banner-img"></li>
+                </ul>
+            </div>
         <div class="container">
             <article class="register-content">
                 <div class="register-content-top">

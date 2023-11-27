@@ -1,3 +1,16 @@
+// Slick carousel
+$('#banner-slider').slick({
+    infinite: true,
+    speed: 300,
+    autoplay: true,
+  autoplaySpeed: 2000,
+  prevArrow:"<button type='button' class='slick-prev'><i class='fa fa-angle-left''></i></button>",
+            nextArrow:"<button type='button' class='slick-next'><i class='fa fa-angle-right'></i></button>"
+  });
+
+
+
+
 // add validate select
 $.validator.addMethod(
     "ForSelect",

@@ -16,8 +16,8 @@
                                         <div class="menu-top-right-container">
                                             <ul class="menu-top-right__list">
                                                 <li class="menu-item menu-item-type-custom ">
-                                                    <a href="#"><i class="fa fa-envelope"
-                                                            style="padding-right: 10px;"></i>caodang@fpt.edu.vn</a>
+                                                    <a href="#"><i class="fas fa-envelope" style="padding-right: 10px;"></i>
+                                                        caodang@fpt.edu.vn</a>
                                                 </li>
                                                 <li class="menu-item menu-item-type-custom">
                                                     <a href="#"><i class="fas fa-phone-alt"
