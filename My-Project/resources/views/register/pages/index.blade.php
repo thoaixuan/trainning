@@ -33,7 +33,7 @@
                             </li>
                             <li class="register-item">
                                 <label for="phoneNumber" class="register-name">Số điện thoại <span>*</span></label>
-                                <input name="phoneNumber" id="phoneNumber" type="number" value="" class="ip-global"
+                                <input name="phoneNumber" id="phoneNumber" type="text" value="" class="ip-global"
                                     placeholder="Số điện thoại *">
                             </li>
                             <li class="register-item">

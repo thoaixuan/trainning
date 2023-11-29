@@ -1,9 +1,32 @@
+// $(window).ready(function() {
+//     $(window).scroll(function() {
+//         if ($(this).scrollTop()) {
+//             $('header').addClass('sticky');
+//         } else {
+//             $('header').removeClass('sticky');
+//         }
+//     });
+// });
+window.onscroll = function() {myFunction()};
+
+var header = document.getElementById("header");
+var sticky = header.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset > sticky) {
+    header.classList.add("sticky");
+  } else {
+    header.classList.remove("sticky");
+  }
+}
+
 // Slick carousel
 $('#banner-slider').slick({
     infinite: true,
     speed: 300,
     autoplay: true,
   autoplaySpeed: 2000,
+  dots: true,
   prevArrow:"<button type='button' class='slick-prev'><i class='fa fa-angle-left''></i></button>",
             nextArrow:"<button type='button' class='slick-next'><i class='fa fa-angle-right'></i></button>"
   });
@@ -13,18 +36,18 @@ $('#banner-slider').slick({
 
 // add validate select
 $.validator.addMethod(
-    "ForSelect",
+    "major",
     function (value, element, param) {
         return value != "";
     },
-    "Trường này là bắt buộc"
+    "Bạn chưa chọn ngành học"
 );
 $.validator.addMethod(
-    "ForSelect",
+    "address",
     function (value, element, param) {
         return value != "";
     },
-    "Trường này là bắt buộc"
+    "Bạn chưa chọn địa chỉ"
 );
 $.validator.addMethod(
     "validatePhone",
@@ -36,16 +59,26 @@ $.validator.addMethod(
     },
     "Nhập đúng định dạng số điện thoại"
 );
-// $.validator.addMethod("validateName", function (value, elemt) {
-//     return this.optional(elemt) || /^[A-Za-z\s\-\.]+$/im.test(value);
-// }, "Nhập đúng định dạng Họ và tên")
-// Validate
+$.validator.addMethod(
+    "validateName",
+    function (value, elemt) {
+        return (
+            this.optional(elemt) ||
+            /^[a-zA-Z\D\s]+$/im.test(value)
+        );
+    },
+    "Họ và tên không chứa ký tự số"
+);
+
+
+ // Validate
 $("#register-form").validate({
     rules: {
         fullName: {
             required: true,
-            maxlength: 255,
-            // validateName: true
+            validateName: true,
+            minlength: 5,
+            maxlength:255
         },
         phoneNumber: {
             required: true,
@@ -58,14 +91,17 @@ $("#register-form").validate({
             maxlength:255
         },
         selectMajor: {
-            ForSelect: true,
+            major: true,
         },
         selectAddress: {
-            ForSelect: true,
+            address: true,
         },
     },
     messages: {
-        fullName: "Họ và tên không được để trống",
+        fullName: {
+            required: "Họ và tên không được để trống",
+            minlength: "Họ và tên không nhỏ hơn 5 ký tự",
+        },
         phoneNumber: {
             required: "Số điện thoại không được để trống",
             maxlength: "Số điện thoại không vượt quá 11 ký tự",
