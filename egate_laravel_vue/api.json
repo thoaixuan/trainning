@@ -1,0 +1,85 @@
+{
+    "api": {
+        "baseURL": "https://sys-api.e-gate.vn",
+        "socketURL": "https://socket.e-gate.vn",
+        "crawlURL": "http://crawl.e-gate.vn"
+    },
+    "news": {
+        "getNews": "/api/news/getAllIndex",
+        "getByID": "/api/mobile/news/getByID"
+    },
+    "product": {
+        "getAll": "/api/product/getAllIndex",
+        "getCategory": "/api/category/getAll",
+        "getByID": "/api/product/getByID"
+    },
+    "setting": {
+        "setting": "/api/setting",
+        "getSetting": "/api/mobile/setting",
+        "settingByKey": "/api/mobile/setting/byKey"
+    },
+    "auth": {
+        "login": "/api/mobile/auth/login",
+        "register": "/api/mobile/auth/register",
+        "info": "/api/mobile/profile/info",
+        "changePass": "/api/mobile/auth/change-password",
+        "forgotPass": "/api/mobile/auth/forgot-password",
+        "update": "/api/mobile/profile/update",
+        "changePassProfile": "/api/mobile/profile/changepassword",
+        "uploadImage": "/api/upload/image"
+    },
+    "cart": {
+        "order": "/api/order/create",
+        "payment": "/api/payment/create",
+        "getOrder": "/api/order/getAll"
+    },
+    "address": {
+        "provinces": "/api/address/provinces",
+        "districts": "/api/address/districts",
+        "wards": "/api/address/wards"
+    },
+    "user": {
+        "update": "/api/user/update",
+        "insert": "/api/user/insert",
+        "remove": "/api/user/delete"
+    },
+    "ticket": {
+        "get": "/api/ticket",
+        "getById": "/api/ticket",
+        "postReplyData": "/api/ticket/reply",
+        "insert": "/api/ticket",
+        "update": "/api/ticket",
+        "delete": "/api/ticket",
+        "type": "/api/ticket/all/type",
+        "priority": "/api/ticket/all/priority",
+        "close": "/api/ticket/close",
+        "anonymous": "/api/ticket/anonymous/send"
+    },
+    "egate": {
+        "get": "/api/egproduct/getAll",
+        "getById": "/api/egproduct/getByID",
+        "listLogDevice": "/api/egproduct/listLogDevice"
+    },
+    "location": {
+        "getByIdCustommer": "/api/mobile/address/getAllByCustomer",
+        "getLocation": "/api/location/getAll",
+        "updateWithCustomer": "/api/mobile/address/updateWithCustomer",
+        "deletes": "/api/mobile/address/deletes"
+    },
+    "loginGoogle": {
+        "url": "/api/mobile/auth/login/google"
+    },
+    "payment_online": {
+        "orderByID": "/api/web/order/getByID",
+        "paymentCreate": "/api/payment/createPaymentByUrl"
+    },
+    "wallet": {
+        "getBalance": "/api/mobile/wallet/balance",
+        "getHistory": "/api/mobile/wallet/history",
+        "getWaiting": "/api/mobile/wallet/waiting",
+        "deposit": "/api/mobile/wallet/deposit",
+        "withdraw": "/api/mobile/wallet/withdraw",
+        "transfer": "/api/wallet/transfer",
+        "checkInfoTransfer": "/api/wallet/checkInfoTransfer"
+    }
+}
