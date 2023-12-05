@@ -1,0 +1,88 @@
+.error{
+    padding-left: 5px;
+    padding-top: 5px;
+    display: block;
+    color: #ee0033;
+}
+.card-table .data-table-btn{
+    inset-inline-start: 30.5rem;
+    margin: 0;
+}
+.card-home .btn-primary{
+    width: 45%;
+}
+.card-home .d-flex{
+    align-items: center;
+}
+.card-home .d-flex h3{
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.card-home .badge {
+    padding: 0.6rem 1.3rem !important;
+    font-size: 12px;
+    font-weight: 700;
+}
+.card-home .fw-normal{
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.dataTables_length{
+    margin-bottom: 20px;
+}
+table thead tr th:nth-child(2), .table>tbody tr td:nth-child(2){
+    max-width: 150px;
+    width: 100px !important;
+    overflow: hidden;
+    white-space: inherit;
+    text-overflow: ellipsis;
+}
+table thead tr th:nth-child(3), .table>tbody tr td:nth-child(3){
+    width: 150px !important;
+    max-width: 200px;
+}
+tbody tr td{
+    white-space: initial;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+tbody tr td p {
+    white-space: initial ;
+    margin-bottom: 0;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+.modal-header{
+    justify-content: center;
+}
+.modal-header .btn-close{
+    position: absolute;
+    right: 10px;
+    margin: 0;
+}
+.modal-header .modal-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+.modal-body{
+    text-align: left;
+}
+.ql-editor{
+    min-height: 10rem !important;
+}
+/*  users */
+.la-user-plus{
+    font-size: 20px;
+}
+.add-users form div>label span{
+    color: #ee0033;
+}
