@@ -20,6 +20,10 @@ function renderAction(data) {
     return htmlButton;
 }
 
+function renderTdTable(data) {
+    var htmlButton = `<div class="per_users" id='per_users'></div>`;
+    return htmlButton;
+}
 
 function changeDate(data) {
     if (data == null || data == "") {

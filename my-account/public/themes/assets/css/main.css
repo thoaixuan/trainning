@@ -1,3 +1,6 @@
+.page ::-webkit-scrollbar{
+    height: 10px;
+}
 .error{
     padding-left: 5px;
     padding-top: 5px;
@@ -33,6 +36,9 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
 }
+
+/* Table */
+
 .dataTables_length{
     margin-bottom: 20px;
 }
@@ -61,6 +67,12 @@ tbody tr td p {
     display: -webkit-box;
     -webkit-box-orient: vertical;
 }
+table.dataTable td, table.dataTable th{
+    text-align: center;
+}
+
+/* Modal */
+
 .modal-header{
     justify-content: center;
 }
@@ -80,9 +92,20 @@ tbody tr td p {
     min-height: 10rem !important;
 }
 /*  users */
-.la-user-plus{
+.add-users .las{
     font-size: 20px;
 }
 .add-users form div>label span{
     color: #ee0033;
+}
+.add-users .nav-item{
+    position: relative;
+}
+
+.add-users .nav-item .nav-link {
+    width: 200px;
+}
+.tab-content .tab-pane{
+    padding: 0;
+    border: none;
 }

@@ -205,26 +205,3 @@ $("#onDelete").on("click", function (e) {
 });
 
 
-    // $(document).on('click', '#delete', function () {
-    //     $("#modal-delete").modal('show');
-    //     var id = $(this).data("id");
-    //     $("#onDelete").attr('value', id);
-    //     $.ajax({
-    //         url: routeNote.delete,
-    //         type: 'GET',
-    //         data: {
-    //             "id": id
-    //         },
-    //         success: function (response) {
-    //             if (response.status) {
-    //                 toastr.success(response.message);
-    //                 DataTable.ajax.reload();
-    //             } else {
-    //                 toastr.error(response.message);
-    //             }
-    //         },
-    //         error: function () { toastr.error("Xóa không thành công!") }
-
-    //     });
-    // });
-

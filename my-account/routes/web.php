@@ -45,7 +45,7 @@ Route::prefix('users')->group(function(){
     Route::get('/table-users','Users\UserController@getTableUsers')->name('users.table')->middleware('userLoggedIn');
     Route::get('/create','Users\UserController@createUsers')->name('users.create')->middleware('userLoggedIn');
     Route::post('/create-users','Users\UserController@createUsersPost')->name('users.createpost')->middleware('userLoggedIn');
-    Route::get('/update','Users\UserController@update')->name('users.update')->middleware('userLoggedIn');
+    Route::get('/update/{id?}','Users\UserController@update')->name('users.update')->middleware('userLoggedIn');
     Route::post('/update-users','Users\UserController@updateUsersPost')->name('users.updatepost')->middleware('userLoggedIn');
     Route::get('/delete','Users\UserController@delete')->name('users.delete')->middleware('userLoggedIn');
 });

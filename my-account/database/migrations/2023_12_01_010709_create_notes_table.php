@@ -17,7 +17,7 @@ class CreateNotesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->enum('status', ['Done', 'Processing', 'Cancel'])->default('Done');
+            $table->enum('status', ['Done', 'Processing', 'Cancel'])->default('Done')->nullable();
             $table->timestamps();
         });
     }

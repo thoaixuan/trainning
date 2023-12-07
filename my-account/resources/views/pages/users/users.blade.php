@@ -43,7 +43,7 @@
                         <div class="table-responsive">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table id="table-note"
+                                    <table id="table-users"
                                         class="table table-bordered text-nowrap w-100 dataTable no-footer"
                                         aria-describedby="add-row_info"></table>
                                 </div>
