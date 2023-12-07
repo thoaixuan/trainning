@@ -94,8 +94,7 @@ class AuthController extends Controller
     }
 
     Public function logout(){
-        session::fflush();
         Auth::logout();
-        return redirect(route('login'));
+        return redirect()->route('login');
     }
 }

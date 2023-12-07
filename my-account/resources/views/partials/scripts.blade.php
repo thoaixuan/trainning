@@ -6,8 +6,8 @@
 <script src="{{url('themes/assets/js/show-password.js')}}"></script>
 <script src="{{url('themes/assets/js/authentication-main.js')}}"></script>
 
-{{-- <script src="{{url('themes/assets/js/select2.js')}}"></script> --}}
-{{-- <script src="{{url('themes/assets/js/select2.min.js')}}"></script> --}}
+{{-- <script src="{{url('themes/assets/libs/quill/quill.min.js')}}"></script>
+<script src="{{url('themes/assets/js/quill-editor.js')}}"></script> --}}
 <script src="{{url('themes/assets/libs/moment\min\moment.min.js')}}"></script>
 <script src="{{asset('themes/assets/libs/ckeditor/ckeditor.js')}}"></script>
 <script src="{{asset('themes/assets/js/jquery.dataTables.min.js')}}"></script>

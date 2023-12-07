@@ -1,10 +1,5 @@
 @extends('layouts.main')
 @section('main')
-
-   <!-- Start::app-content -->
-   <div class="main-content app-content">
-       <div class="container-fluid">
-
            <!-- PAGE-HEADER -->
            <div class="page-header">
              <h1 class="page-title my-auto">My Note Today</h1>
@@ -53,9 +48,6 @@
             @include('pages.home.modal')
            </div>
            <!-- ROW-1 END -->
-       </div>
-   </div>
-   <!-- End::app-content -->
 
 @endsection
 @section('js')

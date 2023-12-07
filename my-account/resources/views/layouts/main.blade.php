@@ -13,7 +13,11 @@
     <div class="page">
         @include('includes.header')
         @include('includes.sidebar')
-        @yield('main')
+        <div class="main-content app-content">
+            <div class="container-fluid">
+                @yield('main')
+            </div>
+        </div>
         @include('includes.footer')
         @include('delete.delete')
     </div>

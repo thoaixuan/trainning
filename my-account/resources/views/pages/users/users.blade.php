@@ -1,8 +1,5 @@
 @extends('layouts.main')
 @section('main')
-<div class="main-content app-content">
-    <div class="container-fluid">
-
         <!-- PAGE-HEADER -->
         <div class="page-header">
             <h1 class="page-title my-auto">Chào mừng bạn quay trở lại!</h1>
@@ -54,8 +51,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
 @endsection
 @section('js')
     <script>

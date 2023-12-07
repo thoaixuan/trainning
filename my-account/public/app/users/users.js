@@ -58,9 +58,9 @@
                 data: "status",
                 render: function (data, type, row, meta) {
                     if(data == 1){
-                        return '<p >' + 'Hoạt động' + '</p>';
+                        return '<span class="badge bg-success-transparent rounded-pill text-success p-2 px-3">' + 'Hoạt động' + '</span>';
                     } else {
-                        return '<p >' + 'Ngừng hoạt động' + '</p>';
+                        return '<span class="badge bg-danger-transparent rounded-pill text-danger p-2 px-3">' + 'Ngừng hoạt động' + '</span>';
                     }
                 },
             },

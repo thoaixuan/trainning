@@ -48,13 +48,13 @@
                     </a>
                 </li>
                 <li class="slide">
-                    <a href="{{route('home.index')}}" class="side-menu__item">
+                    <a href="{{route('contact.index')}}" class="side-menu__item">
                         <i class="fe fe-phone-call side-menu__icon"></i>
                         <span class="side-menu__label">Contact</span>
                     </a>
                 </li>
                 <li class="slide">
-                    <a href="{{route('home.index')}}" class="side-menu__item">
+                    <a href="{{route('logout')}}" class="side-menu__item">
                         <i class="fe fe-log-out side-menu__icon"></i>
                         <span class="side-menu__label">Logout</span>
                     </a>

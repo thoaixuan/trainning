@@ -88,8 +88,12 @@ table.dataTable td, table.dataTable th{
 .modal-body{
     text-align: left;
 }
+.ql-container{
+    height: 12rem;
+}
 .ql-editor{
-    min-height: 10rem !important;
+    min-height: 2rem !important;
+    max-height: 5rem;
 }
 /*  users */
 .add-users .las{

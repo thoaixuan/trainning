@@ -1,7 +1,5 @@
 @extends('layouts.main')
 @section('main')
-    <div class="main-content app-content">
-        <div class="container-fluid">
             <div class="page-header">
                 <h1 class="page-title my-auto" id="page-title">Cập nhật thông tin tài khoản</h1>
                 <div>
@@ -107,8 +105,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 @endsection
 @section('js')
     <script>

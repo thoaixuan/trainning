@@ -1,7 +1,6 @@
 @extends('layouts.main')
 @section('main')
-<div class="main-content app-content">
-    <div class="container-fluid">
+
         <div class="page-header">
             <h1 class="page-title my-auto" id="page-title">Tạo tài khoản mới!</h1>
             <div>
@@ -72,9 +71,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
 @endsection
 @section('js')
 <script>

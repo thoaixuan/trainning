@@ -1,7 +1,5 @@
 @extends('layouts.main')
 @section('main')
-    <div class="main-content app-content">
-        <div class="container-fluid">
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
@@ -52,8 +50,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 @endsection
 @section('js')
     <script>

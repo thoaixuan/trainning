@@ -21,9 +21,9 @@
                     <label for="statusHome" class="col-form-label">Status</label>
                     <select class="form-select mb-3" name="statusHome" id='statusHome' disabled>
                         <option value="">Choose status</option>
-                        <option value="Done">Done</option>
-                        <option value="Processing">Processing</option>
-                        <option value="Cancel">Cancel</option>
+                        <option value="2">Done</option>
+                        <option value="1">Processing</option>
+                        <option value="0">Cancel</option>
                     </select>
                 </div>
             </div>

@@ -32,15 +32,15 @@
             {
                 title: "Status",
                 data: "status",
-                // render: function (data, type, row, meta) {
-                //     if(data == 'Done'){
-                //         return <span class="badge bg-success-transparent rounded-pill text-success p-2 px-3"></span>
-                //     }else if(Data == 'Processing'){
-
-                //     } else {
-
-                //     }
-                // },
+                render: function (data, type, row, meta) {
+                    if(data == 1){
+                        return '<span class="badge bg-warning-transparent rounded-pill text-warning p-2 px-3" >' + 'Processing' + '</span>';
+                    } else if(data == 2){
+                        return '<span class="badge bg-success-transparent rounded-pill text-success p-2 px-3">' + 'Done' + '</span>';
+                    } else {
+                        return '<span class="badge bg-danger-transparent rounded-pill text-danger p-2 px-3">' + 'Cancel' + '</span>';
+                    }
+                },
             },
             {
                 title: "Created at",

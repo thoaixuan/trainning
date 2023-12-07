@@ -50,3 +50,8 @@ Route::prefix('users')->group(function(){
     Route::get('/delete','Users\UserController@delete')->name('users.delete')->middleware('userLoggedIn');
 });
 
+Route::prefix('contact')->group(function(){
+    Route::get('/','Contact\ContactController@index')->name('contact.index')->middleware('userLoggedIn');
+    Route::post('/contactpost','Contact\ContactController@contactPost')->name('contact.post')->middleware('userLoggedIn');
+
+});

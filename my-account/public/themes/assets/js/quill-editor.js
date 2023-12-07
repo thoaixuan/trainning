@@ -26,6 +26,7 @@
             toolbar: toolbarOptions,
         },
         theme: "snow",
+        placeholder: 'Nhập nội dung',
     });
 
     /* quill bubble editor */
