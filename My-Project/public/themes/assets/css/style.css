@@ -226,7 +226,7 @@ video {
     top: 45px;
     left: 0;
     width: 100%;
-    z-index: 9995;
+    z-index: 1;
     transform: translateY(0);
     transition: all .1s ease-in;
     background-color: rgba(39, 47, 84, 1);
