@@ -2,7 +2,6 @@
 <script src="{{url('themes/assets/js/jquery.validate.min.js')}}"></script>
 <script src="{{url('themes/assets/libs/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{url('themes/assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{url('themes/assets/libs//toastr/toastr.min.js')}}"></script>
 <script src="{{url('themes/assets/js/show-password.js')}}"></script>
 <script src="{{url('themes/assets/js/authentication-main.js')}}"></script>
 
@@ -21,6 +20,7 @@
 <script src="{{url('themes/assets/libs/simplebar/simplebar.min.js')}}"></script>
 <script src="{{url('themes/assets/js/simplebar.js')}}"></script>
 <script src="{{url('themes/assets/libs/@simonwep/pickr/pickr.es5.min.js')}}"></script>
+<script src="{{url('themes/assets/libs//toastr/toastr.min.js')}}"></script>
 <script src="{{url('themes/assets/js/main.js')}}"></script>
 {{-- <script src="{{url('themes/assets/js/index.js')}}"></script> --}}
 {{-- <script src="{{url('themes/assets/js/custom.js')}}"></script> --}}

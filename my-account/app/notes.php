@@ -10,5 +10,8 @@ class notes extends Model
     protected $fillable = [
         'title',
         'description',
+        'status',
+        'userId',
+        'userName',
     ];
 }

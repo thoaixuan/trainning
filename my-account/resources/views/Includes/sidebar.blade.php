@@ -27,7 +27,7 @@
                 <!-- End::slide__category -->
 
                 <!-- Start::slide -->
-                <li class="slide">
+                <li class="slide slide-item {{ request()->is('home*') ? 'active' : '' }}">
                     <a href="{{route('home.index')}}" class="side-menu__item">
                         <i class="fe fe-home side-menu__icon"></i>
                         <span class="side-menu__label">Dashboard</span>
@@ -35,25 +35,25 @@
                 </li>
                 <!-- End::slide -->
 
-                <li class="slide">
+                <li class="slide slide-item {{ request()->is('mynote*') ? 'active' : '' }}">
                     <a href="{{route('note.index')}}" class="side-menu__item">
                         <i class="fe fe-file-text side-menu__icon"></i>
                         <span class="side-menu__label">MyNotes</span>
                     </a>
                 </li>
-                <li class="slide">
+                <li class="slide slide-item {{ request()->is('users*') ? 'active' : '' }}">
                     <a href="{{route('users.index')}}" class="side-menu__item">
                         <i class="fe fe-users side-menu__icon"></i>
                         <span class="side-menu__label">User</span>
                     </a>
                 </li>
-                <li class="slide">
+                <li class="slide slide-item {{ request()->is('contact*') ? 'active' : '' }}">
                     <a href="{{route('contact.index')}}" class="side-menu__item">
                         <i class="fe fe-phone-call side-menu__icon"></i>
                         <span class="side-menu__label">Contact</span>
                     </a>
                 </li>
-                <li class="slide">
+                <li class="slide slide-item">
                     <a href="{{route('logout')}}" class="side-menu__item">
                         <i class="fe fe-log-out side-menu__icon"></i>
                         <span class="side-menu__label">Logout</span>
@@ -69,3 +69,17 @@
 
 </aside>
 <!-- End::app-sidebar -->
+
+{{-- <script>
+    $('nav li').on('click',function(e){
+      e.preventDefault();
+       //first remove active class from lists and aside elements
+       $('nav li a').removeClass('active');
+       //add active class on clicked menu item
+       $(this).addClass('active');
+       //add active class on relevant aside element
+      var itemClass = this.classList;//eg. artists active
+       $('a.'+itemClass[0]).addClass('active');//eg. add active on aside.artists
+    });
+</script> --}}
+

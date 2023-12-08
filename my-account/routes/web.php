@@ -26,6 +26,7 @@ Route::post('/loginpost','Auth\AuthController@loginPost')->name('login.post');
 Route::get('/register', 'Auth\AuthController@register')->name('register');
 Route::post('/registerpost', 'Auth\AuthController@registerPost')->name('register.post');
 Route::get('/logout','Auth\AuthController@logout')->name('logout');
+Route::get('/404', 'Auth\AuthController@index404')->name('error.404');
 
 Route::get('/home','Home\HomeController@index')->name('home.index')->middleware('userLoggedIn');
 
@@ -41,13 +42,13 @@ Route::prefix('mynote')->group(function(){
 });
 
 Route::prefix('users')->group(function(){
-    Route::get('/','Users\UserController@index')->name('users.index')->middleware('userLoggedIn');
-    Route::get('/table-users','Users\UserController@getTableUsers')->name('users.table')->middleware('userLoggedIn');
-    Route::get('/create','Users\UserController@createUsers')->name('users.create')->middleware('userLoggedIn');
-    Route::post('/create-users','Users\UserController@createUsersPost')->name('users.createpost')->middleware('userLoggedIn');
-    Route::get('/update/{id?}','Users\UserController@update')->name('users.update')->middleware('userLoggedIn');
-    Route::post('/update-users','Users\UserController@updateUsersPost')->name('users.updatepost')->middleware('userLoggedIn');
-    Route::get('/delete','Users\UserController@delete')->name('users.delete')->middleware('userLoggedIn');
+    Route::get('/','Users\UserController@index')->name('users.index')->middleware('userLoggedIn', 'CheckPerUsers');
+    Route::get('/table-users','Users\UserController@getTableUsers')->name('users.table')->middleware('userLoggedIn', 'CheckPerUsers');
+    Route::get('/create','Users\UserController@createUsers')->name('users.create')->middleware('userLoggedIn', 'CheckPerUsers');
+    Route::post('/create-users','Users\UserController@createUsersPost')->name('users.createpost')->middleware('userLoggedIn', 'CheckPerUsers');
+    Route::get('/update/{id?}','Users\UserController@update')->name('users.update')->middleware('userLoggedIn', 'CheckPerUsers');
+    Route::post('/update-users','Users\UserController@updateUsersPost')->name('users.updatepost')->middleware('userLoggedIn', 'CheckPerUsers');
+    Route::get('/delete','Users\UserController@delete')->name('users.delete')->middleware('userLoggedIn', 'CheckPerUsers');
 });
 
 Route::prefix('contact')->group(function(){

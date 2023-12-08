@@ -1,9 +1,8 @@
 @extends('layouts.main')
 @section('main')
-
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title my-auto">Welcome!</h1>
+                <h1 class="page-title my-auto">Note của {{$user->name}}</h1>
                 <div>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item">

@@ -97,4 +97,7 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+    public function index404(){
+        return view('error.404');
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Note;
 use App\notes;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -11,32 +12,45 @@ class MyNoteController extends Controller
 {
     public function index()
     {
-        return view('pages.notes.notes');
+        $user = Auth::user();
+        return view('pages.notes.notes', (['user'=>$user]));
     }
-    public function getDatatable(Request $Request)
+    public function getDatatable(Request $request)
     {
-        $columns [] ='id';
-        $columns [] ='title';
-        $columns [] ='description';
-        $columns [] ='status';
+        $columns = ['id', 'title', 'description', 'status'];
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $orderColumn = $columns[$request->input('order.0.column')];
+        $orderDirection = $request->input('order.0.dir');
+        $searchValue = $request->input('search.value');
+        
+        $userId = Auth::user()->id; // Lấy ID của người dùng đã đăng nhập
 
-        $limit = $Request->input('length');
-        $start = $Request->input('start');
-        $order = $columns[$Request->input('order.0.column')];
-        $dir = $Request->input('order.0.dir');
-        // $search = $Request->input('search');
-        $totalData =  notes::count();
-            $notes = notes::offset($start)
+        $query = notes::where('userId', $userId); // Lọc theo user_id
+
+        if (!empty($searchValue)) {
+            $query->where(function ($query) use ($columns, $searchValue) {
+                foreach ($columns as $column) {
+                    $query->orWhere($column, 'LIKE', '%' . $searchValue . '%');
+                }
+            });
+        }
+
+        $totalData = $query->count();
+
+        $notes = $query->offset($start)
             ->limit($limit)
-            ->orderBy($order,$dir)
+            ->orderBy($orderColumn, $orderDirection)
             ->get();
-        $json_data = array(
-            "draw"            => intval($Request->input('draw')),
+
+        $json_data = [
+            "draw"            => intval($request->input('draw')),
             "recordsTotal"    => intval($totalData),
             "recordsFiltered" => intval($totalData),
             "data"            => $notes
-        );
-        echo json_encode($json_data);
+        ];
+
+        return response()->json($json_data);
     }
 
     public function create(){
@@ -63,10 +77,7 @@ class MyNoteController extends Controller
             ]);
         }
 
-        $notes = new notes;
-        $notes->title = $Request->title;
-        $notes->description = $Request->description;
-        $notes->status = $Request->status;
+        $notes = new notes($Request->all());
         if($notes->save()){
             return response()->json([
             'status' => 1,

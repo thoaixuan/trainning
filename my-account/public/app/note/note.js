@@ -57,6 +57,10 @@
                 },
             },
             {
+                title: "Created by",
+                data: "userName",
+            },
+            {
                 title: "Action",
                 className: "text-center",
                 bSortable: false,
@@ -116,6 +120,8 @@
             // var url = routeNote.createPost;
             var formData = new FormData($("#form-note")[0]);
             formData.append('id', $('#form-note').find("button[type = 'submit']").attr('data-id'));
+            formData.append('userId', $('#form-note').find("button[type = 'submit']").attr('data-user'));
+            formData.append('userName', $('#form-note').find("button[type = 'submit']").attr('data-name'));
             formData.append('title', $("#title").val());
             formData.append('status', $("#status").val());
             formData.append('description', CKEDITOR.instances['description'].getData());

@@ -18,6 +18,8 @@ class CreateNotesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['2', '1', '0'])->default('1')->nullable();
+            $table->string('userId')->nullable();
+            $table->string('userName')->nullable();
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 @section('main')
            <!-- PAGE-HEADER -->
            <div class="page-header">
-             <h1 class="page-title my-auto">My Note Today</h1>
+             <h1 class="page-title my-auto">Xin chào {{$user->name}}</h1>
              <div>
                <ol class="breadcrumb mb-0">
                  <li class="breadcrumb-item">
