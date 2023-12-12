@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <p class="text-muted mt-3">Bạn đã có tài khoản? <a href="{{route('login')}}" class="text-primary">Sign In</a></p>
+                            <p class="text-muted mt-3">Bạn đã có tài khoản? <a href="{{route('login')}}" class="text-primary">Đăng nhập</a></p>
                         </div>
                         <div class="text-center my-3 authentication-barrier">
                             <span>OR</span>

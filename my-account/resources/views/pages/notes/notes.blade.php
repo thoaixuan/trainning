@@ -24,7 +24,7 @@
                         <div class="card-body card-table">
                             <div class="row row-sm mb-3">
                                 <div class="col-md-4 mb-2">
-                                    <input type="text" class="form-control" id="search">
+                                    <input type="text" class="form-control" id="search" placeholder="Search...">
                                 </div>
                                 <div class="col-md-3 mb-2">
                                     <button class="btn btn-primary w-100" id="formSearch">Search</button>
@@ -52,13 +52,24 @@
 @endsection
 @section('js')
     <script>
-        var routeNote = {
-            table: "{{route('note.table')}}",
-            createPost: "{{route('note.createpost')}}",
-            update: "{{route('note.update')}}",
-            updatePost: "{{route('note.updatepost')}}",
-            delete: "{{route('note.delete')}}",
-        };
+        var user = JSON.parse(localStorage.getItem("infoUser"));
+        if(user.permission == 1){
+            var routeNote = {
+            table: "{{route('admin.note.table')}}",
+            createPost: "{{route('admin.note.createpost')}}",
+            update: "{{route('admin.note.update')}}",
+            updatePost: "{{route('admin.note.updatepost')}}",
+            delete: "{{route('admin.note.delete')}}",
+            };
+        } else {
+            var routeNote = {
+            table: "{{route('guest.note.table')}}",
+            createPost: "{{route('guest.note.createpost')}}",
+            update: "{{route('guest.note.update')}}",
+            updatePost: "{{route('guest.note.updatepost')}}",
+            delete: "{{route('guest.note.delete')}}",
+            }
+        }
 
         CKEDITOR.replace('description');
     </script>

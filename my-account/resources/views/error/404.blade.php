@@ -35,7 +35,7 @@
                                 <p class="fs-16">Bạn không có quyền truy cập trang này</p>
                             </div>
                             <div class="text-center">
-                                <a class="btn btn-secondary d-inline-flex gap-1" href="{{route('home.index')}}"> <i
+                                <a class="btn btn-secondary d-inline-flex gap-1" href="{{route('guest.home.index')}}"> <i
                                         class="ri-arrow-left-line my-auto "></i> Về trang chủ </a>
                             </div>
                         </div>

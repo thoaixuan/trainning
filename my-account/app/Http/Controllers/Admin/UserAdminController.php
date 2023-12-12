@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 
-class UserController extends Controller
+class UserAdminController extends Controller
 {
     public function index()
     {
@@ -61,7 +61,7 @@ class UserController extends Controller
     public function createUsersPost(Request $request)
     {
         $rules = [
-            'name' => 'required|min:5',
+            'name' => 'required|string|min:5',
             'phone' => 'required|max:11',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
@@ -121,7 +121,7 @@ class UserController extends Controller
     public function updateUsersPost(Request $request)
     {
         $rules = [
-            'name' => 'required|min:5',
+            'name' => 'required|string|min:5',
             'phone' => 'required|max:11',
             'email' => 'required|email',
             'permission' => 'required|in:1,2,3',

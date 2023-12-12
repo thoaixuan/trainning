@@ -53,7 +53,7 @@
                                     </div>
                                     <div class="col-12">
                                         <label for="updateEmail" class="form-label">Email <span>*</span></label>
-                                        <input type="email" name="email" class="form-control" id="updateEmail" value="{{$data['email']}}">
+                                        <input type="email" name="email" class="form-control" id="updateEmail" value="{{$data['email']}}" placeholder="email">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="updatePermission" class="form-label">Nhóm quyền <span>*</span></label>
@@ -109,10 +109,10 @@
 @section('js')
     <script>
         var routeUsers = {
-            table: "{{ route('users.table') }}",
-            createPost: "{{ route('users.createpost') }}",
-            index: "{{ route('users.index') }}",
-            updatePost: "{{ route('users.updatepost') }}",
+            table: "{{ route('admin.users.table') }}",
+            createPost: "{{ route('admin.users.createpost') }}",
+            index: "{{ route('admin.users.index') }}",
+            updatePost: "{{ route('admin.users.updatepost') }}",
         };
     </script>
     <script src="{{ asset('app/main.js') }}"></script>

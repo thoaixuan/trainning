@@ -25,10 +25,9 @@
                 <!-- Start::slide__category -->
                 <li class="slide__category"><span class="category-name">Main</span></li>
                 <!-- End::slide__category -->
-
                 <!-- Start::slide -->
                 <li class="slide slide-item {{ request()->is('home*') ? 'active' : '' }}">
-                    <a href="{{route('home.index')}}" class="side-menu__item">
+                    <a href="{{route((Auth::user()->permission == '1') ? 'admin.home.index' : 'guest.home.index')}}" class="side-menu__item">
                         <i class="fe fe-home side-menu__icon"></i>
                         <span class="side-menu__label">Dashboard</span>
                     </a>
@@ -36,19 +35,19 @@
                 <!-- End::slide -->
 
                 <li class="slide slide-item {{ request()->is('mynote*') ? 'active' : '' }}">
-                    <a href="{{route('note.index')}}" class="side-menu__item">
+                    <a href="{{route((Auth::user()->permission == '1') ? 'admin.note.index' : 'guest.note.index')}}" class="side-menu__item">
                         <i class="fe fe-file-text side-menu__icon"></i>
                         <span class="side-menu__label">MyNotes</span>
                     </a>
                 </li>
                 <li class="slide slide-item {{ request()->is('users*') ? 'active' : '' }}">
-                    <a href="{{route('users.index')}}" class="side-menu__item">
+                    <a href="{{route('admin.users.index')}}" class="side-menu__item">
                         <i class="fe fe-users side-menu__icon"></i>
                         <span class="side-menu__label">User</span>
                     </a>
                 </li>
                 <li class="slide slide-item {{ request()->is('contact*') ? 'active' : '' }}">
-                    <a href="{{route('contact.index')}}" class="side-menu__item">
+                    <a href="{{route('guest.contact.index')}}" class="side-menu__item">
                         <i class="fe fe-phone-call side-menu__icon"></i>
                         <span class="side-menu__label">Contact</span>
                     </a>

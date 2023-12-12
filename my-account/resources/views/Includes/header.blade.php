@@ -10,7 +10,7 @@
             <!-- Start::header-element -->
             <div class="header-element">
                 <div class="horizontal-logo">
-                    <a href="{{route('home.index')}}" class="header-logo">
+                    <a href="{{(Auth::user()->id == '1') ? 'admin.home.index' : 'guest.home.index'}}" class="header-logo">
                         <img src="{{ asset('themes/assets/images/brand-logos/desktop-logo.png')}}" alt="logo" class="desktop-logo">
                         {{-- <img src="{{ asset('themes/assets/images/brand-logos/toggle-logo.png')}}" alt="logo" class="toggle-logo">
                         <img src="{{ asset('themes/assets/images/brand-logos/desktop-dark.png')}}" alt="logo" class="desktop-dark">
@@ -584,7 +584,7 @@
                             <img src="{{ asset('themes/assets/images/faces/9.jpg')}}" alt="img" width="32" height="32" class="rounded-circle">
                         </div>
                         <div class="d-xxl-block d-none my-auto">
-                            <h6 class="fw-semibold mb-0 lh-1 fs-14">Json Taylor</h6>
+                            <h6 class="fw-semibold mb-0 lh-1 fs-14" id="username"></h6>
                             <span class="op-7 fw-normal d-block fs-11 text-muted">Web Designer</span>
                         </div>
                     </div>
@@ -593,7 +593,7 @@
                 <ul class="main-header-dropdown dropdown-menu pt-0 header-profile-dropdown dropdown-menu-end" aria-labelledby="mainHeaderProfile">
                     <li class="drop-heading d-xxl-none d-block">
                          <div class="text-center">
-                            <h5 class="text-dark mb-0 fs-14 fw-semibold">Json Taylor</h5>
+                            <h5 class="text-dark mb-0 fs-14 fw-semibold" id="username"></h5>
                             <small class="text-muted">Web Designer</small>
                         </div>
                     </li>
@@ -602,7 +602,7 @@
                     <li class="dropdown-item"><a class="d-flex w-100" href="mail-settings.html"><i class="fe fe-settings fs-18 me-2 text-primary"></i>Settings</a></li>
                     <li class="dropdown-item"><a class="d-flex w-100" href="chat.html"><i class="fe fe-headphones fs-18 me-2 text-primary"></i>Support</a></li>
                     <li class="dropdown-item"><a class="d-flex w-100" href="lockscreen.html"><i class="fe fe-lock fs-18 me-2 text-primary"></i>Lockscreen</a></li>
-                    <li class="dropdown-item"><a class="d-flex w-100" href="sign-in.html"><i class="fe fe-info fs-18 me-2 text-primary"></i>Log Out</a></li>
+                    <li class="dropdown-item"><a class="d-flex w-100" href="{{route('logout')}}"><i class="fe fe-info fs-18 me-2 text-primary"></i>Log Out</a></li>
                 </ul>
             </div>
             <!-- End::header-element -->
@@ -626,3 +626,8 @@
 </header>
 <!-- /app-header -->
 
+<script>
+    var user = JSON.parse(localStorage.getItem("infoUser"));
+    var nameUser = user.name;
+    document.getElementById('username').innerText = nameUser;
+</script>

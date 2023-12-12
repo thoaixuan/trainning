@@ -130,7 +130,13 @@ $.validator.addMethod(
                 success: function(response) {
                     if (response.status) {
                         toastr.success(response.message);
-                        window.location.replace("/home");
+                        if(response.data.permission == 1){
+                            localStorage.setItem('infoUser', JSON.stringify(response.data))
+                            window.location.replace("/admin/home");
+                        } else{
+                            localStorage.setItem('infoUser', JSON.stringify(response.data))
+                            return window.location.replace("/guest/home");
+                        }
                     } else {
                         reset();
                         toastr.error(response.message);
@@ -138,8 +144,8 @@ $.validator.addMethod(
                     }
                 },
                 error: function(response) {
-                    console.log("Lỗi");
-                    toastr.error(response.status);
+                    console.log("Lỗi", response);
+                    toastr.error(response);
                 }
             });
         },

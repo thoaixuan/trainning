@@ -33,11 +33,11 @@
                         </div>
                         <div class="col-12">
                             <label for="inputEmail" class="form-label">Email <span>*</span></label>
-                            <input type="email" name="email"  class="form-control" id="inputEmail">
+                            <input type="email" name="email"  class="form-control" id="inputEmail" placeholder="email">
                         </div>
                         <div class="col-12">
                             <label for="inputPassword" class="form-label">Mật khẩu <span>*</span></label>
-                            <input type="password" name="password" class="form-control" id="inputPassword">
+                            <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Mật khẩu">
                         </div>
                         <div class="col-12">
                             <label for="inputRePassword" class="form-label">Xác nhận mật khẩu <span>*</span></label>
@@ -75,9 +75,9 @@
 @section('js')
 <script>
     var routeUsers = {
-        table: "{{route('users.table')}}",
-        createPost: "{{route('users.createpost')}}",
-        index: "{{route('users.index')}}",
+        table: "{{route('admin.users.table')}}",
+        createPost: "{{route('admin.users.createpost')}}",
+        index: "{{route('admin.users.index')}}",
     };
 </script>
     <script src="{{ asset('app/main.js') }}"></script>

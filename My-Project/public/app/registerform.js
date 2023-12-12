@@ -25,10 +25,10 @@ $('#banner-slider').slick({
     infinite: true,
     speed: 300,
     autoplay: true,
-  autoplaySpeed: 2000,
-  dots: true,
-  prevArrow:"<button type='button' class='slick-prev'><i class='fa fa-angle-left''></i></button>",
-            nextArrow:"<button type='button' class='slick-next'><i class='fa fa-angle-right'></i></button>"
+    autoplaySpeed: 2000,
+    dots: true,
+    prevArrow:"<span class='slick-prev'><i class='fa fa-angle-left''></i></span>",
+    nextArrow:"<span class='slick-next'><i class='fa fa-angle-right'></i></span>"
   });
 
 

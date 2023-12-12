@@ -26,14 +26,14 @@
                                </div>
                                <div class="ms-auto">
 
-                                @if ($notenow->status == "Done")
-                                    <span class="badge bg-success-transparent rounded-pill text-success p-2 px-3">{{$notenow->status}}</span>
+                                @if ($notenow->status == "2")
+                                    <span class="badge bg-success-transparent rounded-pill text-success p-2 px-3">Done</span>
                                 @endif
-                                @if ($notenow->status == "Processing")
-                                    <span class="badge bg-warning-transparent rounded-pill text-warning p-2 px-3">{{$notenow->status}}</span>
+                                @if ($notenow->status == "1")
+                                    <span class="badge bg-warning-transparent rounded-pill text-warning p-2 px-3">Processing</span>
                                 @endif
-                                @if ($notenow->status == "Cancel")
-                                    <span class="badge bg-danger-transparent rounded-pill text-danger p-2 px-3">{{$notenow->status}}</span>
+                                @if ($notenow->status == "0")
+                                    <span class="badge bg-danger-transparent rounded-pill text-danger p-2 px-3">Cancel</span>
                                 @endif
                                </div>
                            </div>

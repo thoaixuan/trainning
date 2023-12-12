@@ -111,12 +111,11 @@
         function (value, elemt) {
             return (
                 this.optional(elemt) ||
-                /^[a-zA-Z\D\s]+$/im.test(value)
+                /^[a-zA-Z\s][^0-9_+-.,!?@#$%^&*(){};:\\/|<>\"\']+$/im.test(value)
             );
         },
-        "Họ và tên không chứa ký tự số"
+        "Họ và tên không chứa ký tự số và ký tự đặc biệt"
     );
-
     $("#form-add-users").validate({
         rules: {
             fullname: {

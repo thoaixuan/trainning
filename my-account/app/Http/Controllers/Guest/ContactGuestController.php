@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Contact;
+namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Contact;
 
-class ContactController extends Controller
+class ContactGuestController extends Controller
 {
     public function index()
     {

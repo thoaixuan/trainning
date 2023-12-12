@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Note;
+namespace App\Http\Controllers\Admin;
 use App\notes;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-class MyNoteController extends Controller
+class NoteAdminController extends Controller
 {
     public function index()
     {
@@ -18,46 +18,27 @@ class MyNoteController extends Controller
     public function getDatatable(Request $request)
     {
         $columns = ['id', 'title', 'description', 'status'];
+
         $limit = $request->input('length');
         $start = $request->input('start');
         $orderColumn = $columns[$request->input('order.0.column')];
         $orderDirection = $request->input('order.0.dir');
-        $searchValue = $request->input('search.value');
-        
-        $userId = Auth::user()->id; // Lấy ID của người dùng đã đăng nhập
 
-        $query = notes::where('userId', $userId); // Lọc theo user_id
-
-        if (!empty($searchValue)) {
-            $query->where(function ($query) use ($columns, $searchValue) {
-                foreach ($columns as $column) {
-                    $query->orWhere($column, 'LIKE', '%' . $searchValue . '%');
-                }
-            });
-        }
-
-        $totalData = $query->count();
-
-        $notes = $query->offset($start)
+        $totalData = notes::count();
+        $notes = notes::offset($start)
             ->limit($limit)
             ->orderBy($orderColumn, $orderDirection)
             ->get();
+            $json_data = [
+                "draw" => intval($request->input('draw')),
+                "recordsTotal" => intval($totalData),
+                "recordsFiltered" => intval($totalData),
+                "data" => $notes
+            ];
 
-        $json_data = [
-            "draw"            => intval($request->input('draw')),
-            "recordsTotal"    => intval($totalData),
-            "recordsFiltered" => intval($totalData),
-            "data"            => $notes
-        ];
+            return response()->json($json_data);
 
         return response()->json($json_data);
-    }
-
-    public function create(){
-        return response()->json([
-            'status'=>1,
-            'message'=>"Thành công",
-        ]);
     }
 
     public function createPost(Request $Request)

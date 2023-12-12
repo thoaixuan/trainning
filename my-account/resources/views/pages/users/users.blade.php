@@ -34,7 +34,7 @@
                                 </select>
                             </div>
                             <div class="col-md-3 mb-2">
-                                <a href="{{route('users.create')}}" id="addNewUsers" class="btn btn-add-new btn-primary mb-2 w-100">Thêm mới</a>
+                                <a href="{{route('admin.users.create')}}" id="addNewUsers" class="btn btn-add-new btn-primary mb-2 w-100">Thêm mới</a>
                            </div >
                         </div>
                         <div class="table-responsive">
@@ -55,11 +55,11 @@
 @section('js')
     <script>
         var routeUsers = {
-            table: "{{route('users.table')}}",
-            createPost: "{{route('users.createpost')}}",
-            update: "{{route('users.update')}}",
-            updatePost: "{{route('users.updatepost')}}",
-            delete: "{{route('users.delete')}}",
+            table: "{{route('admin.users.table')}}",
+            createPost: "{{route('admin.users.createpost')}}",
+            update: "{{route('admin.users.update')}}",
+            updatePost: "{{route('admin.users.updatepost')}}",
+            delete: "{{route('admin.users.delete')}}",
         };
     </script>
     <script src="{{ asset('app/main.js') }}"></script>

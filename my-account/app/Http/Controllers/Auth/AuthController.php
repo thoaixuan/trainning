@@ -34,9 +34,11 @@ class AuthController extends Controller
         }
 
         if(Auth::attempt($request->only('email','password'))){
+            $user = Auth::user();
             return response()->json([
                 'status'=>1,
-                'message'=>"Đăng nhập thành công"
+                'message'=>"Đăng nhập thành công",
+                'data' => $user
             ]);
         }
 

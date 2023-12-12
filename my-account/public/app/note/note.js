@@ -14,6 +14,11 @@
         ajax: {
             url: routeNote.table,
             type: "GET",
+            data: function (d) {
+                return $.extend({}, d, {
+                    search: $("#search").val(),
+                });
+            }
         },
         order: [0, "desc"],
         columns: [
@@ -97,10 +102,18 @@
     });
 
     // Validate form note
+
+    jQuery.validator.addMethod("validateTitle", function(value, element){
+        return !(value.includes("script>") ||
+                        value.includes("script&gt;") ||
+                        value.includes("<?") ||
+                        value.includes("&lt;?"));
+    }, "Vui lòng nhập đúng định dạng chữ");
     $('#form-note').validate({
         rules:{
             title:{
-                required:true
+                required:true,
+                validateTitle: true
             },
        },
          messages: {
