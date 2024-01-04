@@ -23,7 +23,6 @@ class NoteAdminController extends Controller
         $start = $request->input('start');
         $orderColumn = $columns[$request->input('order.0.column')];
         $orderDirection = $request->input('order.0.dir');
-
         $totalData = notes::count();
         $notes = notes::offset($start)
             ->limit($limit)

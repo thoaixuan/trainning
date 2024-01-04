@@ -37,13 +37,19 @@
                 <li class="slide slide-item {{ request()->is('mynote*') ? 'active' : '' }}">
                     <a href="{{route((Auth::user()->permission == '1') ? 'admin.note.index' : 'guest.note.index')}}" class="side-menu__item">
                         <i class="fe fe-file-text side-menu__icon"></i>
-                        <span class="side-menu__label">MyNotes</span>
+                        <span class="side-menu__label">My Notes</span>
                     </a>
                 </li>
                 <li class="slide slide-item {{ request()->is('users*') ? 'active' : '' }}">
                     <a href="{{route('admin.users.index')}}" class="side-menu__item">
                         <i class="fe fe-users side-menu__icon"></i>
                         <span class="side-menu__label">User</span>
+                    </a>
+                </li>
+                <li class="slide slide-item {{ request()->is('users*') ? 'active' : '' }}">
+                    <a href="{{route('admin.task.index')}}" class="side-menu__item">
+                        <i class="fe fe-users side-menu__icon"></i>
+                        <span class="side-menu__label">My Task</span>
                     </a>
                 </li>
                 <li class="slide slide-item {{ request()->is('contact*') ? 'active' : '' }}">

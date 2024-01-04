@@ -44,11 +44,11 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function (){
     Route::prefix('users')->group(function(){
         Route::get('/','UserAdminController@index')->name('admin.users.index')->middleware('userLoggedIn', 'CheckPerUsers');
         Route::get('/table-users','UserAdminController@getTableUsers')->name('admin.users.table')->middleware('userLoggedIn', 'CheckPerUsers');
-        Route::post('/create','UserAdminController@createUsers')->name('admin.users.create')->middleware('userLoggedIn', 'CheckPerUsers');
+        Route::get('/get-user','UserAdminController@getUser')->name('admin.users.getuser')->middleware('userLoggedIn', 'CheckPerUsers');
         Route::post('/create-users','UserAdminController@createUsersPost')->name('admin.users.createpost')->middleware('userLoggedIn', 'CheckPerUsers');
-        Route::get('/update/{id?}','UserAdminController@update')->name('admin.users.update')->middleware('userLoggedIn', 'CheckPerUsers');
         Route::post('/update-users','UserAdminController@updateUsersPost')->name('admin.users.updatepost')->middleware('userLoggedIn', 'CheckPerUsers');
         Route::get('/delete','UserAdminController@delete')->name('admin.users.delete')->middleware('userLoggedIn', 'CheckPerUsers');
+        Route::post('/upload-image','UserAdminController@uploadImage')->name('admin.users.image')->middleware('userLoggedIn', 'CheckPerUsers');
     });
 
     Route::prefix('mynote')->group(function(){
@@ -58,6 +58,15 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function (){
         Route::get('/update','NoteAdminController@update')->name('admin.note.update')->middleware('userLoggedIn');
         Route::post('/updatepost','NoteAdminController@updatePost')->name('admin.note.updatepost')->middleware('userLoggedIn');
         Route::get('/delete','NoteAdminController@delete')->name('admin.note.delete')->middleware('userLoggedIn');
+    });
+
+    Route::prefix('mytask')->group(function(){
+        Route::get('/','TaskAdminController@index')->name('admin.task.index')->middleware('userLoggedIn');
+        Route::get('/table-task','TaskAdminController@getDatatable')->name('admin.task.table')->middleware('userLoggedIn');
+        Route::post('/create-task','TaskAdminController@createTaskPost')->name('admin.task.createpost')->middleware('userLoggedIn');
+        Route::get('/update','TaskAdminController@update')->name('admin.task.update')->middleware('userLoggedIn');
+        Route::post('/update-task','TaskAdminController@updateTaskPost')->name('admin.task.updatepost')->middleware('userLoggedIn');
+        Route::get('/delete','TaskAdminController@delete')->name('admin.task.delete')->middleware('userLoggedIn');
     });
 });
 

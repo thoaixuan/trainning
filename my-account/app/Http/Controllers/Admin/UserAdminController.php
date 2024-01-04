@@ -15,33 +15,45 @@ class UserAdminController extends Controller
         return view('pages.users.users');
     }
 
-    public function createUsers()
-    {
-        return view('pages.users.addNewUsers');
-    }
-
     public function getTableUsers(Request $request)
     {
-        $columns = ['id', 'name', 'phone', 'email', 'permission', 'status'];
+        $columns = ['id', 'name', 'permission', 'status'];
 
         $limit = $request->input('length');
         $start = $request->input('start');
         $orderColumn = $columns[$request->input('order.0.column')];
         $orderDirection = $request->input('order.0.dir');
+        $searchValue=$request->input('search');
+        $searchPer=$request->input('permission');
+        $searchDepart=$request->input('department');
 
+        $query = User::query();
+        if (!empty($searchValue)) {
+            $query->where(function($find) use ($searchValue) {
+                $find->where('name', 'LIKE', "%{$searchValue}%");
+            });
+        }
+
+        if (!empty($searchPer)) {
+            $query->where('permission', $searchPer);
+        }
+        if (!empty($searchDepart)) {
+            $query->where('department', $searchDepart);
+        }
+        
         $totalData = User::count();
-        $users = User::offset($start)
+        $users = $query->offset($start)
             ->limit($limit)
             ->orderBy($orderColumn, $orderDirection)
             ->get();
-            $json_data = [
-                "draw" => intval($request->input('draw')),
-                "recordsTotal" => intval($totalData),
-                "recordsFiltered" => intval($totalData),
-                "data" => $users
-            ];
+        $json_data = [
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalData),
+            "data" => $users
+        ];
 
-            return response()->json($json_data);
+        return response()->json($json_data);
     }
     private function validateRequest(Request $request, $rules, $message)
     {
@@ -65,8 +77,9 @@ class UserAdminController extends Controller
             'phone' => 'required|max:11',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'permission' => 'required|in:1,2,3',
+            'permission' => 'required|in:1,2,3,4',
             'status' => 'required|in:1,0',
+            'department' => 'required|in:1,2,3,4',
         ];
 
         $message = [
@@ -78,8 +91,9 @@ class UserAdminController extends Controller
             'email.email' => 'Email không đúng định dạng',
             'password.required' => 'Mật khẩu không được để trống',
             'password.min' => 'Mật khẩu không được nhỏ hơn 5 ký tự',
-            'permission.required' => 'Phân quyền không được để trống',
+            'permission.required' => 'Chức vụ không được để trống',
             'status.required' => 'Trạng thái không được để trống',
+            'department.required' => 'Phòng ban không được để trống',
         ];
 
         $validationResult = $this->validateRequest($request, $rules, $message);
@@ -102,20 +116,14 @@ class UserAdminController extends Controller
             'message' => 'Thêm dữ liệu thất bại']);
         }
     }
-
-    public function update(Request $request, $id)
+    public function getUser(Request $request)
     {
         $Users = User::where('id','=',$request->id)->first();
-        $data = array(
-            "name" => $Users->name,
-            "phone" => $Users->phone,
-            'email' => $Users->email,
-            'permission' => $Users->permission,
-            'status' => $Users->status,
-            "address" => $Users->address,
-            "id" => $Users->id,
-        );
-        return view('pages.users.updateUsers', ['data' => $data]);
+        return response()->json([
+            'message' => 'Thành công',
+            'status' => 1,
+            'data' => $Users
+        ]);
     }
 
     public function updateUsersPost(Request $request)
@@ -176,4 +184,25 @@ class UserAdminController extends Controller
             'data'=>$result
         ]);
     }
+
+    public function uploadImage(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+            $imageUrl = asset('uploads/' . $imageName);
+            return response()->json([
+                'message' => 'Upload ảnh thành công',
+                'status' => 1,
+                'url'=>$imageUrl,
+            ]);
+        } else{
+            return response()->json([
+                'message' => 'Thất bại',
+                'status' => 0,
+            ]);
+        }
+    }
+
 }

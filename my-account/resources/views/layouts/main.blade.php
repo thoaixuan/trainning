@@ -25,7 +25,7 @@
 
     @include('partials.scripts')
     {{-- @include('partials.scripthome') --}}
-    {{-- <script src="{{asset('theme/assets/js/home.js')}}"></script> --}}
+    {{-- <script src="{{asset('app/firewrk/firework.js')}}"></script> --}}
     @yield('js')
 </body>
 </html>

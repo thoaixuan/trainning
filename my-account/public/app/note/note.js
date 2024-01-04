@@ -103,7 +103,7 @@
 
     // Validate form note
 
-    jQuery.validator.addMethod("validateTitle", function(value, element){
+    $.validator.addMethod("validateTitle", function(value, element){
         return !(value.includes("script>") ||
                         value.includes("script&gt;") ||
                         value.includes("<?") ||
