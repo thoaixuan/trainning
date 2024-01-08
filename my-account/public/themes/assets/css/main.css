@@ -9,7 +9,9 @@
     font-style: italic;
     font-size: 12px;
 }
-
+.input-group .error{
+    flex-basis: 100%;
+}
 .main-menu-container li.active, .main-menu-container li:hover {
     background-color: rgba(var(--success-rgb),.1)!important;
     color: rgb(var(--success-rgb))!important;
@@ -46,6 +48,74 @@
 .c-click{
     cursor: pointer;
 }
+.container-check {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.container-check input {
+    position: absolute;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: -25px;
+    left: 0px;
+    height: 75px;
+    width: 120%;
+    background-color: #eee;
+}
+.checkmark-full{
+    position: absolute;
+    top: -41px;
+    left: 0px;
+    height: 102px;
+    width: 120%;
+    background-color: #eee;
+}
+.checkmark:after, .checkmark-full:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.container-check:hover input~.checkmark, .container-check:hover input~.checkmark-full {
+    background-color: #ccc;
+}
+.container-check input:checked ~ .checkmark, .container-check input:checked ~ .checkmark-full {
+    background-color: #2196F3;
+}
+.container-check .checkmark:after, .container-check .checkmark-full:after {
+    left: 41%;
+    top: 27%;
+    width: 14px;
+    height: 21px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.container-check .checkmark-full:after {
+    left: 38%;
+    top: 35%;
+}
+.container-check input:checked ~ .checkmark:after, .container-check input:checked ~ .checkmark-full:after {
+    display: block;
+}
+#tacvu {
+    margin: 10px 10px 20px 0;
+    display: none;
+}
+.show-file{
+    display: block;
+}
+
 /* Table */
 
 .dataTables_length{
@@ -69,6 +139,10 @@ table thead tr th:nth-child(3), .table>tbody tr td:nth-child(3){
     width: 100px !important;
     max-width: 150px;
 }
+#table-task thead tr th:nth-child(3), #table-task>tbody tr td:nth-child(3){
+    width: auto !important;
+    max-width: 100%;
+}
 tbody tr td{
     white-space: initial;
     text-overflow: ellipsis;
@@ -86,7 +160,13 @@ tbody tr td p {
 table.dataTable td, table.dataTable th{
     text-align: center;
 }
-
+#table-task>tbody tr td:nth-child(3){
+    text-align: left;
+    white-space: nowrap;
+}
+.time-table{
+    margin-right: 10px;
+}
 /* Modal */
 
 .modal-header{
@@ -177,4 +257,15 @@ form div>label span{
     padding: 10px 0;
     border-radius: 16px;
     border: solid #d8d7d7;
+}
+/* task */
+.row-task{
+    background-color: #fff;
+}
+.card-home .user-join .badge{
+    padding: 5px !important;
+}
+
+.card-home a:hover{
+    color: #fff;
 }

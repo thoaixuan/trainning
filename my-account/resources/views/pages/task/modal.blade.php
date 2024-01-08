@@ -1,4 +1,4 @@
-<div class="modal fade effect-scale" id="modalTask" tabindex="-1" aria-labelledby="modalTask" aria-hidden="true">
+<div class="modal fade effect-scale" id="modalTask" aria-labelledby="modalTask" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,45 +7,55 @@
             </div>
             <div class="modal-body">
 
-                <form id="usersForm" autocomplete="off" enctype="multipart/form-data" onsubmit="return false">
+                <form id="taskForm" autocomplete="off" enctype="multipart/form-data" onsubmit="return false">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>Tên công việc</label>
-                                <input id="nameTask" type="text" name="nameTask" class="form-control mt-1"
+                                <label>Tên công việc <span>*</span></label>
+                                <input id="nameTask" type="text" name="nametask" class="form-control mt-1"
                                     placeholder="Tên công việc..." />
                             </div>
                         </div>
-                        <div class="col-md-12">
+
+                        <div class="col-md-12 mt-3">
                             <div class="form-group">
-                                <label>Mô tả </label>
-                                <textarea class="form-control mt-1" id="editor_content" name="description"></textarea>
+                                <label class="mb-1">Upload File</label>
+                                <input type="file" id="upload-file" class="uploadFile" name="filepond" multiple data-allow-reorder="true" data-max-file-size="6MB" data-max-files="6">
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-3">
+                            @php
+							  $getUser = \app\User::get();
+							@endphp
+                            <label class="mb-1">Thành viên tham gia</label>
+                            <select class="form-control" id="userJoin" name="userjoin" multiple>
+                                @foreach ($getUser as $listUser)
+                                <option value="{{$listUser->name}}">{{$listUser->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-6 mt-3">
                             <div class="form-group">
-                                <label>Upload File</label>
-                                <input type="file" name="uploadFile" id="uploadFile">
+                                <label>Ngày bắt đầu <span>*</span></label>
+                                <div class="input-group mt-1">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input type="text" class="form-control" name="startdate" id="startDate" placeholder="Chọn ngày">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 mt-3">
                             <div class="form-group">
-                                <label>Ngày bắt đầu</label>
-                                <input id="startDate" type="date" name="startDate" class="form-control mt-1"
-                                    placeholder="dd/mm/yyyy" />
+                                <label>Ngày kết thúc <span>*</span></label>
+                                <div class="input-group mt-1">
+                                    <div class="input-group-text text-muted"> <i class="ri-calendar-line"></i> </div>
+                                    <input type="text" class="form-control" name="enddate" id="endDate" placeholder="Chọn ngày">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 mt-3">
-                            <div class="form-group">
-                                <label>Ngày kết thúc</label>
-                                <input type="date" name="endDate" id="endDate" placeholder="dd/mm/yyyy"
-                                    class="form-control mt-1">
-                            </div>
-                        </div>
-                        <div class="col-md-6 mt-3">
-                            <label>Trạng thái</label>
-                            <select class="form-select mt-1" name="statusTask" id='statusTask'>
+                            <label class="mb-1">Trạng thái</label>
+                            <select class="form-select" name="statusTask" id='statusTask'>
                                 <option value="1">Đang thực hiện</option>
                                 <option value="2">Đã hoàn thành</option>
                                 <option value="3">Trễ Deadline</option>
@@ -53,23 +63,84 @@
                         </div>
                         <div class="col-md-6 mt-3">
                             <label>Tiến độ</label>
-                            <input type="text" name="progressTask" max="100" min="0" id='progressTask' class="form-control mt-1">
+                            <input type="number" name="progressTask" max="100" min="0" id='progressTask' class="form-control mt-1" placeholder="% tiến độ...">
                         </div>
                         <div class="col-md-12 my-3">
-                            <label>Thành viên tham gia</label>
-                            <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
-                                <option value="m-1">Multiple-1</option>
-                                <option value="m-2">Multiple-2</option>
-                                <option value="m-3">Multiple-3</option>
-                                <option value="m-4">Multiple-4</option>
-                                <option value="m-5">Multiple-5</option>
-                            </select>
+                            <div class="form-group">
+                                <label class="mb-1">Mô tả </label>
+                                <textarea class="form-control" id="editor_content" name="description"></textarea>
+                            </div>
                         </div>
                     </div>
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" id="btnSave" class="btn btn-success" data-type=""
+                    <button type="submit" id="btnSave" class="btn btn-success" data-name='{{$user->name}}' data-user='{{$user->id}}' data-type=""
                             data-url="">Lưu</button>
                 </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{{-- modal detail --}}
+
+<div class="modal fade" id="ModalDetail" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6  mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Công việc: </span> <span id="view_nametask"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="form-group">
+                            <div class="fw-bold">Thời gian:
+                                <span class="fw-normal" id="view_starttime">
+                                </span> -
+                                <span class="fw-normal" id="view_endtime">
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Mô tả: </span> <span id="view_description"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12  mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">File upload: </span> <span id="view_file"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Tiến độ: </span> <span id="view_progress"></span>%
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Trạng thái: </span> <span id="view_status"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Người tạo : </span> <span id="view_create"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 my-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Tham gia: </span> <span id="view_join"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>

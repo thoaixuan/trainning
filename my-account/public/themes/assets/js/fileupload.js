@@ -2,13 +2,12 @@
     'use strict'
 
     /* dropzone */
-    let myDropzone = new Dropzone(".dropzone");
-        myDropzone.on("addedfile", file => {
-    });
+    // let myDropzone = new Dropzone(".dropzone");
+    //     myDropzone.on("addedfile", file => {
+    // });
 
     /* filepond */
     FilePond.registerPlugin(
-        FilePondPluginImagePreview,
         FilePondPluginImageExifOrientation,
         FilePondPluginFileValidateSize,
         FilePondPluginFileEncode,
@@ -21,8 +20,10 @@
 
     /* multiple upload */
     const MultipleElement = document.querySelector('.multiple-filepond');
-    FilePond.create(MultipleElement,);
-    
+    FilePond.create(MultipleElement,{
+        labelIdle: `Click chọn hoặc kéo thả folder, file tại đây <p class="fs-11 m-0">(PDF,EXCEL,WORD,IMAGE,ZIP)</p>`,
+    });
+
     /* single upload */
     FilePond.create(
         document.querySelector('.single-fileupload'),

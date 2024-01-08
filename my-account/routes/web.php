@@ -67,6 +67,7 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function (){
         Route::get('/update','TaskAdminController@update')->name('admin.task.update')->middleware('userLoggedIn');
         Route::post('/update-task','TaskAdminController@updateTaskPost')->name('admin.task.updatepost')->middleware('userLoggedIn');
         Route::get('/delete','TaskAdminController@delete')->name('admin.task.delete')->middleware('userLoggedIn');
+        Route::post('/upload-file','TaskAdminController@uploadFile')->name('admin.task.file')->middleware('userLoggedIn');
     });
 });
 
@@ -82,6 +83,17 @@ Route::group(['namespace' => 'Guest','prefix' => 'guest'],function (){
         Route::post('/updatepost','NoteGuestController@updatePost')->name('guest.note.updatepost')->middleware('userLoggedIn');
         Route::get('/delete','NoteGuestController@delete')->name('guest.note.delete')->middleware('userLoggedIn');
     });
+
+    Route::prefix('mytask')->group(function(){
+        Route::get('/','TaskGuestController@index')->name('guest.task.index')->middleware('userLoggedIn');
+        Route::get('/table-task','TaskGuestController@getDatatable')->name('guest.task.table')->middleware('userLoggedIn');
+        Route::post('/create-task','TaskGuestController@createTaskPost')->name('guest.task.createpost')->middleware('userLoggedIn');
+        Route::get('/update','TaskGuestController@update')->name('guest.task.update')->middleware('userLoggedIn');
+        Route::post('/update-task','TaskGuestController@updateTaskPost')->name('guest.task.updatepost')->middleware('userLoggedIn');
+        Route::get('/delete','TaskGuestController@delete')->name('guest.task.delete')->middleware('userLoggedIn');
+        Route::post('/upload-file','TaskGuestController@uploadFile')->name('guest.task.file')->middleware('userLoggedIn');
+    });
+
     Route::prefix('contact')->group(function(){
         Route::get('/','ContactGuestController@index')->name('guest.contact.index')->middleware('userLoggedIn');
         Route::post('/contactpost','ContactGuestController@contactPost')->name('guest.contact.post')->middleware('userLoggedIn');

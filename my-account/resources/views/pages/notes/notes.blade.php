@@ -27,9 +27,6 @@
                                     <input type="text" class="form-control" id="search" placeholder="Search...">
                                 </div>
                                 <div class="col-md-3 mb-2">
-                                    <button class="btn btn-primary w-100" id="formSearch">Search</button>
-                                </div>
-                                <div class="col-md-3 mb-2">
                                     <button type="button" id="addNew" class="btn btn-add-new btn-primary mb-2 w-100">Add new
                                         note</button>
                                </div >
@@ -52,8 +49,8 @@
 @endsection
 @section('js')
     <script>
-        var user = JSON.parse(localStorage.getItem("infoUser"));
-        if(user.permission == 1){
+        var user = "{{$user->permission}}";
+        if(user == 1){
             var routeNote = {
             table: "{{route('admin.note.table')}}",
             createPost: "{{route('admin.note.createpost')}}",
@@ -71,7 +68,6 @@
             }
         }
 
-        CKEDITOR.replace('description');
     </script>
     <script src="{{ asset('app/main.js') }}"></script>
     <script src="{{ asset('app/note/note.js') }}"></script>

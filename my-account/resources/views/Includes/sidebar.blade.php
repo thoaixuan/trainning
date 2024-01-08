@@ -26,7 +26,7 @@
                 <li class="slide__category"><span class="category-name">Main</span></li>
                 <!-- End::slide__category -->
                 <!-- Start::slide -->
-                <li class="slide slide-item {{ request()->is('home*') ? 'active' : '' }}">
+                <li class="slide slide-item {{ request()->is('admin/home', 'guest/home') ? 'active' : '' }}">
                     <a href="{{route((Auth::user()->permission == '1') ? 'admin.home.index' : 'guest.home.index')}}" class="side-menu__item">
                         <i class="fe fe-home side-menu__icon"></i>
                         <span class="side-menu__label">Dashboard</span>
@@ -34,25 +34,25 @@
                 </li>
                 <!-- End::slide -->
 
-                <li class="slide slide-item {{ request()->is('mynote*') ? 'active' : '' }}">
+                <li class="slide slide-item {{ request()->is('admin/mynote', 'guest/mynote') ? 'active' : '' }}">
                     <a href="{{route((Auth::user()->permission == '1') ? 'admin.note.index' : 'guest.note.index')}}" class="side-menu__item">
                         <i class="fe fe-file-text side-menu__icon"></i>
                         <span class="side-menu__label">My Notes</span>
                     </a>
                 </li>
-                <li class="slide slide-item {{ request()->is('users*') ? 'active' : '' }}">
+                <li class="slide slide-item {{ request()->is('admin/users*') ? 'active' : '' }}">
                     <a href="{{route('admin.users.index')}}" class="side-menu__item">
                         <i class="fe fe-users side-menu__icon"></i>
                         <span class="side-menu__label">User</span>
                     </a>
                 </li>
-                <li class="slide slide-item {{ request()->is('users*') ? 'active' : '' }}">
-                    <a href="{{route('admin.task.index')}}" class="side-menu__item">
+                <li class="slide slide-item {{ request()->is('admin/task', 'guest/mytask') ? 'active' : '' }}">
+                    <a href="{{route((Auth::user()->permission == '1') ? 'admin.task.index' : 'guest.task.index')}}" class="side-menu__item">
                         <i class="fe fe-users side-menu__icon"></i>
                         <span class="side-menu__label">My Task</span>
                     </a>
                 </li>
-                <li class="slide slide-item {{ request()->is('contact*') ? 'active' : '' }}">
+                <li class="slide slide-item {{ request()->is('admin/contact', 'guest/contact') ? 'active' : '' }}">
                     <a href="{{route('guest.contact.index')}}" class="side-menu__item">
                         <i class="fe fe-phone-call side-menu__icon"></i>
                         <span class="side-menu__label">Contact</span>

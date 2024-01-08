@@ -24,18 +24,20 @@
                         <div class="card-body card-table">
                             <div class="row row-sm mb-3">
                                 <div class="col-md-4 mb-2">
-                                    <input type="text" class="form-control" id="search" placeholder="Search...">
+                                    <input type="text" class="form-control" id="search" placeholder="Tìm kiếm...">
                                 </div>
                                 <div class="col-md-3 mb-2">
-                                    <button class="btn btn-primary w-100" id="formSearch">Search</button>
-                                </div>
-                                <div class="col-md-3 mb-2">
-                                    <button type="button" id="addNew" class="btn btn-add-new btn-primary mb-2 w-100">Add new
-                                        note</button>
+                                    <button type="button" id="addNew" class="btn btn-add-new btn-primary mb-2 w-100">Thêm mới</button>
                                </div >
                             </div>
                             <div class="table-responsive">
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div id="tacvu" wfd-invisible="true">
+                                            <button class="btn btn-success button-edit ms-2">Chỉnh sửa [E]</button>
+                                            <button class="btn btn-danger button-delete ms-2">Xóa</button>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-12">
                                         <table id="table-task"
                                             class="table table-bordered text-nowrap w-100 dataTable no-footer"
@@ -52,14 +54,27 @@
 @endsection
 @section('js')
     <script>
-        var user = JSON.parse(localStorage.getItem("infoUser"));
-        var routeTask = {
-            table: "{{route('admin.task.table')}}",
-            createPost: "{{route('admin.task.createpost')}}",
-            update: "{{route('admin.task.update')}}",
-            updatePost: "{{route('admin.task.updatepost')}}",
-            delete: "{{route('admin.task.delete')}}",
+        var user = "{{$user->permission}}";
+        if(user == 1){
+            var routeTask = {
+                table: "{{route('admin.task.table')}}",
+                createPost: "{{route('admin.task.createpost')}}",
+                get: "{{route('admin.task.update')}}",
+                updatePost: "{{route('admin.task.updatepost')}}",
+                delete: "{{route('admin.task.delete')}}",
+                file: "{{route('admin.task.file')}}",
             }
+        } else{
+            var routeTask = {
+                table: "{{route('guest.task.table')}}",
+                createPost: "{{route('guest.task.createpost')}}",
+                get: "{{route('guest.task.update')}}",
+                updatePost: "{{route('guest.task.updatepost')}}",
+                delete: "{{route('guest.task.delete')}}",
+                file: "{{route('guest.task.file')}}",
+            }
+        }
+
     </script>
     <script src="{{ asset('app/main.js') }}"></script>
     <script src="{{ asset('app/task/task.js') }}"></script>

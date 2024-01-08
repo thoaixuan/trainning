@@ -16,10 +16,10 @@ class CreateTasksTable extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->string('nametask');
-            $table->text('description');
-            $table->string('file')->nullable();
-            $table->date('startdate')->nullable();
-            $table->date('enddate')->nullable();
+            $table->text('description')->nullable();
+            $table->json('file')->nullable();
+            $table->date('startdate');
+            $table->date('enddate');
             $table->enum('status', ['2', '1', '0'])->default('2')->nullable();
             $table->integer('progress')->nullable()->default(0);
             $table->string('userjoin')->nullable();

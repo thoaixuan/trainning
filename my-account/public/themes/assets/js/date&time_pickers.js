@@ -1,9 +1,16 @@
 (function () {
     "use strict";
-    
+
     /* To choose date */
     flatpickr("#date", {});
 
+    //
+    flatpickr("#startDate", {
+        dateFormat: "d-m-Y ",
+    });
+    flatpickr("#endDate", {
+        dateFormat: "d-m-Y ",
+    });
     /* To choose date and time */
     flatpickr("#datetime", {
         enableTime: true,

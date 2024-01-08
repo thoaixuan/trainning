@@ -21,8 +21,16 @@ class NoteAdminController extends Controller
 
         $limit = $request->input('length');
         $start = $request->input('start');
-        $orderColumn = $columns[$request->input('order.0.column')];
+        $orderColumn = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir');
+        $searchValue = $request->input('search');
+
+        if (!empty($searchValue)) {
+            $query->where(function($find) use ($searchValue) {
+                $find->where('title', 'LIKE', "%{$searchValue}%");
+            });
+        }
+
         $totalData = notes::count();
         $notes = notes::offset($start)
             ->limit($limit)
@@ -35,18 +43,17 @@ class NoteAdminController extends Controller
                 "data" => $notes
             ];
 
-            return response()->json($json_data);
-
         return response()->json($json_data);
+
     }
 
     public function createPost(Request $Request)
     {
         $rules = [
-            'title' => 'Required',
+            'title' => 'required',
         ];
         $message = [
-            'title.Required' => 'Tiêu đề không được để trống',
+            'title.required' => 'Tiêu đề không được để trống',
         ];
         $validator = Validator::make($Request->all(), $rules, $message);
         if($validator->fails()){

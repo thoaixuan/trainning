@@ -146,10 +146,8 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            if (response.status) {
+                            if (response.status == 1) {
                                 localStorage.setItem("avatar", response.url);
-                            } else {
-                                toastr.error(response.message);
                             }
                         },
                         error: function(error) {
@@ -265,7 +263,7 @@
         submitHandler: function () {
             var url = $('#btnAddUsers').attr('data-url');
             var formData = new FormData($("#form-add-users")[0]);
-            formData.append('id', $('#form-add-users').find("button[type = 'submit']").attr('data-id'));
+            formData.append('id', $('#btnAddUsers').attr('data-id'));
             formData.append('url',localStorage.getItem("avatar"));
             formData.append('name', $("#inputName").val());
             formData.append('phone', $("#inputPhone").val());

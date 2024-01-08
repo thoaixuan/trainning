@@ -1,94 +1,128 @@
 
-    var elmentTable = $("#table-note");
-    var DataTable = elmentTable.DataTable({
-        serverSide: true,
-        stateSave: true,
-        responsive: false,
-        processing: true,
-        paging: true,
-        lengthChange: true,
-        searching: false,
-        ordering: true,
-        info: true,
-        autoWidth: true,
-        ajax: {
-            url: routeNote.table,
-            type: "GET",
-            data: function (d) {
-                return $.extend({}, d, {
-                    search: $("#search").val(),
-                });
+init_tinymce("textarea#description", 150);
+var elmentTable = $("#table-note");
+var DataTable = elmentTable.DataTable({
+    serverSide: true,
+    stateSave: true,
+    responsive: false,
+    processing: true,
+    paging: true,
+    lengthChange: true,
+    searching: false,
+    ordering: true,
+    info: true,
+    autoWidth: true,
+    ajax: {
+        url: routeNote.table,
+        type: "GET",
+        data: function (d) {
+            return $.extend({}, d, {
+                search: $("#search").val(),
+            });
+        }
+    },
+    order: [0, "desc"],
+    columns: [
+        {
+            title: "ID",
+            data: "id",
+        },
+        {
+            title: "Title" ,
+            data : null,
+            render: function (data, type, row) {
+                var html ='<p class="text-primary fw-semibold c-click" data-id="'+row.id+'" id="viewDetail">' +
+                data.title +
+                '</p>';
+                if(data.status == 1){
+                    html+= '<span class="badge bg-warning-transparent  text-warning mt-2 p-2 px-3" >' + 'Processing' + '</span>';
+                } else if(data.status == 2){
+                    html+= '<span class="badge bg-success-transparent  text-success mt-2 p-2 px-3">' + 'Done' + '</span>';
+                } else {
+                    html+= '<span class="badge bg-danger-transparent  text-danger mt-2 p-2 px-3">' + 'Cancel' + '</span>';
+                }
+                return html
+
             }
         },
-        order: [0, "desc"],
-        columns: [
-            {
-                title: "ID",
-                data: "id",
+        {
+            title: "Created at",
+            data: "created_at",
+            bSortable: false,
+            render: function (data, type, row, meta) {
+                return changeDate(data);
             },
-            {
-                title: "Title" ,
-                data : "title"
+        },
+        {
+            title: "Updated at",
+            data: "updated_at",
+            bSortable: false,
+            render: function (data, type, row, meta) {
+                return changeDate(data);
             },
-            {
-                title: "Description",
-                data: "description",
+        },
+        {
+            title: "Created by",
+            data: "userName",
+            bSortable: false,
+        },
+        {
+            title: "Action",
+            className: "text-center",
+            bSortable: false,
+            render: function (data, type, row, meta) {
+                return renderAction([
+                    {
+                        class: "btn text-primary btn-sm",
+                        value: row.id,
+                        title: "update",
+                        icon: "fe fe-edit fs-14",
+                    },
+                    {
+                        class: "btn text-danger btn-sm",
+                        value: row.id,
+                        title: "delete",
+                        icon: "fe fe-trash-2 fs-14",
+                    },
+                ]);
             },
-            {
-                title: "Status",
-                data: "status",
-                render: function (data, type, row, meta) {
-                    if(data == 1){
-                        return '<span class="badge bg-warning-transparent rounded-pill text-warning p-2 px-3" >' + 'Processing' + '</span>';
-                    } else if(data == 2){
-                        return '<span class="badge bg-success-transparent rounded-pill text-success p-2 px-3">' + 'Done' + '</span>';
-                    } else {
-                        return '<span class="badge bg-danger-transparent rounded-pill text-danger p-2 px-3">' + 'Cancel' + '</span>';
-                    }
-                },
-            },
-            {
-                title: "Created at",
-                data: "created_at",
-                render: function (data, type, row, meta) {
-                    return changeDate(data);
-                },
-            },
-            {
-                title: "Updated at",
-                data: "updated_at",
-                render: function (data, type, row, meta) {
-                    return changeDate(data);
-                },
-            },
-            {
-                title: "Created by",
-                data: "userName",
-            },
-            {
-                title: "Action",
-                className: "text-center",
-                bSortable: false,
-                render: function (data, type, row, meta) {
-                    return renderAction([
-                        {
-                            class: "btn text-primary btn-sm",
-                            value: row.id,
-                            title: "update",
-                            icon: "fe fe-edit fs-14",
-                        },
-                        {
-                            class: "btn text-danger btn-sm",
-                            value: row.id,
-                            title: "delete",
-                            icon: "fe fe-trash-2 fs-14",
-                        },
-                    ]);
-                },
-            },
-        ],
-    });
+        },
+    ],
+});
 
+// View Detail News
+$(document).on("click", "#viewDetail", function () {
+    var id = $(this).data("id");
+    $.ajax({
+        url: routeNote.update,
+        data: {
+            id: id
+        },
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (response) {
+            if (response.status == 1) {
+            $(".modal-title").text("Xem chi tiết");
+            $("#view_title").text(response.data.title);
+            if(response.data.status == 1){
+                $("#view_status").html('<span class="badge bg-warning-transparent">' + 'Done' + '</span>');
+            }else if(response.data.status == 2){
+                $("#view_status").html('<span class="badge bg-success-transparent ">' + 'Processing' + '</span>');
+            }else{
+                $("#view_status").html('<span class="badge bg-danger-transparent ">' + 'Cancel' + '</span>');
+            }
+            $("#view_starttime").text(changeDate(response.data.created_at));
+            $("#view_endtime").text(changeDate(response.data.updated_at));
+            $("#view_description").html(response.data.description);
+            $("#ModalDetail").modal("show");
+            }
+        },
+        error: function (error) {
+            toastr.error(response.message);
+            console.log(error);
+        }
+    });
+});
 
     // show popup add new
     $("#addNew").on("click", function () {
@@ -96,7 +130,7 @@
         $("#id").val("");
         $("#title").val("");
         $("#status").val("");
-        CKEDITOR.instances.description.setData("");
+        tinyMCE.activeEditor.setContent('');
         $("#btnSave").attr('data-url', routeNote.createPost);
         $("#modaldemo").modal("show");
     });
@@ -137,7 +171,7 @@
             formData.append('userName', $('#form-note').find("button[type = 'submit']").attr('data-name'));
             formData.append('title', $("#title").val());
             formData.append('status', $("#status").val());
-            formData.append('description', CKEDITOR.instances['description'].getData());
+            formData.append('description',  tinymce.get("description").getContent());
             $.ajax({
                 url: url,
                 data: formData,
@@ -148,7 +182,7 @@
                     if(response.status){
                         $('#modaldemo').modal('hide');
                         toastr.success(response.message)
-                        DataTable.ajax.reload();
+                        // DataTable.ajax.reload();
                     }else{
                         toastr.error(response.message)
                     }
@@ -178,7 +212,7 @@ $(document).on('click', '#update', function () {
             $("#btnSave").attr('data-url', routeNote.updatePost);
             $("#btnSave").attr('data-id', data.data.id);
             $('#title').val(data.data.title);
-            CKEDITOR.instances['description'].setData(data.data.description);
+            tinyMCE.activeEditor.setContent(data.data.description);
             $('#status').val(data.data.status);
             $("#modaldemo").modal('show');
             }else {
@@ -223,4 +257,6 @@ $("#onDelete").on("click", function (e) {
     });
 });
 
-
+$("#search").on('keyup', function (e) {
+    DataTable.ajax.reload();
+});

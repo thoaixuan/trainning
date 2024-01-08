@@ -5,10 +5,7 @@
 <link href="{{url('themes/assets/libs/gridjs/theme/mermaid.min.css')}}" rel="stylesheet" >
 
 <!-- Choices JS -->
-<script src="{{ url('themes/assets/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
-
-<!-- Main Theme Js -->
-<script src="{{ url('themes/assets/js/main.js')}}"></script>
+<link id="style" href="{{ url('themes/assets/libs/choices.js/public/assets/styles/choices.min.css')}}" rel="stylesheet" >
 
 {{-- Datatable  Bootstrap--}}
 <link href="{{ url('themes/assets/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" >
@@ -30,6 +27,15 @@
 
 {{-- Select 2 --}}
 <link href="{{ url('themes/assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet" >
+
+{{-- select2 boostrap --}}
+<link href="{{ url('themes/assets/libs/select2-bootstrap/dist/select2-bootstrap-5-theme.min.css')}}" rel="stylesheet" >
+
+{{-- file --}}
+<link rel="stylesheet" href="{{ url('themes/assets/libs/filepond/filepond.min.css')}}">
+<link rel="stylesheet" href="{{ url('themes/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css')}}">
+<link rel="stylesheet" href="{{ url('themes/assets/libs/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css')}}">
+<link rel="stylesheet" href="{{ url('themes/assets/libs/dropzone/dropzone.css')}}">
 
 <!-- Color Picker Css -->
 <link rel="stylesheet" href="{{ url('themes/assets/libs/flatpickr/flatpickr.min.css')}}">

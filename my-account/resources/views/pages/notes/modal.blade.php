@@ -6,7 +6,7 @@
                 <button aria-label="Close" class="btn-close"
                     data-bs-dismiss="modal"></button>
             </div>
-            <form id="form-note">
+            <form id="form-note" autocomplete="off" enctype="multipart/form-data" onsubmit="return false">
             @csrf
             <div class="modal-body">
                 <div class="mb-3">
@@ -36,3 +36,48 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="ModalDetail" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6  mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Title: </span> <span id="view_title"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6  mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Trạng thái: </span> <span id="view_status"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <div class="fw-bold">Thời gian tạo:
+                                <span class="fw-normal" id="view_starttime">
+                                </span> -
+                                <span class="fw-normal" id="view_endtime">
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <div class="form-group">
+                            <span class="fw-bold">Mô tả: </span> <span id="view_description"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

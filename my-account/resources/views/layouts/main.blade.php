@@ -10,6 +10,7 @@
 
 </head>
 <body>
+    @include('includes.preload')
     <div class="page">
         @include('includes.header')
         @include('includes.sidebar')
@@ -19,9 +20,10 @@
             </div>
         </div>
         @include('includes.footer')
+        @include('includes.scrollToTop')
         @include('delete.delete')
     </div>
-    {{-- @include('includes.scrollToTop') --}}
+
 
     @include('partials.scripts')
     {{-- @include('partials.scripthome') --}}

@@ -21,7 +21,7 @@ class UserAdminController extends Controller
 
         $limit = $request->input('length');
         $start = $request->input('start');
-        $orderColumn = $columns[$request->input('order.0.column')];
+        $orderColumn = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir');
         $searchValue=$request->input('search');
         $searchPer=$request->input('permission');
@@ -40,7 +40,7 @@ class UserAdminController extends Controller
         if (!empty($searchDepart)) {
             $query->where('department', $searchDepart);
         }
-        
+
         $totalData = User::count();
         $users = $query->offset($start)
             ->limit($limit)
@@ -158,8 +158,12 @@ class UserAdminController extends Controller
         $Users->phone = $request->phone;
         $Users->email = $request->email;
         $Users->permission = $request->permission;
+        $Users->birthdate = $request->birthdate;
+        $Users->department = $request->department;
         $Users->status = $request->status;
+        $Users->sex = $request->sex;
         $Users->address = $request->address;
+        $Users->url = $request->url;
         if($Users->save()){
             return response()->json([
                 'message' => 'Sửa Thành công',

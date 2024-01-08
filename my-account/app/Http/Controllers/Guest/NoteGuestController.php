@@ -20,13 +20,19 @@ class NoteGuestController extends Controller
         $columns = ['id', 'title', 'description', 'status'];
         $limit = $request->input('length');
         $start = $request->input('start');
-        $orderColumn = $columns[$request->input('order.0.column')];
+        $orderColumn = $request->input('order.0.column');
         $orderDirection = $request->input('order.0.dir');
-        $searchValue = $request->input('search.value');
+        $searchValue = $request->input('search');
 
-        $userId = Auth::user()->id; // Lấy ID của người dùng đã đăng nhập
+        $userId = Auth::user()->id;
 
-        $query = notes::where('userId', $userId); // Lọc theo user_id
+        $query = notes::where('userId', $userId);
+
+        if (!empty($searchValue)) {
+            $query->where(function($find) use ($searchValue) {
+                $find->where('title', 'LIKE', "%{$searchValue}%");
+            });
+        }
 
         $totalData = $query->count();
 
