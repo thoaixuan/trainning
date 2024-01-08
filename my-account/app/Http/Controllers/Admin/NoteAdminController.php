@@ -21,10 +21,11 @@ class NoteAdminController extends Controller
 
         $limit = $request->input('length');
         $start = $request->input('start');
-        $orderColumn = $request->input('order.0.column');
+        $orderColumn = $columns[$request->input('order.0.column')];
         $orderDirection = $request->input('order.0.dir');
         $searchValue = $request->input('search');
 
+        $query = notes::query();
         if (!empty($searchValue)) {
             $query->where(function($find) use ($searchValue) {
                 $find->where('title', 'LIKE', "%{$searchValue}%");
@@ -32,7 +33,7 @@ class NoteAdminController extends Controller
         }
 
         $totalData = notes::count();
-        $notes = notes::offset($start)
+        $notes = $query->offset($start)
             ->limit($limit)
             ->orderBy($orderColumn, $orderDirection)
             ->get();

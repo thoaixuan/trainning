@@ -182,7 +182,7 @@ $(document).on("click", "#viewDetail", function () {
                     if(response.status){
                         $('#modaldemo').modal('hide');
                         toastr.success(response.message)
-                        // DataTable.ajax.reload();
+                        DataTable.ajax.reload();
                     }else{
                         toastr.error(response.message)
                     }

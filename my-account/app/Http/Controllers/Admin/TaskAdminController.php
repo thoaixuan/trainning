@@ -23,10 +23,19 @@ class TaskAdminController extends Controller
 
         $limit = $request->input('length');
         $start = $request->input('start');
-        $orderColumn = $request->input('order.0.column');
+        $orderColumn = $columns[$request->input('order.0.column')];
         $orderDirection = $request->input('order.0.dir');
+        $searchValue=$request->input('search');
+
+        $query = Task::query();
+        if (!empty($searchValue)) {
+            $query->where(function($find) use ($searchValue) {
+                $find->where('nametask', 'LIKE', "%{$searchValue}%");
+            });
+        }
+
         $totalData = Task::count();
-        $task = Task::offset($start)
+        $task = $query->offset($start)
             ->limit($limit)
             ->orderBy($orderColumn, $orderDirection)
             ->get();
@@ -38,6 +47,7 @@ class TaskAdminController extends Controller
         ];
         return response()->json($json_data);
     }
+
     public function createTaskPost(Request $request)
     {
         $message=[

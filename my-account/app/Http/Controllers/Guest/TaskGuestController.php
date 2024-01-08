@@ -23,8 +23,9 @@ class TaskGuestController extends Controller
 
         $limit = $request->input('length');
         $start = $request->input('start');
-        $orderColumn = $request->input('order.0.column');
+        $orderColumn = $columns[$request->input('order.0.column')];
         $orderDirection = $request->input('order.0.dir');
+        $search = $request->input('search');
 
         $userName = Auth::user()->name;
 
@@ -35,6 +36,13 @@ class TaskGuestController extends Controller
                 $query->orWhere('userjoin', 'like', '%' . trim($name) . '%');
             }
         });
+
+        if (!empty($search)) {
+            $query->where(function($find) use ($search) {
+                $find->where('nametask', 'LIKE', "%{$search}%");
+            });
+        }
+
         $totalData = $query->count();
         $task = $query->offset($start)
             ->limit($limit)

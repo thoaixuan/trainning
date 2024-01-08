@@ -20,7 +20,7 @@ class NoteGuestController extends Controller
         $columns = ['id', 'title', 'description', 'status'];
         $limit = $request->input('length');
         $start = $request->input('start');
-        $orderColumn = $request->input('order.0.column');
+        $orderColumn = $columns[$request->input('order.0.column')];
         $orderDirection = $request->input('order.0.dir');
         $searchValue = $request->input('search');
 

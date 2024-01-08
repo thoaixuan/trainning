@@ -390,6 +390,8 @@ $(document).ready(function() {
     $('#userJoin').select2({
         dropdownParent: $('#modalTask')
     });
+});
 
-
+$("#search").on('keyup', function (e) {
+    TaskTable.ajax.reload();
 });
