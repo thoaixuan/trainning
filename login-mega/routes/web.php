@@ -17,4 +17,10 @@ Route::get('/', function () {
     return view('pages.login.loginmega');
 })->name('login');
 
+
 Route::post('/loginpost','MegaLoginController@loginPost')->name('login.post');
+Route::get('/logout','MegaLoginController@logout')->name('logout');
+
+Route::get('/home','HomeController@index')->name('home.index');
+Route::get('/my-folder','HomeController@getfolder')->name('home.getfolder');
+Route::get('/my-folder/{id?}','HomeController@viewFolder')->name('home.viewfolder');

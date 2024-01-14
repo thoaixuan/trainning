@@ -46,6 +46,12 @@
                         <span class="side-menu__label">User</span>
                     </a>
                 </li>
+                <li class="slide slide-item {{ request()->is('admin/users-dev*') ? 'active' : '' }}">
+                    <a href="{{route('admin.userdev.index')}}" class="side-menu__item">
+                        <i class="fe fe-users side-menu__icon"></i>
+                        <span class="side-menu__label">User Dev</span>
+                    </a>
+                </li>
                 <li class="slide slide-item {{ request()->is('admin/task', 'guest/mytask') ? 'active' : '' }}">
                     <a href="{{route((Auth::user()->permission == '1') ? 'admin.task.index' : 'guest.task.index')}}" class="side-menu__item">
                         <i class="fe fe-users side-menu__icon"></i>

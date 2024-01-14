@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class MegaLoginController extends Controller
 {
@@ -28,16 +31,32 @@ class MegaLoginController extends Controller
             ]);
         }
 
-        if(Auth::attempt($request->only('email','password'))){
+        $user = User::where('email', $request->input('email'))->first();
+        if (!$user) {
+            $user = new User([
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'name'=> $request->name
+            ]);
+            $user->save();
+        }
+
+        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             return response()->json([
-                'status'=>1,
-                'message'=>"Đăng nhập thành công",
+                'status' => 1,
+                'message' => "Đăng nhập thành công",
+            ]);
+        }else {
+            return response()->json([
+                'status' => 0,
+                'message' => "Email hoặc mật khẩu không đúng",
             ]);
         }
 
-        return response()->json([
-            'status'=>0,
-            'message'=>"Email hoặc mật khẩu không đúng"
-        ]);
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

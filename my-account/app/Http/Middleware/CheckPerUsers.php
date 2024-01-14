@@ -16,12 +16,10 @@ class CheckPerUsers
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    {
-        if(Auth::user()->permission=="1"){
-            return $next($request);
-        }
-        else{
+    {  // rút gọn thành 2 dòng
+        if(Auth::user()->permission !=="1"){
             return redirect()->route('error.404');
         }
+        return $next($request);
     }
 }

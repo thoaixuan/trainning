@@ -6,6 +6,7 @@ use app\Http\Controllers\Auth\AuthController;
 use app\Http\Controllers\Admin\NoteAdminController;
 use app\Http\Controllers\Admin\HomeAdminController;
 use app\Http\Controllers\Admin\UserAdminController;
+use app\Http\Controllers\Admin\UserDevController;
 
 use app\Http\Controllers\Guest\ContactGuestController;
 use app\Http\Controllers\Guest\HomeGuestController;
@@ -68,6 +69,11 @@ Route::group(['namespace' => 'Admin','prefix' => 'admin'],function (){
         Route::post('/update-task','TaskAdminController@updateTaskPost')->name('admin.task.updatepost')->middleware('userLoggedIn');
         Route::get('/delete','TaskAdminController@delete')->name('admin.task.delete')->middleware('userLoggedIn');
         Route::post('/upload-file','TaskAdminController@uploadFile')->name('admin.task.file')->middleware('userLoggedIn');
+    });
+
+    Route::prefix('users-dev')->group(function(){
+        Route::get('/','UserDevController@index')->name('admin.userdev.index')->middleware('userLoggedIn', 'CheckPerUsers');
+
     });
 });
 
