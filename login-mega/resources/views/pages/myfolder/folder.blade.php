@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-md-12 mb-3">
         <div id="tacvu" wfd-invisible="true">
-            <button class="btn btn-success button-edit" data-url="">Download</button>
+            <button class="btn btn-success button-edit" data-name="">Download</button>
             <button class="btn btn-danger button-delete ms-2">Xóa</button>
         </div>
     </div>
