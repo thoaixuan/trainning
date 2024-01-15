@@ -25,12 +25,13 @@
         </div>
     </div>
     <div class="col-xl-12">
-        <ul class="row row-cols-2 row-cols-md-4 g-4 ps-0" id="listFileChild">
+        <ul class="listFileCloud row row-cols-2 row-cols-md-4 g-4 ps-0" id="listFileChild">
         </ul>
     </div>
 </div>
 @endsection
 @section('js')
+    <script> var idChild = "{{$id}}";</script>
     <script src="https://unpkg.com/megajs@1/dist/main.browser-umd.js"></script>
     <script type="module" src="{{asset('app/main.js')}}"></script>
     <script type="module" src="{{ asset('app/folder/getfile.js') }}"></script>

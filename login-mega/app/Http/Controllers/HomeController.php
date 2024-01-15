@@ -19,6 +19,6 @@ class HomeController extends Controller
     }
     public function viewFolder(Request $request, $id)
     {
-        return view('pages.myfolder.folderchild');
+        return view('pages.myfolder.folderchild', ["id"=>$id]);
     }
 }

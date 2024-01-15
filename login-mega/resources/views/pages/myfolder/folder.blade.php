@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="col-xl-12">
-        <ul class="row row-cols-2 row-cols-md-4 g-4 ps-0" id="listFileCloud">
+        <ul class="listFileCloud row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4 ps-0">
         </ul>
     </div>
 </div>
