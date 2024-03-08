@@ -1,0 +1,10 @@
+#listFileCloud .card.custom-card .card-body{
+    padding: 1rem;
+}
+.click{
+    cursor: pointer;
+}
+
+#tacvu{
+    display: none;
+}
