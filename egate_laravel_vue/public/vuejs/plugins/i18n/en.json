@@ -1,0 +1,73 @@
+{
+    "header": 
+      {
+        "store": "Store",
+        "product": "Product",
+        "news": "News",
+        "contact": "Contact",
+        "aboutUs": "About Us",
+        "cart": "Cart"
+      },
+      "footer":
+      {
+        "Policies":"Policies",
+        "terms": "Terms & condition",
+        "Supports":"e-Gate Supports",
+        "Infomation":"Infomation"
+      },
+      "home":
+      {
+        "gettingStarted": "Geting started with the e-Gate app"
+      },
+      "admin":
+      {
+        "recharge": "e-Wallet",
+        "order": "Order",
+        "sendTicket": "Send ticket",
+        "profile": "Profile",
+        "fullName": "Full name",
+        "phoneNumber": "Phone number",
+        "logout": "Logout",
+        "generalSetting": "General setting",
+        "changePassword": "Change password",
+        "oldPassword": "Old password",
+        "newPassword": "New password",
+        "rePassword": "Repeat password",
+        "addressManagement": "Address management",
+        "address": "Address",
+        "provinceCity": "Province / City",
+        "district": "District",
+        "ward": "Ward",
+        "save": "Save",
+        "cancel": "Cancel",
+        "bankInfo": "Bank infomation"
+      },
+      "preOrder":
+      {
+        "intro": "With Smart box <b class=\"text-nowrap\">e-Gate</b> lets Online Shoppers received products which is Safe, Convenient and Exact by linked with e-Commerce Exchange likes <b>Tiki, Shopee, Lazada.</b>. All status of the delivery and receipt informations will updated to who owns the <b class=\"text-nowrap\">e-Gate</b> app.",
+        "title1": "Changed the way we shop",
+        "des1": "Buy, receive contactless goods with just one app on your phone",
+        "btnOrder": "Pre Order",
+        "title2": "Technology solutions for <br /> Online shoppers",
+        "title3": "Receive goods via e-Gate Box, no need to meet the shipper",
+        "content3": "e-Gate Box represents the owner to transact with the Shipper, the goods are received Correctly - Safely pay directly to the beneficiary.",
+        "title4": "Say no to interruptions",
+        "content4": "Don't want to answer the shipper's phone when you're busy? No rush, e-Gate only via text message",
+        "title5": "Receive goods at any time",
+        "content5": "Actively choose the time to receive the goods, grant the right to unlock and pick up the goods for the recipient at all times",
+        "title6": "Accurate - Safe",
+        "content6": "Pick up goods that have been disinfected according to the Covid prevention standards of the Ministry of Health.",
+        "title7": "Become an e-Gate Box Owner<br />in the e-Gate ecosystem",
+        "des7": "Promote online shopping and payment, add value and customer experience, let e-Gate accompany you",
+        "title8": "Shipping partner",
+        "content8": "The shipping unit is an important partner in the e-Gate's seamless operation, ensuring that the goods are delivered accurately and on time to the requested e-Gate Box.",
+        "title9": "E-commerce partner",
+        "content9": "e-Gate brings more superior options for customers, contributing to stimulating shopping, reaching many customers with special needs of e-commerce units.",
+        "title10": "Contactless delivery",
+        "content10": "Receive goods via e-Gate Box, no need to meet the shipper. Paying directly on the App creates a safe and convenient space for users.",
+        "title11": "Pre-order to experience the product as soon as possible",
+        "content11": "Many incentives for the first 272 customers to register as soon as possible",
+        "viewMore": "view more",
+        "imgConnect": "/assets/background/connect_en.png"
+      }
+}

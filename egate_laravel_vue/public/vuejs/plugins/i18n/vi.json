@@ -1,0 +1,73 @@
+{
+    "header": 
+      {
+        "store": "Center",
+        "product": "Sản phẩm",
+        "news": "Tin tức",
+        "contact": "Liên hệ",
+        "aboutUs": "Giới thiệu",
+        "cart": "Giỏ hàng"
+      },
+      "footer":
+      {
+        "Policies":"Chính sách",
+        "terms": "Điều khoản",
+        "Supports":"Tư vấn và hỗ trợ",
+        "Infomation":"Thông tin"
+      },
+      "home":
+      {
+        "gettingStarted": "Bắt đầu với ứng dụng e-Gate"
+      },
+      "admin":
+      {
+        "recharge": "e-Wallet",
+        "order": "Đơn hàng",
+        "sendTicket": "Gửi ticket",
+        "profile": "Hồ sơ",
+        "fullName": "Họ tên",
+        "phoneNumber": "Số điện thoại",
+        "logout": "Đăng xuất",
+        "generalSetting": "Cài đặt chung",
+        "changePassword": "Đổi mật khẩu",
+        "oldPassword": "Mật khẩu cũ",
+        "newPassword": "Mật khẩu mới",
+        "rePassword": "Nhập lại mật khẩu",
+        "addressManagement": "Quản lý địa chỉ",
+        "address": "Địa chỉ",
+        "provinceCity": "Tỉnh / Thành phố",
+        "district": "Quận",
+        "ward": "Phường",
+        "save": "Lưu",
+        "cancel": "Đóng",
+        "bankInfo": "Thông tin ngân hàng"
+      },
+      "preOrder":
+      {
+        "intro": "e-Gate Box thông minh tiện ích cho <b>Người mua hàng Online.</b> Sử dụng ứng dụng <b class=\"text-nowrap\">e-Gate</b> có thể mở thông tin trên các sàn thương mại điện tử phổ biến hiện nay như <b>Tiki, Shopee, Lazada.</b> Ngoài ra <b class=\"text-nowrap\">e-Gate</b> còn được tích hợp để sử dụng với mọi nhu cầu giao hàng không chạm <b>An toàn - Tiện lợi - Chính xác.</b> Thông tin giao - nhận hàng được cập nhật đến người sở hữu e-Gate Box tức thời.",
+        "title1": "Thay đổi hoàn toàn trải nghiệm <br />khi mua sắm cùng e-Gate",
+        "des1": "Mua hàng, nhận hàng không tiếp xúc chỉ bằng một ứng dụng trên điện thoại",
+        "btnOrder": "Đặt hàng trước",
+        "title2": "Giải pháp công nghệ cho <br />Người mua hàng online",
+        "title3": "Nhận hàng qua e-Gate Box, không cần gặp mặt shipper",
+        "content3": "e-Gate Box đại diện chủ sở hữu để giao dịch với Shipper, hàng được nhận Chính xác - An toàn thanh toán trực tiếp cho người thụ hưởng.",
+        "title4": "Nói không với gián đoạn",
+        "content4": "Không muốn nghe điện thoại của shipper khi đang bận? Không hối thúc, e-Gate chỉ báo qua tin nhắn",
+        "title5": "Nhận hàng bất cứ lúc nào",
+        "content5": "Chủ động lựa chọn giờ nhận hàng, cấp quyền mở khóa lấy hàng cho người nhận mọi lúc",
+        "title6": "Chính Xác - An toàn",
+        "content6": "Lấy hàng đã được khử khuẩn theo tiêu chuẩn phòng ngừa Covid của bộ Y Tế.",
+        "title7": "Trở thành Người sở hữu e-Gate Box<br />trong hệ sinh thái e-Gate",
+        "des7": "Thúc đẩy mua sắm và thanh toán trực tuyến, gia tăng giá trị và trải nghiệm khách hàng, hãy để e-Gate đồng hành cùng bạn",
+        "title8": "Đối tác vận chuyển",
+        "content8": "Đơn vị vận chuyển là đối tác quan trọng trong quy trình vận hành xuyên suốt của e-Gate, đảm bảo hàng hóa được giao chính xác, đúng thời gian tới e-Gate Box được yêu cầu",
+        "title9": "Đối tác E-commerce",
+        "content9": "e-Gate mang đến thêm nhiều lựa chọn ưu việt hơn cho khách hàng, góp phần kích thích mua sắm, tiếp cận tới nhiều tệp khách hàng có nhu cầu đặc biệt của các đơn vị e-commerce.",
+        "title10": "Nhận hàng không tiếp xúc",
+        "content10": "Nhận hàng qua e-Gate Box, không cần gặp mặt shipper. Thanh toán trực tiếp trên App tạo ra không gian an toàn và thuận tiện cho người sử dụng.",
+        "title11": "Đặt hàng trước để trải nghiệm sản phẩm sớm nhất",
+        "content11": "Nhiều ưu đãi cho 272 khách hàng đầu tiền đăng ký sớm nhất",
+        "viewMore": "xem thêm",
+        "imgConnect": "/assets/background/connect_vi.png"
+      }
+}
